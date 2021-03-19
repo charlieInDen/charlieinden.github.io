@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Auto-layout interview questions</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Auto-layout interview questions</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+autolayout life cycle, setNeedslayout vs SetNeedsUpdateConstraints
+</section>
+<section data-field="description" class="p-summary">
+2. Can we override these functions in UIViewController or UIView and which function is going to call first updateViewConstraint or viewWillLayoutSubviews? 3. Can we override these functions in…
+</section>
+<section data-field="body" class="e-content">
+<section name="70b7" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="47ca" id="47ca" class="graf graf--h3 graf--leading graf--title">Auto-layout Cycle in iOS (The Layout Cycle)</h3><p name="c2cf" id="c2cf" class="graf graf--p graf-after--h3">As auto-layout is integrated part of iOS applications, Let’s start with few questions to yourself -</p><p name="d3a0" id="d3a0" class="graf graf--p graf-after--p">1. When do we need to call <strong class="markup--strong markup--p-strong">setNeedsLayout </strong>and <strong class="markup--strong markup--p-strong">setNeedsUpdateConstraints</strong>.?</p><p name="0f1b" id="0f1b" class="graf graf--p graf-after--p">2. Can we override these functions in UIViewController or UIView and which function is going to call first <strong class="markup--strong markup--p-strong">updateViewConstraint </strong>or <strong class="markup--strong markup--p-strong">viewWillLayoutSubviews</strong>?</p><p name="0a14" id="0a14" class="graf graf--p graf-after--p">3. Can we override these functions in UIViewController or UIView and which function is going to call first <strong class="markup--strong markup--p-strong">updateConstraints </strong>or <strong class="markup--strong markup--p-strong">layoutSubviews</strong>?</p><p name="c04f" id="c04f" class="graf graf--p graf-after--p">Answer in a nutshell -</p><h3 name="57a4" id="57a4" class="graf graf--h3 graf-after--p">The Layout Cycle</h3><ul class="postList"><li name="e3e2" id="e3e2" class="graf graf--li graf-after--h3">Run Loop -&gt; Constraints Change -&gt; Deferred Layout Pass</li></ul><p name="4c96" id="4c96" class="graf graf--p graf-after--li">Constraint changes: activating/deactivating, adding/removing views ,changing certain controls</p><h3 name="0e67" id="0e67" class="graf graf--h3 graf-after--p">The Deferred Layout Pass</h3><p name="d5d8" id="d5d8" class="graf graf--p graf-after--h3">Instead of immediately updating the affected views’ frames, Auto Layout schedules a layout pass for the near future. This deferred pass updates the layout’s constraints and then calculates the frames for all the views in the view hierarchy. During this deferred pass, not only is the given View’s Constraint updated, the Constraints for every View in the hierarchy are recalculated and updated to adjust for the new layout.</p><p name="c2f9" id="c2f9" class="graf graf--p graf-after--p">You can schedule your own deferred layout pass by calling the <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622601-setneedslayout" data-href="https://developer.apple.com/documentation/uikit/uiview/1622601-setneedslayout" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">setNeedsLayout</a></code> method or the <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622450-setneedsupdateconstraints" data-href="https://developer.apple.com/documentation/uikit/uiview/1622450-setneedsupdateconstraints" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">setNeedsUpdateConstraints</a></code> method.</p><p name="e7a5" id="e7a5" class="graf graf--p graf-after--p">The Deferred Layout Pass consists of two unique passes through the view hierarchy:</p><ul class="postList"><li name="171f" id="171f" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">The Update Pass</strong> — In this pass, the Auto Layout Engine traverses the view hierarchy and invokes the <code class="markup--code markup--li-code">UpdateViewConstraints</code> method on all View Controllers and the <code class="markup--code markup--li-code">UpdateConstraints</code> method on all Views.</li><li name="11fa" id="11fa" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">The Layout Pass</strong> — Again, the Auto Layout Engine traverses the view hierarchy, but this time invokes the <code class="markup--code markup--li-code">ViewWillLayoutSubviews</code> method on all View Controllers and the <code class="markup--code markup--li-code">layoutSubviews</code> method on all Views. The <code class="markup--code markup--li-code">layoutSubviews</code> method updates the <code class="markup--code markup--li-code">Frame</code> property of each subview with the rectangle calculated by the Auto Layout Engine.</li></ul><p name="4463" id="4463" class="graf graf--p graf-after--li">The following rules should help you avoid feedback loops:</p><ul class="postList"><li name="9a04" id="9a04" class="graf graf--li graf-after--p">Do not call <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622450-setneedsupdateconstraints" data-href="https://developer.apple.com/documentation/uikit/uiview/1622450-setneedsupdateconstraints" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">setNeedsUpdateConstraints</a></code> inside your <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622512-updateconstraints" data-href="https://developer.apple.com/documentation/uikit/uiview/1622512-updateconstraints" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">updateConstraints</a></code> method. Calling <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622450-setneedsupdateconstraints" data-href="https://developer.apple.com/documentation/uikit/uiview/1622450-setneedsupdateconstraints" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">setNeedsUpdateConstraints</a></code> schedules another update pass, creating a feedback loop.</li><li name="89cc" id="89cc" class="graf graf--li graf-after--li">You must call the superclass’s implementation somewhere in your method.</li><li name="fa95" id="fa95" class="graf graf--li graf-after--li">You can safely invalidate the layout of views in your subtree; however, you must do this before you call the superclass’s implementation.</li><li name="a57e" id="a57e" class="graf graf--li graf-after--li">Don’t invalidate the layout of any views outside your subtree. This could create a feedback loop.</li><li name="c435" id="c435" class="graf graf--li graf-after--li">Don’t call <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622601-setneedslayout" data-href="https://developer.apple.com/documentation/uikit/uiview/1622601-setneedslayout" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">setNeedsLayout</a></code> inside layoutSubviews,Calling this method creates a feedback loop.</li><li name="7526" id="7526" class="graf graf--li graf-after--li">Be careful about changing constraints. You don’t want to accidentally invalidate the layout of any views outside your subtree.</li></ul><h3 name="e0fd" id="e0fd" class="graf graf--h3 graf-after--li">setNeedsLayout()</h3><blockquote name="bb00" id="bb00" class="graf graf--blockquote graf-after--h3"><em class="markup--em markup--blockquote-em">The method </em><strong class="markup--strong markup--blockquote-strong"><em class="markup--em markup--blockquote-em">setNeedsLayout</em></strong><em class="markup--em markup--blockquote-em"> for a </em><strong class="markup--strong markup--blockquote-strong"><em class="markup--em markup--blockquote-em">UIView</em></strong><em class="markup--em markup--blockquote-em"> tells the system that you want it to layout and redraw that view and all of its subviews, when it is time for the update cycle. This is an asynchronous activity, because the method completes and returns immediately, but it isn’t until some later time that the layout and redraw actually happens, and you don’t know when that update cycle will be.</em></blockquote><h3 name="d430" id="d430" class="graf graf--h3 graf-after--blockquote">layoutIfNeeded()</h3><blockquote name="a730" id="a730" class="graf graf--blockquote graf-after--h3"><em class="markup--em markup--blockquote-em">In contrast, the method </em><strong class="markup--strong markup--blockquote-strong"><em class="markup--em markup--blockquote-em">layoutIfNeeded</em></strong><em class="markup--em markup--blockquote-em"> is a synchronous call that tells the system you want a layout and redraw of a view and its subviews, and you want it done immediately without waiting for the update cycle. When the call to this method is complete, the layout has already been adjusted and drawn based on all changes that had been noted prior to the method call.</em></blockquote><h3 name="343a" id="343a" class="graf graf--h3 graf-after--blockquote">layoutSubviews()</h3><p name="f2e6" id="f2e6" class="graf graf--p graf-after--h3">The default implementation uses any constraints you have set to determine the size and position of any subviews.</p><p name="14ed" id="14ed" class="graf graf--p graf-after--p">Subclasses can override this method as needed to perform more precise layout of their subviews. You should override this method only if the autoresizing and constraint-based behaviors of the subviews do not offer the behavior you want. You can use your implementation to set the frame rectangles of your subviews directly.</p><p name="cbaf" id="cbaf" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to apply autolayout programmatically, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/18704d5a4ff7"><time class="dt-published" datetime="2018-05-22T12:30:47.177Z">May 22, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/auto-layout-cycle-in-ios-the-layout-cycle-18704d5a4ff7" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

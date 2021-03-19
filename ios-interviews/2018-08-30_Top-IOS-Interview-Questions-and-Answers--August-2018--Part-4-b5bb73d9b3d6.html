@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (August 2018) Part 4</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Top IOS Interview Questions and Answers (August 2018) Part 4</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+This articles end the questions for this month, next month will come with more new questions.
+</section>
+<section data-field="body" class="e-content">
+<section name="47ac" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="ac25" id="ac25" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (August 2018) Part 4</h3><p name="4b5a" id="4b5a" class="graf graf--p graf-after--h3">This articles end the questions for this month, next month will come with more new questions.</p><h4 name="5db9" id="5db9" class="graf graf--h4 graf-after--p">Q1. Whether below snippets is correct and will not give compiler error? Do we need to remove class keyword when overriding in class B?</h4><figure name="eb28" id="eb28" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*Xc9xyjqnA2sQ-K9go_55Tw.png" data-width="375" data-height="253" src="https://cdn-images-1.medium.com/max/800/1*Xc9xyjqnA2sQ-K9go_55Tw.png"></figure><p name="0343" id="0343" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Solution</strong>:</p><p name="aee7" id="aee7" class="graf graf--p graf-after--p">Yes its correct and compiled correctly, If you remove class keyword in override func in class B, it will throw error.</p><figure name="cfa5" id="cfa5" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*EIHVHF1u0T2Z0SeI36TeDw.png" data-width="473" data-height="20" src="https://cdn-images-1.medium.com/max/800/1*EIHVHF1u0T2Z0SeI36TeDw.png"><figcaption class="imageCaption">removed class keyword error</figcaption></figure><h4 name="cdbe" id="cdbe" class="graf graf--h4 graf-after--figure"><strong class="markup--strong markup--h4-strong">Q2. In below snippet, two scenarios<br>a. What if we add class keyword before func convert.. what that means &amp; will it compile ?<br>b. What if we add static keyword before func convert.. what that means &amp; will it compile ?</strong></h4><figure name="7dd9" id="7dd9" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*nOO5diPlQkL6v1Jzk8vGZg.png" data-width="804" data-height="99" src="https://cdn-images-1.medium.com/max/800/1*nOO5diPlQkL6v1Jzk8vGZg.png"></figure><p name="747c" id="747c" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Solution</strong>:</p><p name="328c" id="328c" class="graf graf--p graf-after--p">a. It will give compile time error</p><p name="3d9f" id="3d9f" class="graf graf--p graf-after--p">b. it will compile perfectly</p><p name="9e78" id="9e78" class="graf graf--p graf-after--p">what that means covered in our next question.</p><h4 name="8c6f" id="8c6f" class="graf graf--h4 graf-after--p">Q3. What is the difference between static func and class func in Swift?</h4><p name="f9a9" id="f9a9" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: static functions of structs and enums, and class for classes</p><p name="71ff" id="71ff" class="graf graf--p graf-after--p">Some other differences are that class functions are dynamically dispatched and can be overridden by subclasses.</p><h4 name="d50e" id="d50e" class="graf graf--h4 graf-after--p">Q4. What is the Class Only Protocols, can you write code for it?</h4><pre name="2499" id="2499" class="graf graf--pre graf-after--h4"><strong class="markup--strong markup--pre-strong">Solution</strong>:</pre><pre name="0fdc" id="0fdc" class="graf graf--pre graf-after--pre">You can limit protocol adoption to class types (and not structures or enumerations) by adding the AnyObject protocol to a protocol’s inheritance list.</pre><figure name="1d5a" id="1d5a" class="graf graf--figure graf-after--pre"><img class="graf-image" data-image-id="1*goenTPrTdzqbkHDJJVE-TA.png" data-width="520" data-height="74" src="https://cdn-images-1.medium.com/max/800/1*goenTPrTdzqbkHDJJVE-TA.png"></figure><h4 name="58a3" id="58a3" class="graf graf--h4 graf-after--figure">Q4. Write generic Singelton class?</h4><p name="a315" id="a315" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution: </strong>Classes which conforms to Initializable protocol will have one instance through out the life cycle.</p><figure name="cac6" id="cac6" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*UrpuNzGtCEh7gZczQ3InRw.png" data-width="804" data-height="369" src="https://cdn-images-1.medium.com/max/800/1*UrpuNzGtCEh7gZczQ3InRw.png"></figure><p name="36a9" id="36a9" class="graf graf--p graf-after--figure">Use case:</p><figure name="f81f" id="f81f" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*jf3oNWzSDxR735pZ6_caaw.png" data-width="1260" data-height="298" src="https://cdn-images-1.medium.com/max/800/1*jf3oNWzSDxR735pZ6_caaw.png"></figure><p name="ba1f" id="ba1f" class="graf graf--p graf-after--figure">Hope you like the explanation. For more questions , Please visit — <a href="https://medium.com/ios-expert-series-or-interview-series" data-href="https://medium.com/ios-expert-series-or-interview-series" class="markup--anchor markup--p-anchor" title="Go to iOS expert series or Interview Series" target="_blank">iOS expert series or Interview Series</a></p><pre name="225b" id="225b" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Solution</strong>:</pre><pre name="3210" id="3210" class="graf graf--pre graf-after--pre graf--trailing">Is it simply that static is for static functions of structs and enums, protocols and class for classes?<br>That&#39;s the main difference. Some other differences are that class functions are dynamically dispatched and can be overridden by subclasses.</pre></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/b5bb73d9b3d6"><time class="dt-published" datetime="2018-08-30T09:53:53.087Z">August 30, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-august-2018-part-4-b5bb73d9b3d6" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

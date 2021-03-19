@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>What’s New in User Notifications</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">What’s New in User Notifications</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+UserNotifications framework in iOS 12
+</section>
+<section data-field="body" class="e-content">
+<section name="1a67" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="5f39" id="5f39" class="graf graf--h3 graf--leading graf--title">What’s New in User Notifications</h3><p name="68d9" id="68d9" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">UserNotifications framework in iOS 12</strong></p><p name="87ee" id="87ee" class="graf graf--p graf-after--p">Now, with their new iOS 12 update announced on Jun 4., Apple has a solution for uncontrollable notifications:<strong class="markup--strong markup--p-strong"> Grouped Notifications </strong>, But it has lot more new things in <strong class="markup--strong markup--p-strong">UserNotifications </strong>framework to checkout.</p><ul class="postList"><li name="601a" id="601a" class="graf graf--li graf-after--p">Grouped notifications</li><li name="e439" id="e439" class="graf graf--li graf-after--li">Notification content extensions</li><li name="e3d7" id="e3d7" class="graf graf--li graf-after--li">Notification management</li><li name="c06b" id="c06b" class="graf graf--li graf-after--li">Provisional authorization</li><li name="3c7f" id="3c7f" class="graf graf--li graf-after--li">Critical alerts</li></ul><h3 name="ce19" id="ce19" class="graf graf--h3 graf-after--li">Grouped notifications</h3><p name="5533" id="5533" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">It has two types -</strong><br>1. Automatic grouping <br>2. Thread identifier <strong class="markup--strong markup--p-strong">(add in your APNS payload or define in local notification)</strong></p><figure name="119f" id="119f" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*4iQ2_kG577QZn9pK4NnJpw.png" data-width="1536" data-height="742" src="https://cdn-images-1.medium.com/max/800/1*4iQ2_kG577QZn9pK4NnJpw.png"><figcaption class="imageCaption">Grouped Notifications</figcaption></figure><figure name="f7fa" id="f7fa" class="graf graf--figure graf--layoutOutsetLeft graf-after--figure"><img class="graf-image" data-image-id="1*UZCqgLeVCGxUuDj_GCPRbA.jpeg" data-width="600" data-height="720" data-is-featured="true" src="https://cdn-images-1.medium.com/max/600/1*UZCqgLeVCGxUuDj_GCPRbA.jpeg"></figure><p name="5bb5" id="5bb5" class="graf graf--p graf-after--figure">This feature does exactly what it sounds like:<strong class="markup--strong markup--p-strong"> it groups together similar notifications into one. </strong>For example, if you get multiple messages from one person or one group text message thread, you’ll get one notification for all of them instead of one notification for each single message — and if you <em class="markup--em markup--p-em">want</em> to look at every notification, you can simply just click “See More” to scroll through them all. This will work for any of the apps on the iPhone with iOS 12, not just Messages.</p><h3 name="3882" id="3882" class="graf graf--h3 graf-after--p">Notification Content Extensions</h3><p name="b682" id="b682" class="graf graf--p graf-after--h3">The notification content app extension manages a view controller that displays your custom notification interface. This view controller can supplement or replace the default system interface for your notifications. You can use your view controller to:</p><ul class="postList"><li name="574d" id="574d" class="graf graf--li graf-after--p">Customize the placement of items, including the alert’s title, subtitle, and body text.</li><li name="f446" id="f446" class="graf graf--li graf-after--li">Substitute different fonts or styling for interface elements.</li><li name="cf01" id="cf01" class="graf graf--li graf-after--li">Display app-specific data — for example, data stored in app-specific keys of the notification’s payload.</li><li name="4af0" id="4af0" class="graf graf--li graf-after--li">Include custom images or branding.</li></ul><p name="2f68" id="2f68" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Support Interactive Controls</strong></p><p name="486b" id="486b" class="graf graf--p graf-after--p">In iOS 12 and later you can enable user interactions in your custom notifications. This lets you add interactive controls, such as buttons and switches to your custom interface.</p><p name="f9b6" id="f9b6" class="graf graf--p graf-after--p">To enable user interactions:</p><ol class="postList"><li name="fcbd" id="fcbd" class="graf graf--li graf-after--p">Open your Notification Content Extension’s <code class="markup--code markup--li-code">info.plist</code> file.</li><li name="a785" id="a785" class="graf graf--li graf-after--li">Add the <code class="markup--code markup--li-code">UNNotificationExtensionUserInteractionEnabled</code> key to your extension attributes. Give it a Boolean value, set to <code class="markup--code markup--li-code">YES</code>.</li></ol><h3 name="39eb" id="39eb" class="graf graf--h3 graf-after--li">Notification management</h3><p name="7e22" id="7e22" class="graf graf--p graf-after--h3">To help reduce interruptions, iOS 12 gives customers more options for controlling how notifications are delivered. Instantly manage notifications to be turned off completely or delivered directly to Notification Center. Siri can also intelligently make suggestions for notifications settings, such as to quietly deliver or turn alerts off, based on which alerts are acted upon. iOS 12 also introduces Grouped Notifications, making it easier to view and manage multiple notifications at once.</p><figure name="a857" id="a857" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*ata81ZeOXQ01XHr483wNOw.jpeg" data-width="571" data-height="685" src="https://cdn-images-1.medium.com/max/800/1*ata81ZeOXQ01XHr483wNOw.jpeg"><figcaption class="imageCaption">Manage notifications</figcaption></figure><h3 name="5e74" id="5e74" class="graf graf--h3 graf-after--figure">Provisional authorization</h3><p name="9f17" id="9f17" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">UNAuthorizationOptions </strong>Constants for requesting authorization to interact with the user, The ability to post noninterrupting notifications provisionally to the Notification Center.</p><p name="2fc8" id="2fc8" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">static var provisional: UNAuthorizationOptions</strong></code></p><h3 name="2956" id="2956" class="graf graf--h3 graf-after--p">Critical Alerts</h3><p name="41b1" id="41b1" class="graf graf--p graf-after--h3">Critical alerts ignore the mute switch and Do Not Disturb; the system plays a critical alert’s sound regardless of the device’s mute or Do Not Disturb settings. You can specify a custom sound and volume.</p><p name="9be3" id="9be3" class="graf graf--p graf-after--p">Critical alerts require a special entitlement issued by Apple.</p><p name="fb04" id="fb04" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Critical alert with custom sound and custom audio volume</strong></p><pre name="e496" id="e496" class="graf graf--pre graf-after--p">let content = UNMutableNotificationContent() <br>content.title = “WARNING: LOW BLOOD SUGAR” <br>content.body = “Glucose level at 57.” <br>content.categoryIdentifier = “low-glucose — alert” <br>content.sound = UNNotificationSound.criticalSoundNamed(@”warning-sound” withAudioVolume: 1.00)</pre><p name="39ec" id="39ec" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Critical alert push payload</strong></p><pre name="81a4" id="81a4" class="graf graf--pre graf-after--p">{ “aps” : { “sound” : { “critical”: 1, “name”: “warning-sound.aiff”, “volume”: 1.0 } } }</pre><p name="0020" id="0020" class="graf graf--p graf-after--pre graf--trailing">Hope you like this article &amp; is useful for people looking to find out the new things in UserNotifications framework, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/a844897c7a7"><time class="dt-published" datetime="2018-06-10T08:02:04.773Z">June 10, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/whats-new-in-user-notifications-a844897c7a7" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

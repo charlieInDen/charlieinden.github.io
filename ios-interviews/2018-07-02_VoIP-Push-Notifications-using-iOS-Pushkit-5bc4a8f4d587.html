@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>VoIP Push Notifications using iOS Pushkit</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">VoIP Push Notifications using iOS Pushkit</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+In this blog , i am going to cover about pushkit framework and its uses in VoIP app. let’s start with a scenario..
+</section>
+<section data-field="body" class="e-content">
+<section name="254a" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="10e7" id="10e7" class="graf graf--h3 graf--leading graf--title">VoIP Push Notifications using iOS Pushkit</h3><p name="bd71" id="bd71" class="graf graf--p graf-after--h3">In this blog , i am going to cover about pushkit framework and its uses in VoIP app. let’s start with a scenario..</p><p name="00c4" id="00c4" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Scenario: </strong>I’m writing VoIP application , i want to update my application in background state or i want to wake my application when any VoIP call receives.</p><p name="5a1f" id="5a1f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: PushKit is meant to solve these problems by offering a <em class="markup--em markup--p-em">high-priorty</em> push notification with a <em class="markup--em markup--p-em">large payload</em>. The VoIP app receives the notification in the background, sets up the connection.</p><h3 name="ee53" id="ee53" class="graf graf--h3 graf-after--p">PushKit vs UserNotifications</h3><p name="a4b5" id="a4b5" class="graf graf--p graf-after--h3">When we have user notifications framework, why do we need pushkit is clear now lets check what’s the difference between them.</p><p name="0daf" id="0daf" class="graf graf--p graf-after--p">Unlike user notifications, which are supported by the <strong class="markup--strong markup--p-strong">UserNotifications</strong> framework, PushKit notifications are never presented to the user — they don’t present badges, alerts, or sounds. So why do we need push kit, its very obvious question as a developer.</p><h3 name="99f6" id="99f6" class="graf graf--h3 graf-after--p">Use VoIP Push Notifications to Avoid Persistent Connections</h3><p name="84c1" id="84c1" class="graf graf--p graf-after--h3">Prior to iOS 8, developers needed to cater to the following scenarios:</p><ul class="postList"><li name="5bb5" id="5bb5" class="graf graf--li graf-after--p">ActiveConnection in the foreground</li><li name="fbdd" id="fbdd" class="graf graf--li graf-after--li">Active background connection (VoIP socket) via VoIP entitlement</li><li name="2503" id="2503" class="graf graf--li graf-after--li">Regular push notifications</li></ul><p name="e946" id="e946" class="graf graf--p graf-after--li">This technique resulted in frequent device wakes that wasted energy. It also meant that if a user quit the VoIP app, calls from the server could no longer be received.</p><p name="f0cf" id="f0cf" class="graf graf--p graf-after--p">Instead of persistent connections, developers should use the PushKit framework — APIs that allows an app to receive pushes (notifications when data is available) from a remote server. Whenever a push is received, the app is called to action. For example, a VoIP app could display an alert when a call is received, and provide an option to accept or reject the call. It could even begin taking precursory steps to initiate the call, in the event the user decides to accept.</p><p name="fd36" id="fd36" class="graf graf--p graf-after--p">There are many advantages to using PushKit to receive VoIP pushes:</p><ul class="postList"><li name="2155" id="2155" class="graf graf--li graf-after--p">The device is woken only when VoIP pushes occur, saving energy.</li><li name="85d2" id="85d2" class="graf graf--li graf-after--li">Unlike standard push notifications, which the user must respond to before your app can perform an action, VoIP pushes go straight to your app for processing.</li><li name="b7af" id="b7af" class="graf graf--li graf-after--li">VoIP pushes are considered high-priority notifications and are delivered without delay.</li><li name="2b0a" id="2b0a" class="graf graf--li graf-after--li">VoIP pushes can include more data than what is provided with standard push notifications.</li><li name="53a3" id="53a3" class="graf graf--li graf-after--li">Your app is automatically relaunched if it’s not running when a VoIP push is received.</li><li name="bd01" id="bd01" class="graf graf--li graf-after--li">Your app is given runtime to process a push, even if your app is operating in the background.</li></ul><h3 name="4629" id="4629" class="graf graf--h3 graf-after--li">Using PushKit Framework in VoIP apps</h3><p name="865e" id="865e" class="graf graf--p graf-after--h3">With iOS 8, Apple introduced a new kind of push: VoIP push. There are a couple of benefits of this push message:</p><ul class="postList"><li name="3287" id="3287" class="graf graf--li graf-after--p">You don’t need to allow push; it works without the user knowing about it.</li><li name="45f1" id="45f1" class="graf graf--li graf-after--li">Apple promises to deliver these push notifications high priority.</li></ul><p name="e905" id="e905" class="graf graf--p graf-after--li">The best thing? It allows you to execute code when the push arrives. My initial tests in a sandbox environment show that it’s pretty darn quick, and since you can handle all calls the same way, it reduces the time to implement our Voice API.<br>The PushKit framework sends specific types of notifications — such as VoIP invitations, watchOS complication updates, and file provider change notifications — directly to your app for processing.</p><p name="510e" id="510e" class="graf graf--p graf-after--p">Let’s have a glimpse on classes, protocol provided by PushKit framework.</p><figure name="6073" id="6073" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*5GBmgiN1siwOVB1sCkfKNw.png" data-width="1028" data-height="591" src="https://cdn-images-1.medium.com/max/800/1*5GBmgiN1siwOVB1sCkfKNw.png"><figcaption class="imageCaption">PushKit Framework</figcaption></figure><h3 name="4d00" id="4d00" class="graf graf--h3 graf-after--figure">Prepare to Receive VoIP Push Notifications</h3><p name="500d" id="500d" class="graf graf--p graf-after--h3">Like all apps that support background operation, your VoIP app must have background mode enabled in the Xcode Project &gt; Capabilities pane. Select the checkbox for Voice over IP.</p><figure name="ad22" id="ad22" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*B7jmK7MCdhi0HSLZBYPaOA.png" data-width="1000" data-height="730" src="https://cdn-images-1.medium.com/max/800/1*B7jmK7MCdhi0HSLZBYPaOA.png"><figcaption class="imageCaption">Enabling the VoIP background mode in an app</figcaption></figure><p name="0d14" id="0d14" class="graf graf--p graf-after--figure">You must also create a certificate for your VoIP app. Each VoIP app requires its own individual VoIP Services certificate, mapped to a unique App ID. This certificate allows your notification server to connect to the VoIP service. Visit the Apple Developer <a href="https://developer.apple.com/certificates" data-href="https://developer.apple.com/certificates" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Member Center</a> and create a new VoIP Services Certificate. See Figure below. Download the certificate and import it into the Keychain Access app.</p><figure name="327a" id="327a" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*UabYmUHogx7vb2bMtXjpeA.png" data-width="1011" data-height="667" src="https://cdn-images-1.medium.com/max/800/1*UabYmUHogx7vb2bMtXjpeA.png"><figcaption class="imageCaption">Creating a VoIP certificate in the Apple Developer Member Center</figcaption></figure><h3 name="62bb" id="62bb" class="graf graf--h3 graf-after--figure">Configure VoIP Push Notifications</h3><p name="e376" id="e376" class="graf graf--p graf-after--h3">To configure your app to receive VoIP push notifications, link to the PushKit framework in your app delegate (or some other location in your app). Then, create a <code class="markup--code markup--p-code">PKPushRegistry</code> object, set its delegate to <code class="markup--code markup--p-code">self</code>, and register to receive VoIP pushes.</p><figure name="0ef7" id="0ef7" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*J2f_1pc8ocjb5u-LBxSlWw.png" data-width="573" data-height="465" src="https://cdn-images-1.medium.com/max/800/1*J2f_1pc8ocjb5u-LBxSlWw.png"></figure><p name="8543" id="8543" class="graf graf--p graf-after--figure">Next, implement a delegate method to handle updated push credentials. If your app receives both standard push notifications and VoIP pushes, then your app will receive two separate push tokens. Both tokens must be passed to the server in order to receive notifications.</p><figure name="d71d" id="d71d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*Z6C69LdEpinX8-ZK5Ov63g.png" data-width="616" data-height="118" src="https://cdn-images-1.medium.com/max/800/1*Z6C69LdEpinX8-ZK5Ov63g.png"><figcaption class="imageCaption">Handling updated push notification credentials</figcaption></figure><p name="0ec9" id="0ec9" class="graf graf--p graf-after--figure">Finally, set up a delegate method to process pushes. If your app isn’t running when the push is received, your app will be launched automatically.</p><figure name="ad58" id="ad58" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*wDRXh6v4qliui50UkaUONA.png" data-width="590" data-height="116" src="https://cdn-images-1.medium.com/max/800/1*wDRXh6v4qliui50UkaUONA.png"><figcaption class="imageCaption">Handling incoming push notifications</figcaption></figure><p name="7156" id="7156" class="graf graf--p graf-after--figure">Hope you like it, please let me your opinion in comment section.</p><p name="51db" id="51db" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References</strong>:</p><ol class="postList"><li name="3e56" id="3e56" class="graf graf--li graf-after--p graf--trailing"><a href="https://developer.apple.com/documentation/pushkit" data-href="https://developer.apple.com/documentation/pushkit" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/pushkit</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/5bc4a8f4d587"><time class="dt-published" datetime="2018-07-02T10:52:30.156Z">July 2, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/voip-push-notifications-using-ios-pushkit-5bc4a8f4d587" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

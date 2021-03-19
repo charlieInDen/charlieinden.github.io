@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (April 2019) Part III</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Top IOS Interview Questions and Answers (April 2019) Part III</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Previous: Top IOS Interview Questions and Answers (April 2019) Part II
+</section>
+<section data-field="body" class="e-content">
+<section name="cf1c" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="8ce6" id="8ce6" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (April 2019) Part III</h3><p name="2d46" id="2d46" class="graf graf--p graf-after--h3">Previous: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-ii-7fe9c4313305?source=your_stories_page---------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-ii-7fe9c4313305?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" target="_blank">Top IOS Interview Questions and Answers (April 2019) Part II</a></p><p name="25ea" id="25ea" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-iv-7e48a0d13be0" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-iv-7e48a0d13be0" class="markup--anchor markup--p-anchor" target="_blank">Top IOS Interview Questions and Answers (April 2019) Part IV</a></p><p name="d896" id="d896" class="graf graf--p graf-after--p">For more: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank">Top IOS Interview Questions and Answers for 2019</a></p><h4 name="8c8b" id="8c8b" class="graf graf--h4 graf-after--p">Q1. How to identify a pure UIView subview out of various Custom View subviews?</h4><p name="be4c" id="be4c" class="graf graf--p graf-after--h4">Parsing through the subviews of a parent view, It has various subviews, all custom classes, of 10 different UIView subclasses. There is just one class which is a normal UIView.</p><p name="2af7" id="2af7" class="graf graf--p graf-after--p">Now when I am looping through, I need to get hold of the UIView subview, isKindOfClass is failing to do so as it returns 1 for all the UIView subclasses as well.</p><pre name="fcdb" id="fcdb" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">[currentView isMemberOfClass:[UIView class]];</code></pre><h4 name="14c9" id="14c9" class="graf graf--h4 graf-after--pre">isKindOfClass:</h4><p name="f36e" id="f36e" class="graf graf--p graf-after--h4">Returns a Boolean value that indicates whether the receiver is an instance of given class or an instance of any class that inherits from that class.</p><h4 name="9e74" id="9e74" class="graf graf--h4 graf-after--p">isMemberOfClass:</h4><p name="f65f" id="f65f" class="graf graf--p graf-after--h4">Returns a Boolean value that indicates whether the receiver is an instance of a given class.</p><h4 name="432e" id="432e" class="graf graf--h4 graf-after--p">Q2. How to get list of common elements of 2 array in Swift?</h4><p name="1a27" id="1a27" class="graf graf--p graf-after--h4">I have two arrays:</p><pre name="3fc3" id="3fc3" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">let fruitsArray = [&quot;apple&quot;, &quot;mango&quot;, &quot;blueberry&quot;, &quot;orange&quot;]<br>let vegArray = [&quot;tomato&quot;, &quot;potato&quot;, &quot;mango&quot;, &quot;blueberry&quot;]</code></pre><p name="1e69" id="1e69" class="graf graf--p graf-after--pre">How can I get the list of common items in those two array which gives</p><pre name="5695" id="5695" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">ouptput = [&quot;mango&quot;, &quot;blueberry&quot;]</code></pre><figure name="b690" id="b690" class="graf graf--figure graf-after--pre"><img class="graf-image" data-image-id="1*CzjcoJQ36eo5aqm7J4_EfQ.png" data-width="1706" data-height="250" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*CzjcoJQ36eo5aqm7J4_EfQ.png"></figure><h4 name="a212" id="a212" class="graf graf--h4 graf-after--figure">Explanation of the results</h4><p name="a470" id="a470" class="graf graf--p graf-after--h4">Using the <code class="markup--code markup--p-code">Array</code> approach uses &quot;Brute force&quot;-search which has <a href="https://en.wikipedia.org/wiki/Time_complexity" data-href="https://en.wikipedia.org/wiki/Time_complexity" class="markup--anchor markup--p-anchor" rel="noreferrer noopener" target="_blank">time complexity</a> <code class="markup--code markup--p-code">O(N^2)</code> where <code class="markup--code markup--p-code">N = array1.count = array2.count</code> which is in contrast to the <code class="markup--code markup--p-code">Set</code> approach <code class="markup--code markup--p-code">O(N)</code>. However the conversion from <code class="markup--code markup--p-code">Array</code> to <code class="markup--code markup--p-code">Set</code> and back is very expensive for large data which explains the increase of <code class="markup--code markup--p-code">critical #elements</code> for bigger data types.</p><h4 name="0a85" id="0a85" class="graf graf--h4 graf-after--p">Q3. Is it Correct ?</h4><p name="c51e" id="c51e" class="graf graf--p graf-after--h4">Using <code class="markup--code markup--p-code">filter</code> with <code class="markup--code markup--p-code">.filter(array1.contains)</code> is performance wise faster than <code class="markup--code markup--p-code">.filter{ array1.contains($0) }</code></p><p name="a379" id="a379" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Answer: </strong>A conversion from <code class="markup--code markup--p-code">Array</code> to <code class="markup--code markup--p-code">Set</code> is kind of expensive while the conversion from <code class="markup--code markup--p-code">Set</code> to <code class="markup--code markup--p-code">Array</code> is in contrast very inexpensive.</p><p name="e81d" id="e81d" class="graf graf--p graf-after--p">Using <code class="markup--code markup--p-code">filter</code> with <code class="markup--code markup--p-code">.filter(array1.contains)</code> is performance wise faster than <code class="markup--code markup--p-code">.filter{ array1.contains($0) }</code> since:</p><ul class="postList"><li name="d9d2" id="d9d2" class="graf graf--li graf-after--p">the last one creates a new closure (<strong class="markup--strong markup--li-strong">only once</strong>) whereas the first one passes only a function pointer</li><li name="150a" id="150a" class="graf graf--li graf-after--li">for the last one the call of the closure creates an additional stack frame which costs space and time (<strong class="markup--strong markup--li-strong">multiple times</strong>: <code class="markup--code markup--li-code">O(N)</code>)</li></ul><h4 name="0414" id="0414" class="graf graf--h4 graf-after--li">Q4. How do I check in Swift if two arrays contain the same elements regardless of the order in which those elements appear in?</h4><figure name="59ed" id="59ed" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*E7v3BG-ObqPPYZFDUOK_tQ.png" data-width="1748" data-height="312" src="https://cdn-images-1.medium.com/max/800/1*E7v3BG-ObqPPYZFDUOK_tQ.png"></figure><h4 name="eab6" id="eab6" class="graf graf--h4 graf-after--figure">Q5. What is A/B testing? Does Apple Test flight supports A/B testing?</h4><p name="0b1f" id="0b1f" class="graf graf--p graf-after--h4">AB testing is a great practice from the marketing world. One subset of users is presented with one type of UI or feature, and another subset with another. These two different types of UI and/or features are called variations A and B (hence the name A/B testing).</p><p name="9b2d" id="9b2d" class="graf graf--p graf-after--p">Later on, the user’s behavior is observed to see which group performed better in regards to KPIs (key performance indicators) such as revenue, conversion, etc. The winning variation becomes the mainstream feature/UI of the app and is set as the default behavior for all users.</p><p name="35fa" id="35fa" class="graf graf--p graf-after--p">Mobile A/B testing implementations often turn out to be quite messy. We’ve observed some practices that help implement more sane A/B testing.</p><p name="2a7e" id="2a7e" class="graf graf--p graf-after--p">Yes, Apple supports it. Simply create a group of testers and add the builds you’d like them to test. You can also create multiple groups and add different builds to each one, depending on which features you want them to focus on.</p><figure name="283c" id="283c" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/VQpQ0YHSfqM?feature=oembed" width="700" height="393" frameborder="0" scrolling="no"></iframe></figure><p name="f5d4" id="f5d4" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Next: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-iv-7e48a0d13be0" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-iv-7e48a0d13be0" class="markup--anchor markup--p-anchor" target="_blank">Top IOS Interview Questions and Answers (April 2019) Part IV</a></p><p name="e1eb" id="e1eb" class="graf graf--p graf-after--p">For more: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank">Top IOS Interview Questions and Answers for 2019</a></p><h3 name="9d87" id="9d87" class="graf graf--h3 graf-after--p">Hope you like it , Go to <a href="https://medium.com/ios-expert-series-or-interview-series" data-href="https://medium.com/ios-expert-series-or-interview-series" class="markup--anchor markup--h3-anchor" target="_blank">iOS interview questions 2018 series</a></h3><p name="0e1a" id="0e1a" class="graf graf--p graf-after--h3">References:</p><ol class="postList"><li name="6503" id="6503" class="graf graf--li graf-after--p graf--trailing"><a href="https://stackoverflow.com/questions/32439289/how-to-get-list-of-common-elements-of-2-array-in-swift" data-href="https://stackoverflow.com/questions/32439289/how-to-get-list-of-common-elements-of-2-array-in-swift" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://stackoverflow.com/questions/32439289/how-to-get-list-of-common-elements-of-2-array-in-swift</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/70b28f5424a2"><time class="dt-published" datetime="2019-04-20T06:22:25.481Z">April 20, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-april-2019-part-iii-70b28f5424a2" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

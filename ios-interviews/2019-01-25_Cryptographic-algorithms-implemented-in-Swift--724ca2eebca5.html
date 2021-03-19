@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Cryptographic algorithms implemented in Swift.</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Cryptographic algorithms implemented in Swift.</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+CryptoSwift is a growing collection of standard and secure cryptographic algorithms implemented in Swift.
+</section>
+<section data-field="body" class="e-content">
+<section name="ca47" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="fb1c" id="fb1c" class="graf graf--h3 graf--leading graf--title">Cryptographic algorithms implemented in Swift.</h3><p name="a20f" id="a20f" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">CryptoSwift </strong>is a growing collection of standard and secure cryptographic algorithms implemented in Swift.</p><p name="0072" id="0072" class="graf graf--p graf-after--p">When it comes to software, all of the operations are handled by crypto frameworks, or libraries. In particular, the Apple platform has <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/Common%20Crypto.3cc.html" data-href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/Common%20Crypto.3cc.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">CommonCrypto</a> within the system library. There is also <a href="https://www.openssl.org/" data-href="https://www.openssl.org/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">OpenSSL</a>. Both of these are C libraries that can be used with Swift through C interoperability. <a href="https://github.com/SwiftP2P/SwiftSSL" data-href="https://github.com/SwiftP2P/SwiftSSL" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SwiftSSL</a> is a wrapper around OpenSSL that we can use. <a href="http://nacl.cr.yp.to/" data-href="http://nacl.cr.yp.to/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NaCl</a> only does a fraction of what OpenSSL can do, but is still a very good library.</p><p name="c2a7" id="c2a7" class="graf graf--p graf-after--p"><a href="https://github.com/krzyzanowskim/CryptoSwift" data-href="https://github.com/krzyzanowskim/CryptoSwift" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">CryptoSwift</a> is an approach to implement crypto functions in pure Swift, which I will talk about further on. Finally, you can use JavaScript with <a href="https://code.google.com/p/crypto-js/" data-href="https://code.google.com/p/crypto-js/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">CryptoJS</a>. Bridging is painful, but it can be used.</p><h3 name="3fed" id="3fed" class="graf graf--h3 graf-after--p">Hash</h3><p name="0f6d" id="0f6d" class="graf graf--p graf-after--h3">A cryptographic hash function is a mathematical algorithm which is designed to also be a one-way function, that is, a function which is infeasible to invert.</p><p name="5fb5" id="5fb5" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">M</span>D5</p><p name="1c15" id="1c15" class="graf graf--p graf-after--p"><a href="https://tools.ietf.org/html/rfc1321" data-href="https://tools.ietf.org/html/rfc1321" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">The MD5 algorithm</a> is intended for digital signature applications, where a large file must be “compressed” in a secure manner before being encrypted with a private (secret) key under a public-key crypto system such as RSA.</p><p name="3154" id="3154" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">S</span>HA1</p><p name="b293" id="b293" class="graf graf--p graf-after--p">The <a href="https://tools.ietf.org/html/rfc3174" data-href="https://tools.ietf.org/html/rfc3174" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Secure Hash Algorithm 1</a> is called secure because it is computationally infeasible to find a message which corresponds to a given message digest, or to find two different messages which produce the same message digest.</p><p name="d0dd" id="d0dd" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">S</span>HA224, SHA256, SHA384, SHA512</p><p name="d981" id="d981" class="graf graf--p graf-after--p">The <a href="https://tools.ietf.org/html/rfc6234" data-href="https://tools.ietf.org/html/rfc6234" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Secure Hash Algorithms; namely SHA-224, SHA-256, SHA-384, and SHA-512;</a> specified in this document are called secure because it is computationally infeasible to (1) find a message that corresponds to a given message digest, or (2) find two different messages that produce the same message digest.</p><p name="1949" id="1949" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">S</span><strong class="markup--strong markup--p-strong">HA3</strong></p><p name="3b18" id="3b18" class="graf graf--p graf-after--p">The standard specifies the <a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf" data-href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Secure Hash Algorithm-3</a> family of functions on binary data. Each of the SHA-3 functions is based on an instance of the KECCAK algorithm that NIST selected as the winner of the SHA-3 Cryptographic Hash Algorithm Competition.</p><h3 name="6866" id="6866" class="graf graf--h3 graf-after--p">Ciphers</h3><p name="cd22" id="cd22" class="graf graf--p graf-after--h3">A cipher is an algorithm for performing encryption or decryption — a series of well-defined steps that can be followed as a procedure.</p><p name="9341" id="9341" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">A</span>ES-128, AES-192, AES0256</p><p name="85f0" id="85f0" class="graf graf--p graf-after--p"><a href="https://csrc.nist.gov/csrc/media/publications/fips/197/final/documents/fips-197.pdf" data-href="https://csrc.nist.gov/csrc/media/publications/fips/197/final/documents/fips-197.pdf" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">The Advanced Encryption Standard algorithm</a>specifies a FIPS-approved cryptographic algorithm that can be used to protect electronic data. The AES algorithm is a symmetric block cipher that can encrypt (encipher) and decrypt (decipher) information.</p><p name="a337" id="a337" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">C</span>haCha20</p><p name="4641" id="4641" class="graf graf--p graf-after--p">The <a href="http://cr.yp.to/chacha/chacha-20080128.pdf" data-href="http://cr.yp.to/chacha/chacha-20080128.pdf" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">ChaCha family</a> of stream ciphers, a variant of the Salsa20 family. The Salsa20/20 stream cipher expands a 256-bit key into 264 randomly accessible streams, each containing 264 randomly accessible 64-byte blocks.</p><p name="5627" id="5627" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">R</span>abbit</p><p name="383f" id="383f" class="graf graf--p graf-after--p">The <a href="https://tools.ietf.org/html/rfc4503" data-href="https://tools.ietf.org/html/rfc4503" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Rabbit Stream Cipher Algorithm</a> is a stream cipher algorithm with a 128-bit key and 64-bit initialization vector (IV). Its high performance makes it particularly suited for the use with Internet protocols where large amounts of data have to be processed.</p><p name="909f" id="909f" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">B</span>lowfish</p><p name="f638" id="f638" class="graf graf--p graf-after--p">The <a href="https://www.schneier.com/academic/blowfish/" data-href="https://www.schneier.com/academic/blowfish/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Blowfish Encryption Algorithm</a> is a symmetric block cipher that can be used as a drop-in replacement for DES or IDEA. It takes a variable-length key, from 32 bits to 448 bits, making it ideal for both domestic and exportable use. Blowfish was designed in 1993 by Bruce Schneier as a fast, free alternative to existing encryption algorithms.</p><h3 name="59a3" id="59a3" class="graf graf--h3 graf-after--p">Cyclic Redundancy Checks</h3><p name="e4e5" id="e4e5" class="graf graf--p graf-after--h3">A cyclic redundancy check (CRC) is an error-detecting code commonly used in digital networks and storage devices to detect accidental changes to raw data</p><p name="b956" id="b956" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">C</span>RC32</p><p name="f6a7" id="f6a7" class="graf graf--p graf-after--p"><a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check#CRC-32_algorithm" data-href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check#CRC-32_algorithm" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">The CRC32 algorithm</a> is a variant of CRC with 33 bits. The CRCTable is a memoization of a calculation that would have to be repeated for each byte of the message.</p><p name="39e3" id="39e3" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">C</span>SR16</p><p name="f93d" id="f93d" class="graf graf--p graf-after--p">The <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Polynomial_representations_of_cyclic_redundancy_checks" data-href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Polynomial_representations_of_cyclic_redundancy_checks" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">CRC16 algorithm</a> has nineteen conflicting definitions for 17 bits CRC-16.</p><h3 name="69a6" id="69a6" class="graf graf--h3 graf-after--p">Message Authenticators</h3><p name="06b9" id="06b9" class="graf graf--p graf-after--h3">A Message Authenticator is a way to check the integrity of information transmitted over or stored in an unreliable medium.</p><p name="bc4c" id="bc4c" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">P</span>oly1305</p><p name="c13e" id="c13e" class="graf graf--p graf-after--p">The <a href="http://cr.yp.to/mac/poly1305-20050329.pdf" data-href="http://cr.yp.to/mac/poly1305-20050329.pdf" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Poly1305-AES algorithm</a> is very close to the security of AES and can be computed at extremely high speed.</p><p name="ac9f" id="ac9f" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">H</span>MAC MD5, SHA1, SHA256</p><p name="5485" id="5485" class="graf graf--p graf-after--p">The <a href="https://www.ietf.org/rfc/rfc2104.txt" data-href="https://www.ietf.org/rfc/rfc2104.txt" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">HMAC: Keyed-Hashing for Message Authentication algorithm</a> provides a way to check the integrity of information transmitted over or stored in an unreliable medium is a prime necessity in the world of open computing and communications.</p><p name="4e1c" id="4e1c" class="graf graf--p graf-after--p graf--trailing">References: <a href="https://cryptoswift.io/" data-href="https://cryptoswift.io/" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://cryptoswift.io/</a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/724ca2eebca5"><time class="dt-published" datetime="2019-01-25T06:06:50.265Z">January 25, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/cryptographic-algorithms-implemented-in-swift-724ca2eebca5" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

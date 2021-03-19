@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Operation and Grand Central Dispatch interview questions (Part II)</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Operation and Grand Central Dispatch interview questions (Part II)</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+iOS interview question, gcd interview question, multithreading ios interview question, iOS
+</section>
+<section data-field="body" class="e-content">
+<section name="75fa" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0c46" id="0c46" class="graf graf--h3 graf--leading graf--title">Operation and Grand Central Dispatch interview questions (Part II)</h3><p name="b5fe" id="b5fe" class="graf graf--p graf-after--h3">iOS interview question, gcd interview question, multithreading ios interview question, iOS</p><p name="6df3" id="6df3" class="graf graf--p graf-after--p">In this article, I am going to cover some questions which are related to Dispatch, but solutions are given in objective C language and same can be ported on Swift.</p><p name="b39a" id="b39a" class="graf graf--p graf-after--p">Reason behind giving solution in objective C for these questions is one of my friend given interview in Citrix, etc and they asked to write solution in objective C as opening is for developer who knows both — obj C and Swift.</p><p name="ba77" id="ba77" class="graf graf--p graf-after--p">Hope it helps other developers too, lets begin..</p><p name="2be2" id="2be2" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Q1. What is the Use of dispatch_once &amp; dispatch_once_t , write down the code with example?</strong></p><p name="105e" id="105e" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: <strong class="markup--strong markup--p-strong">Singletons</strong></p><figure name="6950" id="6950" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*rYplqKpTg6jRBEJFnLN8nA.png" data-width="1322" data-height="410" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*rYplqKpTg6jRBEJFnLN8nA.png"></figure><p name="d6a2" id="d6a2" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q2. What is the Use of dispatch_after , write down the code with example?</strong></p><p name="51a5" id="51a5" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: If you need something to run at a specific point in time, dispatch_after may be the right thing, though. Be sure to check out NSTimer, too.</p><figure name="2785" id="2785" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*_aU51B0uUjSVsuqHAYVTpg.png" data-width="1329" data-height="290" src="https://cdn-images-1.medium.com/max/800/1*_aU51B0uUjSVsuqHAYVTpg.png"></figure><p name="3685" id="3685" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q3. What is Target queues , write down the code with example?</strong></p><p name="6290" id="6290" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>:</p><p name="0973" id="0973" class="graf graf--p graf-after--p">Surprise: you’re already using them! Any queue you create must have a target queue. By default, this is set to the DISPATCH_QUEUE_PRIORITY_DEFAULT global concurrent queue.</p><figure name="676c" id="676c" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*4MUH0mOpT6RT7EaQMno5DQ.png" data-width="1341" data-height="380" src="https://cdn-images-1.medium.com/max/800/1*4MUH0mOpT6RT7EaQMno5DQ.png"></figure><p name="5c44" id="5c44" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q4. What is the problem in below code and how can you solve it?</strong></p><figure name="0ade" id="0ade" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*K5UbZCPC4p9KoqXrht6JQg.png" data-width="1327" data-height="322" src="https://cdn-images-1.medium.com/max/800/1*K5UbZCPC4p9KoqXrht6JQg.png"><figcaption class="imageCaption"><strong class="markup--strong markup--figure-strong">issue</strong>: Deadlock may occur</figcaption></figure><p name="0111" id="0111" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Solution</strong>:</p><p name="254c" id="254c" class="graf graf--p graf-after--p">dispatch_set_target_queue makes every block executed from firstQueue or secondQueue behave “as if” it were submitted to concurrentQueue using dispatch_async.</p><p name="e3d1" id="e3d1" class="graf graf--p graf-after--p">Being a target queue has no effect on the semantics of dispatch_barrier_* functions. Barriers guarantee that nothing else on the queue is executing while the barrier block is running.</p><figure name="9f28" id="9f28" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*_EFgp9qZkDyatGXIdCQrHw.png" data-width="1316" data-height="593" src="https://cdn-images-1.medium.com/max/800/1*_EFgp9qZkDyatGXIdCQrHw.png"><figcaption class="imageCaption"><strong class="markup--strong markup--figure-strong">Solution</strong></figcaption></figure><p name="8b27" id="8b27" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q5. Write the code for creating all type of queues and let us know the priority also?</strong></p><p name="bd80" id="bd80" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>:</p><figure name="2f4c" id="2f4c" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*IUdK4cvlC09N8a0Sf3IGsQ.png" data-width="974" data-height="512" src="https://cdn-images-1.medium.com/max/800/1*IUdK4cvlC09N8a0Sf3IGsQ.png"></figure><p name="96ac" id="96ac" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q6. Write the code for One Resource, Multiple Readers, and a Single Writer (Basically reader writer for multi thread reading and single thread writing)?</strong></p><p name="c335" id="c335" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: A optimization of that sync/async pattern is the reader-writer pattern, where concurrent reads are permissible but concurrent writes are not. Thus, you’ll use a concurrent queue, dispatch_barrier_async the writes (achieving serial-like behavior for the writes), but dispatch_sync the reads (enjoying concurrent performance with respect to other read operations).</p><figure name="00c1" id="00c1" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*BWEgHe3z0CnY47RNOfOA5Q.png" data-width="1331" data-height="645" src="https://cdn-images-1.medium.com/max/800/1*BWEgHe3z0CnY47RNOfOA5Q.png"></figure><p name="d212" id="d212" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q7. Write the code for deadlock condition ?</strong></p><p name="fa38" id="fa38" class="graf graf--p graf-after--p">Solution:</p><figure name="e572" id="e572" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*0IOgjzyYKDlZVsRjcBUfeg.png" data-width="954" data-height="194" src="https://cdn-images-1.medium.com/max/800/1*0IOgjzyYKDlZVsRjcBUfeg.png"><figcaption class="imageCaption">dead lock : Example 1</figcaption></figure><figure name="6c99" id="6c99" class="graf graf--figure graf-after--figure"><img class="graf-image" data-image-id="1*KD37mf2lEDqabgF97BUgxA.png" data-width="874" data-height="528" src="https://cdn-images-1.medium.com/max/800/1*KD37mf2lEDqabgF97BUgxA.png"><figcaption class="imageCaption">dead lock : Example 2</figcaption></figure><p name="b55d" id="b55d" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q8. What is dispatch_apply</strong> ? <strong class="markup--strong markup--p-strong">Write the code for its use case?</strong></p><p name="ae58" id="ae58" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution: </strong>dispatch_apply — Iterative Execution performance improvement, check below example for more clarity.</p><figure name="7a99" id="7a99" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*XfL9Zq6HXuZYIekbARubgw.png" data-width="1014" data-height="411" src="https://cdn-images-1.medium.com/max/800/1*XfL9Zq6HXuZYIekbARubgw.png"></figure><p name="f7f9" id="f7f9" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q9. Write the code for DispatchGroup use case?</strong></p><p name="2686" id="2686" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="6e7e" id="6e7e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*L5vPyiiawJH9pNrC47jvSw.png" data-width="921" data-height="634" src="https://cdn-images-1.medium.com/max/800/1*L5vPyiiawJH9pNrC47jvSw.png"></figure><p name="3379" id="3379" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q10. Write the code for DispatchGroup use case?</strong></p><p name="52fd" id="52fd" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="bb6b" id="bb6b" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*L5vPyiiawJH9pNrC47jvSw.png" data-width="921" data-height="634" src="https://cdn-images-1.medium.com/max/800/1*L5vPyiiawJH9pNrC47jvSw.png"></figure><p name="ea7c" id="ea7c" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q11. Write the code for DispatchSource use case?</strong></p><p name="dbf6" id="dbf6" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="79f0" id="79f0" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*yxBFOgMxY0C_BLGTeYLEEQ.png" data-width="1046" data-height="325" src="https://cdn-images-1.medium.com/max/800/1*yxBFOgMxY0C_BLGTeYLEEQ.png"></figure><p name="18ca" id="18ca" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Q12. Write the code for DispatchData use case?</strong></p><p name="d5bf" id="d5bf" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="921d" id="921d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*u4dRJrhrhpwhi9YPyLNKuw.png" data-width="1335" data-height="447" src="https://cdn-images-1.medium.com/max/800/1*u4dRJrhrhpwhi9YPyLNKuw.png"></figure><p name="481f" id="481f" class="graf graf--p graf-after--figure graf--trailing">Hope you like it for more question please refer — <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2018</strong></a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/68014baa64b5"><time class="dt-published" datetime="2018-10-24T06:31:43.571Z">October 24, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/operation-and-grand-central-dispatch-interview-questions-part-ii-68014baa64b5" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Writing Custom Universal Framework in Xcode 10.2 and iOS 12</title>
+    <style>
+      * {
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field='subtitle'],
+      section[data-field='description'] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Writing Custom Universal Framework in Xcode 10.2 and iOS 12
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        As a developer, we want to write reusable set of code as much as
+        possible so that we can later use those components with multiple…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="fe9a"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="f7bc"
+                id="f7bc"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Writing Custom Universal Framework in Xcode 10.2 and iOS 12
+              </h3>
+              <figure
+                name="49ba"
+                id="49ba"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*zNQpFsv2m9uB7JhdPYu5eg.png"
+                  data-width="349"
+                  data-height="185"
+                  src="https://cdn-images-1.medium.com/max/800/1*zNQpFsv2m9uB7JhdPYu5eg.png"
+                />
+              </figure>
+              <p name="d569" id="d569" class="graf graf--p graf-after--figure">
+                As a developer, we want to write reusable set of code as much as
+                possible so that we can later use those components with multiple
+                applications and to make our life easy.
+              </p>
+              <p name="a6be" id="a6be" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note</strong>:
+                For iOS interview Questions , check this link —
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >Top iOS Interview Questions You Must Prepare In 2018</a
+                >
+              </p>
+              <p name="c921" id="c921" class="graf graf--p graf-after--p">
+                A framework is a modular and reusable set of code that is used
+                as the building blocks of higher-level pieces of software.
+                Frameworks have three major purposes:
+              </p>
+              <ul class="postList">
+                <li name="ac06" id="ac06" class="graf graf--li graf-after--p">
+                  Code encapsulation
+                </li>
+                <li name="c43a" id="c43a" class="graf graf--li graf-after--li">
+                  Code modularity
+                </li>
+                <li name="bc2f" id="bc2f" class="graf graf--li graf-after--li">
+                  Code reuse
+                </li>
+              </ul>
+              <p name="245b" id="245b" class="graf graf--p graf-after--li">
+                The best reason to use frameworks is that they can be built once
+                and be reused an infinite number of times!
+              </p>
+              <h4 name="84b3" id="84b3" class="graf graf--h4 graf-after--p">
+                Getting Started
+              </h4>
+              <p name="7d85" id="7d85" class="graf graf--p graf-after--h4">
+                Lets start with creating custom framework and make it universal
+                so that it can be use on simulator as well as device.
+              </p>
+              <p name="3f61" id="3f61" class="graf graf--p graf-after--p">
+                Let’s open Xcode and create a new project. Select the iOS tab,
+                scroll down to
+                <code class="markup--code markup--p-code"
+                  >Framework &amp; Library</code
+                >
+                and select
+                <code class="markup--code markup--p-code"
+                  >Cocoa Touch Framework</code
+                >.
+              </p>
+              <ol class="postList">
+                <li name="725e" id="725e" class="graf graf--li graf-after--p">
+                  Choose a template to for your framework project
+                </li>
+              </ol>
+              <figure
+                name="c17f"
+                id="c17f"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*S4RpOSXlTMJdl3RAa8oi2A.png"
+                  data-width="732"
+                  data-height="526"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*S4RpOSXlTMJdl3RAa8oi2A.png"
+                />
+              </figure>
+              <p name="d236" id="d236" class="graf graf--p graf-after--figure">
+                2. Enter product name and fill other details
+              </p>
+              <figure
+                name="5b19"
+                id="5b19"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*ZlWetO1I32eBLKtHAMaK1g.png"
+                  data-width="732"
+                  data-height="523"
+                  src="https://cdn-images-1.medium.com/max/800/1*ZlWetO1I32eBLKtHAMaK1g.png"
+                />
+              </figure>
+              <p name="efe4" id="efe4" class="graf graf--p graf-after--figure">
+                once you fill all the details and press next, your project is
+                ready to build like below -
+              </p>
+              <figure
+                name="e5fb"
+                id="e5fb"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*qcvCp-PQ4AVpX9M3eCL5Sg.png"
+                  data-width="1400"
+                  data-height="754"
+                  src="https://cdn-images-1.medium.com/max/800/1*qcvCp-PQ4AVpX9M3eCL5Sg.png"
+                />
+              </figure>
+              <p name="12b7" id="12b7" class="graf graf--p graf-after--figure">
+                If you build the project, it will produce
+                TestFramework.framework as product which will support either
+                simulator or device based on the option choosen by developer.
+              </p>
+              <h3 name="119b" id="119b" class="graf graf--h3 graf-after--p">
+                Add Code and Resources
+              </h3>
+              <p name="0dfb" id="0dfb" class="graf graf--p graf-after--h3">
+                Your current state is a framework without code, and that is
+                about as appealing as straight chocolate without sugar. Add your
+                logic or features in framework and try to build it. We are
+                focusing on creating universal framework so writing code and
+                resources part is left for the developers to explore more or
+                wait for another part.
+              </p>
+              <h3 name="d219" id="d219" class="graf graf--h3 graf-after--p">
+                Let’s make it universal framework
+              </h3>
+              <p name="4fb6" id="4fb6" class="graf graf--p graf-after--h3">
+                Now its time to learn , how to make custom framework as
+                universal framework which can be used on both simulator as well
+                as device.
+              </p>
+              <p name="0b19" id="0b19" class="graf graf--p graf-after--p">
+                3. Create new scheme, Select Project
+                <em class="markup--em markup--p-em">Target → New Schema</em>
+              </p>
+              <figure
+                name="e696"
+                id="e696"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*QoXPpLydOXmIJNBag8xNXg.png"
+                  data-width="242"
+                  data-height="59"
+                  src="https://cdn-images-1.medium.com/max/800/1*QoXPpLydOXmIJNBag8xNXg.png"
+                />
+              </figure>
+              <p name="f4a0" id="f4a0" class="graf graf--p graf-after--figure">
+                Please enter new schema name —
+                <strong class="markup--strong markup--p-strong"
+                  >ProjectName</strong
+                >-<em class="markup--em markup--p-em">Universal</em>.
+              </p>
+              <figure
+                name="22f2"
+                id="22f2"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*IIVJxrGOnsEfLPNC1TR-OA.png"
+                  data-width="388"
+                  data-height="38"
+                  src="https://cdn-images-1.medium.com/max/800/1*IIVJxrGOnsEfLPNC1TR-OA.png"
+                />
+              </figure>
+              <p name="64f4" id="64f4" class="graf graf--p graf-after--figure">
+                Its time to use this schema for making universal frameworks. I
+                wrote a
+                <em class="markup--em markup--p-em">“Run Script”</em> which
+                generates the
+                <strong class="markup--strong markup--p-strong"
+                  >Universal Framework.</strong
+                >
+              </p>
+              <p name="0220" id="0220" class="graf graf--p graf-after--p">
+                Select Project
+                <em class="markup--em markup--p-em">Target </em>→<em
+                  class="markup--em markup--p-em"
+                >
+                  Edit Schema </em
+                >→<em class="markup--em markup--p-em"> Archive </em>→<em
+                  class="markup--em markup--p-em"
+                >
+                  Post-actions </em
+                >→<em class="markup--em markup--p-em"> Press “+” </em>→<em
+                  class="markup--em markup--p-em"
+                >
+                  New Run Script Action</em
+                >.
+              </p>
+              <p name="d8e8" id="d8e8" class="graf graf--p graf-after--p">
+                then copy paste below script code.
+              </p>
+              <pre name="353c" id="353c" class="graf graf--pre graf-after--p">
+UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-Universal</pre
+              >
+              <pre
+                name="ccb1"
+                id="ccb1"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Make sure the output directory exists</em></strong></pre>
+              <pre name="43c9" id="43c9" class="graf graf--pre graf-after--pre">
+mkdir -p &quot;${UNIVERSAL_OUTPUTFOLDER}&quot;</pre
+              >
+              <pre
+                name="bf76"
+                id="bf76"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Next, work out if we&#39;re in SIMULATOR or REAL DEVICE</em></strong></pre>
+              <pre name="c530" id="c530" class="graf graf--pre graf-after--pre">
+xcodebuild -target &quot;${PROJECT_NAME}&quot; -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=&quot;${BUILD_DIR}&quot; BUILD_ROOT=&quot;${BUILD_ROOT}&quot; clean build</pre
+              >
+              <pre name="0f1f" id="0f1f" class="graf graf--pre graf-after--pre">
+xcodebuild -target &quot;${PROJECT_NAME}&quot; ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=&quot;${BUILD_DIR}&quot; BUILD_ROOT=&quot;${BUILD_ROOT}&quot; clean build</pre
+              >
+              <pre
+                name="f30b"
+                id="f30b"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Step 2. Copy the framework structure (from iphoneos build) to the universal folder</em></strong></pre>
+              <pre name="0679" id="0679" class="graf graf--pre graf-after--pre">
+cp -R &quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework&quot; &quot;${UNIVERSAL_OUTPUTFOLDER}/&quot;</pre
+              >
+              <pre
+                name="8fbd"
+                id="8fbd"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory</em></strong></pre>
+              <pre name="a248" id="a248" class="graf graf--pre graf-after--pre">
+BUILD_PRODUCTS=&quot;${SYMROOT}/../../../../Products&quot;</pre
+              >
+              <pre name="6256" id="6256" class="graf graf--pre graf-after--pre">
+cp -R &quot;${BUILD_PRODUCTS}/Debug-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.&quot; &quot;${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule&quot;</pre
+              >
+              <pre
+                name="7816"
+                id="7816"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory</em></strong></pre>
+              <pre name="8e89" id="8e89" class="graf graf--pre graf-after--pre">
+lipo -create -output &quot;${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}&quot; &quot;${BUILD_PRODUCTS}/Debug-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}&quot; &quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}&quot;</pre
+              >
+              <pre
+                name="7873"
+                id="7873"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Step 5. Convenience step to copy the framework to the project&#39;s directory</em></strong></pre>
+              <pre name="f2fb" id="f2fb" class="graf graf--pre graf-after--pre">
+cp -R &quot;${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework&quot; &quot;${PROJECT_DIR}&quot;</pre
+              >
+              <pre
+                name="4701"
+                id="4701"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"><em class="markup--em markup--pre-em"># Step 6. Convenience step to open the project&#39;s directory in Finder<br></em></strong>open &quot;${PROJECT_DIR}&quot;<br>fi</pre>
+              <p name="8d5a" id="8d5a" class="graf graf--p graf-after--pre">
+                Once you are done with copy paste above script into your
+                project, it will look similar to this -
+              </p>
+              <figure
+                name="0a6b"
+                id="0a6b"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*4VwyvkjQMJ36acolU8avjw.png"
+                  data-width="866"
+                  data-height="405"
+                  src="https://cdn-images-1.medium.com/max/800/1*4VwyvkjQMJ36acolU8avjw.png"
+                />
+              </figure>
+              <p name="5fe6" id="5fe6" class="graf graf--p graf-after--figure">
+                This run script would be executed after the
+                <em class="markup--em markup--p-em">Archive</em> is completed.
+                And the Universal Framework would be generated and opened in
+                project directory itself.
+              </p>
+              <figure
+                name="c27c"
+                id="c27c"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*YMoQtncx54xFfu4DI5MgDQ.png"
+                  data-width="156"
+                  data-height="80"
+                  src="https://cdn-images-1.medium.com/max/800/1*YMoQtncx54xFfu4DI5MgDQ.png"
+                />
+              </figure>
+              <p name="0ff9" id="0ff9" class="graf graf--p graf-after--figure">
+                You are ready to share your universal framework. WOW!!
+              </p>
+              <p name="893a" id="893a" class="graf graf--p graf-after--p">
+                For sharing framework, Please right click on softlink of
+                framework and choose show original path for framework option,
+                then you can copy and use it in your project.
+              </p>
+              <h3 name="9571" id="9571" class="graf graf--h3 graf-after--p">
+                Let’s add it into your project
+              </h3>
+              <p name="5a79" id="5a79" class="graf graf--p graf-after--h3">
+                Copy/Drag the Universal Framework to this project. While coping
+                the framework in Project Explorer, check
+                <em class="markup--em markup--p-em">“Copy items if needed”</em>.
+              </p>
+              <p name="7a35" id="7a35" class="graf graf--p graf-after--p">
+                Select the Project, Choose
+                <em class="markup--em markup--p-em"
+                  >Target → Project Name → Select General → </em
+                >Scroll to
+                <em class="markup--em markup--p-em">“Embedded Binaries”</em>.
+                Press <em class="markup--em markup--p-em">“+” </em>and Add the
+                framework.
+              </p>
+              <h3 name="1090" id="1090" class="graf graf--h3 graf-after--p">
+                Remember
+              </h3>
+              <p name="05e2" id="05e2" class="graf graf--p graf-after--h3">
+                Now the universal framework will run on both simulators and
+                Devices.
+                <strong class="markup--strong markup--p-strong"
+                  >But still there is a problem.</strong
+                >
+              </p>
+              <p name="cad3" id="cad3" class="graf graf--p graf-after--p">
+                Let’s assume an application uses our custom universal framework
+                on production, we we need to remove unused architectures.
+                Because Apple doesn’t allow the application with unused
+                architectures to the App Store.
+              </p>
+              <p name="ed9d" id="ed9d" class="graf graf--p graf-after--p">
+                Please make sure that you have
+                <strong class="markup--strong markup--p-strong"
+                  >Remove Unused Architectures<em
+                    class="markup--em markup--p-em"
+                  >
+                  </em
+                  >Script </strong
+                >added in your project<strong
+                  class="markup--strong markup--p-strong"
+                >
+                </strong
+                >while releasing your app to app store.
+              </p>
+              <p name="ce9b" id="ce9b" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Remove Unused Architectures:</em
+                  ></strong
+                >
+              </p>
+              <p name="fe52" id="fe52" class="graf graf--p graf-after--p">
+                Select the Project, Choose
+                <em class="markup--em markup--p-em">Target </em>→<em
+                  class="markup--em markup--p-em"
+                >
+                  Project Name </em
+                >→<em class="markup--em markup--p-em"> Select Build Phases </em
+                >→<em class="markup--em markup--p-em"> Press “+” </em>→<em
+                  class="markup--em markup--p-em"
+                >
+                  New Run Script Phase </em
+                >→<em class="markup--em markup--p-em"> Name the Script</em> as
+                <em class="markup--em markup--p-em"
+                  >“Remove Unused Architectures Script”</em
+                >.
+              </p>
+              <pre name="64d3" id="64d3" class="graf graf--pre graf-after--p">
+FRAMEWORK=&quot;TestFramework&quot;</pre
+              >
+              <pre name="4b93" id="4b93" class="graf graf--pre graf-after--pre">
+FRAMEWORK_EXECUTABLE_PATH=&quot;${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/$FRAMEWORK.framework/$FRAMEWORK&quot;</pre
+              >
+              <pre name="79e2" id="79e2" class="graf graf--pre graf-after--pre">
+EXTRACTED_ARCHS=()</pre
+              >
+              <pre name="e24e" id="e24e" class="graf graf--pre graf-after--pre">
+for ARCH in $ARCHS</pre
+              >
+              <pre name="7ac9" id="7ac9" class="graf graf--pre graf-after--pre">
+do</pre
+              >
+              <pre name="ca40" id="ca40" class="graf graf--pre graf-after--pre">
+lipo -extract &quot;$ARCH&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot; -o &quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;</pre
+              >
+              <pre name="d1f4" id="d1f4" class="graf graf--pre graf-after--pre">
+EXTRACTED_ARCHS+=(&quot;$FRAMEWORK_EXECUTABLE_PATH-$ARCH&quot;)</pre
+              >
+              <pre name="6532" id="6532" class="graf graf--pre graf-after--pre">
+done</pre
+              >
+              <pre name="925f" id="925f" class="graf graf--pre graf-after--pre">
+lipo -o &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; -create &quot;${EXTRACTED_ARCHS[@]}&quot;</pre
+              >
+              <pre
+                name="38cf"
+                id="38cf"
+                class="graf graf--pre graf-after--pre"
+              >rm &quot;${EXTRACTED_ARCHS[@]}&quot;<br>rm &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;<br>mv &quot;$FRAMEWORK_EXECUTABLE_PATH-merged&quot; &quot;$FRAMEWORK_EXECUTABLE_PATH&quot;</pre>
+              <p name="657a" id="657a" class="graf graf--p graf-after--pre">
+                Thats all !!
+              </p>
+              <p name="b0da" id="b0da" class="graf graf--p graf-after--p">
+                This run script removes the unused Simulator architectures only
+                while pushing the Application to the App Store.
+              </p>
+              <p name="4e2d" id="4e2d" class="graf graf--p graf-after--p">
+                Now the Custom iOS Framework is complete and it remains
+                Universal.
+              </p>
+              <p name="388d" id="388d" class="graf graf--p graf-after--p">
+                Please find the attached sample working project
+                <!-- <a
+                  href="https://github.com/charlieInDen/Universal-Framework"
+                  data-href="https://github.com/charlieInDen/Universal-Framework"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://github.com/charlieInDen/Universal-Framework</a
+                > -->
+              </p>
+              <p name="e13f" id="e13f" class="graf graf--p graf-after--p">
+                Hope this article is useful for people looking to create custom
+                <strong class="markup--strong markup--p-strong"
+                  >Universal</strong
+                >
+                iOS framework, Please ❤️ to recommend this post to others 😊.
+                Let me know your feedback. :)
+              </p>
+              <p name="50ec" id="50ec" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >References</strong
+                >:-
+              </p>
+              <ol class="postList">
+                <li name="8ae6" id="8ae6" class="graf graf--li graf-after--p">
+                  <!-- <a
+                    href="https://gist.github.com/cromandini/1a9c4aeab27ca84f5d79"
+                    data-href="https://gist.github.com/cromandini/1a9c4aeab27ca84f5d79"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://gist.github.com/cromandini/1a9c4aeab27ca84f5d79</a
+                  > -->
+                </li>
+                <li
+                  name="5dbf"
+                  id="5dbf"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  <!-- <a
+                    href="https://gist.github.com/steipete/bbea370b72bbc77a8040"
+                    data-href="https://gist.github.com/steipete/bbea370b72bbc77a8040"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://gist.github.com/steipete/bbea370b72bbc77a8040</a
+                  > -->
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <footer>
+        <p>
+         // By
+          <!-- <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/7a63a2ce024a"
+            ><time class="dt-published" datetime="2018-05-14T08:14:01.806Z"
+              >May 14, 2018</time
+            ></a
+          >. -->
+        </p>
+        <!-- <p>
+          <a
+            href="https://medium.com/@nishantnitb/writing-custom-universal-framework-in-xcode-9-and-ios-11-7a63a2ce024a"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p> -->
+      </footer>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>How to Create an Abstract Class in Swift</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">How to Create an Abstract Class in Swift</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+protocols, protocol extension, protocol conformance
+</section>
+<section data-field="body" class="e-content">
+<section name="7516" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="19cc" id="19cc" class="graf graf--h3 graf--leading graf--title">How to Create an Abstract Class in Swift</h3><p name="efc0" id="efc0" class="graf graf--p graf-after--h3">protocols, protocol extension, protocol conformance</p><p name="02a1" id="02a1" class="graf graf--p graf-after--p">There are no abstract classes in Swift (just like Objective-C). Your best bet is going to be to use a <a href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/Swift_Programming_Language/Protocols.html" data-href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/Swift_Programming_Language/Protocols.html" class="markup--anchor markup--p-anchor" rel="noreferrer noopener" target="_blank">Protocol</a>, which is like a Java Interface. With Swift 2.0, you can then add method implementations and calculated property implementations using protocol extensions. Your only restrictions are that you <strong class="markup--strong markup--p-strong">can’t provide member variables or constants</strong> and <strong class="markup--strong markup--p-strong">there is no dynamic dispatch</strong>.</p><h3 name="d98d" id="d98d" class="graf graf--h3 graf-after--p">Protocols</h3><h4 name="3da8" id="3da8" class="graf graf--h4 graf-after--h3">How It Works</h4><p name="07d7" id="07d7" class="graf graf--p graf-after--h4">Protocols are nothing new if you’re familiar with Objective-C. To illustrate this solution, The following example defines a protocol with a single instance method requirement:</p><pre name="7f8f" id="7f8f" class="graf graf--pre graf-after--p">protocol <strong class="markup--strong markup--pre-strong">RandomNumberGenerator</strong> {</pre><pre name="8425" id="8425" class="graf graf--pre graf-after--pre">func random() -&gt; Double</pre><pre name="2173" id="2173" class="graf graf--pre graf-after--pre">}</pre><p name="0d33" id="0d33" class="graf graf--p graf-after--pre">This protocol, <code class="markup--code markup--p-code">RandomNumberGenerator</code>, requires any conforming type to have an instance method called <code class="markup--code markup--p-code">random</code>, which returns a <code class="markup--code markup--p-code">Double</code> value whenever it’s called.</p><p name="dc64" id="dc64" class="graf graf--p graf-after--p">Here’s an implementation of a class that adopts and conforms to the <code class="markup--code markup--p-code">RandomNumberGenerator</code> protocol. This class implements a pseudorandom number generator algorithm known as a <em class="markup--em markup--p-em">linear congruential generator</em>:</p><figure name="e55e" id="e55e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*YNIhBAPy0MCH7N0SbCw5NQ.png" data-width="521" data-height="263" src="https://cdn-images-1.medium.com/max/800/1*YNIhBAPy0MCH7N0SbCw5NQ.png"></figure><p name="0583" id="0583" class="graf graf--p graf-after--figure">Protocols can be extended to provide method, initializer, subscript, and computed property implementations to conforming types. This allows you to define behavior on protocols themselves, rather than in each type’s individual conformance or in a global function.</p><p name="fa74" id="fa74" class="graf graf--p graf-after--p">For example, the <code class="markup--code markup--p-code">RandomNumberGenerator</code> protocol can be extended to provide a <code class="markup--code markup--p-code">randomBool()</code> method, which uses the result of the required <code class="markup--code markup--p-code">random()</code> method to return a random <code class="markup--code markup--p-code">Bool</code> value:</p><pre name="2dfc" id="2dfc" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">extension</strong> RandomNumberGenerator {</pre><pre name="650e" id="650e" class="graf graf--pre graf-after--pre"> func <strong class="markup--strong markup--pre-strong">randomBool</strong>() -&gt; Bool {</pre><pre name="9509" id="9509" class="graf graf--pre graf-after--pre"> return random() &gt; 0.5</pre><pre name="117b" id="117b" class="graf graf--pre graf-after--pre"> }</pre><pre name="33cc" id="33cc" class="graf graf--pre graf-after--pre">}</pre><p name="458a" id="458a" class="graf graf--p graf-after--pre">By creating an extension on the protocol, all conforming types automatically gain this method implementation without any additional modification.</p><p name="0890" id="0890" class="graf graf--p graf-after--p">Protocol extensions can add implementations to conforming types but can’t make a protocol extend or inherit from another protocol. Protocol inheritance is always specified in the protocol declaration itself.</p><h3 name="6b67" id="6b67" class="graf graf--h3 graf-after--p">Another example of this technique would be:</h3><pre name="adb0" id="adb0" class="graf graf--pre graf-after--h3"><code class="markup--code markup--pre-code">protocol Employee {<br>    var annualSalary: Int {get}<br>}</code></pre><pre name="225a" id="225a" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">extension Employee {<br>    var biweeklySalary: Int {<br>        return self.annualSalary / 26<br>    }</code></pre><pre name="4688" id="4688" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">    func logSalary() {<br>        print(&quot;$\(self.annualSalary) per year or $\(self.biweeklySalary) biweekly&quot;)<br>    }<br>}</code></pre><pre name="f418" id="f418" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">struct SoftwareEngineer: Employee {<br>    var annualSalary: Int</code></pre><pre name="5d78" id="5d78" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">    func logSalary() {<br>        print(&quot;overridden&quot;)<br>    }<br>}</code></pre><pre name="8edd" id="8edd" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">let sarah = SoftwareEngineer(annualSalary: 100000)<br>sarah.logSalary() // prints: overridden<br>(sarah as Employee).logSalary() // prints: $100000 per year or $3846 biweekly</code></pre><p name="9044" id="9044" class="graf graf--p graf-after--pre">Notice that this is providing “abstract class” like features even for structs, but classes can also implement the same protocol.</p><p name="31fc" id="31fc" class="graf graf--p graf-after--p">Also notice that every class or struct that implements the Employee protocol will have to declare the annualSalary property again.</p><p name="d7f9" id="d7f9" class="graf graf--p graf-after--p">Most importantly, notice that <strong class="markup--strong markup--p-strong">there is no dynamic dispatch</strong>. When <code class="markup--code markup--p-code">logSalary</code> is called on the instance that is stored as a <code class="markup--code markup--p-code">SoftwareEngineer</code> it calls the overridden version of the method. When <code class="markup--code markup--p-code">logSalary</code> is called on the instance after it has been cast to an <code class="markup--code markup--p-code">Employee</code>, it calls the original implementation (it doesn&#39;t not dynamically dispatch to the overridden version even though the instance is actually a <code class="markup--code markup--p-code">Software Engineer</code>.</p><h3 name="7813" id="7813" class="graf graf--h3 graf-after--p">Checking for Protocol Conformance</h3><p name="7ccf" id="7ccf" class="graf graf--p graf-after--h3">You can use the <code class="markup--code markup--p-code">is</code> and <code class="markup--code markup--p-code">as</code> operators described in <a href="https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/TypeCasting.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Type Casting</a> to check for protocol conformance, and to cast to a specific protocol. Checking for and casting to a protocol follows exactly the same syntax as checking for and casting to a type:</p><ul class="postList"><li name="a02e" id="a02e" class="graf graf--li graf-after--p">The <code class="markup--code markup--li-code">is</code> operator returns <code class="markup--code markup--li-code">true</code> if an instance conforms to a protocol and returns <code class="markup--code markup--li-code">false</code> if it doesn’t.</li><li name="cfe9" id="cfe9" class="graf graf--li graf-after--li">The <code class="markup--code markup--li-code">as?</code> version of the downcast operator returns an optional value of the protocol’s type, and this value is <code class="markup--code markup--li-code">nil</code> if the instance doesn’t conform to that protocol.</li><li name="dfcb" id="dfcb" class="graf graf--li graf-after--li">The <code class="markup--code markup--li-code">as!</code> version of the downcast operator forces the downcast to the protocol type and triggers a runtime error if the downcast doesn’t succeed.</li></ul><p name="35ac" id="35ac" class="graf graf--p graf-after--li">Hope you like the explanation. For more questions , Please visit — <a href="https://medium.com/ios-expert-series-or-interview-series" data-href="https://medium.com/ios-expert-series-or-interview-series" class="markup--anchor markup--p-anchor" title="Go to iOS expert series or Interview Series" target="_blank">iOS expert series or Interview Series</a></p><p name="758a" id="758a" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References:</strong></p><ol class="postList"><li name="9aff" id="9aff" class="graf graf--li graf-after--p graf--trailing"><a href="https://docs.swift.org/swift-book/" data-href="https://docs.swift.org/swift-book/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://docs.swift.org/swift-book/</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/f8ebdc30e26"><time class="dt-published" datetime="2018-08-20T07:33:58.426Z">August 20, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/how-to-create-an-abstract-class-in-swift-f8ebdc30e26" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

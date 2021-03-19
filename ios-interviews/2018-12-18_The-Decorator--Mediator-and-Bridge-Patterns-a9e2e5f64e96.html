@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>The Decorator, Mediator and Bridge Patterns</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">The Decorator, Mediator and Bridge Patterns</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+This week we will learn three new patterns, the Decorator, the Mediator and the Bridge.
+</section>
+<section data-field="body" class="e-content">
+<section name="b0f7" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="800f" id="800f" class="graf graf--h3 graf--leading graf--title">The Decorator, Mediator and Bridge Patterns</h3><p name="a7c8" id="a7c8" class="graf graf--p graf-after--h3">This week we will learn <em class="markup--em markup--p-em">three</em> new patterns, the Decorator, the Mediator and the Bridge.</p><h3 name="544a" id="544a" class="graf graf--h3 graf-after--p">Decorator Design Pattern</h3><p name="4f5f" id="4f5f" class="graf graf--p graf-after--h3">Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.</p><ul class="postList"><li name="57b3" id="57b3" class="graf graf--li graf-after--p">Adapter provides a different interface to its subject. Proxy provides the same interface. Decorator provides an enhanced interface.</li></ul><p name="32cd" id="32cd" class="graf graf--p graf-after--li">In Swift there are two <em class="markup--em markup--p-em">very</em> common implementations of this pattern: <strong class="markup--strong markup--p-strong">Extensions </strong>and <strong class="markup--strong markup--p-strong">Delegation</strong>.</p><p name="630e" id="630e" class="graf graf--p graf-after--p">Cocoa uses the Decorator pattern in the implementation of several of its classes, including <code class="markup--code markup--p-code"><a href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSAttributedString" data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSAttributedString" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSAttributedString</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsscrollview" data-href="https://developer.apple.com/documentation/appkit/nsscrollview" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSScrollView</a></code>, and <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uidatepicker" data-href="https://developer.apple.com/documentation/uikit/uidatepicker" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UIDatePicker</a></code>.</p><h3 name="8933" id="8933" class="graf graf--h3 graf-after--p">Mediator Design Pattern</h3><h4 name="5af9" id="5af9" class="graf graf--h4 graf-after--h3">Controller in Model-View-Controller</h4><p name="6265" id="6265" class="graf graf--p graf-after--h4">The Model-View-Controller design pattern assigns roles to the objects in an object-oriented system such as an application. They can be model objects, which contain the data of the application and manipulate that data; they can be view objects, which present the data and respond to user actions; or they can be controller objects, which mediate between the model and view objects. Controller objects fit the Mediator pattern.</p><figure name="2de2" id="2de2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*jQnKnIERwpMwJN-3.jpg" data-width="780" data-height="320" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/0*jQnKnIERwpMwJN-3.jpg"><figcaption class="imageCaption">source:<a href="https://blog.teamtreehouse.com/ios-design-patterns-model-view-controller-part-3" data-href="https://blog.teamtreehouse.com/ios-design-patterns-model-view-controller-part-3" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://blog.teamtreehouse.com/ios-design-patterns-model-view-controller-part-3</a></figcaption></figure><h4 name="3672" id="3672" class="graf graf--h4 graf-after--figure">View Controller Transitions</h4><p name="b6c5" id="b6c5" class="graf graf--p graf-after--h4">In the “before” diagram above, if ViewControllerA wants to pass myObjectB to ViewControllerC or ViewControllerD, it has to do so by first passing it to ViewControllerB which will later pass it on to ViewControllerC etc. This architecture is prone to producing errors and is a maintenance nightmare.</p><figure name="f36c" id="f36c" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*YLXFgJORPAQ5S1ya.png" data-width="1082" data-height="413" src="https://cdn-images-1.medium.com/max/800/0*YLXFgJORPAQ5S1ya.png"><figcaption class="imageCaption">Source:<a href="http://cocoapatterns.com/passing-data-between-view-controllers/" data-href="http://cocoapatterns.com/passing-data-between-view-controllers/" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">http://cocoapatterns.com/passing-data-between-view-controllers/</a></figcaption></figure><p name="5480" id="5480" class="graf graf--p graf-after--figure">By introducing a Mediator to handle the injections, our problem is solved because the mediator handles the passing of data between any two view controllers now. View controllers C and D no longer depend on ViewControllerB to gain access to a property/object of ViewControllerA. If ViewControllerB has to be replaced, view controllers C and D won’t “break” (unlike before).</p><h3 name="0a6c" id="0a6c" class="graf graf--h3 graf-after--p">Bridge Design Pattern</h3><p name="bc45" id="bc45" class="graf graf--p graf-after--h3">The bridge pattern is used to separate the abstract elements of a class from the implementation details, providing the means to replace the implementation details without modifying the abstraction.</p><figure name="c4de" id="c4de" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*LE3VKx4iSfkBGM6IzRMgOg.png" data-width="521" data-height="636" src="https://cdn-images-1.medium.com/max/800/1*LE3VKx4iSfkBGM6IzRMgOg.png"><figcaption class="imageCaption">Source: <a href="https://github.com/ochococo/Design-Patterns-In-Swift" data-href="https://github.com/ochococo/Design-Patterns-In-Swift" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener" target="_blank">https://github.com/ochococo/Design-Patterns-In-Swift</a></figcaption></figure><h4 name="2c12" id="2c12" class="graf graf--h4 graf-after--figure">Hope you like it, Please feel free to comment or clap to encourage :)</h4><h3 name="eb24" id="eb24" class="graf graf--h3 graf-after--h4">More: <a href="https://medium.com/ios-expert-series-or-interview-series/the-singleton-facade-and-command-patterns-a6ad376f950d" data-href="https://medium.com/ios-expert-series-or-interview-series/the-singleton-facade-and-command-patterns-a6ad376f950d" class="markup--anchor markup--h3-anchor" target="_blank">The Singleton, Facade and Command Patterns</a></h3><p name="6a9e" id="6a9e" class="graf graf--p graf-after--h3">References:</p><ol class="postList"><li name="902e" id="902e" class="graf graf--li graf-after--p"><a href="http://cocoapatterns.com/passing-data-between-view-controllers/" data-href="http://cocoapatterns.com/passing-data-between-view-controllers/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">http://cocoapatterns.com/passing-data-between-view-controllers/</a></li><li name="7e31" id="7e31" class="graf graf--li graf-after--li"><a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaFundamentals/CocoaDesignPatterns/CocoaDesignPatterns.html" data-href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaFundamentals/CocoaDesignPatterns/CocoaDesignPatterns.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaFundamentals/CocoaDesignPatterns/CocoaDesignPatterns.html</a></li><li name="56d8" id="56d8" class="graf graf--li graf-after--li graf--trailing"><a href="https://github.com/ochococo/Design-Patterns-In-Swift" data-href="https://github.com/ochococo/Design-Patterns-In-Swift" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://github.com/ochococo/Design-Patterns-In-Swift</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/a9e2e5f64e96"><time class="dt-published" datetime="2018-12-18T09:22:15.986Z">December 18, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/the-decorator-mediator-and-bridge-patterns-a9e2e5f64e96" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

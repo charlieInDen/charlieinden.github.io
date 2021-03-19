@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (Sept 2018) Part 3</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Top IOS Interview Questions and Answers (Sept 2018) Part 3</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+iOS interview questions 2018
+</section>
+<section data-field="body" class="e-content">
+<section name="79aa" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="1f5d" id="1f5d" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (Sept 2018) Part 3</h3><p name="cee1" id="cee1" class="graf graf--p graf-after--h3">iOS interview questions 2018</p><h4 name="cf35" id="cf35" class="graf graf--h4 graf-after--p">Q1. You have a iOS app which is in foreground, User press Home button on iPhone, Which API’s of UIViewController will be called, describe in correct sequence?</h4><p name="3366" id="3366" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution: </strong>ViewWillDisappear -&gt; ViewDidDisappear</p><p name="b5c6" id="b5c6" class="graf graf--p graf-after--p">There are three ways to load a viewcontroller -</p><ol class="postList"><li name="3124" id="3124" class="graf graf--li graf-after--p">To load a view controller from a storyboard, call the <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uistoryboard/1616214-instantiateviewcontroller" data-href="https://developer.apple.com/documentation/uikit/uistoryboard/1616214-instantiateviewcontroller" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">instantiateViewController(withIdentifier:)</a></code> method of the appropriate <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uistoryboard" data-href="https://developer.apple.com/documentation/uikit/uistoryboard" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">UIStoryboard</a></code> object.</li><li name="cfb0" id="cfb0" class="graf graf--li graf-after--li">To initialize a view controller object using a nib file, create your view controller class programmatically and initialize it using the <code class="markup--code markup--li-code">init(nibName:bundle:)</code> method.</li><li name="8c20" id="8c20" class="graf graf--li graf-after--li">Specify the views for a view controller using the <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview" data-href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">loadView()</a></code> method. In that method, create your view hierarchy programmatically and assign the root view of that hierarchy to the view controller’s <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621460-view" data-href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621460-view" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">view</a></code> property.</li></ol><figure name="deb0" id="deb0" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*etDLgjBamDJoiaM3_hie9A.png" data-width="925" data-height="876" src="https://cdn-images-1.medium.com/max/800/1*etDLgjBamDJoiaM3_hie9A.png"><figcaption class="imageCaption">Reference: developer.apple.com</figcaption></figure><h4 name="f440" id="f440" class="graf graf--h4 graf-after--figure">Q2. What is <em class="markup--em markup--h4-em">intrinsic content size?</em></h4><p name="7d7d" id="7d7d" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: Views having their natural size based on content size, is referred to as their intrinsic content size. For example, a button’s intrinsic content size is the size of its title plus a small margin.</p><h4 name="bc53" id="bc53" class="graf graf--h4 graf-after--p">Q3. What is content hugging, compression resistance, can you tell default values for a view?</h4><p name="7005" id="7005" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: Auto Layout represents a view’s intrinsic content size using a pair of constraints for each dimension. The content hugging pulls the view inward so that it fits snugly around the content. The compression resistance pushes the view outward so that it does not clip the content.</p><figure name="b459" id="b459" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*7vMoQMGU334fB4MyqeSR_w.png" data-width="716" data-height="246" src="https://cdn-images-1.medium.com/max/800/1*7vMoQMGU334fB4MyqeSR_w.png"><figcaption class="imageCaption">Reference: developer.apple.com</figcaption></figure><p name="ded6" id="ded6" class="graf graf--p graf-after--figure">Each of these constraints can have its own priority. By default, views use a 250 priority for their content hugging, and a 750 priority for their compression resistance. Therefore, it’s easier to stretch a view than it is to shrink it.</p><h4 name="87a6" id="87a6" class="graf graf--h4 graf-after--p">Q4. Consider this scenario: Consider a Image detail page in an application, positioned relative to superview. But on iPhone X, Even though this particular view uses Auto Layout, the page control is too far down at the bottom of the screen. It’s running into the Home indicator. How will you solve this problem?</h4><p name="9d08" id="9d08" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: The problem here is that the page control’s bottom constraint is relative to the superview, which is full screen and goes behind the Home indicator. Instead of constraining to the superview, what we should do is constrain the page control to the Safe Area layout guide at the bottom. Instead of the Superview, if we change this to be connected to the Safe Area, then on iPhone X the page indicator will automatically move up above the Home indicator.</p><h4 name="509b" id="509b" class="graf graf--h4 graf-after--p">Q5. What is View auto layout life cycle?</h4><p name="695d" id="695d" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution: </strong>There are 3 steps after initialization of UIView in auto layout cycle.</p><ol class="postList"><li name="260b" id="260b" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Update pass</strong> (calculating view frame based on its constrains)<br> The system traverses view hierarchy <strong class="markup--strong markup--li-strong">top-down</strong>, i.e. from <em class="markup--em markup--li-em">super-</em> to <em class="markup--em markup--li-em">subviews</em>, and calls <code class="markup--code markup--li-code">updateConstraints()</code> for each view.</li><li name="1d17" id="1d17" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Layout pass </strong>( frames of each view are updated with the rectangles calculated in the <em class="markup--em markup--li-em">Update</em> phase.)<br> It happens <strong class="markup--strong markup--li-strong">bottom-up</strong>, i.e. the system traverses views from <em class="markup--em markup--li-em">sub-</em> to <em class="markup--em markup--li-em">superviews</em>and calls <code class="markup--code markup--li-code">layoutSubviews</code> for each.</li><li name="ed03" id="ed03" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Render pass</strong> (responsible for bringing pixels onto the screen)<br>The key method here is <code class="markup--code markup--li-code">drawRect</code>.By default, <code class="markup--code markup--li-code">UIView</code> passes all the work to a backing <code class="markup--code markup--li-code">CALayer</code> that contains a pixel bitmap of the current view state. This step is independent of whether Auto Layout is enabled for a view or not.</li></ol><h4 name="ef9d" id="ef9d" class="graf graf--h4 graf-after--li">Hope this helps you, for more questions check — <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--h4-anchor" target="_blank"><strong class="markup--strong markup--h4-strong">Top iOS Interview Questions You Must Prepare In 2018</strong></a></h4><p name="9757" id="9757" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">References:</strong></p><ol class="postList"><li name="0b3d" id="0b3d" class="graf graf--li graf-after--p"><a href="https://developer.apple.com/documentation/uikit/uiviewcontroller" data-href="https://developer.apple.com/documentation/uikit/uiviewcontroller" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/uikit/uiviewcontroller</a></li><li name="abaf" id="abaf" class="graf graf--li graf-after--li"><a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/AnatomyofaConstraint.html#//apple_ref/doc/uid/TP40010853-CH9-SW1" data-href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/AnatomyofaConstraint.html#//apple_ref/doc/uid/TP40010853-CH9-SW1" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/AnatomyofaConstraint.html#//apple_ref/doc/uid/TP40010853-CH9-SW1</a></li><li name="dd6b" id="dd6b" class="graf graf--li graf-after--li"><a href="https://developer.apple.com/videos/play/tech-talks/201" data-href="https://developer.apple.com/videos/play/tech-talks/201" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/videos/play/tech-talks/201</a></li><li name="8313" id="8313" class="graf graf--li graf-after--li graf--trailing"><a href="http://www.vadimbulavin.com/view-auto-layout-life-cycle/" data-href="http://www.vadimbulavin.com/view-auto-layout-life-cycle/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">http://www.vadimbulavin.com/view-auto-layout-life-cycle/</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/1fc93f200462"><time class="dt-published" datetime="2018-09-10T08:45:43.591Z">September 10, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-sept-2018-part-3-1fc93f200462" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

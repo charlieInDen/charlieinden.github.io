@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 9: SQL vs. NoSQL</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">System Design, Chapter 9: SQL vs. NoSQL</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Relational databases accessed with SQL (Structured Query Language) were developed in the 1970s with a focus on reducing data duplication as…
+</section>
+<section data-field="body" class="e-content">
+<section name="1ec9" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="2d81" id="2d81" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 9: SQL vs. NoSQL</h3><p name="3a16" id="3a16" class="graf graf--p graf-after--h3">Relational databases accessed with <strong class="markup--strong markup--p-strong">SQL</strong> (Structured Query Language) were developed in the 1970s with a focus on reducing data duplication as storage was much more costly than developer time. SQL databases tend to have rigid, complex, tabular schemas and typically require expensive vertical scaling.</p><p name="890f" id="890f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Examples</em></strong>: Oracle, MySQL, Microsoft SQL Server, and PostgreSQL</p><p name="4de5" id="4de5" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">NoSQL</strong> databases were developed in the late 2000s with a focus on scaling, fast queries, allowing for frequent application changes, and making programming simpler for developers.</p><p name="144e" id="144e" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Examples</em></strong>: Document: MongoDB and CouchDB, Key-value: Redis and DynamoDB, Wide-column: Cassandra and HBase, Graph: Neo4j and Amazon Neptune</p><figure name="1aab" id="1aab" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*W6F1WcYqgaogrQV99OvBVg.png" data-width="687" data-height="367" src="https://cdn-images-1.medium.com/max/800/1*W6F1WcYqgaogrQV99OvBVg.png"><figcaption class="imageCaption">Reference: guru99</figcaption></figure><h3 name="5d90" id="5d90" class="graf graf--h3 graf-after--figure">What are the Differences between SQL and NoSQL?</h3><ol class="postList"><li name="6e91" id="6e91" class="graf graf--li graf-after--h3"><strong class="markup--strong markup--li-strong">Data Storage Model</strong></li></ol><ul class="postList"><li name="4429" id="4429" class="graf graf--li graf-after--li">SQL Databases: <em class="markup--em markup--li-em">Tables with fixed rows and columns</em></li><li name="0dc2" id="0dc2" class="graf graf--li graf-after--li">NoSQL Databases: <em class="markup--em markup--li-em">Document: JSON documents, Key-value: key-value pairs, Wide-column: tables with rows and dynamic columns, Graph: nodes and edges</em></li></ul><p name="308e" id="308e" class="graf graf--p graf-after--li">2. <strong class="markup--strong markup--p-strong">Schemas</strong></p><ul class="postList"><li name="d6a4" id="d6a4" class="graf graf--li graf-after--p">SQL Databases: <em class="markup--em markup--li-em">Rigid</em></li><li name="a01a" id="a01a" class="graf graf--li graf-after--li">NoSQL Databases:<em class="markup--em markup--li-em">Flexible</em></li></ul><p name="7faa" id="7faa" class="graf graf--p graf-after--li">3. <strong class="markup--strong markup--p-strong">Scaling</strong></p><ul class="postList"><li name="38c1" id="38c1" class="graf graf--li graf-after--p">SQL Databases: <em class="markup--em markup--li-em">Vertical (scale-up with a larger server)</em></li><li name="9d5d" id="9d5d" class="graf graf--li graf-after--li">NoSQL Databases: <em class="markup--em markup--li-em">Horizontal (scale-out across commodity servers)</em></li></ul><p name="32bb" id="32bb" class="graf graf--p graf-after--li">4. <strong class="markup--strong markup--p-strong">Querying</strong></p><ul class="postList"><li name="d94f" id="d94f" class="graf graf--li graf-after--p">SQL databases: It use SQL (structured query language) for defining and manipulating the data, which is very powerful.</li><li name="6c6d" id="6c6d" class="graf graf--li graf-after--li">NoSQL database: Queries are focused on a collection of documents. Sometimes it is also called UnQL (Unstructured Query Language). Different databases have different syntax for using UnQL.</li></ul><p name="edd5" id="edd5" class="graf graf--p graf-after--li">5. <strong class="markup--strong markup--p-strong">Reliability or ACID Compliancy (Atomicity, Consistency, Isolation, Durability)</strong></p><ul class="postList"><li name="7845" id="7845" class="graf graf--li graf-after--p">SQL Databases: Multi-Record ACID Transactions supported</li><li name="54c6" id="54c6" class="graf graf--li graf-after--li">NoSQL Databases: Most do not support multi-record ACID transactions. However, some — like MongoDB — do.</li></ul><h3 name="1b8f" id="1b8f" class="graf graf--h3 graf-after--li">SQL VS. NoSQL — Which one to use?</h3><h4 name="72da" id="72da" class="graf graf--h4 graf-after--h3">When to use SQL</h4><p name="e434" id="e434" class="graf graf--p graf-after--h4">When you have relational data, this is the natural fit, of course. But you may be asking yourself how you identify the “mythical” natural fit. Well, when you look at your data, do you see distinct entities with well-defined relationships with one another that must be strictly enforced and/or navigable? If so, we have match!</p><p name="47d6" id="47d6" class="graf graf--p graf-after--p">When your focus is on data integrity, relying on a tried and true relational databases is a good bet. When you want flexible access to your data, the relational model and SQL allow for much greater support of ad-hoc queries. Additionally, databases like PostgreSQL have added excellent support for NoSQL-style workloads with features like native JSON data types. If you don’t need the scale-out capabilities of NoSQL data stores, they can be a good fit for some non-relational workloads as well.</p><h4 name="4f7e" id="4f7e" class="graf graf--h4 graf-after--p">When to use NoSQL</h4><p name="b0c3" id="b0c3" class="graf graf--p graf-after--h4">NoSQL is appealing when you have highly flexible data models or very specific needs that don’t fit into the relational model. If you are taking in a lot of unstructured data, a document database like MongoDB or CouchDB can be a nice fit. If you need very fast access to key-value data but can live without strong integrity guarantees, Redis is a great fit. Complex or flexible search across a lot of data? Elasticsearch is a great fit.</p><p name="d623" id="d623" class="graf graf--p graf-after--p">NoSQL data stores tend to be highly scalable, and scaling out is a core tenet of many of these systems. Built-in sharding makes scaling reads and writes out much easier than doing so with a relational database. Relatedly, NoSQL systems can often meet very high availability requirements. Databases like Cassandra have no single points of failure and your applications can trivially react to underlying failures of individual members.</p><h4 name="18ed" id="18ed" class="graf graf--h4 graf-after--p">[Bonus]What are the Drawbacks of NoSQL Databases?</h4><p name="3e62" id="3e62" class="graf graf--p graf-after--h4">One of the most frequently cited drawbacks of NoSQL databases is that they don’t support ACID (atomicity, consistency, isolation, durability) transactions across multiple documents. With appropriate schema design, single record atomicity is acceptable for lots of applications. However, there are still many applications that require ACID across multiple records.</p><p name="41d2" id="41d2" class="graf graf--p graf-after--p">To address these use cases MongoDB added support for multi-document ACID transactions in the 4.0 release, and extended them in 4.2 to span sharded clusters.</p><p name="d658" id="d658" class="graf graf--p graf-after--p">Since data models in NoSQL databases are typically optimized for queries and not for reducing data duplication, NoSQL databases can be larger than SQL databases. Storage is currently so cheap that most consider this a minor drawback, and some NoSQL databases also support compression to reduce the storage footprint.</p><p name="833d" id="833d" class="graf graf--p graf-after--p">Depending on the NoSQL database type you select, you may not be able to achieve all of your use cases in a single database. For example, graph databases are excellent for analyzing relationships in your data but may not provide what you need for everyday retrieval of the data such as range queries. When selecting a NoSQL database, consider what your use cases will be and if a general purpose database like MongoDB would be a better option</p><p name="0452" id="0452" class="graf graf--p graf-after--p">Thanks for reading!!</p><p name="7088" id="7088" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous</strong>: <a href="https://medium.com/p/99e9c601ebca/edit?source=your_stories_page-------------------------------------" data-href="https://medium.com/p/99e9c601ebca/edit?source=your_stories_page-------------------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">System Design, Chapter 8: Replication and Redundancy</a></p><p name="16de" id="16de" class="graf graf--p graf-after--p graf--trailing"><strong class="markup--strong markup--p-strong">For more visit:</strong> <a href="https://medium.com/system-designing-interviews/approach-a-system-design-interview-f3594e243730" data-href="https://medium.com/system-designing-interviews/approach-a-system-design-interview-f3594e243730" class="markup--anchor markup--p-anchor" target="_blank">Approach a System Design Interview</a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/a45e37e12b9"><time class="dt-published" datetime="2020-11-27T02:01:06.498Z">November 27, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-9-sql-vs-nosql-a45e37e12b9" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

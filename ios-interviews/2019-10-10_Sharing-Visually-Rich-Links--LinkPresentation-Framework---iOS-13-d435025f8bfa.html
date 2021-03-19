@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Sharing Visually Rich Links (LinkPresentation Framework)- iOS 13</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Sharing Visually Rich Links (LinkPresentation Framework)- iOS 13</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Overview
+</section>
+<section data-field="body" class="e-content">
+<section name="b0a2" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="bc42" id="bc42" class="graf graf--h3 graf--leading graf--title">Sharing Visually Rich Links (LinkPresentation Framework)- iOS 13</h3><figure name="04a3" id="04a3" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*j4L7BIQnJ6JmrhNJGSTD2Q.png" data-width="453" data-height="884" src="https://cdn-images-1.medium.com/max/800/1*j4L7BIQnJ6JmrhNJGSTD2Q.png"><figcaption class="imageCaption">Reference: <a href="https://developer.apple.com/documentation/businesschatapi/messages_sent/sending_rich_link_messages" data-href="https://developer.apple.com/documentation/businesschatapi/messages_sent/sending_rich_link_messages" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/businesschatapi/messages_sent/sending_rich_link_messages</a></figcaption></figure><h3 name="4bcc" id="4bcc" class="graf graf--h3 graf-after--figure">Overview</h3><p name="f077" id="f077" class="graf graf--p graf-after--h3">I’m here to show you how to present rich links in your app.</p><p name="6b34" id="6b34" class="graf graf--p graf-after--p">In iOS 10 and macOS Sierra, Apple introduced rich links in messages as a way to make URLs more beautiful and more useful.In order to maximize the benefit, Apple built specializations for certain kinds of links. This includes things like inline video and audio playback, a special presentation for Tweets including those with multiple images and many other things like Apple Maps links.</p><p name="4502" id="4502" class="graf graf--p graf-after--p">This year iOS 13 and macOS 10.15 bring new APIs that allow you to present rich links in your own apps so that you get those same benefits with a minimal amount of work.</p><p name="68b2" id="68b2" class="graf graf--p graf-after--p">In this Article, we’re going to progressively adopt features of the new link presentation framework.To achieve this I’m going to cover 2 topics.<br> First, how to fetch metadata from a URL.<br> Second, how to easily present that metadata to the user.</p><figure name="c6c1" id="c6c1" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*wxHs_CltkXSc-QkkYZie8w.png" data-width="1160" data-height="692" src="https://cdn-images-1.medium.com/max/800/1*wxHs_CltkXSc-QkkYZie8w.png"><figcaption class="imageCaption">Reference: <a href="https://developer.apple.com/documentation/linkpresentation" data-href="https://developer.apple.com/documentation/linkpresentation" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com</a></figcaption></figure><p name="9917" id="9917" class="graf graf--p graf-after--figure">So let’s start with retrieving metadata.<br> Assume that you already have some mechanism for users to get URLs into the app, for ex: Chat app where user can enter text, url etc. You could just present them in a table and call it quits, but URLs are not very user-friendly and in this case, it’s quite hard to distinguish between them. You could instead ask the user for a title for each link, but we can make it even easier.<br> Using the new link presentation framework it’s very easy to use the LP metadata provider class to retrieve rich metadata from the website.<br> You just pass it the URL and it returns you an LPLinkMetadata object with a representative title in any media that is available.<br> Let’s see what this looks like.</p><figure name="355e" id="355e" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/15d6dd18858ba8eed95322bd69d7ce8a.js.js"></script></figure><p name="1dfb" id="1dfb" class="graf graf--p graf-after--figure">First you create an LPMetadataProvider and then call startFetchingMetadata with the URL you’re interested in. When the completion handler is called, be sure to check the error. If the server doesn’t respond or is too slow or your user doesn’t have a network connection, the metadata fetched can fail. Finally, you use the metadata for whatever you want.</p><p name="17f0" id="17f0" class="graf graf--p graf-after--p">Before we continue there are a few things to keep in mind when using metadataProvider and LinkMetadata. First, the resultant metadata object can include any of a title, icon, image or video or none at all if the site doesn’t specify any. It is also serializable within a secure coding. This is important because LPMetadataProvider hits the Internet to do its job and you don’t want to do that work nor make your users pay that data and performance cost every time you present the same link. You should cache retrieved metadata locally as much as possible. Also, you can fetch metadata for local file URLs in which case the new QuickLook thumbnailing API will be used to retrieve a representative thumbnail for the file, if possible.<br>Now let’s talk about how to put the metadata we retrieve to use by presenting it in our app.Once again, it’s straightforward.</p><figure name="b7c3" id="b7c3" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*rtWfiObZhyFY4Od1ybllRw.png" data-width="1358" data-height="638" src="https://cdn-images-1.medium.com/max/800/1*rtWfiObZhyFY4Od1ybllRw.png"><figcaption class="imageCaption">Reference: <a href="https://developer.apple.com/documentation/linkpresentation" data-href="https://developer.apple.com/documentation/linkpresentation" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener" target="_blank">https://developer.apple.com</a></figcaption></figure><figure name="9c3d" id="9c3d" class="graf graf--figure graf--iframe graf--layoutOutsetLeft graf-after--figure"><script src="https://gist.github.com/charlieInDen/77ff6b08efb1ebf33087e9d0b318de7e.js.js"></script></figure><p name="50cc" id="50cc" class="graf graf--p graf-after--figure">You can just take the object from earlier and create an LPLinkView with it.<br>It’s that simple.<br>Let’s return to the our app and put LPLinkViews inside our table view cells.</p><p name="0032" id="0032" class="graf graf--p graf-after--p">LPLinkView has an intrinsic size, but it also responds to size that fits with the ideal size to use given a constraining size and we’ll try to present something reasonable when laid out at any size.</p><figure name="4ef4" id="4ef4" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*vzHzc07N05hKASh4GHdElg.png" data-width="739" data-height="669" src="https://cdn-images-1.medium.com/max/800/1*vzHzc07N05hKASh4GHdElg.png"><figcaption class="imageCaption">Reference: <a href="https://developer.apple.com/documentation/linkpresentation" data-href="https://developer.apple.com/documentation/linkpresentation" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener" target="_blank">https://developer.apple.com</a></figcaption></figure><p name="71f6" id="71f6" class="graf graf--p graf-after--figure">Lets see how we can integrate LinkPresentation with SwiftUI.</p><figure name="2898" id="2898" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*2HMqO5fYvOY_fVL54v92WQ.png" data-width="1236" data-height="1002" src="https://cdn-images-1.medium.com/max/800/1*2HMqO5fYvOY_fVL54v92WQ.png"></figure><p name="7026" id="7026" class="graf graf--p graf-after--figure">For calling inside the chat row, we can use below line, here we are binding a State CGSize and set frame to width/height.</p><pre name="19a9" id="19a9" class="graf graf--pre graf-after--p">@State <strong class="markup--strong markup--pre-strong">var</strong> metaSize: CGSize = CGSize()</pre><pre name="daf5" id="daf5" class="graf graf--pre graf-after--pre">URLPreview(previewURL: URL(string: chatMessage.message)!, metaSize: $metaSize)</pre><pre name="be28" id="be28" class="graf graf--pre graf-after--pre">.frame(width: metaSize.width, height: metaSize.height)</pre><figure name="da59" id="da59" class="graf graf--figure graf-after--pre"><img class="graf-image" data-image-id="1*nVsKZ2T_fdtSBD5w5Upong.png" data-width="384" data-height="456" src="https://cdn-images-1.medium.com/max/800/1*nVsKZ2T_fdtSBD5w5Upong.png"><figcaption class="imageCaption">Output: LPLinkview (youtube URL)</figcaption></figure><p name="ce43" id="ce43" class="graf graf--p graf-after--figure">So our 2 key takeaways today are :</p><ol class="postList"><li name="966a" id="966a" class="graf graf--li graf-after--p">you can use LP metadata provider to fetch rich metadata for URL in order to provide more context about arbitrary URLs.</li><li name="0b60" id="0b60" class="graf graf--li graf-after--li">You should use LP link view to present links in your app in a way that is both beautiful and consistent with the system.</li></ol><p name="431f" id="431f" class="graf graf--p graf-after--li">Hope this article is useful for iOS developers, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><h4 name="1bc6" id="1bc6" class="graf graf--h4 graf-after--p">Next : <a href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Property Wrappers (Part I)</a></h4><p name="adec" id="adec" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">References</strong>:-</p><ol class="postList"><li name="c4e3" id="c4e3" class="graf graf--li graf-after--p"><a href="https://developer.apple.com/documentation/linkpresentation" data-href="https://developer.apple.com/documentation/linkpresentation" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/linkpresentation</a></li><li name="0ec5" id="0ec5" class="graf graf--li graf-after--li graf--trailing"><a href="https://developer.apple.com/videos/play/wwdc2019/262/" data-href="https://developer.apple.com/videos/play/wwdc2019/262/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/videos/play/wwdc2019/262/</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/d435025f8bfa"><time class="dt-published" datetime="2019-10-10T17:15:46.727Z">October 10, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/sharing-visually-rich-links-linkpresentation-framework-ios-13-d435025f8bfa" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 10: CAP Theorem</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">System Design, Chapter 10: CAP Theorem</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Brewer first presented the CAP Theorem in the context of a web service. A web service is implemented by a set of servers, perhaps…
+</section>
+<section data-field="body" class="e-content">
+<section name="13d0" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="4c02" id="4c02" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 10: <strong class="markup--strong markup--h3-strong">CAP Theorem</strong></h3><p name="88c9" id="88c9" class="graf graf--p graf-after--h3">Brewer first presented the <a href="https://en.wikipedia.org/wiki/CAP_theorem" data-href="https://en.wikipedia.org/wiki/CAP_theorem" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">CAP Theorem</a> in the context of a web service. A web service is implemented by a set of <em class="markup--em markup--p-em">servers</em>, perhaps distributed over a set of geographically distant data centers. <em class="markup--em markup--p-em">Clients </em>make <em class="markup--em markup--p-em">requests </em>of the service. When a server receives a request from the service, it sends a <em class="markup--em markup--p-em">response</em>. Notice that such a generic notion of a web service can capture a wide variety of applications, such as search engines, e-commerce, on-line music services, or cloud-based data storage. For the purpose of this discussion, we will imagine the service to consist of servers p1, p2, . . . , pn, along with an arbitrary set of clients.</p><p name="79cd" id="79cd" class="graf graf--p graf-after--p">The CAP Theorem was introduced as a trade-off between <em class="markup--em markup--p-em">consistency</em>, <em class="markup--em markup--p-em">availability</em>, and <em class="markup--em markup--p-em">partition tolerance</em>. We now discuss each of these terms.</p><figure name="9241" id="9241" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*b5zkOQ08eAVtWnW71iqJoQ.jpeg" data-width="638" data-height="359" src="https://cdn-images-1.medium.com/max/800/1*b5zkOQ08eAVtWnW71iqJoQ.jpeg"><figcaption class="imageCaption">Reference: https://suhasjavablog.wordpress.com/2018/06/03/understanding-the-cap-theorem/</figcaption></figure><p name="eb2f" id="eb2f" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Consistency</strong>: informally, simply means that each server returns the <em class="markup--em markup--p-em">right </em>response to each request, i.e., a response that is correct according to the desired service specification.</p><p name="0703" id="0703" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Availability</strong>: The second requirement of the CAP Theorem is that the service guarantee <em class="markup--em markup--p-em">availability</em>. Availability simply means that each request eventually receive a response.</p><p name="510c" id="510c" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Partition-tolerance:</strong> The third requirement of the CAP theorem is that the service be partition tolerant. Unlike the other two requirements, this property can be seen as a statement regarding the underlying system: communication among the servers is not reliable, and the servers may be partitioned into multiple groups that cannot communicate with each other.</p><h3 name="f76f" id="f76f" class="graf graf--h3 graf-after--p">The CAP Theorem</h3><blockquote name="ec09" id="ec09" class="graf graf--blockquote graf-after--h3"><em class="markup--em markup--blockquote-em">In a network subject to communication failures, it is impossible for any web service to implement an atomic read/write shared memory that guarantees a response to every request.</em></blockquote><p name="cc2e" id="cc2e" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--blockquote"><span class="graf-dropCap">T</span>he CAP theorem asserts that any networked shared-data system can have only two of three desirable properties. How- ever, by explicitly handling partitions, designers can optimise consistency and availability, thereby achieving some trade- off of all three.</p><p name="f721" id="f721" class="graf graf--p graf-after--p">Since its introduction, designers and researchers have used (and sometimes abused) the CAP theorem as a reason to explore a wide variety of novel distributed systems. The NoSQL movement also has applied it as an argument against traditional databases.</p><p name="5851" id="5851" class="graf graf--p graf-after--p">The <strong class="markup--strong markup--p-strong">CAP</strong> theorem states that any networked shared-data system can have at most two of three desirable properties:</p><ul class="postList"><li name="f622" id="f622" class="graf graf--li graf-after--p"><em class="markup--em markup--li-em">consistency </em>equivalent to having a single up-to-date copy of the data;</li><li name="7fbb" id="7fbb" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">high availability </em>(<strong class="markup--strong markup--li-strong">A</strong>) of that data (for updates); and</li><li name="70c2" id="70c2" class="graf graf--li graf-after--li">tolerance to network <em class="markup--em markup--li-em">partitions </em>(<strong class="markup--strong markup--li-strong">P</strong>).</li></ul><p name="05ca" id="05ca" class="graf graf--p graf-after--li">In some sense, the NoSQL movement is about creating choices that focus on availability first and consistency second; databases that adhere to ACID properties (atomi- city, consistency, isolation, and durability) do the opposite.</p><h3 name="a4da" id="a4da" class="graf graf--h3 graf-after--p">CAP theorem NoSQL database types</h3><p name="da76" id="da76" class="graf graf--p graf-after--h3">NoSQL (non-relational) databases are ideal for distributed network applications. Unlike their vertically scalable SQL (relational) counterparts, NoSQL databases are horizontally scalable and distributed by design — they can rapidly scale across a growing network consisting of multiple interconnected nodes.</p><p name="59a7" id="59a7" class="graf graf--p graf-after--p">Today, NoSQL databases are classified based on the two CAP characteristics they support:</p><ul class="postList"><li name="4b00" id="4b00" class="graf graf--li graf-after--p">CP database: A CP database delivers consistency and partition tolerance at the expense of availability. When a partition occurs between any two nodes, the system has to shut down the non-consistent node (i.e., make it unavailable) until the partition is resolved.</li><li name="87d9" id="87d9" class="graf graf--li graf-after--li">AP database: An AP database delivers availability and partition tolerance at the expense of consistency. When a partition occurs, all nodes remain available but those at the wrong end of a partition might return an older version of data than others. (When the partition is resolved, the AP databases typically resync the nodes to repair all inconsistencies in the system.)</li><li name="69de" id="69de" class="graf graf--li graf-after--li">CA database: A CA database delivers consistency and availability across all nodes. It can’t do this if there is a partition between any two nodes in the system, however, and therefore can’t deliver fault tolerance.</li></ul><p name="f320" id="f320" class="graf graf--p graf-after--li">Understanding the CAP theorem can help you choose the best database when <strong class="markup--strong markup--p-strong">designing a microservices-based application</strong> running from multiple locations. For example, if the ability to quickly iterate the data model and scale horizontally is essential to your application, but you can tolerate eventual (as opposed to strict) consistency, an AP database like Cassandra or Apache CouchDB can meet your requirements and simplify your deployment. On the other hand, if your application depends heavily on data consistency — as in an eCommerce application or a payment service — you might opt for a relational database like PostgreSQL.</p><p name="20a5" id="20a5" class="graf graf--p graf-after--p">Thanks for reading!!</p><h4 name="2b99" id="2b99" class="graf graf--h4 graf-after--p">Previous: <a href="/system-designing-interviews/system-design-chapter-9-sql-vs-nosql-a45e37e12b9?source=your_stories_page-------------------------------------" data-href="/system-designing-interviews/system-design-chapter-9-sql-vs-nosql-a45e37e12b9?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">System Design, Chapter 9: SQL vs. NoSQL</a></h4><h4 name="4704" id="4704" class="graf graf--h4 graf-after--h4 graf--trailing"><strong class="markup--strong markup--h4-strong">For more visit:</strong> <a href="/system-designing-interviews/approach-a-system-design-interview-f3594e243730" data-href="/system-designing-interviews/approach-a-system-design-interview-f3594e243730" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Approach a System Design Interview</a></h4></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/ce9624703835"><time class="dt-published" datetime="2020-11-28T02:46:40.416Z">November 28, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-10-cap-theorem-ce9624703835" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

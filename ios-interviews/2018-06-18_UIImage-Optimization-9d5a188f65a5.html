@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>UIImage Optimization</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">UIImage Optimization</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+When do we need to use UIImage(named:) and UIImage(contentsOfFile:) ?
+</section>
+<section data-field="body" class="e-content">
+<section name="a659" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="737d" id="737d" class="graf graf--h3 graf--leading graf--title"><strong class="markup--strong markup--h3-strong">UIImage Optimization</strong></h3><p name="b761" id="b761" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">When do we need to use UIImage(named:) and UIImage(contentsOfFile:) ?</strong></p><p name="92a6" id="92a6" class="graf graf--p graf-after--p">We all have used both the api’s but only few developer’s know the importance of these api and can decide when to use which one. lets discuss one scenario so that we can understand and remember about these api’s..</p><p name="7d97" id="7d97" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Problem</strong>:<br>In my iOS app written with swift, I set the image from local file on UIImageView with following code: <code class="markup--code markup--p-code">someImageView.image = UIImage(named: documentsDirectory[0].stringByAppendingPathComponent(&quot;myImage.jpeg&quot;))</code> and that works just fine.<br>At some stage (in my case another ViewController), I have to rewrite the file content by either deleting the existing file first and then writing new file to that directory or by moving new file to existing directory. After the file is rewritten the image view keep showing the old image even if I reset its image with the same method as mention above.If I close the app then reopen it the new image is shown.<br>I know that this is probably a cache issue , lets find out which api should be use for what condition..</p><p name="11c7" id="11c7" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: <br>You’re running into a couple of different problems, the biggest of which is that UIImage.imageNamed specifically caches the image read, so changing the underlying file won’t result in the new image being used. The other (related) issue is that imageNamed is primarily intended to load static images out of the application bundle.</p><p name="4656" id="4656" class="graf graf--p graf-after--p">Switch to using <code class="markup--code markup--p-code">UIImage(contentsOfFile:...)</code> and make sure you&#39;re reloading the image when the backing file is changed.</p><h4 name="08cc" id="08cc" class="graf graf--h4 graf-after--p"><code class="markup--code markup--h4-code">UIImage(named:...)</code> vs <code class="markup--code markup--h4-code">UIImage(contentsOfFile:...)</code></h4><p name="bdee" id="bdee" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">imageNamed:</strong> imageNamed cache’s your images and you lose control over the memory — there’s no guarantee that releasing the object will actually release the image but does provide faster loading of images second time around as they are cached. If you are using Interface Builder, and setting the image in Image View Attributes, that is also equal to imageNamed method. The image will be cached immediately when the app is ran</p><p name="d2ee" id="d2ee" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">imageWithContentsOfFile :</strong> imageWithContentsOfFile does not cache images and is more memory friendly however as it does not cache images and they are loaded much slower. imageWithContentsOfFile: requires you to put the full path. I don’t see why imageNamed: wouldn’t be recommended, besides the fact that you can’t access files outside of the application bundle.</p><h3 name="5951" id="5951" class="graf graf--h3 graf-after--p">Discussion</h3><p name="a61b" id="a61b" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">imageNamed</strong> method looks in the system caches for an image object with the specified name and returns the variant of that image that is best suited for the main screen. If a matching image object is not already in the cache, this method locates and loads the image data from disk or from an available asset catalog, and then returns the resulting object.</p><p name="849b" id="849b" class="graf graf--p graf-after--p">The system may purge cached image data at any time to free up memory. Purging occurs only for images that are in the cache but are not currently being used.</p><p name="1283" id="1283" class="graf graf--p graf-after--p">In iOS 9 and later, this method is thread safe.</p><h3 name="9377" id="9377" class="graf graf--h3 graf-after--p">Special Considerations</h3><p name="b6bd" id="b6bd" class="graf graf--p graf-after--h3">If you have an image file that will only be displayed once and wish to ensure that it does not get added to the system’s cache, you should instead create your image using <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uiimage/1624123-imagewithcontentsoffile?language=objc" data-href="https://developer.apple.com/documentation/uikit/uiimage/1624123-imagewithcontentsoffile?language=objc" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">imageWithContentsOfFile:</a></code>. This will keep your single-use image out of the system image cache, potentially improving the memory use characteristics of your app.</p><p name="a69a" id="a69a" class="graf graf--p graf-after--p">Hope you like this article &amp; is useful for people looking to find out when to use these UIImage API’s, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="c686" id="c686" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References:</strong></p><ol class="postList"><li name="7776" id="7776" class="graf graf--li graf-after--p graf--trailing"><a href="https://stackoverflow.com/questions/27907107/ios-rewriting-image-file-at-specific-path-shows-old-image" data-href="https://stackoverflow.com/questions/27907107/ios-rewriting-image-file-at-specific-path-shows-old-image" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://stackoverflow.com/questions/27907107/ios-rewriting-image-file-at-specific-path-shows-old-image</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/9d5a188f65a5"><time class="dt-published" datetime="2018-06-18T03:47:34.793Z">June 18, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/uiimage-optimization-9d5a188f65a5" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>6. Min Edit Distance [VMWare]</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">6. Min Edit Distance [VMWare]</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Given two strings str1 and str2 and below operations that can performed on str1. Find minimum number of edits (operations) required to…
+</section>
+<section data-field="body" class="e-content">
+<section name="4191" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="98cb" id="98cb" class="graf graf--h3 graf--leading graf--title"><strong class="markup--strong markup--h3-strong">6. Min Edit Distance [VMWare]</strong></h3><p name="143d" id="143d" class="graf graf--p graf-after--h3">Given two strings str1 and str2 and below operations that can performed on str1. Find minimum number of edits (operations) required to convert ‘str1’ into ‘str2’.</p><ol class="postList"><li name="4e19" id="4e19" class="graf graf--li graf-after--p">Insert</li><li name="c464" id="c464" class="graf graf--li graf-after--li">Remove</li><li name="8599" id="8599" class="graf graf--li graf-after--li">Replace</li></ol><pre name="5e0d" id="5e0d" class="graf graf--pre graf-after--li"><strong class="markup--strong markup--pre-strong">Input:</strong> word1 = &quot;horse&quot;, word2 = &quot;ros&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> 3<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> <br>horse -&gt; rorse (replace &#39;h&#39; with &#39;r&#39;)<br>rorse -&gt; rose (remove &#39;r&#39;)<br>rose -&gt; ros (remove &#39;e&#39;)</pre><p name="495f" id="495f" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Problem: </strong><a href="https://leetcode.com/problems/edit-distance/" data-href="https://leetcode.com/problems/edit-distance/" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/edit-distance/</strong></a></p><p name="ffe4" id="ffe4" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous Question: </strong><a href="https://medium.com/swiftinterview/5-maximum-size-rectangle-binary-sub-matrix-google-819935d32d17" data-href="https://medium.com/swiftinterview/5-maximum-size-rectangle-binary-sub-matrix-google-819935d32d17" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">5. Maximum size rectangle binary sub-matrix [Google]</strong></a></p><h4 name="f8b2" id="f8b2" class="graf graf--h4 graf-after--p">How to approach the solution?</h4><ol class="postList"><li name="4ad8" id="4ad8" class="graf graf--li graf-after--h4">Brute Force <strong class="markup--strong markup--li-strong">O(3m) exponential</strong></li></ol><blockquote name="fc72" id="fc72" class="graf graf--pullquote graf-after--li">a. If last characters of two strings are same, nothing much to do. Ignore last characters and get count for remaining strings. So we recur for lengths m-1 and n-1.</blockquote><blockquote name="5417" id="5417" class="graf graf--pullquote graf-after--pullquote">b. Else (If last characters are not same), we consider all operations on ‘str1’, consider all three operations on last character of first string, recursively compute minimum cost for all three operations and take minimum of three values.</blockquote><blockquote name="f896" id="f896" class="graf graf--pullquote graf-after--pullquote">Insert: Recur for m and n-1</blockquote><blockquote name="5c52" id="5c52" class="graf graf--pullquote graf-after--pullquote">Remove: Recur for m-1 and n</blockquote><blockquote name="3488" id="3488" class="graf graf--pullquote graf-after--pullquote">Replace: Recur for m-1 and n-1</blockquote><p name="e34c" id="e34c" class="graf graf--p graf-after--pullquote"><a href="https://en.wikipedia.org/wiki/Levenshtein_distance" data-href="https://en.wikipedia.org/wiki/Levenshtein_distance" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">2. Levenstein distance algorithm</a>.</p><blockquote name="2bd3" id="2bd3" class="graf graf--pullquote graf-after--p">This approach uses DP, no recursion. Time and space complexity<strong class="markup--strong markup--pullquote-strong"> O(MN)</strong>. M and N being length of string 1 and 2 respectively.</blockquote><figure name="3a64" id="3a64" class="graf graf--figure graf-after--pullquote"><img class="graf-image" data-image-id="1*ZfM3KdHQo8W7R_P3os7RoQ.png" data-width="2864" data-height="1252" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*ZfM3KdHQo8W7R_P3os7RoQ.png"></figure><figure name="bf22" id="bf22" class="graf graf--figure graf--iframe graf-after--figure"><script src="https://gist.github.com/charlieInDen/2eed6f8d834692b0ac0765b359609f1c.js.js"></script></figure><p name="b088" id="b088" class="graf graf--p graf-after--figure">Congratulations! You just solved a problem that was asked in interviews at VMWare, Microsoft , Facebook &amp; Google.</p><p name="4d7f" id="4d7f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous Question</strong>: <a href="https://medium.com/swiftinterview/5-maximum-size-rectangle-binary-sub-matrix-google-819935d32d17" data-href="https://medium.com/swiftinterview/5-maximum-size-rectangle-binary-sub-matrix-google-819935d32d17" class="markup--anchor markup--p-anchor" target="_blank">5. Maximum size rectangle binary sub-matrix [Google]</a></p><p name="1a05" id="1a05" class="graf graf--p graf-after--p">Thanks for reading this article, keep learning &amp; growing.</p><p name="d862" id="d862" class="graf graf--p graf-after--p graf--trailing">Github: <a href="https://github.com/charlieInDen/InterviewQuestions-Swift/" data-href="https://github.com/charlieInDen/InterviewQuestions-Swift/" class="markup--anchor markup--p-anchor" rel="noopener nofollow noopener" target="_blank">https://github.com/charlieInDen/InterviewQuestions-Swift/</a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/68171573fdd8"><time class="dt-published" datetime="2020-05-25T10:26:17.125Z">May 25, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/6-min-edit-distance-vmware-68171573fdd8" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 8: Replication and Redundancy</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">System Design, Chapter 8: Replication and Redundancy</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Redundancy is the duplication of critical components or functions of a system with the intention of increasing the reliability of the…
+</section>
+<section data-field="body" class="e-content">
+<section name="05ee" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="09db" id="09db" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 8: Replication and Redundancy</h3><p name="a37e" id="a37e" class="graf graf--p graf-after--h3"><a href="https://en.wikipedia.org/wiki/Redundancy_%28engineering%29" data-href="https://en.wikipedia.org/wiki/Redundancy_(engineering)" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Redundancy</strong></a> is the duplication of critical components or functions of a system with the intention of increasing the reliability of the system, usually in the form of a backup or fail-safe, or to improve actual system performance. For example, if there is only one copy of a song file stored on a single server, then losing that server means losing the song file. Since losing data is seldom a good thing, we can create duplicate or redundant copies of the song file to solve this problem.</p><figure name="3ab2" id="3ab2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*45qPkagBZiAD5dnZ.jpg" data-width="220" data-height="349" src="https://cdn-images-1.medium.com/max/800/0*45qPkagBZiAD5dnZ.jpg"><figcaption class="imageCaption">Common redundant power supply</figcaption></figure><p name="5584" id="5584" class="graf graf--p graf-after--figure"><a href="https://en.wikipedia.org/wiki/Replication_%28computing%29" data-href="https://en.wikipedia.org/wiki/Replication_(computing)" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Replication</strong></a> can be used to prevent the loss of a single server from causing your directory service to become unavailable.</p><figure name="1724" id="1724" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*7eBi46uTeq4vG-TI-j3LOA.jpeg" data-width="1496" data-height="840" src="https://cdn-images-1.medium.com/max/800/1*7eBi46uTeq4vG-TI-j3LOA.jpeg"><figcaption class="imageCaption">sheep replication</figcaption></figure><p name="b834" id="b834" class="graf graf--p graf-after--figure">A reliable replication topology ensures that the most recent data is available to clients across data centers, even in the case of a server failure. At a minimum, your local directory tree needs to be replicated to at least one backup server. Some directory architects say that you should replicate three times per physical location for maximum data reliability. In deciding how much to use replication for fault tolerance, consider the quality of the hardware and networks used by your directory. Unreliable hardware requires more backup servers.</p><p name="6466" id="6466" class="graf graf--p graf-after--p">To maintain the ability to read data in the directory, a suitable load balancing strategy must be put in place. Both software and hardware load balancing solutions exist to distribute read load across multiple replicas. Each of these solutions can also determine the state of each replica and to manage its participation in the load balancing topology. The solutions might vary in terms of completeness and accuracy.</p><figure name="b183" id="b183" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*1xC8H1gFcgXukDyqzqrWyQ.png" data-width="403" data-height="424" src="https://cdn-images-1.medium.com/max/800/1*1xC8H1gFcgXukDyqzqrWyQ.png"><figcaption class="imageCaption">Reference: w3schools.in</figcaption></figure><p name="296b" id="296b" class="graf graf--p graf-after--figure">To maintain write failover over geographically distributed sites, you can use multiple data center replication over WAN. This entails setting up at least two master servers in each data center, and configuring the servers to be fully meshed over the WAN. This strategy prevents loss of service if any of the masters in the topology fail. Write operations must be routed to an alternative server if a writable server becomes unavailable. Various methods can be used to reroute write operations, including Directory Proxy Server.</p><p name="0410" id="0410" class="graf graf--p graf-after--p">Now just because you have multiple servers or multiple systems– you’ve got that redundancy– doesn’t necessarily mean that your environment is highly available. High availability means that the systems will always be available regardless of what happens. With redundancy, you may have to flip a switch to move from one server to the other, or you may have to power up a new system to be able to have that system available. High availability is generally considered to be always on, always available.</p><p name="6078" id="6078" class="graf graf--p graf-after--p">Previous: <a href="/system-designing-interviews/system-design-chapter-7-queues-5f3f9bed81?source=your_stories_page-------------------------------------" data-href="/system-designing-interviews/system-design-chapter-7-queues-5f3f9bed81?source=your_stories_page-------------------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">System Design, Chapter 7: Queues</a></p><p name="491a" id="491a" class="graf graf--p graf-after--p graf--trailing">For more visit: <a href="https://medium.com/system-designing-interviews/approach-a-system-design-interview-f3594e243730" data-href="https://medium.com/system-designing-interviews/approach-a-system-design-interview-f3594e243730" class="markup--anchor markup--p-anchor" target="_blank">Approach a System Design Interview</a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/99e9c601ebca"><time class="dt-published" datetime="2020-11-26T04:13:05.253Z">November 26, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-8-replication-and-redundancy-99e9c601ebca" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS: Writing test cases &amp; Restructuring to testable code (Part II)</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">iOS: Writing test cases &amp; Restructuring to testable code (Part II)</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Tips for tests dealing with foundation notification objects
+</section>
+<section data-field="body" class="e-content">
+<section name="f0c7" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="91aa" id="91aa" class="graf graf--h3 graf--leading graf--title">iOS: Writing test cases &amp; Restructuring to testable code (Part II)</h3><h4 name="2695" id="2695" class="graf graf--h4 graf-after--h3 graf--subtitle">Tips for tests dealing with foundation notification objects</h4><p name="044a" id="044a" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">For part I</strong> : <a href="https://medium.com/ios-expert-series-or-interview-series/ios-writing-test-cases-restructuring-to-testable-code-f0b744697279" data-href="https://medium.com/ios-expert-series-or-interview-series/ios-writing-test-cases-restructuring-to-testable-code-f0b744697279" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Strategies for testing networking code in your app</strong></a></p><p name="82bf" id="82bf" class="graf graf--p graf-after--p">I’d like to talk about is some best practices for testing notifications. And to clarify, by notification here, I’m talking about foundation-level notifications known as NSNotification and Objective-C/Swift.</p><p name="2be3" id="2be3" class="graf graf--p graf-after--p">Here, I have the PointsOfInterest TableViewController from the app mentioned in WWDC 2018. It shows a list of nearby places of interest in a table view, and whenever the app’s location authorization changes, it may need to reload its data.</p><p name="d370" id="d370" class="graf graf--p graf-after--p">So, it observes a notification called authChanged from our app’s CurrentLocationProvider class.When it observes this notification, it reloads its data if necessary, and, then, for the purpose of this example, it sets a flag.</p><figure name="979f" id="979f" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/d4710a9df7f174a7ceaf2e7426d28cdd.js.js"></script></figure><p name="2635" id="2635" class="graf graf--p graf-after--figure">So, we’d like to isolate this code better to test this. There’s a technique we can use to better isolate these tests. To use it, we first have to recognize that NotificationCenter can have multiple instances. As you may note, it has a default instance as a class property, but it supports creating additional instances whenever necessary, and this is going to be key to isolating our tests.</p><p name="68f3" id="68f3" class="graf graf--p graf-after--p">So, to apply this technique, we first have to create a new NotificationCenter, pass it to our subject and use it instead of the default instance. This is often referred to as <strong class="markup--strong markup--p-strong">dependency injection</strong>. So, let’s take a look at using this in our view controller.</p><p name="16ff" id="16ff" class="graf graf--p graf-after--p">Here, I have the original code that uses the default NotificationCenter, and I’ll modify it to use a separate instance. I’ve added a new NotificationCenter property and a parameter in the initializer that sets it.</p><p name="b61b" id="b61b" class="graf graf--p graf-after--p">And, instead of adding an observer to the default center, it uses this new property.</p><p name="769c" id="769c" class="graf graf--p graf-after--p">I’ll also add a default parameter value of .default to the initializer, and this avoids breaking any existing code in my app, since existing clients won’t need to pass the new parameter, only our unit tests will.</p><figure name="af95" id="af95" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/5e0d463a2f48cfd5f89c8e878aff9afc.js.js"></script></figure><h3 name="4a6c" id="4a6c" class="graf graf--h3 graf-after--figure">XCTNSNotificationExpectation</h3><p name="9768" id="9768" class="graf graf--p graf-after--h3">An expectation that is fulfilled when an expected <code class="markup--code markup--p-code">NSNotification</code> is received.</p><p name="5818" id="5818" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">How to validate that a subject posts a Notification?</strong></p><ul class="postList"><li name="9364" id="9364" class="graf graf--li graf-after--p">Use a separate NotificationCenter again</li><li name="41a3" id="41a3" class="graf graf--li graf-after--li">Use XCTNSNotificationExpectation</li></ul><p name="17b2" id="17b2" class="graf graf--p graf-after--li">Now let’s go back and write our tests. Here’s the original test code to use a separate NotificationCenter. So, this shows how we can test that our subject observes a notification, but how do we test that our subject posts a notification? We’ll use the same separate NotificationCenter trick again, but I’ll also show how to make use of built-in expectation APIs to add a notification observer.</p><figure name="d744" id="d744" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/51368b650b49095888b19ddff3a721ff.js.js"></script></figure><p name="667f" id="667f" class="graf graf--p graf-after--figure">And here’s a unit test I wrote for this class. It verifies that it posts a notification whenever the NotifyAuthChanged method is called, and we can see in the middle section here that this test uses the addObserver method to create a block-based observer, and then it removes that observer inside of the block.</p><p name="853a" id="853a" class="graf graf--p graf-after--p">When our tests are expecting to receive a notification to a specific center, we can pass the NotificationCenter parameter to the initializer of the expectation. I’d also like to point out that the timeout of this expectation is 0, and that’s because we actually expect it to already have been fulfilled by the time we wait on it. That’s because the notification should have already been posted by the time the NotifyAuthChanged method returns.</p><p name="3cb9" id="3cb9" class="graf graf--p graf-after--p">So, using this pair of techniques for testing notifications we can ensure that our tests remained fully isolated, and we’ve made the change without needing to modify an existing code in our app, since we specified that default parameter value.</p><h4 name="04c9" id="04c9" class="graf graf--h4 graf-after--p">Coming Next: Part 3 (Advantage of protocols when making mock objects in your tests)</h4><p name="495c" id="495c" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">For part I</strong> : <a href="https://medium.com/ios-expert-series-or-interview-series/ios-writing-test-cases-restructuring-to-testable-code-f0b744697279" data-href="https://medium.com/ios-expert-series-or-interview-series/ios-writing-test-cases-restructuring-to-testable-code-f0b744697279" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Strategies for testing networking code in your app</strong></a></p><p name="9ada" id="9ada" class="graf graf--p graf-after--p">References:</p><ol class="postList"><li name="8275" id="8275" class="graf graf--li graf-after--p graf--trailing"><a href="https://developer.apple.com/videos/play/wwdc2018/417/?time=44" data-href="https://developer.apple.com/videos/play/wwdc2018/417/?time=44" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://developer.apple.com/videos/play/wwdc2018/417/?time=44</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/fecae34a7b98"><time class="dt-published" datetime="2019-01-30T11:54:44.893Z">January 30, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/ios-writing-test-cases-restructuring-to-testable-code-part-ii-fecae34a7b98" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Deep Dive into Map Function in Swift</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Deep Dive into Map Function in Swift</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+It iterates, applies, transforms, collects. It’s your functional best friend, map.
+</section>
+<section data-field="body" class="e-content">
+<section name="1020" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="30a7" id="30a7" class="graf graf--h3 graf--leading graf--title">Deep Dive into Map Function in Swift</h3><p name="4b60" id="4b60" class="graf graf--p graf-after--h3">It iterates, applies, transforms, collects. It’s your functional best friend, map.</p><figure name="2596" id="2596" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*uIuAd9EdxzEU_k3C0Bppjw.png" data-width="908" data-height="218" src="https://cdn-images-1.medium.com/max/800/1*uIuAd9EdxzEU_k3C0Bppjw.png"></figure><p name="21ff" id="21ff" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">map(_:)</strong></p><pre name="443e" id="443e" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">From </strong><a href="https://developer.apple.com/documentation/swift/enumeratedsequence/2907233-map" data-href="https://developer.apple.com/documentation/swift/enumeratedsequence/2907233-map" class="markup--anchor markup--pre-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--pre-strong">Apple</strong></a><strong class="markup--strong markup--pre-strong"> -</strong></pre><pre name="2f26" id="2f26" class="graf graf--pre graf-after--pre">Returns an array containing the results of mapping the given closure over the sequence’s elements.</pre><pre name="7f0b" id="7f0b" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">Parameters</strong><br><code class="markup--code markup--pre-code">transform</code></pre><pre name="3417" id="3417" class="graf graf--pre graf-after--pre">A mapping closure. <code class="markup--code markup--pre-code">transform</code> accepts an element of this sequence as its parameter and returns a transformed value of the same or of a different type.</pre><pre name="549f" id="549f" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">Return Value</strong><br>An array containing the transformed elements of this sequence.</pre><p name="b1e9" id="b1e9" class="graf graf--p graf-after--pre">The <code class="markup--code markup--p-code">map(_:)</code> function loops over every item in a collection, and applies an operation to each element in the collection. It returns a collection of resulting items, to which the operation was applied.</p><p name="8bce" id="8bce" class="graf graf--p graf-after--p">In this example, <code class="markup--code markup--p-code">map</code> is used first to convert the names in the array to lowercase strings and then to count their characters.</p><figure name="f0b5" id="f0b5" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/161f34ba15080dc358ee45909dcc1fd8.js.js"></script></figure><p name="05ee" id="05ee" class="graf graf--p graf-after--figure">another example is used to reduce the array element into half.</p><figure name="8043" id="8043" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/7db31c5f159cdb4403eb22b70fcbbe93.js.js"></script></figure><p name="7eb9" id="7eb9" class="graf graf--p graf-after--figure">Complexity: O(<em class="markup--em markup--p-em">n</em>), where <em class="markup--em markup--p-em">n</em> is the length of the sequence.</p><p name="ea4f" id="ea4f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Implementing Map</strong></p><p name="13e6" id="13e6" class="graf graf--p graf-after--p">Now, let’s suppose you want to write a map function. Where would you start?</p><p name="3ed6" id="3ed6" class="graf graf--p graf-after--p">From above examples, The method takes the input which is a function and the return is an array.</p><p name="31eb" id="31eb" class="graf graf--p graf-after--p">More precisely, the input is a function which transforms its input (a value in the array) to another value. Note that the transformed value may be a different type than that of the input value. i.e. 𝑓: X → Y. The output, therefore, is an array containing elements of the codomain Y.</p><p name="721f" id="721f" class="graf graf--p graf-after--p">Now, before looking at the code below, try to write the function signature on your own.</p><pre name="d90d" id="d90d" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">func</strong> myMap&lt;T&gt;(<strong class="markup--strong markup--pre-strong">_</strong> transform: (Element) -&gt; T) -&gt; [T]</pre><p name="464a" id="464a" class="graf graf--p graf-after--pre">Congratulations! You just crossed the biggest hurdle.</p><p name="8bff" id="8bff" class="graf graf--p graf-after--p">Now let’s give some thought about the implementation of map. How do we actually get from [X] to [Y] and how do we use transform? We just create a new array of generic type T and fill it with the transformed values. Try to write the code for that.</p><p name="0470" id="0470" class="graf graf--p graf-after--p">You could imagine how to write your own <code class="markup--code markup--p-code">map</code>:</p><ul class="postList"><li name="fc4c" id="fc4c" class="graf graf--li graf-after--p">take an array and return another array</li><li name="89d7" id="89d7" class="graf graf--li graf-after--li">need a closure parameter to perform the transformation step</li><li name="a82d" id="a82d" class="graf graf--li graf-after--li">use a trusty <code class="markup--code markup--li-code">for</code> loop and build up an output array</li></ul><p name="9e69" id="9e69" class="graf graf--p graf-after--li">Here’s what this might look like:</p><figure name="9701" id="9701" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/d68292c003beee094694722263d01833.js.js"></script></figure><p name="80a5" id="80a5" class="graf graf--p graf-after--figure"><code class="markup--code markup--p-code">map</code> in Swift is defined on the <code class="markup--code markup--p-code">Collection</code> protocol but I’ve defined it here as an extension of <code class="markup--code markup--p-code">Sequence</code> for simplicity.</p><p name="77bf" id="77bf" class="graf graf--p graf-after--p">Since this is extending <code class="markup--code markup--p-code">Sequence</code>, <code class="markup--code markup--p-code">self</code> refers to the <em class="markup--em markup--p-em">input</em> sequence instance and <code class="markup--code markup--p-code">Element</code> is the type of thing the array holds.</p><p name="725a" id="725a" class="graf graf--p graf-after--p">We need to add a generic type parameter <code class="markup--code markup--p-code">T</code> for the output type. That means the transformation closure takes an <code class="markup--code markup--p-code">Element</code> and returns a <code class="markup--code markup--p-code">T</code>.</p><p name="6fda" id="6fda" class="graf graf--p graf-after--p">Time to submit that job application to join the Swift core team? Let’s compare and see how we did. 🤔</p><h4 name="0b17" id="0b17" class="graf graf--h4 graf-after--p">Standard library map</h4><p name="c723" id="c723" class="graf graf--p graf-after--h4">As usual, all the code will be right here inline, but you can check out the current source in <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/Collection.swift" data-href="https://github.com/apple/swift/blob/master/stdlib/public/core/Collection.swift" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Collection.swift</a> on GitHub.</p><figure name="9dc8" id="9dc8" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/aadbbcc5dd28dc166ab252043bf8d034.js.js"></script></figure><p name="3f12" id="3f12" class="graf graf--p graf-after--figure">Looks pretty good!</p><ol class="postList"><li name="c823" id="c823" class="graf graf--li graf-after--p">In our implementation, we set up an empty mutable array. Here, the standard library sets up a <code class="markup--code markup--li-code">ContiguousArray</code> directly.</li></ol><blockquote name="56ae" id="56ae" class="graf graf--blockquote graf-after--li"><em class="markup--em markup--blockquote-em">There are three flavors of array: </em><code class="markup--code markup--blockquote-code"><em class="markup--em markup--blockquote-em">ContiguousArray</em></code><em class="markup--em markup--blockquote-em">, </em><code class="markup--code markup--blockquote-code"><em class="markup--em markup--blockquote-em">ArraySlice</em></code><em class="markup--em markup--blockquote-em">, and </em><code class="markup--code markup--blockquote-code"><em class="markup--em markup--blockquote-em">Array</em></code><em class="markup--em markup--blockquote-em">. The differences are beyond the scope of this article but a contiguous array is like the textbook canonical array: a block of contiguous memory that you can index into.</em></blockquote><p name="dadc" id="dadc" class="graf graf--p graf-after--blockquote">Mutable arrays get initialized with some amount of storage and automatically grow as needed. That’s useful when you don’t know up front how many elements to hold, but that’s not the case here. Growing the array has some performance cost, and we can be more efficient by specifying exactly how much space we need with <code class="markup--code markup--p-code">reserveCapacity()</code>.</p><p name="30f8" id="30f8" class="graf graf--p graf-after--p">2. If the collection is empty, we can return early. Seems like a reasonable optimization that saves allocating a new mutable array and iterating over nothing.</p><p name="0256" id="0256" class="graf graf--p graf-after--p">How did we do overall? I think pretty well — the big complication left out of our simple implementation was dealing with the array’s count vs directly implementing Sequence and unable to add optimisation to it.</p><p name="f5d5" id="f5d5" class="graf graf--p graf-after--p">That’s an important reminder that everyday things like arrays are made up of smaller pieces: sequence, collection, subscripting behavior, etc. Those pieces need to be generic, and you get more specific as you get closer to a concrete type. Building things on the generic level means thinking outside the “how would I build this?” box, into the “how could this be built?” box.</p><p name="5672" id="5672" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Think &amp; Try</strong></p><p name="8b29" id="8b29" class="graf graf--p graf-after--p">Imagine compactMap functionality is not provided by swift framework, <strong class="markup--strong markup--p-strong">How will you write your own compactMap</strong> which will work similar to the given framework one?</p><p name="982d" id="982d" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to understand the higher order level function and its internal, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/caba9d35d95f"><time class="dt-published" datetime="2020-08-23T06:27:42.508Z">August 23, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/deep-dive-into-map-function-in-swift-caba9d35d95f" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

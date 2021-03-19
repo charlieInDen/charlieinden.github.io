@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>3. Majority Element[Amazon]</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">3. Majority Element[Amazon]</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Previous question: 2. Count Visible Nodes in Binary Tree[Microsoft]
+</section>
+<section data-field="body" class="e-content">
+<section name="b680" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="3526" id="3526" class="graf graf--h3 graf--leading graf--title">3. Majority Element[Amazon]</h3><p name="b264" id="b264" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Previous question: </strong><a href="/swiftinterview/2-count-visible-nodes-in-binary-tree-microsoft-8a06d627595e" data-href="/swiftinterview/2-count-visible-nodes-in-binary-tree-microsoft-8a06d627595e" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">2. Count Visible Nodes in Binary Tree[Microsoft]</strong></a></p><p name="97c5" id="97c5" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next Question: </strong><a href="/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6?source=your_stories_page---------------------------" data-href="/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">4. Largest Rectangle in Histogram [Facebook]</strong></a></p><p name="d6b3" id="d6b3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Given</strong> an array of size <code class="markup--code markup--p-code">n</code>, find the majority element. The majority element is the element that appears more than <code class="markup--code markup--p-code">floor(n/2)</code> times.</p><p name="68a2" id="68a2" class="graf graf--p graf-after--p">You may assume that the array is non-empty and the majority element always exist in the array.</p><p name="a47c" id="a47c" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example :</strong></p><pre name="83a2" id="83a2" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">Input : [2, 1, 2]<br>Return  : 2 which occurs 2 times which is greater than 3/2.</code></pre><p name="57ec" id="57ec" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">To solve this problem, developers need to understand few concepts:</strong></p><ol class="postList"><li name="baec" id="baec" class="graf graf--li graf-after--p"><a href="https://en.wikipedia.org/wiki/Sorting_algorithm" data-href="https://en.wikipedia.org/wiki/Sorting_algorithm" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">Sorting</a> : If the elements are sorted in monotonically increasing (or decreasing) order, the majority element can be found at index</li></ol><p name="1fa1" id="1fa1" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Complexity Analysis</strong></p><ul class="postList"><li name="01a1" id="01a1" class="graf graf--li graf-after--p">Time complexity : O(nlogn)</li><li name="0e97" id="0e97" class="graf graf--li graf-after--li">Space complexity : O(1)</li></ul><p name="6cec" id="6cec" class="graf graf--p graf-after--li">2. <a href="https://en.wikipedia.org/wiki/Hash_table" data-href="https://en.wikipedia.org/wiki/Hash_table" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Hash-map</a> : We can use a <code class="markup--code markup--p-code">HashMap</code> that maps elements to counts in order to count occurrences in linear time by looping over <code class="markup--code markup--p-code">A array</code>. Then, we simply return the key with maximum value.</p><p name="c881" id="c881" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Complexity Analysis</strong></p><ul class="postList"><li name="4582" id="4582" class="graf graf--li graf-after--p">Time complexity : O(n)</li><li name="be5a" id="be5a" class="graf graf--li graf-after--li">Space complexity : O(n)</li></ul><p name="747e" id="747e" class="graf graf--p graf-after--li">3. <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm" data-href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Boyer–Moore majority vote algorithm</a></p><p name="8716" id="8716" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Complexity Analysis</strong></p><ul class="postList"><li name="3ebb" id="3ebb" class="graf graf--li graf-after--p">Time complexity : O(n)</li><li name="3472" id="3472" class="graf graf--li graf-after--li">Space complexity : O(1)</li></ul><h4 name="1bbc" id="1bbc" class="graf graf--h4 graf-after--li">Problem: <a href="https://www.interviewbit.com/problems/majority-element/" data-href="https://www.interviewbit.com/problems/majority-element/" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Majority Element</a></h4><p name="8992" id="8992" class="graf graf--p graf-after--h4">How to Approach this problem?</p><ul class="postList"><li name="be82" id="be82" class="graf graf--li graf-after--p">Sorting solution</li><li name="7232" id="7232" class="graf graf--li graf-after--li">Hash-map solution</li><li name="ac99" id="ac99" class="graf graf--li graf-after--li">Boyer-Moore solution</li></ul><p name="45ee" id="45ee" class="graf graf--p graf-after--li">We will see the Boyer-Moore solution in this article, as its highly optimised solution.</p><figure name="73f5" id="73f5" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/4c4ee01a7c10fcaf0bcd4f92c2814623.js.js"></script></figure><p name="ffd1" id="ffd1" class="graf graf--p graf-after--figure">To test the solution:</p><pre name="01d5" id="01d5" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">let</strong> input = [2, 1, 2]<br><strong class="markup--strong markup--pre-strong">let</strong> result = majorityElement(input)</pre><p name="739f" id="739f" class="graf graf--p graf-after--pre">Congratulations! You just solved a problem that was asked in interviews at Microsoft , Yahoo , Google and Amazon .</p><p name="4042" id="4042" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next Question: </strong><a href="/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6?source=your_stories_page---------------------------" data-href="/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">4. Largest Rectangle in Histogram [Facebook]</strong></a></p><p name="fe04" id="fe04" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous Questions: 1. </strong><a href="/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c" data-href="/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">All Nodes Distance K in Binary Tree[Microsoft]</strong></a></p><p name="a0f5" id="a0f5" class="graf graf--p graf-after--p">Thanks for reading this article, keep learning &amp; growing.</p><p name="7b35" id="7b35" class="graf graf--p graf-after--p graf--trailing">Github: <a href="https://github.com/charlieInDen/InterviewQuestions-Swift/" data-href="https://github.com/charlieInDen/InterviewQuestions-Swift/" class="markup--anchor markup--p-anchor" rel="noopener nofollow noopener" target="_blank">https://github.com/charlieInDen/InterviewQuestions-Swift/</a></p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/749073a3a5b9"><time class="dt-published" datetime="2020-05-23T09:25:57.425Z">May 23, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/3-majority-element-amazon-749073a3a5b9" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Access Control Specifier(Swift) — in a Nutshell</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Access Control Specifier(Swift) — in a Nutshell</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+open, public, internal, private, fileprivate
+</section>
+<section data-field="body" class="e-content">
+<section name="dc15" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="eab6" id="eab6" class="graf graf--h3 graf--leading graf--title">Access Control Specifier(Swift) — in a Nutshell</h3><p name="9746" id="9746" class="graf graf--p graf-after--h3">open, public, internal, private, fileprivate</p><p name="1bba" id="1bba" class="graf graf--p graf-after--p">In this article, I am covering all five access control specifier but in a nut shell, so that you can remember it for long time.</p><p name="e4a8" id="e4a8" class="graf graf--p graf-after--p">You have to understand one thing: <strong class="markup--strong markup--p-strong">module</strong>. Imagine a module is a bundle of code. Your single Xcode project/framework/bundle is considered as a single module. for example: CoreData, UIKit, CustomFramework are modules.</p><h4 name="5eef" id="5eef" class="graf graf--h4 graf-after--p">Open:</h4><p name="a47e" id="a47e" class="graf graf--p graf-after--h4">Subclass from outside module <strong class="markup--strong markup--p-strong">possible</strong>(UICollectionView or UITableView), add more features , access its own functions.</p><h4 name="ec3e" id="ec3e" class="graf graf--h4 graf-after--p">Public :</h4><p name="5dd9" id="5dd9" class="graf graf--p graf-after--h4">Subclass not possible, <strong class="markup--strong markup--p-strong">Delegate</strong> can be used to override the functionality , outside the module(UICollectionViewDelegate or UITableViewDelegate) — It can be only overridden by subclasses only within the module where they’re defined. Public access level enable an entity to be used outside the defining module</p><h4 name="6792" id="6792" class="graf graf--h4 graf-after--p">Internal:</h4><p name="2620" id="2620" class="graf graf--p graf-after--h4">Access limit to with in the module, example: Internal functions created by CoreData engineers can not be accessed by iOS developers even if we import CoreData.</p><h4 name="7e45" id="7e45" class="graf graf--h4 graf-after--p">FilePrivate :</h4><p name="61a8" id="61a8" class="graf graf--p graf-after--h4">Access from outside its type but in same file. If you mark something filePrivate it can be read anywhere in the same file it was declared — even outside the type.</p><figure name="2ede" id="2ede" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*nhseOr4FcDr9obJe9QMzgg.png" data-width="1530" data-height="910" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*nhseOr4FcDr9obJe9QMzgg.png"><figcaption class="imageCaption">Reference: <a href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener" target="_blank">docs.swift.org</a></figcaption></figure><h4 name="2405" id="2405" class="graf graf--h4 graf-after--figure">Private :</h4><p name="6f32" id="6f32" class="graf graf--p graf-after--h4">Access from outside but only in its type (extension), a private property can only be read inside the type that declared it, or inside extensions to that type that were created in the same file.</p><figure name="43f8" id="43f8" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*PX14wXRf6zXeVmiusmr76w.png" data-width="320" data-height="212" src="https://cdn-images-1.medium.com/max/800/1*PX14wXRf6zXeVmiusmr76w.png"><figcaption class="imageCaption">Reference: <a href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener noopener" target="_blank">docs.swift.org</a></figcaption></figure><p name="44c1" id="44c1" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">IMPORTANT</strong></p><p name="a3a8" id="a3a8" class="graf graf--p graf-after--p">A public type defaults to having internal members, not public members. If you want a type member to be public, you must explicitly mark it as such. This requirement ensures that the public-facing API for a type is something you opt in to publishing, and avoids presenting the internal workings of a type as public API by mistake.</p><p name="5c17" id="5c17" class="graf graf--p graf-after--p">References:</p><ol class="postList"><li name="73c6" id="73c6" class="graf graf--li graf-after--p graf--trailing"><a href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html</a></li></ol></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/bd910943f909"><time class="dt-published" datetime="2018-12-13T05:01:11.190Z">December 13, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/access-control-specifier-swift-in-a-nutshell-bd910943f909" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

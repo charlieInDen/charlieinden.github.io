@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Microsoft Interview Experience — Part 2 (Solution in Swift)</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Microsoft Interview Experience — Part 2 (Solution in Swift)</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+1. Given a dictionary, a method to do a lookup in the dictionary and a M x N board where every cell has one character. Find all possible…
+</section>
+<section data-field="body" class="e-content">
+<section name="898c" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="3237" id="3237" class="graf graf--h3 graf--leading graf--title">Microsoft Interview Experience — Part 2 (Solution in Swift)</h3><figure name="ea18" id="ea18" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*Cqxq8kVebtTBJiVHfdNi5w.jpeg" data-width="550" data-height="356" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*Cqxq8kVebtTBJiVHfdNi5w.jpeg"></figure><h3 name="a59d" id="a59d" class="graf graf--h3 graf-after--figure">1. Given a dictionary, a method to do a lookup in the dictionary and a M x N board where every cell has one character. Find all possible words that can be formed by a sequence of adjacent characters.</h3><p name="07e3" id="07e3" class="graf graf--p graf-after--h3">Note that we can move to any of 8 adjacent characters, but a word should not have multiple instances of the same cell.</p><pre name="f12d" id="f12d" class="graf graf--pre graf-after--p">Input: dictionary[] = [ “seed”, “weed”,“need”,“ate”,“tend”,“rent”]<br>       boggle[3][3]   = [[“r”,”w”,”e”], [“t”,”e”,”d”], [“s”,”a”,”n”]]<br><br>Output:  <strong class="markup--strong markup--pre-strong">[&quot;weed&quot;, &quot;tend&quot;, &quot;seed&quot;, &quot;ate&quot;, &quot;need&quot;]</strong></pre><p name="24ef" id="24ef" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Solution:</strong></p><blockquote name="6ef5" id="6ef5" class="graf graf--blockquote graf-after--p"><strong class="markup--strong markup--blockquote-strong"><em class="markup--em markup--blockquote-em">Info Note</em></strong><em class="markup--em markup--blockquote-em">: </em><br>1. Insert and search costs for Trie: <strong class="markup--strong markup--blockquote-strong">O(string_length)</strong>, however the memory requirements of Trie is <strong class="markup--strong markup--blockquote-strong">O(ALPHABET_SIZE * string_length * N)<br>2. DFS time complexity</strong> is proportional to the total number of vertexes <em class="markup--em markup--blockquote-em">and</em> edges of the graph visited. In our case, there are <code class="markup--code markup--blockquote-code">N*M</code> vertexes, so<code class="markup--code markup--blockquote-code">O(N*M)</code></blockquote><figure name="e0b7" id="e0b7" class="graf graf--figure graf--iframe graf-after--blockquote"><script src="https://gist.github.com/charlieInDen/0e6445cfc51818404e023dc75cecd506.js.js"></script></figure><h3 name="3a02" id="3a02" class="graf graf--h3 graf-after--figure">2. Given a digit sequence, count the number of possible decodings of the given digit sequence. Let 1 represent ‘A’, 2 represents ‘B’, etc.</h3><p name="603f" id="603f" class="graf graf--p graf-after--h3">An empty digit sequence is considered to have one decoding. It may be assumed that the input contains valid digits from 0 to 9 and there are no leading 0’s, no extra trailing 0’s and no two or more consecutive 0’s.</p><p name="f589" id="f589" class="graf graf--p graf-after--p">Time Complexity: O(n) <br>Auxiliary space: O(1)</p><pre name="cefb" id="cefb" class="graf graf--pre graf-after--p">Input:  digits[] = &quot;121&quot;<br>Output: 3<br>// The possible decodings are &quot;ABA&quot;, &quot;AU&quot;, &quot;LA&quot;<br><br>Input: digits[] = &quot;1234&quot;<br>Output: 3<br>// The possible decodings are &quot;ABCD&quot;, &quot;LCD&quot;, &quot;AWD&quot;</pre><p name="7db3" id="7db3" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="9c83" id="9c83" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/e7a6ac43697756dffd1c1b4ee640a330.js.js"></script></figure><h3 name="1601" id="1601" class="graf graf--h3 graf-after--figure">3. Design a Chess Game</h3><p name="c3fc" id="c3fc" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Solution: </strong><a href="https://medium.com/system-designing-interviews/design-a-chess-game-dddd7ba11bc0?source=friends_link&amp;sk=2fd890f7f2eefdc66392606fb05819b4" data-href="https://medium.com/system-designing-interviews/design-a-chess-game-dddd7ba11bc0?source=friends_link&amp;sk=2fd890f7f2eefdc66392606fb05819b4" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Design Chess Game in swift</strong></a></p><p name="1a7b" id="1a7b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous Article</strong>: <a href="/ios-expert-series-or-interview-series/microsoft-interview-experience-part-1-solution-in-swift-a0b4f74ff202?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/microsoft-interview-experience-part-1-solution-in-swift-a0b4f74ff202?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Microsoft Interview Experience — Part 1 (Solution in Swift)</a></p><h4 name="a909" id="a909" class="graf graf--h4 graf-after--p graf--trailing">Next Article: <a href="/ios-expert-series-or-interview-series/microsoft-interview-experience-part-3-solution-in-swift-6cd0688bb50c?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/microsoft-interview-experience-part-3-solution-in-swift-6cd0688bb50c?source=your_stories_page---------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Microsoft Interview Experience — Part 3(Solution in Swift)</a></h4></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/3533466ef0de"><time class="dt-published" datetime="2020-03-14T09:10:17.055Z">March 14, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/microsoft-interview-experience-part-2-solution-in-swift-3533466ef0de" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

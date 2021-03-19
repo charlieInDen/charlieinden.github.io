@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Design Browser History</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Design Browser History</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or…
+</section>
+<section data-field="body" class="e-content">
+<section name="ff13" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="2327" id="2327" class="graf graf--h3 graf--leading graf--title">Design Browser History</h3><figure name="8eb8" id="8eb8" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*Rd_OIOMMMIkcAyKowO9lZw.png" data-width="888" data-height="478" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*Rd_OIOMMMIkcAyKowO9lZw.png"></figure><p name="0a3b" id="0a3b" class="graf graf--p graf-after--figure">You have a <strong class="markup--strong markup--p-strong">browser</strong> of one tab where you start on the <code class="markup--code markup--p-code">homepage</code> and you can visit another <code class="markup--code markup--p-code">url</code>, get back in the history number of <code class="markup--code markup--p-code">steps</code> or move forward in the history number of <code class="markup--code markup--p-code">steps</code>.</p><p name="e8fc" id="e8fc" class="graf graf--p graf-after--p">Implement the <code class="markup--code markup--p-code">BrowserHistory</code> class:</p><ul class="postList"><li name="2b7f" id="2b7f" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">BrowserHistory(string homepage)</code> Initializes the object with the <code class="markup--code markup--li-code">homepage</code> of the browser.</li><li name="cfc5" id="cfc5" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">void visit(string url)</code> Visits <code class="markup--code markup--li-code">url</code> from the current page. It clears up all the forward history.</li><li name="55ef" id="55ef" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">string back(int steps)</code> Move <code class="markup--code markup--li-code">steps</code> back in history. If you can only return <code class="markup--code markup--li-code">x</code> steps in the history and <code class="markup--code markup--li-code">steps &gt; x</code>, you will return only <code class="markup--code markup--li-code">x</code> steps. Return the current <code class="markup--code markup--li-code">url</code> after moving back in history <strong class="markup--strong markup--li-strong">at most</strong> <code class="markup--code markup--li-code">steps</code>.</li><li name="9e04" id="9e04" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">string forward(int steps)</code> Move <code class="markup--code markup--li-code">steps</code> forward in history. If you can only forward <code class="markup--code markup--li-code">x</code> steps in the history and <code class="markup--code markup--li-code">steps &gt; x</code>, you will forward only <code class="markup--code markup--li-code">x</code> steps. Return the current <code class="markup--code markup--li-code">url</code> after forwarding in history <strong class="markup--strong markup--li-strong">at most</strong> <code class="markup--code markup--li-code">steps</code>.</li></ul><p name="b27a" id="b27a" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Constraints:</strong></p><ul class="postList"><li name="f7a7" id="f7a7" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">1 &lt;= homepage.length &lt;= 20</code></li><li name="9c6e" id="9c6e" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">1 &lt;= url.length &lt;= 20</code></li><li name="4095" id="4095" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">1 &lt;= steps &lt;= 100</code></li><li name="e38b" id="e38b" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">homepage</code> and <code class="markup--code markup--li-code">url</code> consist of &#39;.&#39; or lower case English letters.</li><li name="0cf8" id="0cf8" class="graf graf--li graf-after--li">At most <code class="markup--code markup--li-code">5000</code> calls will be made to <code class="markup--code markup--li-code">visit</code>, <code class="markup--code markup--li-code">back</code>, and <code class="markup--code markup--li-code">forward</code>.</li></ul><p name="b0cb" id="b0cb" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/design-browser-history/" data-href="https://leetcode.com/problems/design-browser-history/" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/design-browser-history/</strong></a></p><h4 name="e3c3" id="e3c3" class="graf graf--h4 graf-after--p">Solution</h4><p name="c0e5" id="c0e5" class="graf graf--p graf-after--h4">Using dynamic array</p><figure name="b681" id="b681" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/51badf86f2fbd8b0b42dd32f5e5b235c.js.js"></script></figure><p name="7ba4" id="7ba4" class="graf graf--p graf-after--figure">Time: <code class="markup--code markup--p-code">O(1)</code> for each method<br>Space: <code class="markup--code markup--p-code">O(N)</code>, where N is the most URLs we save</p><h4 name="794b" id="794b" class="graf graf--h4 graf-after--p">Next: <a href="https://medium.com/ios-expert-series-or-interview-series/design-in-memory-file-system-2715304ecb56?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-in-memory-file-system-2715304ecb56?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design In-Memory File System</a></h4><h4 name="16fe" id="16fe" class="graf graf--h4 graf-after--h4 graf--trailing">More: <a href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design Interview Questions</a></h4></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/6940c1765c2f"><time class="dt-published" datetime="2020-09-30T12:50:46.674Z">September 30, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/design-browser-history-6940c1765c2f" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

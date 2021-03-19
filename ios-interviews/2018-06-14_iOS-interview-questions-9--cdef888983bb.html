@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS interview questions(9)</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">iOS interview questions(9)</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Fast Enumerations, Toll-Free Bridging ,Frame vs bounds in iOS, Uses of _bridge, _bridge_retained, _bridge_transfer, UIView and CALayer
+</section>
+<section data-field="description" class="p-summary">
+This time I am going to cover some must know things about iOS and in general and covering generics, LRU Cache in next post. Fast enumeration is the preferred method of enumerating the contents of a…
+</section>
+<section data-field="body" class="e-content">
+<section name="d579" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="f449" id="f449" class="graf graf--h3 graf--leading graf--title">iOS 2018 Series: Cracking iOS interview or Become iOS expert (9)</h3><p name="5ccb" id="5ccb" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Fast Enumerations, Toll-Free Bridging &amp; Must know iOS Basics</strong></p><p name="1686" id="1686" class="graf graf--p graf-after--p">This time I am going to cover some must know things about iOS and in general and covering generics, LRU Cache in next post.</p><h3 name="52d7" id="52d7" class="graf graf--h3 graf-after--p">Fast Enumeration</h3><p name="665b" id="665b" class="graf graf--p graf-after--h3">Fast enumeration is the preferred method of enumerating the contents of a collection because it provides the following benefits:</p><ul class="postList"><li name="3802" id="3802" class="graf graf--li graf-after--p">The enumeration is more efficient than using <code class="markup--code markup--li-code">NSEnumerator</code> directly.</li><li name="3733" id="3733" class="graf graf--li graf-after--li">The syntax is concise.</li><li name="f3bd" id="f3bd" class="graf graf--li graf-after--li">The enumerator raises an exception if you modify the collection while enumerating.</li><li name="5cc8" id="5cc8" class="graf graf--li graf-after--li">You can perform multiple enumerations concurrently.</li></ul><h3 name="47ea" id="47ea" class="graf graf--h3 graf-after--li">Toll-Free Bridging</h3><p name="2dbe" id="2dbe" class="graf graf--p graf-after--h3">There are a number of data types in the Core Foundation framework and the Foundation framework that can be used interchangeably. This capability, called <em class="markup--em markup--p-em">toll-free bridging</em>, means that you can use the same data type as the parameter to a Core Foundation function call or as the receiver of an Objective-C message. <strong class="markup--strong markup--p-strong">ex:</strong> NSArray and CFArrayRef can be used interchangeably between Core Foundation and Foundation</p><p name="55ce" id="55ce" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Core Foundation type </strong><code class="markup--code markup--p-code">CFArrayRef</code></p><p name="9687" id="9687" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Foundation class </strong><code class="markup--code markup--p-code">NSArray</code></p><p name="88ff" id="88ff" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Explain the proper uses of (__bridge), (__bridge_retained) and (__bridge_transfer) casts.</strong></p><p name="82ef" id="82ef" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">(__bridge T) op</code> casts the operand to the destination type T. If T is a retainable object pointer type, then op must have a non-retainable pointer type. If T is a non-retainable pointer type, then op must have a retainable object pointer type. Otherwise the cast is ill-formed. There is no transfer of ownership, and ARC inserts no retain operations.</p><p name="cd82" id="cd82" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">(__bridge_retained T) op</code> casts the operand, which must have retainable object pointer type, to the destination type, which must be a non-retainable pointer type. ARC retains the value, subject to the usual optimizations on local values, and the recipient is responsible for balancing that +1.</p><p name="862a" id="862a" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">(__bridge_transfer T) op</code> casts the operand, which must have non-retainable pointer type, to the destination type, which must be a retainable object pointer type. ARC will release the value at the end of the enclosing full-expression, subject to the usual optimizations on local values.</p><p name="c7e1" id="c7e1" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Why Does the App crashes on Low Device Memory?</strong></p><p name="2987" id="2987" class="graf graf--p graf-after--p">iOS Devices Use virtual memory with Paging . As it is a Mobile device and there is no Extensible memory or pretty large Memory available (Like Hard drives) , so the availability of the pages is limited by various factors such as the number of applications open , Allocations by different applications , etc. Moreover , some on-board applications will always keep using some pages even when they are in dormant state such as safari , i-tunes , messaging etc. So , essentially with number of application active , the number of pages your application can use gets diminished further.</p><p name="cc19" id="cc19" class="graf graf--p graf-after--p">So , your application will crash in cases when the rate of allocation by your application is exceeding the rate at which pages are being freed by other Applications.</p><p name="e932" id="e932" class="graf graf--p graf-after--p">OS only frees up read-only data from the memory while writable data is not freed-up .When the writable data crosses a certain threshold , the OS asks the application to free memory. Unable to free the memory leads to the crash.</p><p name="4930" id="4930" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Explain the relationship between a UIView and a CALayer</strong></p><p name="74e6" id="74e6" class="graf graf--p graf-after--p">Despite what many developers think, it’s the CALayer that’s the fundamental drawing unit in iOS. The reason why we perceive UIView as such is because it’s a thin layer on top of CALayer and for most UI challenges using some form of UIView works just fine. You can create custom views, draw into them, handle user interactions, and even animate them without ever having to touch CALayer.</p><p name="0566" id="0566" class="graf graf--p graf-after--p">Every UIView comes packaged with a CALayer knows as the “backing layer” or “underlying layer.” Many of the methods you call on UIView simply delegate to the layer. When you change a view’s frame, it’s simply changing the layer’s frame. If you change the alpha, it changes the layer’s alpha…and so on with background colors, transformations and more. And while you can maintain a hierarchy of UIViews each representing parents and children of one another, you can do the same with CALayer.</p><p name="fe5d" id="fe5d" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Should I use subviews or sublayers?</strong></p><p name="09cc" id="09cc" class="graf graf--p graf-after--p">This isn’t a simple question, but there’s one rule of thumb that make deciding a lot easier. The main different between a view and a layer is that views can accept user input while a layer cannot. A layer is simply a graphical representation. Views can handle user taps, drags, pinches, etc. To me, this is all you need to know.</p><p name="344b" id="344b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">conformsToProtocol vs respondsToSelector</strong></p><p name="ef7f" id="ef7f" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">conformsToProtocol</code> method let you check is your object implement specific protocol. It doesn&#39;t tell you has it contains the method this protocol defines (some of the method can be optional).</p><p name="a79b" id="a79b" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">respondsToSelector</code> check is your object has a specific method (the method doesn&#39;t need to be defined in any protocol) it can be method defined in class.</p><p name="f17d" id="f17d" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Responder Chain and First Responder</strong></p><p name="6d88" id="6d88" class="graf graf--p graf-after--p">A ResponderChain is a hierarchy of objects that have the opportunity to respond to events received.</p><p name="2b9b" id="2b9b" class="graf graf--p graf-after--p">The first object in the ResponderChain is called the FirstResponder.</p><p name="5f96" id="5f96" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Whats the difference between frame and bounds?</strong></p><p name="0449" id="0449" class="graf graf--p graf-after--p">The <strong class="markup--strong markup--p-strong">bounds</strong> of an UIView is the rectangle, expressed as a location (x,y) and size (width,height) <strong class="markup--strong markup--p-strong">relative to its own coordinate system (0,0)</strong>.</p><p name="5129" id="5129" class="graf graf--p graf-after--p">The <strong class="markup--strong markup--p-strong">frame</strong> of an UIView is the rectangle, expressed as a location (x,y) and size (width,height) <strong class="markup--strong markup--p-strong">relative to the superview</strong> it is contained within.</p><figure name="81cf" id="81cf" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*jchhdQ3spKdbU_3ZI6EHlA.png" data-width="1334" data-height="750" src="https://cdn-images-1.medium.com/max/800/1*jchhdQ3spKdbU_3ZI6EHlA.png"></figure><p name="7381" id="7381" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Shallow copying vs deep copy.</strong></p><p name="eb33" id="eb33" class="graf graf--p graf-after--p">Copies of objects can be shallow or deep. Both shallow- and deep-copy approaches directly duplicate scalar properties but differ on how they handle pointer references, particularly references to objects (for example, NSString *str). A deep copy duplicates the objects referenced while a shallow copy duplicates only the references to those objects. So if object A is shallow-copied to object B, object B refers to the same instance variable (or property) that object A refers to. Deep-copying objects is preferred to shallow-copying, especially with value objects.</p><p name="980c" id="980c" class="graf graf--p graf-after--p">Shallow is “by Reference”, Deep is “by Value”</p><figure name="c0e8" id="c0e8" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*vGc8ZFVama5Mrdon.jpg" data-width="320" data-height="103" src="https://cdn-images-1.medium.com/max/800/0*vGc8ZFVama5Mrdon.jpg"></figure><p name="a5a5" id="a5a5" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">__unsafe_unretained</strong> is just like __weak but the pointer is not set to nil when the object is deallocated. Instead the pointer is left dangling.</p><p name="1c33" id="1c33" class="graf graf--p graf-after--p graf--trailing">Hope you like this article. Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/cdef888983bb"><time class="dt-published" datetime="2018-06-14T01:31:51.910Z">June 14, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/ios-interview-questions-9-cdef888983bb" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Design In-Memory File System</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Design In-Memory File System</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Design an in-memory file system to simulate the following functions:
+</section>
+<section data-field="body" class="e-content">
+<section name="a090" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0638" id="0638" class="graf graf--h3 graf--leading graf--title">Design In-Memory File System</h3><p name="41c1" id="41c1" class="graf graf--p graf-after--h3">Design an in-memory file system to simulate the following functions:</p><p name="81ce" id="81ce" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">ls</code>: Given a path in string format. If it is a file path, return a list that only contains this file&#39;s name. If it is a directory path, return the list of file and directory names <strong class="markup--strong markup--p-strong">in this directory</strong>. Your output (file and directory names together) should in <strong class="markup--strong markup--p-strong">lexicographic order</strong>.</p><p name="aa0d" id="aa0d" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">mkdir</code>: Given a <strong class="markup--strong markup--p-strong">directory path</strong> that does not exist, you should make a new directory according to the path. If the middle directories in the path don&#39;t exist either, you should create them as well. This function has void return type.</p><p name="69cf" id="69cf" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">addContentToFile</code>: Given a <strong class="markup--strong markup--p-strong">file path</strong> and <strong class="markup--strong markup--p-strong">file content</strong> in string format. If the file doesn&#39;t exist, you need to create that file containing given content. If the file already exists, you need to <strong class="markup--strong markup--p-strong">append</strong> given content to original content. This function has void return type.</p><p name="73d9" id="73d9" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">readContentFromFile</code>: Given a <strong class="markup--strong markup--p-strong">file path</strong>, return its <strong class="markup--strong markup--p-strong">content</strong> in string format.</p><p name="ad08" id="ad08" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note:</strong></p><ol class="postList"><li name="af74" id="af74" class="graf graf--li graf-after--p">You can assume all file or directory paths are absolute paths which begin with <code class="markup--code markup--li-code">/</code> and do not end with <code class="markup--code markup--li-code">/</code> except that the path is just <code class="markup--code markup--li-code">&quot;/&quot;</code>.</li><li name="0e82" id="0e82" class="graf graf--li graf-after--li">You can assume that all operations will be passed valid parameters and users will not attempt to retrieve file content or list a directory or file that does not exist.</li><li name="2d2b" id="2d2b" class="graf graf--li graf-after--li">You can assume that all directory names and file names only contain lower-case letters, and same names won’t exist in the same directory.</li></ol><p name="2cbf" id="2cbf" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/design-in-memory-file-system/" data-href="https://leetcode.com/problems/design-in-memory-file-system/" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/design-in-memory-file-system/</strong></a></p><h4 name="1c04" id="1c04" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Solution</strong></h4><figure name="4e41" id="4e41" class="graf graf--figure graf--iframe graf-after--h4"><script src="https://gist.github.com/charlieInDen/901b3c57452107a8fdba9ccc5f1c5628.js.js"></script></figure><h4 name="7569" id="7569" class="graf graf--h4 graf-after--figure">Next: <a href="https://medium.com/ios-expert-series-or-interview-series/design-tic-tac-toe-56ef6b2e4c20?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-tic-tac-toe-56ef6b2e4c20?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design Tic-Tac-Toe</a></h4><h4 name="4269" id="4269" class="graf graf--h4 graf-after--h4">Previous: <a href="https://medium.com/ios-expert-series-or-interview-series/design-browser-history-6940c1765c2f?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-browser-history-6940c1765c2f?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design Browser History</a></h4><h4 name="d783" id="d783" class="graf graf--h4 graf-after--h4 graf--trailing">More: <a href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design Interview Questions</a></h4></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/2715304ecb56"><time class="dt-published" datetime="2020-10-06T03:03:41.114Z">October 6, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/design-in-memory-file-system-2715304ecb56" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
