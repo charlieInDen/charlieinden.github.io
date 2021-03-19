@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Introduction to CallKit</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Introduction to CallKit</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,461 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Introduction to CallKit</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-CallKit iOS, Audio call support in iOS app, Video Call support in iOS app
-</section>
-<section data-field="body" class="e-content">
-<section name="b7f6" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="41b7" id="41b7" class="graf graf--h3 graf--leading graf--title">Introduction to CallKit</h3><p name="f0e3" id="f0e3" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">CallKit iOS, Audio call support in iOS app, Video Call support in iOS app</strong></p><p name="7887" id="7887" class="graf graf--p graf-after--p">In this blog, i am focusing only on CallKit framework, in next blog i will be covering Intent extension and PushKit framework. Lets start!</p><p name="aed7" id="aed7" class="graf graf--p graf-after--p">Life on iOS wasn’t always perfect for VoIP app developers.Luckily, Apple introduced CallKit in iOS 10 to change all that!</p><p name="ca4b" id="ca4b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">How do VoIP apps work today?</strong></p><figure name="a207" id="a207" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*57NIuUy3wobewpwv8f5XJw.jpeg" data-width="740" data-height="468" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*57NIuUy3wobewpwv8f5XJw.jpeg"></figure><h3 name="62d0" id="62d0" class="graf graf--h3 graf-after--figure">Overview</h3><p name="cb1f" id="cb1f" class="graf graf--p graf-after--h3">CallKit lets you integrates system services(Bluetooth, Siri, Face time, Phone App) with your VoIP Service. It provides the calling interface of phone app and your VoIP Service need to take care of back-end communication.<br>For incoming and outgoing calls, CallKit displays the same interfaces as the Phone app, giving your app a more native look and feel.<br>CallKit lets you responds appropriately to system-level behaviors such as Do Not Disturb, Low network connectivity.</p><p name="e58e" id="e58e" class="graf graf--p graf-after--p">In addition to handling calls, you can provide a Call Directory app extension to provide caller ID information and a list of blocked numbers associated with your service.</p><h3 name="955e" id="955e" class="graf graf--h3 graf-after--p">Basic CallKit Concepts</h3><p name="cae7" id="cae7" class="graf graf--p graf-after--h3">Now that you know what <code class="markup--code markup--p-code">CallKit</code> is all about, let’s take a closer look at a few fundamental concepts you’ll need in order to understand and make use of it.</p><ul class="postList"><li name="5953" id="5953" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">CXProvider </strong>Create single instance of CXProvider and use throughout your VoIP app, its object is responsible for reporting out-of-band notifications that occur to the system.Initialize a new provider instance with the supplied configuration.</li></ul><pre name="f90d" id="f90d" class="graf graf--pre graf-after--li">let provider: <strong class="markup--strong markup--pre-strong">CXProvider</strong> = <strong class="markup--strong markup--pre-strong">CXProvider</strong>(configuration: type(of: self).<strong class="markup--strong markup--pre-strong">providerConfiguration</strong>)</pre><ul class="postList"><li name="7789" id="7789" class="graf graf--li graf-after--pre"><strong class="markup--strong markup--li-strong">CXProviderConfiguration </strong>The app’s provider configuration, representing its CallKit capabilities, you can configure below properties:<br>- Localized name of the provider, ex: Name of application<br>- <strong class="markup--strong markup--li-strong">ringtoneSound</strong>, Name of resource in app’s bundle to play as ringtone for incoming call, ex: “MyRingtone.aif”<br>- <strong class="markup--strong markup--li-strong">MaximumCallGroups</strong> , Default is 2<br>- <strong class="markup--strong markup--li-strong">MaximumCallsPerCallGroup</strong>, Default is 5<br>- Whether this provider’s calls should be included in the system’s Recents list at the end of each call (<strong class="markup--strong markup--li-strong">includesCallsInRecents</strong>).<br>- <strong class="markup--strong markup--li-strong">SupportsVideo</strong>, whether VoIP service supports video or not, Default isNO<br>- <strong class="markup--strong markup--li-strong">SupportedHandleTypes</strong> (CXHandleType), ex: supportedHandleTypes = [.phoneNumber]</li></ul><pre name="827a" id="827a" class="graf graf--pre graf-after--li"><br>static var providerConfiguration: <strong class="markup--strong markup--pre-strong">CXProviderConfiguration</strong> {</pre><pre name="e39a" id="e39a" class="graf graf--pre graf-after--pre">let localizedName = NSLocalizedString(“APPLICATION_NAME”, comment: “Name of application”)</pre><pre name="fe8b" id="fe8b" class="graf graf--pre graf-after--pre">let providerConfiguration = CXProviderConfiguration(localizedName: localizedName)<br>providerConfiguration.supportsVideo = true<br>providerConfiguration.maximumCallsPerCallGroup = 1<br>providerConfiguration.supportedHandleTypes = [.phoneNumber]<br>if let iconMaskImage = UIImage(named: “myMask”) {<br>   providerConfiguration.iconTemplateImageData =  UIImagePNGRepresentation(iconMaskImage) <br>}<br>providerConfiguration.ringtoneSound = “Ringtone.aif”<br>return providerConfiguration<br>}</pre><ul class="postList"><li name="25c7" id="25c7" class="graf graf--li graf-after--pre"><strong class="markup--strong markup--li-strong">CXProviderDelegate </strong>protocol defines a set of methods that are called by an object that represents a telephony provider when the provider begins or resets, a transaction is requested, an action is performed, or an audio session changes its activation state. let’s take a closer look :<br>- <strong class="markup--strong markup--li-strong">Handling provider events</strong>, Called when the provider begins or provider is reset.<br>- <strong class="markup--strong markup--li-strong">Determining the executions of transactions</strong>,Called when a transaction is executed by a call controller.<br>- <strong class="markup--strong markup--li-strong">Handling call actions</strong>, Called when the provider performs the <em class="markup--em markup--li-em">specified start/answer/end/hold/muted/group/DTMF (dual tone multifrequency) call action</em><br>- <strong class="markup--strong markup--li-strong">Handling changes to audio session activation state</strong>, called when the provider’s audio session is activated/deactivated.</li></ul><figure name="6366" id="6366" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*kx0ZdGfl4yuJGclcowja4g.png" data-width="1288" data-height="993" src="https://cdn-images-1.medium.com/max/800/1*kx0ZdGfl4yuJGclcowja4g.png"><figcaption class="imageCaption">CXProviderDelegate callback functions</figcaption></figure><h3 name="0c49" id="0c49" class="graf graf--h3 graf-after--figure">Incoming Calls</h3><p name="5472" id="5472" class="graf graf--p graf-after--h3">When a PushKit notification indicates an incoming call, you generate an appropriate action. CallKit handles the action by presenting the system interface for answering the call.</p><p name="0dd7" id="0dd7" class="graf graf--p graf-after--p">When an incoming call is allowed by the system and approved by the user, the provider sends <code class="markup--code markup--p-code">provider(_:perform:)</code> to its delegate (as mentioned above in this blog). The provider’s delegate calls the <code class="markup--code markup--p-code">fulfill()</code>method to indicate that the action was successfully performed. To indicate that the call connected at a time other than the current time, you can instead call the <code class="markup--code markup--p-code">fulfill(withDateConnected:)</code>.</p><pre name="cc24" id="cc24" class="graf graf--pre graf-after--p">//local function which reportNewIncomingCall function of CXProvider class to report it to the system</pre><pre name="93d7" id="93d7" class="graf graf--pre graf-after--pre">func <strong class="markup--strong markup--pre-strong">reportIncomingCall</strong>(uuid: UUID, handle: String, hasVideo: Bool = false, completion: ((Error?) -&gt; Void)? = nil)</pre><pre name="75ec" id="75ec" class="graf graf--pre graf-after--pre">//Signal to the system that the action has been successfully performed.In delegate callbacks like below</pre><pre name="ca5e" id="ca5e" class="graf graf--pre graf-after--pre">action.<strong class="markup--strong markup--pre-strong">fulfill</strong>()</pre><p name="413e" id="413e" class="graf graf--p graf-after--pre">In your local <strong class="markup--strong markup--p-strong">reportIncomingCall function, </strong>Construct a CXCallUpdate describing the incoming call, including the caller.<br><code class="markup--code markup--p-code">CXCallUpdate</code> objects are used by the system to communicate changes to calls over time.</p><pre name="b8bb" id="b8bb" class="graf graf--pre graf-after--p">let update = <strong class="markup--strong markup--pre-strong">CXCallUpdate</strong>()<br>update.remoteHandle = CXHandle(type: .phoneNumber, value: handle)<br>update.hasVideo = hasVideo</pre><p name="814c" id="814c" class="graf graf--p graf-after--pre">Report the incoming call to the system</p><pre name="5751" id="5751" class="graf graf--pre graf-after--p">provider.<strong class="markup--strong markup--pre-strong">reportNewIncomingCall</strong>(with: uuid, update: update) { error in</pre><pre name="3239" id="3239" class="graf graf--pre graf-after--pre">}</pre><p name="926b" id="926b" class="graf graf--p graf-after--pre">Only add incoming call to the app’s list of calls if the call was allowed (i.e. there was no error), Since calls may be “denied” for various legitimate reasons. See CXErrorCodeIncomingCallError for more detail.</p><h3 name="20ee" id="20ee" class="graf graf--h3 graf-after--p">Outgoing Calls</h3><p name="1d06" id="1d06" class="graf graf--p graf-after--h3">Start outgoing calls with a call controller, and handle subsequent interactions with your provider delegate.</p><p name="1ed0" id="1ed0" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">CXCallController </strong>objects interact with call by performing actions.You can request that one or more actions be performed in a single <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/callkit/cxtransaction" data-href="https://developer.apple.com/documentation/callkit/cxtransaction" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">CXTransaction</a></code> object using the <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/callkit/cxcallcontroller/1648116-request" data-href="https://developer.apple.com/documentation/callkit/cxcallcontroller/1648116-request" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">request(_:completion:)</a></code> method.</p><p name="1ef9" id="1ef9" class="graf graf--p graf-after--p">Call activity may come from phone app or from any other system services, We need to provide interface such that our app can handle that events.</p><figure name="de31" id="de31" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*k3xOIfY1VK_cNq_wfgYhxA.png" data-width="967" data-height="666" src="https://cdn-images-1.medium.com/max/800/1*k3xOIfY1VK_cNq_wfgYhxA.png"><figcaption class="imageCaption">openUrl and continueUserActivity functions</figcaption></figure><p name="5fee" id="5fee" class="graf graf--p graf-after--figure">These above functions need to override for providing the start call interface to system services.<br>When the telephony provider receives an incoming call or the user starts an outgoing call, the other caller is identified by a <code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">CXHandle</strong></code> object. For a caller identified by a phone number, the handle type is <code class="markup--code markup--p-code">CXHandle.HandleType.phoneNumber</code> and the value is a sequence of digits. For a caller identified by an email address, the handle type is <code class="markup--code markup--p-code">CXHandle.HandleType.emailAddress</code> and the value is an email address. For a caller identified in any other way, the handle type is <code class="markup--code markup--p-code">CXHandle.HandleType.generic</code> and the value typically follows some domain-specific format, such as a username, numeric ID, or URL.</p><figure name="4e2b" id="4e2b" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*hm8GIZ2pqQpVcaP34yiJ5A.png" data-width="869" data-height="289" src="https://cdn-images-1.medium.com/max/800/1*hm8GIZ2pqQpVcaP34yiJ5A.png"></figure><p name="7e55" id="7e55" class="graf graf--p graf-after--figure"><code class="markup--code markup--p-code">CXStartCallAction</code> is a concrete subclass of <code class="markup--code markup--p-code">CXCallAction</code>. When the user initiates an outgoing call, the provider sends <code class="markup--code markup--p-code">provider(_:perform:)</code> to its delegate. The provider’s delegate calls the <code class="markup--code markup--p-code">fulfill()</code> method to indicate that the action was successfully performed.</p><p name="8d02" id="8d02" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">CXTransaction</strong> An object that contains zero or more action objects to be performed by a call controller. it addAction such as CXStartCallAction<strong class="markup--strong markup--p-strong"> </strong>,CXEndCallAction, CXSetHeldCallAction.</p><p name="12fe" id="12fe" class="graf graf--p graf-after--p">Hope you like this article, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="6dd1" id="6dd1" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References:</strong></p><ol class="postList"><li name="c0de" id="c0de" class="graf graf--li graf-after--p graf--trailing"><a href="https://developer.apple.com/documentation/callkit" data-href="https://developer.apple.com/documentation/callkit" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/callkit</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/9de5e5f76a65"><time class="dt-published" datetime="2018-06-27T11:03:19.361Z">June 27, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/introduction-to-callkit-9de5e5f76a65" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Introduction to CallKit</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        CallKit iOS, Audio call support in iOS app, Video Call support in iOS
+        app
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="b7f6"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="41b7"
+                id="41b7"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Introduction to CallKit
+              </h3>
+              <p name="f0e3" id="f0e3" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >CallKit iOS, Audio call support in iOS app, Video Call
+                  support in iOS app</strong
+                >
+              </p>
+              <p name="7887" id="7887" class="graf graf--p graf-after--p">
+                In this blog, i am focusing only on CallKit framework, in next
+                blog i will be covering Intent extension and PushKit framework.
+                Lets start!
+              </p>
+              <p name="aed7" id="aed7" class="graf graf--p graf-after--p">
+                Life on iOS wasn’t always perfect for VoIP app
+                developers.Luckily, Apple introduced CallKit in iOS 10 to change
+                all that!
+              </p>
+              <p name="ca4b" id="ca4b" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >How do VoIP apps work today?</strong
+                >
+              </p>
+              <figure
+                name="a207"
+                id="a207"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*57NIuUy3wobewpwv8f5XJw.jpeg"
+                  data-width="740"
+                  data-height="468"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*57NIuUy3wobewpwv8f5XJw.jpeg"
+                />
+              </figure>
+              <h3
+                name="62d0"
+                id="62d0"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Overview
+              </h3>
+              <p name="cb1f" id="cb1f" class="graf graf--p graf-after--h3">
+                CallKit lets you integrates system services(Bluetooth, Siri,
+                Face time, Phone App) with your VoIP Service. It provides the
+                calling interface of phone app and your VoIP Service need to
+                take care of back-end communication.<br />For incoming and
+                outgoing calls, CallKit displays the same interfaces as the
+                Phone app, giving your app a more native look and feel.<br />CallKit
+                lets you responds appropriately to system-level behaviors such
+                as Do Not Disturb, Low network connectivity.
+              </p>
+              <p name="e58e" id="e58e" class="graf graf--p graf-after--p">
+                In addition to handling calls, you can provide a Call Directory
+                app extension to provide caller ID information and a list of
+                blocked numbers associated with your service.
+              </p>
+              <h3 name="955e" id="955e" class="graf graf--h3 graf-after--p">
+                Basic CallKit Concepts
+              </h3>
+              <p name="cae7" id="cae7" class="graf graf--p graf-after--h3">
+                Now that you know what
+                <code class="markup--code markup--p-code">CallKit</code> is all
+                about, let’s take a closer look at a few fundamental concepts
+                you’ll need in order to understand and make use of it.
+              </p>
+              <ul class="postList">
+                <li name="5953" id="5953" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >CXProvider </strong
+                  >Create single instance of CXProvider and use throughout your
+                  VoIP app, its object is responsible for reporting out-of-band
+                  notifications that occur to the system.Initialize a new
+                  provider instance with the supplied configuration.
+                </li>
+              </ul>
+              <pre
+                name="f90d"
+                id="f90d"
+                class="graf graf--pre graf-after--li"
+              >let provider: <strong class="markup--strong markup--pre-strong">CXProvider</strong> = <strong class="markup--strong markup--pre-strong">CXProvider</strong>(configuration: type(of: self).<strong class="markup--strong markup--pre-strong">providerConfiguration</strong>)</pre>
+              <ul class="postList">
+                <li name="7789" id="7789" class="graf graf--li graf-after--pre">
+                  <strong class="markup--strong markup--li-strong"
+                    >CXProviderConfiguration </strong
+                  >The app’s provider configuration, representing its CallKit
+                  capabilities, you can configure below properties:<br />-
+                  Localized name of the provider, ex: Name of application<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >ringtoneSound</strong
+                  >, Name of resource in app’s bundle to play as ringtone for
+                  incoming call, ex: “MyRingtone.aif”<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >MaximumCallGroups</strong
+                  >
+                  , Default is 2<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >MaximumCallsPerCallGroup</strong
+                  >, Default is 5<br />- Whether this provider’s calls should be
+                  included in the system’s Recents list at the end of each call
+                  (<strong class="markup--strong markup--li-strong"
+                    >includesCallsInRecents</strong
+                  >).<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >SupportsVideo</strong
+                  >, whether VoIP service supports video or not, Default isNO<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >SupportedHandleTypes</strong
+                  >
+                  (CXHandleType), ex: supportedHandleTypes = [.phoneNumber]
+                </li>
+              </ul>
+              <pre
+                name="827a"
+                id="827a"
+                class="graf graf--pre graf-after--li"
+              ><br>static var providerConfiguration: <strong class="markup--strong markup--pre-strong">CXProviderConfiguration</strong> {</pre>
+              <pre name="e39a" id="e39a" class="graf graf--pre graf-after--pre">
+let localizedName = NSLocalizedString(“APPLICATION_NAME”, comment: “Name of application”)</pre
+              >
+              <pre
+                name="fe8b"
+                id="fe8b"
+                class="graf graf--pre graf-after--pre"
+              >let providerConfiguration = CXProviderConfiguration(localizedName: localizedName)<br>providerConfiguration.supportsVideo = true<br>providerConfiguration.maximumCallsPerCallGroup = 1<br>providerConfiguration.supportedHandleTypes = [.phoneNumber]<br>if let iconMaskImage = UIImage(named: “myMask”) {<br>   providerConfiguration.iconTemplateImageData =  UIImagePNGRepresentation(iconMaskImage) <br>}<br>providerConfiguration.ringtoneSound = “Ringtone.aif”<br>return providerConfiguration<br>}</pre>
+              <ul class="postList">
+                <li name="25c7" id="25c7" class="graf graf--li graf-after--pre">
+                  <strong class="markup--strong markup--li-strong"
+                    >CXProviderDelegate </strong
+                  >protocol defines a set of methods that are called by an
+                  object that represents a telephony provider when the provider
+                  begins or resets, a transaction is requested, an action is
+                  performed, or an audio session changes its activation state.
+                  let’s take a closer look :<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >Handling provider events</strong
+                  >, Called when the provider begins or provider is reset.<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >Determining the executions of transactions</strong
+                  >,Called when a transaction is executed by a call
+                  controller.<br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >Handling call actions</strong
+                  >, Called when the provider performs the
+                  <em class="markup--em markup--li-em"
+                    >specified start/answer/end/hold/muted/group/DTMF (dual tone
+                    multifrequency) call action</em
+                  ><br />-
+                  <strong class="markup--strong markup--li-strong"
+                    >Handling changes to audio session activation state</strong
+                  >, called when the provider’s audio session is
+                  activated/deactivated.
+                </li>
+              </ul>
+              <figure
+                name="6366"
+                id="6366"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*kx0ZdGfl4yuJGclcowja4g.png"
+                  data-width="1288"
+                  data-height="993"
+                  src="https://cdn-images-1.medium.com/max/800/1*kx0ZdGfl4yuJGclcowja4g.png"
+                />
+                <figcaption class="imageCaption">
+                  CXProviderDelegate callback functions
+                </figcaption>
+              </figure>
+              <h3
+                name="0c49"
+                id="0c49"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Incoming Calls
+              </h3>
+              <p name="5472" id="5472" class="graf graf--p graf-after--h3">
+                When a PushKit notification indicates an incoming call, you
+                generate an appropriate action. CallKit handles the action by
+                presenting the system interface for answering the call.
+              </p>
+              <p name="0dd7" id="0dd7" class="graf graf--p graf-after--p">
+                When an incoming call is allowed by the system and approved by
+                the user, the provider sends
+                <code class="markup--code markup--p-code"
+                  >provider(_:perform:)</code
+                >
+                to its delegate (as mentioned above in this blog). The
+                provider’s delegate calls the
+                <code class="markup--code markup--p-code">fulfill()</code>method
+                to indicate that the action was successfully performed. To
+                indicate that the call connected at a time other than the
+                current time, you can instead call the
+                <code class="markup--code markup--p-code"
+                  >fulfill(withDateConnected:)</code
+                >.
+              </p>
+              <pre name="cc24" id="cc24" class="graf graf--pre graf-after--p">
+//local function which reportNewIncomingCall function of CXProvider class to report it to the system</pre
+              >
+              <pre
+                name="93d7"
+                id="93d7"
+                class="graf graf--pre graf-after--pre"
+              >func <strong class="markup--strong markup--pre-strong">reportIncomingCall</strong>(uuid: UUID, handle: String, hasVideo: Bool = false, completion: ((Error?) -&gt; Void)? = nil)</pre>
+              <pre name="75ec" id="75ec" class="graf graf--pre graf-after--pre">
+//Signal to the system that the action has been successfully performed.In delegate callbacks like below</pre
+              >
+              <pre
+                name="ca5e"
+                id="ca5e"
+                class="graf graf--pre graf-after--pre"
+              >action.<strong class="markup--strong markup--pre-strong">fulfill</strong>()</pre>
+              <p name="413e" id="413e" class="graf graf--p graf-after--pre">
+                In your local
+                <strong class="markup--strong markup--p-strong"
+                  >reportIncomingCall function, </strong
+                >Construct a CXCallUpdate describing the incoming call,
+                including the caller.<br /><code
+                  class="markup--code markup--p-code"
+                  >CXCallUpdate</code
+                >
+                objects are used by the system to communicate changes to calls
+                over time.
+              </p>
+              <pre
+                name="b8bb"
+                id="b8bb"
+                class="graf graf--pre graf-after--p"
+              >let update = <strong class="markup--strong markup--pre-strong">CXCallUpdate</strong>()<br>update.remoteHandle = CXHandle(type: .phoneNumber, value: handle)<br>update.hasVideo = hasVideo</pre>
+              <p name="814c" id="814c" class="graf graf--p graf-after--pre">
+                Report the incoming call to the system
+              </p>
+              <pre
+                name="5751"
+                id="5751"
+                class="graf graf--pre graf-after--p"
+              >provider.<strong class="markup--strong markup--pre-strong">reportNewIncomingCall</strong>(with: uuid, update: update) { error in</pre>
+              <pre name="3239" id="3239" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <p name="926b" id="926b" class="graf graf--p graf-after--pre">
+                Only add incoming call to the app’s list of calls if the call
+                was allowed (i.e. there was no error), Since calls may be
+                “denied” for various legitimate reasons. See
+                CXErrorCodeIncomingCallError for more detail.
+              </p>
+              <h3 name="20ee" id="20ee" class="graf graf--h3 graf-after--p">
+                Outgoing Calls
+              </h3>
+              <p name="1d06" id="1d06" class="graf graf--p graf-after--h3">
+                Start outgoing calls with a call controller, and handle
+                subsequent interactions with your provider delegate.
+              </p>
+              <p name="1ed0" id="1ed0" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >CXCallController </strong
+                >objects interact with call by performing actions.You can
+                request that one or more actions be performed in a single
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/callkit/cxtransaction"
+                    data-href="https://developer.apple.com/documentation/callkit/cxtransaction"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >CXTransaction</a
+                  ></code
+                >
+                object using the
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/callkit/cxcallcontroller/1648116-request"
+                    data-href="https://developer.apple.com/documentation/callkit/cxcallcontroller/1648116-request"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >request(_:completion:)</a
+                  ></code
+                >
+                method.
+              </p>
+              <p name="1ef9" id="1ef9" class="graf graf--p graf-after--p">
+                Call activity may come from phone app or from any other system
+                services, We need to provide interface such that our app can
+                handle that events.
+              </p>
+              <figure
+                name="de31"
+                id="de31"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*k3xOIfY1VK_cNq_wfgYhxA.png"
+                  data-width="967"
+                  data-height="666"
+                  src="https://cdn-images-1.medium.com/max/800/1*k3xOIfY1VK_cNq_wfgYhxA.png"
+                />
+                <figcaption class="imageCaption">
+                  openUrl and continueUserActivity functions
+                </figcaption>
+              </figure>
+              <p name="5fee" id="5fee" class="graf graf--p graf-after--figure">
+                These above functions need to override for providing the start
+                call interface to system services.<br />When the telephony
+                provider receives an incoming call or the user starts an
+                outgoing call, the other caller is identified by a
+                <code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >CXHandle</strong
+                  ></code
+                >
+                object. For a caller identified by a phone number, the handle
+                type is
+                <code class="markup--code markup--p-code"
+                  >CXHandle.HandleType.phoneNumber</code
+                >
+                and the value is a sequence of digits. For a caller identified
+                by an email address, the handle type is
+                <code class="markup--code markup--p-code"
+                  >CXHandle.HandleType.emailAddress</code
+                >
+                and the value is an email address. For a caller identified in
+                any other way, the handle type is
+                <code class="markup--code markup--p-code"
+                  >CXHandle.HandleType.generic</code
+                >
+                and the value typically follows some domain-specific format,
+                such as a username, numeric ID, or URL.
+              </p>
+              <figure
+                name="4e2b"
+                id="4e2b"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*hm8GIZ2pqQpVcaP34yiJ5A.png"
+                  data-width="869"
+                  data-height="289"
+                  src="https://cdn-images-1.medium.com/max/800/1*hm8GIZ2pqQpVcaP34yiJ5A.png"
+                />
+              </figure>
+              <p name="7e55" id="7e55" class="graf graf--p graf-after--figure">
+                <code class="markup--code markup--p-code"
+                  >CXStartCallAction</code
+                >
+                is a concrete subclass of
+                <code class="markup--code markup--p-code">CXCallAction</code>.
+                When the user initiates an outgoing call, the provider sends
+                <code class="markup--code markup--p-code"
+                  >provider(_:perform:)</code
+                >
+                to its delegate. The provider’s delegate calls the
+                <code class="markup--code markup--p-code">fulfill()</code>
+                method to indicate that the action was successfully performed.
+              </p>
+              <p name="8d02" id="8d02" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >CXTransaction</strong
+                >
+                An object that contains zero or more action objects to be
+                performed by a call controller. it addAction such as
+                CXStartCallAction<strong
+                  class="markup--strong markup--p-strong"
+                >
+                </strong
+                >,CXEndCallAction, CXSetHeldCallAction.
+              </p>
+              <p name="12fe" id="12fe" class="graf graf--p graf-after--p">
+                Hope you like this article, Please ❤️ to recommend this post to
+                others 😊. Let me know your feedback. :)
+              </p>
+              <p name="6dd1" id="6dd1" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >References:</strong
+                >
+              </p>
+              <ol class="postList">
+                <li
+                  name="c0de"
+                  id="c0de"
+                  class="graf graf--li graf-after--p graf--trailing"
+                >
+                  <a
+                    href="https://developer.apple.com/documentation/callkit"
+                    data-href="https://developer.apple.com/documentation/callkit"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://developer.apple.com/documentation/callkit</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/9de5e5f76a65"
+            ><time class="dt-published" datetime="2018-06-27T11:03:19.361Z"
+              >June 27, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/introduction-to-callkit-9de5e5f76a65"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

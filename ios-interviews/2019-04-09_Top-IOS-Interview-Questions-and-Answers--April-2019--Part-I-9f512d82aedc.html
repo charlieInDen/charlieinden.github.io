@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (April 2019) Part I</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (April 2019) Part I</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,19 +61,435 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (April 2019) Part I</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-What is Cocoa?
-Cocoa and Cocoa Touch are the application development environments for OS X and iOS, respectively. Both Cocoa and Cocoa…
-</section>
-<section data-field="body" class="e-content">
-<section name="b995" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="d068" id="d068" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (April 2019) Part I</h3><p name="4405" id="4405" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Next</strong>: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-ii-7fe9c4313305" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-ii-7fe9c4313305" class="markup--anchor markup--p-anchor" target="_blank">Top IOS Interview Questions and Answers (April 2019) Part II</a></p><ol class="postList"><li name="6ba0" id="6ba0" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">What is Cocoa?<br></strong>Cocoa and Cocoa Touch are the application development environments for OS X and iOS, respectively. Both Cocoa and Cocoa Touch include the Objective-C runtime and two core frameworks:</li></ol><ul class="postList"><li name="4795" id="4795" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">Cocoa</em>, which includes the Foundation and AppKit frameworks, is used for developing applications that run on OS X.</li><li name="b3b9" id="b3b9" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">Cocoa Touch</em>, which includes Foundation and UIKit frameworks, is used for developing applications that run on iOS.</li></ul><p name="24fa" id="24fa" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">2. Whats new in swift 5?<br></strong><a href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-swift-5-0-25dc37f56f29" data-href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-swift-5-0-25dc37f56f29" class="markup--anchor markup--p-anchor" target="_blank">https://medium.com/ios-expert-series-or-interview-series/whats-new-in-swift-5-0-25dc37f56f29</a></p><p name="7c26" id="7c26" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">3. Difference between Nil &amp; NULL?</strong></p><figure name="6c01" id="6c01" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*xyjLxJaO9dIhBewKRaJwtw.png" data-width="950" data-height="479" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*xyjLxJaO9dIhBewKRaJwtw.png"></figure><p name="1ac0" id="1ac0" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">4. Difference between AnyObject &amp; Any?</strong></p><p name="86b1" id="86b1" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Any</code> can represent an instance of any type at all, including function types.<br>Meaning of <code class="markup--code markup--p-code">AnyObject</code> and <code class="markup--code markup--p-code">Any</code> have changed with the release of Swift 3.</p><p name="6219" id="6219" class="graf graf--p graf-after--p">In Swift 3, the <code class="markup--code markup--p-code">id</code> type in Objective-C now maps to the <code class="markup--code markup--p-code">Any</code> type in Swift, which describes a value of any type, whether a class, enum, struct, or any other Swift type.</p><p name="572b" id="572b" class="graf graf--p graf-after--p">This change improves the compatibility of Swift and Objective-C. Objective-C collections, for example, can hold elements of <code class="markup--code markup--p-code">Any</code> type as of Swift 3. This means that Foundation&#39;s <code class="markup--code markup--p-code">NSArray</code> type can store <code class="markup--code markup--p-code">String</code>, <code class="markup--code markup--p-code">Float</code>, and <code class="markup--code markup--p-code">Int</code> instances.</p><p name="fafa" id="fafa" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">AnyObject</code> is a protocol to which all classes implicitly conform.</p><p name="718a" id="718a" class="graf graf--p graf-after--p">You use <code class="markup--code markup--p-code">AnyObject</code> when you need the flexibility of an untyped object or when you use bridged Objective-C methods and properties that return an untyped result. <code class="markup--code markup--p-code">AnyObject</code> can be used as the concrete type for an instance of any class, class type, or class-only protocol.</p><p name="5bc2" id="5bc2" class="graf graf--p graf-after--p">The <code class="markup--code markup--p-code">AnyObject</code> protocol is also useful to bridge the gap between Swift and Objective-C. Some Objective-C APIs use the <code class="markup--code markup--p-code">AnyObject</code> protocol to provide compatibility with Swift.</p><p name="4d93" id="4d93" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">5. What is @synthesize &amp; @dynamic?</strong></p><p name="3a39" id="3a39" class="graf graf--p graf-after--p">@synthesize will generate getter and setter methods for your property. @dynamic just tells the compiler that the getter and setter methods are implemented not by the class itself but somewhere else (like the superclass or will be provided at runtime).</p><p name="c1e1" id="c1e1" class="graf graf--p graf-after--p">Mentioning @dynamic with a propertyName tells the compiler not to create accessor methods because user will provide the implementation dynamically in future. Apple allows its developers to provide method implementation at runtime using <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtDynamicResolution.html" data-href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtDynamicResolution.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Dynamic Method Resolution</a>.</p><p name="ab45" id="ab45" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">6. What is inout parameter?</strong></p><p name="a519" id="a519" class="graf graf--p graf-after--p">All parameters passed into a Swift function are <em class="markup--em markup--p-em">constants</em>, so you can’t change them. If you want, you can pass in one or more parameters as <code class="markup--code markup--p-code">inout</code>, which means they can be changed inside your function, and those changes reflect in the original value outside the function.</p><pre name="0200" id="0200" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">func doubleInPlace(number: inout Int) {</code></pre><p name="74ad" id="74ad" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">7. Difference between weak self vs unowned self?</strong></p><p name="8398" id="8398" class="graf graf--p graf-after--p">The difference between <code class="markup--code markup--p-code">unowned</code> and <code class="markup--code markup--p-code">weak</code> is that <code class="markup--code markup--p-code">weak</code> is declared as an Optional while <code class="markup--code markup--p-code">unowned</code> is not. By declaring it <code class="markup--code markup--p-code">weak</code> you get to handle the case that it might be nil inside the closure at some point. If you try to access an <code class="markup--code markup--p-code">unowned</code> variable that happens to be nil, it will crash the whole program. So only use <code class="markup--code markup--p-code">unowned</code> when you are positive that variable will always be around while the closure is around.<br>The only time where you really want to use <code class="markup--code markup--p-code">[unowned self]</code> or <code class="markup--code markup--p-code">[weak self]</code> is when you would create a <a href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-XID_61" data-href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-XID_61" class="markup--anchor markup--p-anchor" rel="noreferrer noopener" target="_blank">strong reference cycle</a>. A strong reference cycle is when there is a loop of ownership where objects end up owning each other (maybe through a third party) and therefore they will never be deallocated because they are both ensuring that each other stick around.</p><p name="d722" id="d722" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">8. What is tuple?</strong></p><p name="2165" id="2165" class="graf graf--p graf-after--p">Tuples in Swift occupy the space between dictionaries and structures: they hold very specific types of data (like a struct) but can be created on the fly (like dictionaries). They are commonly used to return multiple values from a function call.</p><p name="fab8" id="fab8" class="graf graf--p graf-after--p">You can create a basic tuple like this:</p><pre name="ddbf" id="ddbf" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">let person = (name: &quot;Paul&quot;, age: 35)</code></pre><p name="fdd7" id="fdd7" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">9. When to use delegate or closures?</strong></p><p name="8cc0" id="8cc0" class="graf graf--p graf-after--p">We can say that delegate callbacks are more process oriented and closure are more results oriented. If you need to be informed along the way of a multi-step process, you’ll probably want to use delegation. If you just want the information you are requesting (or details about a failure to get the information), you should use a closure.</p><p name="e3d1" id="e3d1" class="graf graf--p graf-after--p">a. If an object has more than one distinct event, use delegation.<br>b. If an object is a singleton, we can’t use delegation.<br>c. If the object is calling back for additional information, we’ll probably use delegation.</p><p name="7ee3" id="7ee3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">10. Can we declare variables in protocol and does Protocol support extension?</strong></p><p name="e9b9" id="e9b9" class="graf graf--p graf-after--p">Yes, The protocol doesn’t specify whether the property should be a stored property or a computed property — it only specifies the required property name and type.</p><figure name="b452" id="b452" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*PfflAexhjJ8HLtsJN-frtQ.png" data-width="395" data-height="105" src="https://cdn-images-1.medium.com/max/800/1*PfflAexhjJ8HLtsJN-frtQ.png"><figcaption class="imageCaption">ref: <a href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html" class="markup--anchor markup--figure-anchor" rel="noopener" target="_blank">https://docs.swift.org/swift-book/LanguageGuide/Protocols.html</a></figcaption></figure><p name="fe3a" id="fe3a" class="graf graf--p graf-after--figure">Yes, You can extend an existing type to adopt and conform to a new protocol, even if you don’t have access to the source code for the existing type. Extensions can add new properties, methods, and subscripts to an existing type, and are therefore able to add any requirements that a protocol may demand.</p><p name="6ecc" id="6ecc" class="graf graf--p graf-after--p">Hope this article is useful for people looking out for a change, This article questions were asked in <strong class="markup--strong markup--p-strong">Athena health and VMWare (5yrs exp iOS engineer)</strong>, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="baa8" id="baa8" class="graf graf--p graf-after--p">References:</p><ol class="postList"><li name="c111" id="c111" class="graf graf--li graf-after--p"><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Cocoa.html" data-href="https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Cocoa.html" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Cocoa.html</a></li><li name="403c" id="403c" class="graf graf--li graf-after--li"><a href="https://nshipster.com/nil/" data-href="https://nshipster.com/nil/" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://nshipster.com/nil/</a></li><li name="47ac" id="47ac" class="graf graf--li graf-after--li"><a href="https://cocoacasts.com/what-is-any-in-swift" data-href="https://cocoacasts.com/what-is-any-in-swift" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://cocoacasts.com/what-is-any-in-swift</a></li><li name="d810" id="d810" class="graf graf--li graf-after--li"><a href="https://stackoverflow.com/questions/24320347/shall-we-always-use-unowned-self-inside-closure-in-swift" data-href="https://stackoverflow.com/questions/24320347/shall-we-always-use-unowned-self-inside-closure-in-swift" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://stackoverflow.com/questions/24320347/shall-we-always-use-unowned-self-inside-closure-in-swift</a></li><li name="e6ff" id="e6ff" class="graf graf--li graf-after--li"><a href="https://www.hackingwithswift.com/example-code/language/what-is-a-tuple" data-href="https://www.hackingwithswift.com/example-code/language/what-is-a-tuple" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://www.hackingwithswift.com/example-code/language/what-is-a-tuple</a></li><li name="3b66" id="3b66" class="graf graf--li graf-after--li"><a href="https://stablekernel.com/use-blocks-closures-delegates-callbacks/" data-href="https://stablekernel.com/use-blocks-closures-delegates-callbacks/" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://stablekernel.com/use-blocks-closures-delegates-callbacks/</a></li><li name="bef9" id="bef9" class="graf graf--li graf-after--li graf--trailing"><a href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://docs.swift.org/swift-book/LanguageGuide/Protocols.html</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/9f512d82aedc"><time class="dt-published" datetime="2019-04-09T05:07:46.011Z">April 9, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-april-2019-part-i-9f512d82aedc" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (April 2019) Part I
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        What is Cocoa? Cocoa and Cocoa Touch are the application development
+        environments for OS X and iOS, respectively. Both Cocoa and Cocoa…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="b995"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <!-- <h3
+                name="d068"
+                id="d068"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (April 2019) Part I
+              </h3>
+              <p name="4405" id="4405" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong">Next</strong>:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-ii-7fe9c4313305"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-april-2019-part-ii-7fe9c4313305"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >Top IOS Interview Questions and Answers (April 2019) Part
+                  II</a
+                >
+              </p> -->
+              <ol class="postList">
+                <li name="6ba0" id="6ba0" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >What is Cocoa?<br /></strong
+                  >Cocoa and Cocoa Touch are the application development
+                  environments for OS X and iOS, respectively. Both Cocoa and
+                  Cocoa Touch include the Objective-C runtime and two core
+                  frameworks:
+                </li>
+              </ol>
+              <ul class="postList">
+                <li name="4795" id="4795" class="graf graf--li graf-after--li">
+                  <em class="markup--em markup--li-em">Cocoa</em>, which
+                  includes the Foundation and AppKit frameworks, is used for
+                  developing applications that run on OS X.
+                </li>
+                <li name="b3b9" id="b3b9" class="graf graf--li graf-after--li">
+                  <em class="markup--em markup--li-em">Cocoa Touch</em>, which
+                  includes Foundation and UIKit frameworks, is used for
+                  developing applications that run on iOS.
+                </li>
+              </ul>
+              <!-- <p name="24fa" id="24fa" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >2. Whats new in swift 5?<br /></strong
+                ><a
+                  href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-swift-5-0-25dc37f56f29"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-swift-5-0-25dc37f56f29"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >https://medium.com/ios-expert-series-or-interview-series/whats-new-in-swift-5-0-25dc37f56f29</a
+                >
+              </p> -->
+              <p name="7c26" id="7c26" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >3. Difference between Nil &amp; NULL?</strong
+                >
+              </p>
+              <figure
+                name="6c01"
+                id="6c01"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*xyjLxJaO9dIhBewKRaJwtw.png"
+                  data-width="950"
+                  data-height="479"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*xyjLxJaO9dIhBewKRaJwtw.png"
+                />
+              </figure>
+              <p name="1ac0" id="1ac0" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >4. Difference between AnyObject &amp; Any?</strong
+                >
+              </p>
+              <p name="86b1" id="86b1" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">Any</code> can
+                represent an instance of any type at all, including function
+                types.<br />Meaning of
+                <code class="markup--code markup--p-code">AnyObject</code> and
+                <code class="markup--code markup--p-code">Any</code> have
+                changed with the release of Swift 3.
+              </p>
+              <p name="6219" id="6219" class="graf graf--p graf-after--p">
+                In Swift 3, the
+                <code class="markup--code markup--p-code">id</code> type in
+                Objective-C now maps to the
+                <code class="markup--code markup--p-code">Any</code> type in
+                Swift, which describes a value of any type, whether a class,
+                enum, struct, or any other Swift type.
+              </p>
+              <p name="572b" id="572b" class="graf graf--p graf-after--p">
+                This change improves the compatibility of Swift and Objective-C.
+                Objective-C collections, for example, can hold elements of
+                <code class="markup--code markup--p-code">Any</code> type as of
+                Swift 3. This means that Foundation&#39;s
+                <code class="markup--code markup--p-code">NSArray</code> type
+                can store
+                <code class="markup--code markup--p-code">String</code>,
+                <code class="markup--code markup--p-code">Float</code>, and
+                <code class="markup--code markup--p-code">Int</code> instances.
+              </p>
+              <p name="fafa" id="fafa" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">AnyObject</code> is a
+                protocol to which all classes implicitly conform.
+              </p>
+              <p name="718a" id="718a" class="graf graf--p graf-after--p">
+                You use
+                <code class="markup--code markup--p-code">AnyObject</code> when
+                you need the flexibility of an untyped object or when you use
+                bridged Objective-C methods and properties that return an
+                untyped result.
+                <code class="markup--code markup--p-code">AnyObject</code> can
+                be used as the concrete type for an instance of any class, class
+                type, or class-only protocol.
+              </p>
+              <p name="5bc2" id="5bc2" class="graf graf--p graf-after--p">
+                The
+                <code class="markup--code markup--p-code">AnyObject</code>
+                protocol is also useful to bridge the gap between Swift and
+                Objective-C. Some Objective-C APIs use the
+                <code class="markup--code markup--p-code">AnyObject</code>
+                protocol to provide compatibility with Swift.
+              </p>
+              <p name="4d93" id="4d93" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >5. What is @synthesize &amp; @dynamic?</strong
+                >
+              </p>
+              <p name="3a39" id="3a39" class="graf graf--p graf-after--p">
+                @synthesize will generate getter and setter methods for your
+                property. @dynamic just tells the compiler that the getter and
+                setter methods are implemented not by the class itself but
+                somewhere else (like the superclass or will be provided at
+                runtime).
+              </p>
+              <p name="c1e1" id="c1e1" class="graf graf--p graf-after--p">
+                Mentioning @dynamic with a propertyName tells the compiler not
+                to create accessor methods because user will provide the
+                implementation dynamically in future. Apple allows its
+                developers to provide method implementation at runtime using
+                <a
+                  href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtDynamicResolution.html"
+                  data-href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtDynamicResolution.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Dynamic Method Resolution</a
+                >.
+              </p>
+              <p name="ab45" id="ab45" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >6. What is inout parameter?</strong
+                >
+              </p>
+              <p name="a519" id="a519" class="graf graf--p graf-after--p">
+                All parameters passed into a Swift function are
+                <em class="markup--em markup--p-em">constants</em>, so you can’t
+                change them. If you want, you can pass in one or more parameters
+                as <code class="markup--code markup--p-code">inout</code>, which
+                means they can be changed inside your function, and those
+                changes reflect in the original value outside the function.
+              </p>
+              <pre
+                name="0200"
+                id="0200"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">func doubleInPlace(number: inout Int) {</code></pre>
+              <p name="74ad" id="74ad" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >7. Difference between weak self vs unowned self?</strong
+                >
+              </p>
+              <p name="8398" id="8398" class="graf graf--p graf-after--p">
+                The difference between
+                <code class="markup--code markup--p-code">unowned</code> and
+                <code class="markup--code markup--p-code">weak</code> is that
+                <code class="markup--code markup--p-code">weak</code> is
+                declared as an Optional while
+                <code class="markup--code markup--p-code">unowned</code> is not.
+                By declaring it
+                <code class="markup--code markup--p-code">weak</code> you get to
+                handle the case that it might be nil inside the closure at some
+                point. If you try to access an
+                <code class="markup--code markup--p-code">unowned</code>
+                variable that happens to be nil, it will crash the whole
+                program. So only use
+                <code class="markup--code markup--p-code">unowned</code> when
+                you are positive that variable will always be around while the
+                closure is around.<br />The only time where you really want to
+                use
+                <code class="markup--code markup--p-code">[unowned self]</code>
+                or
+                <code class="markup--code markup--p-code">[weak self]</code> is
+                when you would create a
+                <a
+                  href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-XID_61"
+                  data-href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-XID_61"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  >strong reference cycle</a
+                >. A strong reference cycle is when there is a loop of ownership
+                where objects end up owning each other (maybe through a third
+                party) and therefore they will never be deallocated because they
+                are both ensuring that each other stick around.
+              </p>
+              <p name="d722" id="d722" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >8. What is tuple?</strong
+                >
+              </p>
+              <p name="2165" id="2165" class="graf graf--p graf-after--p">
+                Tuples in Swift occupy the space between dictionaries and
+                structures: they hold very specific types of data (like a
+                struct) but can be created on the fly (like dictionaries). They
+                are commonly used to return multiple values from a function
+                call.
+              </p>
+              <p name="fab8" id="fab8" class="graf graf--p graf-after--p">
+                You can create a basic tuple like this:
+              </p>
+              <pre
+                name="ddbf"
+                id="ddbf"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">let person = (name: &quot;Paul&quot;, age: 35)</code></pre>
+              <p name="fdd7" id="fdd7" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >9. When to use delegate or closures?</strong
+                >
+              </p>
+              <p name="8cc0" id="8cc0" class="graf graf--p graf-after--p">
+                We can say that delegate callbacks are more process oriented and
+                closure are more results oriented. If you need to be informed
+                along the way of a multi-step process, you’ll probably want to
+                use delegation. If you just want the information you are
+                requesting (or details about a failure to get the information),
+                you should use a closure.
+              </p>
+              <p name="e3d1" id="e3d1" class="graf graf--p graf-after--p">
+                a. If an object has more than one distinct event, use
+                delegation.<br />b. If an object is a singleton, we can’t use
+                delegation.<br />c. If the object is calling back for additional
+                information, we’ll probably use delegation.
+              </p>
+              <p name="7ee3" id="7ee3" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >10. Can we declare variables in protocol and does Protocol
+                  support extension?</strong
+                >
+              </p>
+              <p name="e9b9" id="e9b9" class="graf graf--p graf-after--p">
+                Yes, The protocol doesn’t specify whether the property should be
+                a stored property or a computed property — it only specifies the
+                required property name and type.
+              </p>
+              <figure
+                name="b452"
+                id="b452"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*PfflAexhjJ8HLtsJN-frtQ.png"
+                  data-width="395"
+                  data-height="105"
+                  src="https://cdn-images-1.medium.com/max/800/1*PfflAexhjJ8HLtsJN-frtQ.png"
+                />
+                <figcaption class="imageCaption">
+                  ref:
+                  <a
+                    href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html"
+                    data-href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://docs.swift.org/swift-book/LanguageGuide/Protocols.html</a
+                  >
+                </figcaption>
+              </figure>
+              <p name="fe3a" id="fe3a" class="graf graf--p graf-after--figure">
+                Yes, You can extend an existing type to adopt and conform to a
+                new protocol, even if you don’t have access to the source code
+                for the existing type. Extensions can add new properties,
+                methods, and subscripts to an existing type, and are therefore
+                able to add any requirements that a protocol may demand.
+              </p>
+              <p name="6ecc" id="6ecc" class="graf graf--p graf-after--p">
+                Hope this article is useful for people looking out for a change,
+                This article questions were asked in
+                <strong class="markup--strong markup--p-strong"
+                  >Athena health and VMWare (5yrs exp iOS engineer)</strong
+                >, Please ❤️ to recommend this post to others 😊. Let me know
+                your feedback. :)
+              </p>
+              <p name="baa8" id="baa8" class="graf graf--p graf-after--p">
+                References:
+              </p>
+              <ol class="postList">
+                <li name="c111" id="c111" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Cocoa.html"
+                    data-href="https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Cocoa.html"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Cocoa.html</a
+                  >
+                </li>
+                <li name="403c" id="403c" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://nshipster.com/nil/"
+                    data-href="https://nshipster.com/nil/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://nshipster.com/nil/</a
+                  >
+                </li>
+                <li name="47ac" id="47ac" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://cocoacasts.com/what-is-any-in-swift"
+                    data-href="https://cocoacasts.com/what-is-any-in-swift"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://cocoacasts.com/what-is-any-in-swift</a
+                  >
+                </li>
+                <li name="d810" id="d810" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://stackoverflow.com/questions/24320347/shall-we-always-use-unowned-self-inside-closure-in-swift"
+                    data-href="https://stackoverflow.com/questions/24320347/shall-we-always-use-unowned-self-inside-closure-in-swift"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://stackoverflow.com/questions/24320347/shall-we-always-use-unowned-self-inside-closure-in-swift</a
+                  >
+                </li>
+                <li name="e6ff" id="e6ff" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://www.hackingwithswift.com/example-code/language/what-is-a-tuple"
+                    data-href="https://www.hackingwithswift.com/example-code/language/what-is-a-tuple"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://www.hackingwithswift.com/example-code/language/what-is-a-tuple</a
+                  >
+                </li>
+                <li name="3b66" id="3b66" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://stablekernel.com/use-blocks-closures-delegates-callbacks/"
+                    data-href="https://stablekernel.com/use-blocks-closures-delegates-callbacks/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://stablekernel.com/use-blocks-closures-delegates-callbacks/</a
+                  >
+                </li>
+                <li
+                  name="bef9"
+                  id="bef9"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  <a
+                    href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html"
+                    data-href="https://docs.swift.org/swift-book/LanguageGuide/Protocols.html"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://docs.swift.org/swift-book/LanguageGuide/Protocols.html</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/9f512d82aedc"
+            ><time class="dt-published" datetime="2019-04-09T05:07:46.011Z"
+              >April 9, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-april-2019-part-i-9f512d82aedc"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

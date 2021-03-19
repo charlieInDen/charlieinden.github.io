@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>MVC vs. MVP vs. MVVM</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MVC vs. MVP vs. MVVM</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,259 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">MVC vs. MVP vs. MVVM</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-In this article, I am going to cover the difference between MVC, MVP and MVVM which normally asked to most of iOS engineer’s during their…
-</section>
-<section data-field="body" class="e-content">
-<section name="e75f" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="769f" id="769f" class="graf graf--h3 graf--leading graf--title">MVC vs. MVP vs. MVVM</h3><p name="1f0c" id="1f0c" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">In this article, I am going to cover the difference between MVC, MVP and MVVM which normally asked to most of iOS engineer’s during their interviews.</strong></p><p name="fd43" id="fd43" class="graf graf--p graf-after--p">For previous articles: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2018</strong></a></p><p name="ed91" id="ed91" class="graf graf--p graf-after--p">In the <strong class="markup--strong markup--p-strong">MVC</strong>, the Controller is responsible for determining which View to display in response to any action including when the application loads.</p><p name="811c" id="811c" class="graf graf--p graf-after--p">Here, our Views have direct access to Models. Exposing the complete Model to the View, however, may have security and performance costs, depending on the complexity of our application.</p><p name="0492" id="0492" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">MVP in iOS</strong></p><p name="99d1" id="99d1" class="graf graf--p graf-after--p">In <strong class="markup--strong markup--p-strong">MVP</strong>, the Presenter contains the UI business logic for the View. All invocations from the View delegate directly to Presenter. The Presenter is also decoupled directly from the View and talks to it through an interface. This is to allow mocking of the View in a unit test. One common attribute of MVP is that there has to be a lot of two-way dispatching. For example, when someone clicks the “Save” button, the event handler delegates to the Presenter’s “OnSave” method. Once the save is completed, the Presenter will then call back the View through its interface so that the View can display that the save has completed.</p><p name="660a" id="660a" class="graf graf--p graf-after--p">A typical iOS application is being built around a central UIViewController class, which has many responsibilities and so is the most attractive place to put UI logic and a part of the application logic. However, we mentioned above that due to a strong cohesion between the View and the Controller (in the context of iOS UIViewController and UIView) it is convenient to think about them as a View.</p><p name="7c39" id="7c39" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Unlike MVVM, there isn’t a mechanism for binding Views to ViewModels, so we instead rely on each View implementing an interface allowing the Presenter to interact with the View.</em></strong></p><figure name="e666" id="e666" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*x1Nc7OPMqJq9a27tzpiybA.png" data-width="1155" data-height="258" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*x1Nc7OPMqJq9a27tzpiybA.png"></figure><p name="e295" id="e295" class="graf graf--p graf-after--figure">Two primary variations</p><p name="6a4f" id="6a4f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Passive View:</strong> The View is as dumb as possible and contains almost zero logic. The Presenter is a middle man that talks to the View and the Model. The View and Model are completely shielded from one another. The Model may raise events, but the Presenter subscribes to them for updating the View. In Passive View there is no direct data binding, instead the View exposes setter properties which the Presenter uses to set the data. All state is managed in the Presenter and not the View.</p><ul class="postList"><li name="3d3d" id="3d3d" class="graf graf--li graf-after--p">Pro: maximum testability surface; clean separation of the View and Model</li><li name="6d03" id="6d03" class="graf graf--li graf-after--li">Con: more work (for example all the setter properties) as you are doing all the data binding yourself.</li></ul><p name="faa1" id="faa1" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Supervising Controller:</strong> The Presenter handles user gestures. The View binds to the Model directly through data binding. In this case it’s the Presenter’s job to pass off the Model to the View so that it can bind to it. The Presenter will also contain logic for gestures like pressing a button, navigation, etc.</p><ul class="postList"><li name="9cf8" id="9cf8" class="graf graf--li graf-after--p">Pro: by leveraging data binding the amount of code is reduced.</li><li name="9f09" id="9f09" class="graf graf--li graf-after--li">Con: there’s less testable surface (because of data binding), and there’s less encapsulation in the View since it talks directly to the Model.</li></ul><p name="5cda" id="5cda" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">MVVM in iOS</strong></p><p name="2b05" id="2b05" class="graf graf--p graf-after--p">In Cocoa there is its own Data Binding mechanism, but, in CocoaTouch, there isn’t. We could do only with KVO, but this thing is not convenient to use and allows you to implement only a unilateral binding. Data Binding, in its turn, makes it possible to implement the full potential inherent in MVVM and facilitate the development in general. So you should use some third-party libraries that provide Data Binding to CocoaTouch, or reactive programming. I have written generic dynamic for adding binding between ViewModel and View.</p><p name="10d4" id="10d4" class="graf graf--p graf-after--p">UIViewController in a MVVM and MVP is regarded as a part of View.</p><figure name="c0d2" id="c0d2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*TK_8_C3Kn07Au7sludTJvQ.png" data-width="1251" data-height="257" src="https://cdn-images-1.medium.com/max/800/1*TK_8_C3Kn07Au7sludTJvQ.png"></figure><p name="4753" id="4753" class="graf graf--p graf-after--figure">So, MVVM and MVP (Humble View) differ mostly in a Presentation layer (in MVP it is presented by a Presenter and in the MVVM by a ViewModel). The advantage of the MVVM over MVP (Humble View) is that the Presentation layer is completely independent of the View (which means much easier testing) and DataBinding usage. Together it becomes a more attractive candidate for use in modern IDE, and reduces the amount of code for synchronizing the View with the ViewModel).</p><p name="4bc6" id="4bc6" class="graf graf--p graf-after--p">The disadvantage of the MVVM is mostly in DataBinding mechanisms, as in certain situations, it may require significant memory resources, and also is a weak spot for the Memory Leak emergence.</p><p name="2e89" id="2e89" class="graf graf--p graf-after--p graf--trailing">For more articles <a href="https://medium.com/@nishantnitb" data-href="https://medium.com/@nishantnitb" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">click More</strong></a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/13cc6ab43a4c"><time class="dt-published" datetime="2018-10-10T08:25:00.819Z">October 10, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/mvc-vs-mvp-vs-mvvm-13cc6ab43a4c" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">MVC vs. MVP vs. MVVM</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        In this article, I am going to cover the difference between MVC, MVP and
+        MVVM which normally asked to most of iOS engineer’s during their…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="e75f"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="769f"
+                id="769f"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                MVC vs. MVP vs. MVVM
+              </h3>
+              <p name="1f0c" id="1f0c" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >In this article, I am going to cover the difference between
+                  MVC, MVP and MVVM which normally asked to most of iOS
+                  engineer’s during their interviews.</strong
+                >
+              </p>
+              <!-- <p name="fd43" id="fd43" class="graf graf--p graf-after--p">
+                For previous articles:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers for 2018</strong
+                  ></a
+                >
+              </p> -->
+              <p name="ed91" id="ed91" class="graf graf--p graf-after--p">
+                In the
+                <strong class="markup--strong markup--p-strong">MVC</strong>,
+                the Controller is responsible for determining which View to
+                display in response to any action including when the application
+                loads.
+              </p>
+              <p name="811c" id="811c" class="graf graf--p graf-after--p">
+                Here, our Views have direct access to Models. Exposing the
+                complete Model to the View, however, may have security and
+                performance costs, depending on the complexity of our
+                application.
+              </p>
+              <p name="0492" id="0492" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >MVP in iOS</strong
+                >
+              </p>
+              <p name="99d1" id="99d1" class="graf graf--p graf-after--p">
+                In <strong class="markup--strong markup--p-strong">MVP</strong>,
+                the Presenter contains the UI business logic for the View. All
+                invocations from the View delegate directly to Presenter. The
+                Presenter is also decoupled directly from the View and talks to
+                it through an interface. This is to allow mocking of the View in
+                a unit test. One common attribute of MVP is that there has to be
+                a lot of two-way dispatching. For example, when someone clicks
+                the “Save” button, the event handler delegates to the
+                Presenter’s “OnSave” method. Once the save is completed, the
+                Presenter will then call back the View through its interface so
+                that the View can display that the save has completed.
+              </p>
+              <p name="660a" id="660a" class="graf graf--p graf-after--p">
+                A typical iOS application is being built around a central
+                UIViewController class, which has many responsibilities and so
+                is the most attractive place to put UI logic and a part of the
+                application logic. However, we mentioned above that due to a
+                strong cohesion between the View and the Controller (in the
+                context of iOS UIViewController and UIView) it is convenient to
+                think about them as a View.
+              </p>
+              <p name="7c39" id="7c39" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Unlike MVVM, there isn’t a mechanism for binding Views to
+                    ViewModels, so we instead rely on each View implementing an
+                    interface allowing the Presenter to interact with the
+                    View.</em
+                  ></strong
+                >
+              </p>
+              <figure
+                name="e666"
+                id="e666"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*x1Nc7OPMqJq9a27tzpiybA.png"
+                  data-width="1155"
+                  data-height="258"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*x1Nc7OPMqJq9a27tzpiybA.png"
+                />
+              </figure>
+              <p name="e295" id="e295" class="graf graf--p graf-after--figure">
+                Two primary variations
+              </p>
+              <p name="6a4f" id="6a4f" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Passive View:</strong
+                >
+                The View is as dumb as possible and contains almost zero logic.
+                The Presenter is a middle man that talks to the View and the
+                Model. The View and Model are completely shielded from one
+                another. The Model may raise events, but the Presenter
+                subscribes to them for updating the View. In Passive View there
+                is no direct data binding, instead the View exposes setter
+                properties which the Presenter uses to set the data. All state
+                is managed in the Presenter and not the View.
+              </p>
+              <ul class="postList">
+                <li name="3d3d" id="3d3d" class="graf graf--li graf-after--p">
+                  Pro: maximum testability surface; clean separation of the View
+                  and Model
+                </li>
+                <li name="6d03" id="6d03" class="graf graf--li graf-after--li">
+                  Con: more work (for example all the setter properties) as you
+                  are doing all the data binding yourself.
+                </li>
+              </ul>
+              <p name="faa1" id="faa1" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Supervising Controller:</strong
+                >
+                The Presenter handles user gestures. The View binds to the Model
+                directly through data binding. In this case it’s the Presenter’s
+                job to pass off the Model to the View so that it can bind to it.
+                The Presenter will also contain logic for gestures like pressing
+                a button, navigation, etc.
+              </p>
+              <ul class="postList">
+                <li name="9cf8" id="9cf8" class="graf graf--li graf-after--p">
+                  Pro: by leveraging data binding the amount of code is reduced.
+                </li>
+                <li name="9f09" id="9f09" class="graf graf--li graf-after--li">
+                  Con: there’s less testable surface (because of data binding),
+                  and there’s less encapsulation in the View since it talks
+                  directly to the Model.
+                </li>
+              </ul>
+              <p name="5cda" id="5cda" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >MVVM in iOS</strong
+                >
+              </p>
+              <p name="2b05" id="2b05" class="graf graf--p graf-after--p">
+                In Cocoa there is its own Data Binding mechanism, but, in
+                CocoaTouch, there isn’t. We could do only with KVO, but this
+                thing is not convenient to use and allows you to implement only
+                a unilateral binding. Data Binding, in its turn, makes it
+                possible to implement the full potential inherent in MVVM and
+                facilitate the development in general. So you should use some
+                third-party libraries that provide Data Binding to CocoaTouch,
+                or reactive programming. I have written generic dynamic for
+                adding binding between ViewModel and View.
+              </p>
+              <p name="10d4" id="10d4" class="graf graf--p graf-after--p">
+                UIViewController in a MVVM and MVP is regarded as a part of
+                View.
+              </p>
+              <figure
+                name="c0d2"
+                id="c0d2"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*TK_8_C3Kn07Au7sludTJvQ.png"
+                  data-width="1251"
+                  data-height="257"
+                  src="https://cdn-images-1.medium.com/max/800/1*TK_8_C3Kn07Au7sludTJvQ.png"
+                />
+              </figure>
+              <p name="4753" id="4753" class="graf graf--p graf-after--figure">
+                So, MVVM and MVP (Humble View) differ mostly in a Presentation
+                layer (in MVP it is presented by a Presenter and in the MVVM by
+                a ViewModel). The advantage of the MVVM over MVP (Humble View)
+                is that the Presentation layer is completely independent of the
+                View (which means much easier testing) and DataBinding usage.
+                Together it becomes a more attractive candidate for use in
+                modern IDE, and reduces the amount of code for synchronizing the
+                View with the ViewModel).
+              </p>
+              <p name="4bc6" id="4bc6" class="graf graf--p graf-after--p">
+                The disadvantage of the MVVM is mostly in DataBinding
+                mechanisms, as in certain situations, it may require significant
+                memory resources, and also is a weak spot for the Memory Leak
+                emergence.
+              </p>
+              <!-- <p
+                name="2e89"
+                id="2e89"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                For more articles
+                <a
+                  href="https://medium.com/@nishantnitb"
+                  data-href="https://medium.com/@nishantnitb"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >click More</strong
+                  ></a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/13cc6ab43a4c"
+            ><time class="dt-published" datetime="2018-10-10T08:25:00.819Z"
+              >October 10, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/mvc-vs-mvp-vs-mvvm-13cc6ab43a4c"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

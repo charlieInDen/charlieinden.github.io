@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS interview questions (7)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iOS interview questions (7)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,759 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">iOS interview questions (7)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Core Data &amp; Concurrency
-</section>
-<section data-field="description" class="p-summary">
-Let&#39;s suppose , you&#39;re developing a small or simple application, then you probably don&#39;t see the benefit of running Core Data operations in the background. However, what would happen if you imported…
-</section>
-<section data-field="body" class="e-content">
-<section name="5fa3" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="621b" id="621b" class="graf graf--h3 graf--leading graf--title">iOS 2018 Series: Cracking iOS interview or Become iOS expert (7)</h3><p name="1622" id="1622" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Chapter 7: Core Data &amp; Concurrency</strong></p><p name="b5de" id="b5de" class="graf graf--p graf-after--p">Let’s suppose , you’re developing a small or simple application, then you probably don’t see the benefit of running Core Data operations in the background. However, what would happen if you imported hundreds or thousands of records on the main thread during the first launch of your application? The consequences could be dramatic. We have face all these kind of issue in real programming world when worked with core data so lets discuss the solution..</p><h3 name="6eeb" id="6eeb" class="graf graf--h3 graf-after--p">Basics:</h3><p name="a6c4" id="a6c4" class="graf graf--p graf-after--h3">Core Data is a framework that you use to manage the model layer objects in your application</p><p name="4cee" id="4cee" class="graf graf--p graf-after--p">Concurrency is the ability to work with the data on more than one queue at the same time.</p><figure name="9ba5" id="9ba5" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*2rauIkaE9DRtUGTizu84iw.png" data-width="1100" data-height="586" src="https://cdn-images-1.medium.com/max/800/1*2rauIkaE9DRtUGTizu84iw.png"></figure><h3 name="05da" id="05da" class="graf graf--h3 graf-after--figure">Steps:</h3><h4 name="53af" id="53af" class="graf graf--h4 graf-after--h3"><strong class="markup--strong markup--h4-strong"><em class="markup--em markup--h4-em">* Initializing the Core Data Stack</em></strong></h4><ol class="postList"><li name="92cf" id="92cf" class="graf graf--li graf-after--h4">Create Manage object model instance using model file</li><li name="05c0" id="05c0" class="graf graf--li graf-after--li">Create persistent store coordinator using Manage object model instance</li><li name="5802" id="5802" class="graf graf--li graf-after--li">Add persistent store in PSC instance using SQLite or other type and file path for SQLite dB</li><li name="e087" id="e087" class="graf graf--li graf-after--li">Create Managed Object Context with concurrency type — <code class="markup--code markup--li-code">NSMainQueueConcurrencyType</code> and <code class="markup--code markup--li-code">NSPrivateQueueConcurrencyType</code>.</li><li name="2563" id="2563" class="graf graf--li graf-after--li">Set persistent store coordinator in Manage object model instance.</li></ol><h4 name="9bb7" id="9bb7" class="graf graf--h4 graf-after--li"><strong class="markup--strong markup--h4-strong"><em class="markup--em markup--h4-em">* Creating and Saving Managed Objects</em></strong></h4><ol class="postList"><li name="a274" id="a274" class="graf graf--li graf-after--h4">Create entity using NSEntityDescription entity</li><li name="48ba" id="48ba" class="graf graf--li graf-after--li">Create instance of row which need to be inserted which will be Managed Object instance using entity and MOC.</li><li name="055e" id="055e" class="graf graf--li graf-after--li">set Value in MO instance</li><li name="e692" id="e692" class="graf graf--li graf-after--li">Save MO entry in core data — context. Save()</li></ol><h4 name="11f6" id="11f6" class="graf graf--h4 graf-after--li"><strong class="markup--strong markup--h4-strong">* Fetching Objects</strong></h4><ol class="postList"><li name="cf42" id="cf42" class="graf graf--li graf-after--h4">Prepare the request of type NSFetchRequest for the entity</li></ol><p name="cab6" id="cab6" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">let request = NSFetchRequest&lt;NSFetchRequestResult&gt;(entityName: “Users”)</strong></p><p name="f811" id="f811" class="graf graf--p graf-after--p">2. Fetch the result from context in the form of array of [NSManagedObject]</p><p name="266c" id="266c" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">let result = try context.fetch(request)</strong></p><p name="5ea4" id="5ea4" class="graf graf--p graf-after--p">3. Iterate through an array to get value for the specific key</p><p name="7a13" id="7a13" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">for data in result as! [NSManagedObject]</strong></p><h3 name="19d2" id="19d2" class="graf graf--h3 graf-after--p">Core Data Stack Setup — The Easy Way (NSPersistentContainer)</h3><figure name="482e" id="482e" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*RTBpioFnBiziE1FfXcCsdg.png" data-width="625" data-height="335" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*RTBpioFnBiziE1FfXcCsdg.png"></figure><p name="f47e" id="f47e" class="graf graf--p graf-after--figure">Setting up a Core Data stack takes some work. A typical setup needs a number of steps:</p><ul class="postList"><li name="2e77" id="2e77" class="graf graf--li graf-after--p">Load the <strong class="markup--strong markup--li-strong">managed object model</strong> from the application bundle</li><li name="1563" id="1563" class="graf graf--li graf-after--li">Create a <strong class="markup--strong markup--li-strong">persistent store coordinator</strong> with the model</li><li name="d49a" id="d49a" class="graf graf--li graf-after--li">Ask the coordinator to load a <strong class="markup--strong markup--li-strong">persistent store</strong></li><li name="f8c5" id="f8c5" class="graf graf--li graf-after--li">Create one or more <strong class="markup--strong markup--li-strong">managed object contexts</strong></li></ul><p name="5e18" id="5e18" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Starting with iOS 10 the </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">NSPersistentContainer</strong></code><strong class="markup--strong markup--p-strong"> removes most of this boilerplate code. </strong>A container that encapsulates the Core Data stack in your application.</p><p name="0f11" id="0f11" class="graf graf--p graf-after--p">If you adopt some simple naming conventions and the default store location the setup of a core data stack can be as simple as this:</p><pre name="eb18" id="eb18" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">container = NSPersistentContainer(name: &quot;storeName&quot;)<br>container.loadPersistentStores { (storeDescription, error) in<br>  if let error = error {<br>    fatalError(&quot;Failed to load store: \(error)&quot;)<br>  }<br>}</code></pre><p name="55fb" id="55fb" class="graf graf--p graf-after--pre">you need to set the store description <strong class="markup--strong markup--p-strong">before</strong> you load the store.</p><h4 name="776e" id="776e" class="graf graf--h4 graf-after--p">Persistent Store Descriptor</h4><p name="ff23" id="ff23" class="graf graf--p graf-after--h4">A persistent container collects the settings for a persistent store into a <strong class="markup--strong markup--p-strong">persistent store descriptor</strong>. To override the defaults create a new descriptor before loading the store. You create a persistent store descriptor with the URL for the store.The most commonly used configuration settings:</p><ul class="postList"><li name="a0b7" id="a0b7" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">type</strong>: <code class="markup--code markup--li-code">String</code> constant specifying the store type (default is <code class="markup--code markup--li-code">NSSQLLiteStoreType</code>).</li><li name="098e" id="098e" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">isReadOnly</strong>: <code class="markup--code markup--li-code">Bool</code> set to <code class="markup--code markup--li-code">true</code> for a read only store (default is <code class="markup--code markup--li-code">false</code>).</li><li name="53f0" id="53f0" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">shouldAddStoreAsynchronously</strong>: <code class="markup--code markup--li-code">Bool</code> set to <code class="markup--code markup--li-code">true</code> to add a store to the coordinator asynchronously on a background thread. The default is <code class="markup--code markup--li-code">false</code> which adds the store synchronously on the calling thread.</li><li name="1cc9" id="1cc9" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">shouldInferMappingAutomatically</strong>: <code class="markup--code markup--li-code">Bool</code> if the flag <code class="markup--code markup--li-code">shouldMigrateStoreAutomatically</code> is <code class="markup--code markup--li-code">true</code> try to infer a mapping model when migrating. Default is <code class="markup--code markup--li-code">true</code>.</li><li name="fdee" id="fdee" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">shouldMigrateStoreAutomatically</strong>: <code class="markup--code markup--li-code">Bool</code> migrate the store automatically. Default is <code class="markup--code markup--li-code">true</code>.</li></ul><p name="aaf1" id="aaf1" class="graf graf--p graf-after--li">So to create a read-only persistent store that loads asynchronously on a background thread (and by default that migrates automatically):</p><pre name="1060" id="1060" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">let url = NSPersistentContainer.defaultDirectoryURL()<br>let description = NSPersistentStoreDescription(url: url)<br>description.shouldAddStoreAsynchronously = true<br>description.isReadOnly = true<br>container.persistentStoreDescriptions = [description]</code></pre><h4 name="9504" id="9504" class="graf graf--h4 graf-after--pre">Getting the Main View Context</h4><p name="0a1b" id="0a1b" class="graf graf--p graf-after--h4">The persistent container has a convenient read-only property named <code class="markup--code markup--p-code">viewContext</code> to get the <strong class="markup--strong markup--p-strong">managed object context</strong> for the <strong class="markup--strong markup--p-strong">main queue</strong>. As the name suggests this is the context you should be using when working with your user interface.</p><pre name="271d" id="271d" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">container.viewContext.perform({<br>  // ...<br>})</code></pre><h4 name="f76e" id="f76e" class="graf graf--h4 graf-after--pre">Performing a Background Task</h4><p name="6e67" id="6e67" class="graf graf--p graf-after--h4">To avoid blocking the user interface you should not use the main view context for time consuming tasks. Create a <strong class="markup--strong markup--p-strong">private managed object context</strong> and execute the task in the background. The persistent container has a convenience method that takes care of creating a temporary private context for you and takes a block to execute:</p><pre name="ee01" id="ee01" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">container.performBackgroundTask({ (context) in <br>  // ... do some task on the context</code></pre><pre name="041c" id="041c" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">  // save the context<br>  do {<br>    try context.save()<br>  } catch {<br>    // handle error<br>  }<br>})</code></pre><h4 name="9b7c" id="9b7c" class="graf graf--h4 graf-after--pre">Getting a Private Context</h4><p name="4967" id="4967" class="graf graf--p graf-after--h4">You can also just get a new private context to use anyway you see fit:</p><pre name="59bc" id="59bc" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">let context = persistentContainer.newBackgroundContext()<br>context.perform({<br>  // ...<br>})</code></pre><h4 name="278b" id="278b" class="graf graf--h4 graf-after--pre">Core Data, Multithreading, and the Main Thread</h4><p name="6592" id="6592" class="graf graf--p graf-after--h4">Working with Core Data on multiple threads is actually very simple from a theoretical point of view. <code class="markup--code markup--p-code">NSManagedObject</code>, <code class="markup--code markup--p-code">NSManagedObjectContext</code>, and <code class="markup--code markup--p-code">NSPersistentStoreCoordinator</code> aren&#39;t thread safe.</p><p name="cfed" id="cfed" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Thread confinement:</strong> Create a managed object context for every thread that interacts with Core Data. <code class="markup--code markup--p-code">NSManagedObjectContext</code> class isn&#39;t thread safe.</p><figure name="bf07" id="bf07" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*oqDW9ODtheJ8dMTPN9HPUw.png" data-width="745" data-height="69" src="https://cdn-images-1.medium.com/max/800/1*oqDW9ODtheJ8dMTPN9HPUw.png"></figure><p name="1404" id="1404" class="graf graf--p graf-after--figure">So far, we’ve learned that you need multiple managed object contexts if you perform Core Data operations on multiple threads. The caveat, however, is that managed object contexts are unaware of each others existence. Changes made to a managed object in one managed object context are not automatically propagated to other managed object contexts. How do we solve this problem?</p><p name="e640" id="e640" class="graf graf--p graf-after--p">There are two popular strategies that Apple recommends, notifications and parent-child managed object contexts.</p><ol class="postList"><li name="a50e" id="a50e" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Notifications</strong></li></ol><p name="8c7d" id="8c7d" class="graf graf--p graf-after--li">Managed object context posts three types of notifications:</p><ul class="postList"><li name="1f6f" id="1f6f" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">NSManagedObjectContextObjectsDidChangeNotification</code>: This notification is posted when one of the managed objects of the managed object context has changed.</li><li name="8fb2" id="8fb2" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">NSManagedObjectContextWillSaveNotification</code>: This notification is posted <strong class="markup--strong markup--li-strong">before</strong> the managed object context performs a save operation.</li><li name="5480" id="5480" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">NSManagedObjectContextDidSaveNotification</code>: This notification is posted <strong class="markup--strong markup--li-strong">after</strong> the managed object context performs a save operation.</li></ul><p name="dfe9" id="dfe9" class="graf graf--p graf-after--li">When a managed object context saves its changes to a persistent store, via the persistent store coordinator, other managed object contexts may want to know about those changes.</p><p name="ad62" id="ad62" class="graf graf--p graf-after--p">2. <strong class="markup--strong markup--p-strong">Parent/Child Managed Object Contexts</strong></p><figure name="c292" id="c292" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*fVxyFLreAO7D1eaPxxeBRQ.png" data-width="600" data-height="450" src="https://cdn-images-1.medium.com/max/800/1*fVxyFLreAO7D1eaPxxeBRQ.png"></figure><h4 name="eebd" id="eebd" class="graf graf--h4 graf-after--figure">Creating a child managed object context is only slightly different from what we’ve seen so far. We initialize a child managed object context by invoking <code class="markup--code markup--h4-code">init(concurrencyType:)</code>. The concurrency type the initializer accepts defines the managed object context&#39;s threading model. Let&#39;s look at each concurrency type.</h4><ul class="postList"><li name="24e1" id="24e1" class="graf graf--li graf-after--h4"><code class="markup--code markup--li-code">MainQueueConcurrencyType</code>: The managed object context is only accessible from the main thread. An exception is thrown if you try to access it from any other thread.</li><li name="9f03" id="9f03" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">PrivateQueueConcurrencyType</code>: When creating a managed object context with a concurrency type of <code class="markup--code markup--li-code">PrivateQueueConcurrencyType</code>, the managed object context is associated with a private queue and it can only be accessed from that private queue.</li><li name="265b" id="265b" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">ConfinementConcurrencyType</code>: This is the concurrency type that corresponds with the <strong class="markup--strong markup--li-strong">thread confinement</strong> concept we explored earlier. If you create a managed object context using <code class="markup--code markup--li-code">init()</code>, the concurrency type of that managed object context is <code class="markup--code markup--li-code">ConfinementConcurrencyType</code>. <strong class="markup--strong markup--li-strong">Apple has deprecated this concurrency type as of iOS 9. This also means that </strong><code class="markup--code markup--li-code"><strong class="markup--strong markup--li-strong">init()</strong></code><strong class="markup--strong markup--li-strong"> is deprecated as of iOS 9.</strong></li></ul><p name="4f44" id="4f44" class="graf graf--p graf-after--li">There are two key methods that were added to the Core Data framework when Apple introduced parent/child managed object contexts, <code class="markup--code markup--p-code">performBlock(_:)</code> and <code class="markup--code markup--p-code">performBlockAndWait(_:)</code>. Both methods will make your life much easier. When you call <code class="markup--code markup--p-code">performBlock(_:)</code> on a managed object context and pass in a block of code to execute, Core Data makes sure that the block is executed on the correct thread. In the case of the <code class="markup--code markup--p-code">PrivateQueueConcurrencyType</code> concurrency type, this means that the block is executed on the private queue of that managed object context.</p><p name="23fb" id="23fb" class="graf graf--p graf-after--p">For more details — <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/Concurrency.html#//apple_ref/doc/uid/TP40001075-CH24-SW1" data-href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/Concurrency.html#//apple_ref/doc/uid/TP40001075-CH24-SW1" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/Concurrency.html#//apple_ref/doc/uid/TP40001075-CH24-SW1</a></p><h3 name="17b6" id="17b6" class="graf graf--h3 graf-after--p">Bonus time: @IBDesignable and @IBInspectable</h3><h3 name="6a9b" id="6a9b" class="graf graf--h3 graf-after--h3">IBDesignable</h3><p name="9e97" id="9e97" class="graf graf--p graf-after--h3"><em class="markup--em markup--p-em">IBDesignable attribute will identify the UIView or the elements inherited from UIView — Eg: UIButton, UIImageView, UILabel etc..</em></p><p name="05bb" id="05bb" class="graf graf--p graf-after--p">For example , I created a Custom UIButton class,</p><pre name="1f35" id="1f35" class="graf graf--pre graf-after--p">@IBDesignable<br>open class MYHighLightedButton: UIButton {</pre><pre name="9323" id="9323" class="graf graf--pre graf-after--pre">public override init(frame: CGRect) {<br>        super.init(frame: frame)<br>        setTitle(&quot;MyTitle&quot;, for: .normal)<br>        setTitleColor(UIColor.blue, for: .normal)<br>    }</pre><pre name="2f75" id="2f75" class="graf graf--pre graf-after--pre">public required init?(coder aDecoder: NSCoder) {<br>        super.init(coder: aDecoder)<br>    }</pre><pre name="4b74" id="4b74" class="graf graf--pre graf-after--pre">}</pre><p name="d4d7" id="d4d7" class="graf graf--p graf-after--pre">You can add custom view in your xib , In the Interface Builder (`StoryBoard`) drag and drop a UIButton. Go to the `<strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Show the Identity Inspector</em></strong>` and set the Class and Module as <strong class="markup--strong markup--p-strong">MYHighLightedButton</strong>.</p><h3 name="bd3a" id="bd3a" class="graf graf--h3 graf-after--p">IBInspectable</h3><p name="2bd2" id="2bd2" class="graf graf--p graf-after--h3">Lets add some custom properties our button. 🙌 🙌</p><p name="214a" id="214a" class="graf graf--p graf-after--p">For this we have to use <strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">IBInspectable</em></strong> attribute. Let’s see how we can add them.</p><pre name="7317" id="7317" class="graf graf--pre graf-after--p">@IBInspectable<br>    public var cornerRadius: CGFloat = 2.0 {<br>        didSet {<br>              self.layer.cornerRadius = self.cornerRadius<br>        }<br>    }</pre><p name="e810" id="e810" class="graf graf--p graf-after--pre">This will add the corner_radius property to your button. You will be able to see them in the <strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Attributes Inspector .</em></strong></p><figure name="904a" id="904a" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*T0LowH7AMrqbtRoQVYcWLQ.png" data-width="1272" data-height="118" src="https://cdn-images-1.medium.com/max/800/1*T0LowH7AMrqbtRoQVYcWLQ.png"></figure><h3 name="62bd" id="62bd" class="graf graf--h3 graf-after--figure"><strong class="markup--strong markup--h3-strong">How to read only a few attributes of an entity?</strong></h3><p name="ff3f" id="ff3f" class="graf graf--p graf-after--h3">We can use NSFetchRequest class’s property “setPropertiesToFetch”. We can pass a array of properties in string format in setPropertiesToFetch method.</p><h3 name="852f" id="852f" class="graf graf--h3 graf-after--p">Core Data vs Sqlite?</h3><p name="3a2f" id="3a2f" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Core Data</strong> Works on object graph management. Operates on objects stored in memory. Can create millions of new objects in-memory very quickly.</p><p name="c0c1" id="c0c1" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Sqlite </strong>Works on table structure with sql queries. Operates on data stored on disk. Can be slow to create millions of new rows, as it is a disk I/O operation &amp; Have keys like primary, composite keys.</p><p name="06b0" id="06b0" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Knowledge is power!</strong></p><p name="b343" id="b343" class="graf graf--p graf-after--p graf--trailing">Hope you are learning from it.<br><strong class="markup--strong markup--p-strong">Next Chapter</strong> : <a href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-8-fd5f2cfd23ec" data-href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-8-fd5f2cfd23ec" class="markup--anchor markup--p-anchor" target="_blank">Generics, LRU cache in swift</a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/cd272ab610d4"><time class="dt-published" datetime="2018-06-03T08:35:26.006Z">June 3, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">iOS interview questions (7)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Core Data &amp; Concurrency
+      </section>
+      <section data-field="description" class="p-summary">
+        Let&#39;s suppose , you&#39;re developing a small or simple application,
+        then you probably don&#39;t see the benefit of running Core Data
+        operations in the background. However, what would happen if you
+        imported…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="5fa3"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="621b"
+                id="621b"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                iOS 2018 Series: Cracking iOS interview or Become iOS expert (7)
+              </h3>
+              <p name="1622" id="1622" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Chapter 7: Core Data &amp; Concurrency</strong
+                >
+              </p>
+              <p name="b5de" id="b5de" class="graf graf--p graf-after--p">
+                Let’s suppose , you’re developing a small or simple application,
+                then you probably don’t see the benefit of running Core Data
+                operations in the background. However, what would happen if you
+                imported hundreds or thousands of records on the main thread
+                during the first launch of your application? The consequences
+                could be dramatic. We have face all these kind of issue in real
+                programming world when worked with core data so lets discuss the
+                solution..
+              </p>
+              <h3 name="6eeb" id="6eeb" class="graf graf--h3 graf-after--p">
+                Basics:
+              </h3>
+              <p name="a6c4" id="a6c4" class="graf graf--p graf-after--h3">
+                Core Data is a framework that you use to manage the model layer
+                objects in your application
+              </p>
+              <p name="4cee" id="4cee" class="graf graf--p graf-after--p">
+                Concurrency is the ability to work with the data on more than
+                one queue at the same time.
+              </p>
+              <figure
+                name="9ba5"
+                id="9ba5"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*2rauIkaE9DRtUGTizu84iw.png"
+                  data-width="1100"
+                  data-height="586"
+                  src="https://cdn-images-1.medium.com/max/800/1*2rauIkaE9DRtUGTizu84iw.png"
+                />
+              </figure>
+              <h3
+                name="05da"
+                id="05da"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Steps:
+              </h3>
+              <h4 name="53af" id="53af" class="graf graf--h4 graf-after--h3">
+                <strong class="markup--strong markup--h4-strong"
+                  ><em class="markup--em markup--h4-em"
+                    >* Initializing the Core Data Stack</em
+                  ></strong
+                >
+              </h4>
+              <ol class="postList">
+                <li name="92cf" id="92cf" class="graf graf--li graf-after--h4">
+                  Create Manage object model instance using model file
+                </li>
+                <li name="05c0" id="05c0" class="graf graf--li graf-after--li">
+                  Create persistent store coordinator using Manage object model
+                  instance
+                </li>
+                <li name="5802" id="5802" class="graf graf--li graf-after--li">
+                  Add persistent store in PSC instance using SQLite or other
+                  type and file path for SQLite dB
+                </li>
+                <li name="e087" id="e087" class="graf graf--li graf-after--li">
+                  Create Managed Object Context with concurrency type —
+                  <code class="markup--code markup--li-code"
+                    >NSMainQueueConcurrencyType</code
+                  >
+                  and
+                  <code class="markup--code markup--li-code"
+                    >NSPrivateQueueConcurrencyType</code
+                  >.
+                </li>
+                <li name="2563" id="2563" class="graf graf--li graf-after--li">
+                  Set persistent store coordinator in Manage object model
+                  instance.
+                </li>
+              </ol>
+              <h4 name="9bb7" id="9bb7" class="graf graf--h4 graf-after--li">
+                <strong class="markup--strong markup--h4-strong"
+                  ><em class="markup--em markup--h4-em"
+                    >* Creating and Saving Managed Objects</em
+                  ></strong
+                >
+              </h4>
+              <ol class="postList">
+                <li name="a274" id="a274" class="graf graf--li graf-after--h4">
+                  Create entity using NSEntityDescription entity
+                </li>
+                <li name="48ba" id="48ba" class="graf graf--li graf-after--li">
+                  Create instance of row which need to be inserted which will be
+                  Managed Object instance using entity and MOC.
+                </li>
+                <li name="055e" id="055e" class="graf graf--li graf-after--li">
+                  set Value in MO instance
+                </li>
+                <li name="e692" id="e692" class="graf graf--li graf-after--li">
+                  Save MO entry in core data — context. Save()
+                </li>
+              </ol>
+              <h4 name="11f6" id="11f6" class="graf graf--h4 graf-after--li">
+                <strong class="markup--strong markup--h4-strong"
+                  >* Fetching Objects</strong
+                >
+              </h4>
+              <ol class="postList">
+                <li name="cf42" id="cf42" class="graf graf--li graf-after--h4">
+                  Prepare the request of type NSFetchRequest for the entity
+                </li>
+              </ol>
+              <p name="cab6" id="cab6" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >let request =
+                  NSFetchRequest&lt;NSFetchRequestResult&gt;(entityName:
+                  “Users”)</strong
+                >
+              </p>
+              <p name="f811" id="f811" class="graf graf--p graf-after--p">
+                2. Fetch the result from context in the form of array of
+                [NSManagedObject]
+              </p>
+              <p name="266c" id="266c" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >let result = try context.fetch(request)</strong
+                >
+              </p>
+              <p name="5ea4" id="5ea4" class="graf graf--p graf-after--p">
+                3. Iterate through an array to get value for the specific key
+              </p>
+              <p name="7a13" id="7a13" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >for data in result as! [NSManagedObject]</strong
+                >
+              </p>
+              <h3 name="19d2" id="19d2" class="graf graf--h3 graf-after--p">
+                Core Data Stack Setup — The Easy Way (NSPersistentContainer)
+              </h3>
+              <figure
+                name="482e"
+                id="482e"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*RTBpioFnBiziE1FfXcCsdg.png"
+                  data-width="625"
+                  data-height="335"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*RTBpioFnBiziE1FfXcCsdg.png"
+                />
+              </figure>
+              <p name="f47e" id="f47e" class="graf graf--p graf-after--figure">
+                Setting up a Core Data stack takes some work. A typical setup
+                needs a number of steps:
+              </p>
+              <ul class="postList">
+                <li name="2e77" id="2e77" class="graf graf--li graf-after--p">
+                  Load the
+                  <strong class="markup--strong markup--li-strong"
+                    >managed object model</strong
+                  >
+                  from the application bundle
+                </li>
+                <li name="1563" id="1563" class="graf graf--li graf-after--li">
+                  Create a
+                  <strong class="markup--strong markup--li-strong"
+                    >persistent store coordinator</strong
+                  >
+                  with the model
+                </li>
+                <li name="d49a" id="d49a" class="graf graf--li graf-after--li">
+                  Ask the coordinator to load a
+                  <strong class="markup--strong markup--li-strong"
+                    >persistent store</strong
+                  >
+                </li>
+                <li name="f8c5" id="f8c5" class="graf graf--li graf-after--li">
+                  Create one or more
+                  <strong class="markup--strong markup--li-strong"
+                    >managed object contexts</strong
+                  >
+                </li>
+              </ul>
+              <p name="5e18" id="5e18" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Starting with iOS 10 the </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >NSPersistentContainer</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">
+                  removes most of this boilerplate code. </strong
+                >A container that encapsulates the Core Data stack in your
+                application.
+              </p>
+              <p name="0f11" id="0f11" class="graf graf--p graf-after--p">
+                If you adopt some simple naming conventions and the default
+                store location the setup of a core data stack can be as simple
+                as this:
+              </p>
+              <pre
+                name="eb18"
+                id="eb18"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">container = NSPersistentContainer(name: &quot;storeName&quot;)<br>container.loadPersistentStores { (storeDescription, error) in<br>  if let error = error {<br>    fatalError(&quot;Failed to load store: \(error)&quot;)<br>  }<br>}</code></pre>
+              <p name="55fb" id="55fb" class="graf graf--p graf-after--pre">
+                you need to set the store description
+                <strong class="markup--strong markup--p-strong">before</strong>
+                you load the store.
+              </p>
+              <h4 name="776e" id="776e" class="graf graf--h4 graf-after--p">
+                Persistent Store Descriptor
+              </h4>
+              <p name="ff23" id="ff23" class="graf graf--p graf-after--h4">
+                A persistent container collects the settings for a persistent
+                store into a
+                <strong class="markup--strong markup--p-strong"
+                  >persistent store descriptor</strong
+                >. To override the defaults create a new descriptor before
+                loading the store. You create a persistent store descriptor with
+                the URL for the store.The most commonly used configuration
+                settings:
+              </p>
+              <ul class="postList">
+                <li name="a0b7" id="a0b7" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong">type</strong
+                  >:
+                  <code class="markup--code markup--li-code">String</code>
+                  constant specifying the store type (default is
+                  <code class="markup--code markup--li-code"
+                    >NSSQLLiteStoreType</code
+                  >).
+                </li>
+                <li name="098e" id="098e" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >isReadOnly</strong
+                  >: <code class="markup--code markup--li-code">Bool</code> set
+                  to <code class="markup--code markup--li-code">true</code> for
+                  a read only store (default is
+                  <code class="markup--code markup--li-code">false</code>).
+                </li>
+                <li name="53f0" id="53f0" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >shouldAddStoreAsynchronously</strong
+                  >: <code class="markup--code markup--li-code">Bool</code> set
+                  to <code class="markup--code markup--li-code">true</code> to
+                  add a store to the coordinator asynchronously on a background
+                  thread. The default is
+                  <code class="markup--code markup--li-code">false</code> which
+                  adds the store synchronously on the calling thread.
+                </li>
+                <li name="1cc9" id="1cc9" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >shouldInferMappingAutomatically</strong
+                  >: <code class="markup--code markup--li-code">Bool</code> if
+                  the flag
+                  <code class="markup--code markup--li-code"
+                    >shouldMigrateStoreAutomatically</code
+                  >
+                  is <code class="markup--code markup--li-code">true</code> try
+                  to infer a mapping model when migrating. Default is
+                  <code class="markup--code markup--li-code">true</code>.
+                </li>
+                <li name="fdee" id="fdee" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >shouldMigrateStoreAutomatically</strong
+                  >:
+                  <code class="markup--code markup--li-code">Bool</code> migrate
+                  the store automatically. Default is
+                  <code class="markup--code markup--li-code">true</code>.
+                </li>
+              </ul>
+              <p name="aaf1" id="aaf1" class="graf graf--p graf-after--li">
+                So to create a read-only persistent store that loads
+                asynchronously on a background thread (and by default that
+                migrates automatically):
+              </p>
+              <pre
+                name="1060"
+                id="1060"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">let url = NSPersistentContainer.defaultDirectoryURL()<br>let description = NSPersistentStoreDescription(url: url)<br>description.shouldAddStoreAsynchronously = true<br>description.isReadOnly = true<br>container.persistentStoreDescriptions = [description]</code></pre>
+              <h4 name="9504" id="9504" class="graf graf--h4 graf-after--pre">
+                Getting the Main View Context
+              </h4>
+              <p name="0a1b" id="0a1b" class="graf graf--p graf-after--h4">
+                The persistent container has a convenient read-only property
+                named
+                <code class="markup--code markup--p-code">viewContext</code> to
+                get the
+                <strong class="markup--strong markup--p-strong"
+                  >managed object context</strong
+                >
+                for the
+                <strong class="markup--strong markup--p-strong"
+                  >main queue</strong
+                >. As the name suggests this is the context you should be using
+                when working with your user interface.
+              </p>
+              <pre
+                name="271d"
+                id="271d"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">container.viewContext.perform({<br>  // ...<br>})</code></pre>
+              <h4 name="f76e" id="f76e" class="graf graf--h4 graf-after--pre">
+                Performing a Background Task
+              </h4>
+              <p name="6e67" id="6e67" class="graf graf--p graf-after--h4">
+                To avoid blocking the user interface you should not use the main
+                view context for time consuming tasks. Create a
+                <strong class="markup--strong markup--p-strong"
+                  >private managed object context</strong
+                >
+                and execute the task in the background. The persistent container
+                has a convenience method that takes care of creating a temporary
+                private context for you and takes a block to execute:
+              </p>
+              <pre
+                name="ee01"
+                id="ee01"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">container.performBackgroundTask({ (context) in <br>  // ... do some task on the context</code></pre>
+              <pre
+                name="041c"
+                id="041c"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">  // save the context<br>  do {<br>    try context.save()<br>  } catch {<br>    // handle error<br>  }<br>})</code></pre>
+              <h4 name="9b7c" id="9b7c" class="graf graf--h4 graf-after--pre">
+                Getting a Private Context
+              </h4>
+              <p name="4967" id="4967" class="graf graf--p graf-after--h4">
+                You can also just get a new private context to use anyway you
+                see fit:
+              </p>
+              <pre
+                name="59bc"
+                id="59bc"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">let context = persistentContainer.newBackgroundContext()<br>context.perform({<br>  // ...<br>})</code></pre>
+              <h4 name="278b" id="278b" class="graf graf--h4 graf-after--pre">
+                Core Data, Multithreading, and the Main Thread
+              </h4>
+              <p name="6592" id="6592" class="graf graf--p graf-after--h4">
+                Working with Core Data on multiple threads is actually very
+                simple from a theoretical point of view.
+                <code class="markup--code markup--p-code">NSManagedObject</code
+                >,
+                <code class="markup--code markup--p-code"
+                  >NSManagedObjectContext</code
+                >, and
+                <code class="markup--code markup--p-code"
+                  >NSPersistentStoreCoordinator</code
+                >
+                aren&#39;t thread safe.
+              </p>
+              <p name="cfed" id="cfed" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Thread confinement:</strong
+                >
+                Create a managed object context for every thread that interacts
+                with Core Data.
+                <code class="markup--code markup--p-code"
+                  >NSManagedObjectContext</code
+                >
+                class isn&#39;t thread safe.
+              </p>
+              <figure
+                name="bf07"
+                id="bf07"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*oqDW9ODtheJ8dMTPN9HPUw.png"
+                  data-width="745"
+                  data-height="69"
+                  src="https://cdn-images-1.medium.com/max/800/1*oqDW9ODtheJ8dMTPN9HPUw.png"
+                />
+              </figure>
+              <p name="1404" id="1404" class="graf graf--p graf-after--figure">
+                So far, we’ve learned that you need multiple managed object
+                contexts if you perform Core Data operations on multiple
+                threads. The caveat, however, is that managed object contexts
+                are unaware of each others existence. Changes made to a managed
+                object in one managed object context are not automatically
+                propagated to other managed object contexts. How do we solve
+                this problem?
+              </p>
+              <p name="e640" id="e640" class="graf graf--p graf-after--p">
+                There are two popular strategies that Apple recommends,
+                notifications and parent-child managed object contexts.
+              </p>
+              <ol class="postList">
+                <li name="a50e" id="a50e" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Notifications</strong
+                  >
+                </li>
+              </ol>
+              <p name="8c7d" id="8c7d" class="graf graf--p graf-after--li">
+                Managed object context posts three types of notifications:
+              </p>
+              <ul class="postList">
+                <li name="1f6f" id="1f6f" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code"
+                    >NSManagedObjectContextObjectsDidChangeNotification</code
+                  >: This notification is posted when one of the managed objects
+                  of the managed object context has changed.
+                </li>
+                <li name="8fb2" id="8fb2" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >NSManagedObjectContextWillSaveNotification</code
+                  >: This notification is posted
+                  <strong class="markup--strong markup--li-strong"
+                    >before</strong
+                  >
+                  the managed object context performs a save operation.
+                </li>
+                <li name="5480" id="5480" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >NSManagedObjectContextDidSaveNotification</code
+                  >: This notification is posted
+                  <strong class="markup--strong markup--li-strong"
+                    >after</strong
+                  >
+                  the managed object context performs a save operation.
+                </li>
+              </ul>
+              <p name="dfe9" id="dfe9" class="graf graf--p graf-after--li">
+                When a managed object context saves its changes to a persistent
+                store, via the persistent store coordinator, other managed
+                object contexts may want to know about those changes.
+              </p>
+              <p name="ad62" id="ad62" class="graf graf--p graf-after--p">
+                2.
+                <strong class="markup--strong markup--p-strong"
+                  >Parent/Child Managed Object Contexts</strong
+                >
+              </p>
+              <figure
+                name="c292"
+                id="c292"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*fVxyFLreAO7D1eaPxxeBRQ.png"
+                  data-width="600"
+                  data-height="450"
+                  src="https://cdn-images-1.medium.com/max/800/1*fVxyFLreAO7D1eaPxxeBRQ.png"
+                />
+              </figure>
+              <h4
+                name="eebd"
+                id="eebd"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Creating a child managed object context is only slightly
+                different from what we’ve seen so far. We initialize a child
+                managed object context by invoking
+                <code class="markup--code markup--h4-code"
+                  >init(concurrencyType:)</code
+                >. The concurrency type the initializer accepts defines the
+                managed object context&#39;s threading model. Let&#39;s look at
+                each concurrency type.
+              </h4>
+              <ul class="postList">
+                <li name="24e1" id="24e1" class="graf graf--li graf-after--h4">
+                  <code class="markup--code markup--li-code"
+                    >MainQueueConcurrencyType</code
+                  >: The managed object context is only accessible from the main
+                  thread. An exception is thrown if you try to access it from
+                  any other thread.
+                </li>
+                <li name="9f03" id="9f03" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >PrivateQueueConcurrencyType</code
+                  >: When creating a managed object context with a concurrency
+                  type of
+                  <code class="markup--code markup--li-code"
+                    >PrivateQueueConcurrencyType</code
+                  >, the managed object context is associated with a private
+                  queue and it can only be accessed from that private queue.
+                </li>
+                <li name="265b" id="265b" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >ConfinementConcurrencyType</code
+                  >: This is the concurrency type that corresponds with the
+                  <strong class="markup--strong markup--li-strong"
+                    >thread confinement</strong
+                  >
+                  concept we explored earlier. If you create a managed object
+                  context using
+                  <code class="markup--code markup--li-code">init()</code>, the
+                  concurrency type of that managed object context is
+                  <code class="markup--code markup--li-code"
+                    >ConfinementConcurrencyType</code
+                  >.
+                  <strong class="markup--strong markup--li-strong"
+                    >Apple has deprecated this concurrency type as of iOS 9.
+                    This also means that </strong
+                  ><code class="markup--code markup--li-code"
+                    ><strong class="markup--strong markup--li-strong"
+                      >init()</strong
+                    ></code
+                  ><strong class="markup--strong markup--li-strong">
+                    is deprecated as of iOS 9.</strong
+                  >
+                </li>
+              </ul>
+              <p name="4f44" id="4f44" class="graf graf--p graf-after--li">
+                There are two key methods that were added to the Core Data
+                framework when Apple introduced parent/child managed object
+                contexts,
+                <code class="markup--code markup--p-code"
+                  >performBlock(_:)</code
+                >
+                and
+                <code class="markup--code markup--p-code"
+                  >performBlockAndWait(_:)</code
+                >. Both methods will make your life much easier. When you call
+                <code class="markup--code markup--p-code"
+                  >performBlock(_:)</code
+                >
+                on a managed object context and pass in a block of code to
+                execute, Core Data makes sure that the block is executed on the
+                correct thread. In the case of the
+                <code class="markup--code markup--p-code"
+                  >PrivateQueueConcurrencyType</code
+                >
+                concurrency type, this means that the block is executed on the
+                private queue of that managed object context.
+              </p>
+              <p name="23fb" id="23fb" class="graf graf--p graf-after--p">
+                For more details —
+                <a
+                  href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/Concurrency.html#//apple_ref/doc/uid/TP40001075-CH24-SW1"
+                  data-href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/Concurrency.html#//apple_ref/doc/uid/TP40001075-CH24-SW1"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/Concurrency.html#//apple_ref/doc/uid/TP40001075-CH24-SW1</a
+                >
+              </p>
+              <h3 name="17b6" id="17b6" class="graf graf--h3 graf-after--p">
+                Bonus time: @IBDesignable and @IBInspectable
+              </h3>
+              <h3 name="6a9b" id="6a9b" class="graf graf--h3 graf-after--h3">
+                IBDesignable
+              </h3>
+              <p name="9e97" id="9e97" class="graf graf--p graf-after--h3">
+                <em class="markup--em markup--p-em"
+                  >IBDesignable attribute will identify the UIView or the
+                  elements inherited from UIView — Eg: UIButton, UIImageView,
+                  UILabel etc..</em
+                >
+              </p>
+              <p name="05bb" id="05bb" class="graf graf--p graf-after--p">
+                For example , I created a Custom UIButton class,
+              </p>
+              <pre
+                name="1f35"
+                id="1f35"
+                class="graf graf--pre graf-after--p"
+              >@IBDesignable<br>open class MYHighLightedButton: UIButton {</pre>
+              <pre
+                name="9323"
+                id="9323"
+                class="graf graf--pre graf-after--pre"
+              >public override init(frame: CGRect) {<br>        super.init(frame: frame)<br>        setTitle(&quot;MyTitle&quot;, for: .normal)<br>        setTitleColor(UIColor.blue, for: .normal)<br>    }</pre>
+              <pre
+                name="2f75"
+                id="2f75"
+                class="graf graf--pre graf-after--pre"
+              >public required init?(coder aDecoder: NSCoder) {<br>        super.init(coder: aDecoder)<br>    }</pre>
+              <pre name="4b74" id="4b74" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <p name="d4d7" id="d4d7" class="graf graf--p graf-after--pre">
+                You can add custom view in your xib , In the Interface Builder
+                (`StoryBoard`) drag and drop a UIButton. Go to the `<strong
+                  class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Show the Identity Inspector</em
+                  ></strong
+                >` and set the Class and Module as
+                <strong class="markup--strong markup--p-strong"
+                  >MYHighLightedButton</strong
+                >.
+              </p>
+              <h3 name="bd3a" id="bd3a" class="graf graf--h3 graf-after--p">
+                IBInspectable
+              </h3>
+              <p name="2bd2" id="2bd2" class="graf graf--p graf-after--h3">
+                Lets add some custom properties our button. 🙌 🙌
+              </p>
+              <p name="214a" id="214a" class="graf graf--p graf-after--p">
+                For this we have to use
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >IBInspectable</em
+                  ></strong
+                >
+                attribute. Let’s see how we can add them.
+              </p>
+              <pre
+                name="7317"
+                id="7317"
+                class="graf graf--pre graf-after--p"
+              >@IBInspectable<br>    public var cornerRadius: CGFloat = 2.0 {<br>        didSet {<br>              self.layer.cornerRadius = self.cornerRadius<br>        }<br>    }</pre>
+              <p name="e810" id="e810" class="graf graf--p graf-after--pre">
+                This will add the corner_radius property to your button. You
+                will be able to see them in the
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Attributes Inspector .</em
+                  ></strong
+                >
+              </p>
+              <figure
+                name="904a"
+                id="904a"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*T0LowH7AMrqbtRoQVYcWLQ.png"
+                  data-width="1272"
+                  data-height="118"
+                  src="https://cdn-images-1.medium.com/max/800/1*T0LowH7AMrqbtRoQVYcWLQ.png"
+                />
+              </figure>
+              <h3
+                name="62bd"
+                id="62bd"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >How to read only a few attributes of an entity?</strong
+                >
+              </h3>
+              <p name="ff3f" id="ff3f" class="graf graf--p graf-after--h3">
+                We can use NSFetchRequest class’s property
+                “setPropertiesToFetch”. We can pass a array of properties in
+                string format in setPropertiesToFetch method.
+              </p>
+              <h3 name="852f" id="852f" class="graf graf--h3 graf-after--p">
+                Core Data vs Sqlite?
+              </h3>
+              <p name="3a2f" id="3a2f" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Core Data</strong
+                >
+                Works on object graph management. Operates on objects stored in
+                memory. Can create millions of new objects in-memory very
+                quickly.
+              </p>
+              <p name="c0c1" id="c0c1" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Sqlite </strong
+                >Works on table structure with sql queries. Operates on data
+                stored on disk. Can be slow to create millions of new rows, as
+                it is a disk I/O operation &amp; Have keys like primary,
+                composite keys.
+              </p>
+              <p name="06b0" id="06b0" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Knowledge is power!</strong
+                >
+              </p>
+              <!-- <p
+                name="b343"
+                id="b343"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope you are learning from it.<br /><strong
+                  class="markup--strong markup--p-strong"
+                  >Next Chapter</strong
+                >
+                :
+                <a
+                  href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-8-fd5f2cfd23ec"
+                  data-href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-8-fd5f2cfd23ec"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >Generics, LRU cache in swift</a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/cd272ab610d4"
+            ><time class="dt-published" datetime="2018-06-03T08:35:26.006Z"
+              >June 3, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

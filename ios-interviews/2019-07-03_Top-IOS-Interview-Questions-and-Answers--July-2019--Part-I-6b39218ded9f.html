@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (July 2019) Part I</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (July 2019) Part I</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,388 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (July 2019) Part I</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Previous: Top IOS Interview Questions and Answers (May 2019) Part I
-</section>
-<section data-field="body" class="e-content">
-<section name="6813" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="03f7" id="03f7" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (July 2019) Part I</h3><p name="c303" id="c303" class="graf graf--p graf-after--h3">Previous: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-may-2019-part-i-174f3d24816" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-may-2019-part-i-174f3d24816" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers (May 2019) Part I</strong></a></p><p name="269a" id="269a" class="graf graf--p graf-after--p">For more: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2019</strong></a></p><h3 name="0154" id="0154" class="graf graf--h3 graf-after--p">1. What is key difference between Facade design pattern and Singleton?</h3><p name="4467" id="4467" class="graf graf--p graf-after--h3">Facade (simplifies the interface) and Singleton (ensures fixed number, usually 1, of instances for a given object in a library) are two independent design patterns. <br>A Facade may provide an interface to a set of classes or even an entire library and may or may not make sense for it to be Singleton, depending on the scenario.</p><p name="e1e7" id="e1e7" class="graf graf--p graf-after--p">Should every Facade be implemented as Singleton? No. It is usually implemented because easier to call, but it gives several disadvantages:</p><ol class="postList"><li name="8f5f" id="8f5f" class="graf graf--li graf-after--p">Code coupling</li><li name="95c4" id="95c4" class="graf graf--li graf-after--li">Not-concurrent safe by default</li><li name="b3f5" id="b3f5" class="graf graf--li graf-after--li">Not Testable</li></ol><p name="6669" id="6669" class="graf graf--p graf-after--li">As you can see from the simplified diagram below the facade pattern is one way to achieve this, it provides a unified class which reduces communication between the complex subsystem and its clients. Clients do not have to be aware of the actual implementation of the subsystem and are provided with a simpler interface to this subsystem.</p><figure name="f1b4" id="f1b4" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*ATnx2tWcZOHITQT3.jpg" data-width="710" data-height="410" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/0*ATnx2tWcZOHITQT3.jpg"><figcaption class="imageCaption">facade pattern</figcaption></figure><h3 name="40c0" id="40c0" class="graf graf--h3 graf-after--figure">2. If we make multiple Facade class for a big project isn’t it consume more memory of our mobile app? or While using multiple facade class how much of memory it can consume or how much of memory will be needed.</h3><p name="5b33" id="5b33" class="graf graf--p graf-after--h3">Yes, It will increase memory in runtime but based on the lifetime of object , it will clear it out. The lifetime of a dynamic object begins when memory is allocated for the object (e.g., by a call to init or constructor) and ends when memory is deallocated (when life time of object ends). Dynamic objects are stored in “the heap”.</p><p name="3cf8" id="3cf8" class="graf graf--p graf-after--p">You’re confusing between two different things: the amount of memory that a <code class="markup--code markup--p-code">class</code> takes (meta-data, or &quot;the blueprint&quot; of the instances) and the amount of memory that an <code class="markup--code markup--p-code">instance</code> takes (data/object).</p><p name="9f47" id="9f47" class="graf graf--p graf-after--p">You can use profilers in order to see how much memory instances.</p><h3 name="9165" id="9165" class="graf graf--h3 graf-after--p">3. If client interacts with subsystems directly what is the purpose of making new facade layer, what benefit we can get? Pros and Cons of facade pattern?</h3><p name="ba24" id="ba24" class="graf graf--p graf-after--h3">Clients that access a complex subsystem directly refer to (depend on) many different objects having different interfaces (tight coupling), which makes the clients hard to implement, change, test, and reuse.</p><p name="09a6" id="09a6" class="graf graf--p graf-after--p">Use the facade pattern when:</p><ul class="postList"><li name="3166" id="3166" class="graf graf--li graf-after--p">you want to provide a simple interface to a complex subsystem. The application of design patterns often results in a lot of small classes which makes subsystems more flexible and customizable. A facade can provide a default view for clients which don’t need to customize.</li><li name="42cb" id="42cb" class="graf graf--li graf-after--li">you want to reduce coupling between clients-subsystems or subsystems-subsystems.</li><li name="2c15" id="2c15" class="graf graf--li graf-after--li">you want to layer your subsystems. Use a facade to define an entry point to each subsystem level and make them communicate only through their facades, this can simplify the dependencies between them.</li></ul><p name="849d" id="849d" class="graf graf--p graf-after--li">The Facade Pattern has several <strong class="markup--strong markup--p-strong">advantages</strong>, summarized in the following points:</p><ul class="postList"><li name="bf31" id="bf31" class="graf graf--li graf-after--p">The code is more <strong class="markup--strong markup--li-strong">easier to use, understand and test</strong> since the facade simplify the interface.</li><li name="3a53" id="3a53" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Clean code</strong> because the client/context does not use a complex interface and the system is more <strong class="markup--strong markup--li-strong">flexible and reusable</strong>.</li></ul><p name="fc48" id="fc48" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Drawbacks/Consequences:</strong></p><ul class="postList"><li name="46c9" id="46c9" class="graf graf--li graf-after--p">One of the drawback is that the subsystem methods are connected to the Façade layer. If the structure of the subsystem changes then it will require subsequent change to the Façade layer and client methods.</li></ul><h3 name="43f3" id="43f3" class="graf graf--h3 graf-after--li">4. Where facade layer is use in MVVM model?</h3><p name="7cb5" id="7cb5" class="graf graf--p graf-after--h3">The <a href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx" data-href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">MVVM (Model-View-ViewModel ) Design Pattern</a> requires that you create a facade layer between the Model and the View called the ViewModel.</p><p name="7d9c" id="7d9c" class="graf graf--p graf-after--p">The <em class="markup--em markup--p-em">ViewModel </em>is supposed to supplement the functionality provided by the <em class="markup--em markup--p-em">Model</em>, and coerce it into a form the <em class="markup--em markup--p-em">View</em> can more readily consume. The result being; the <em class="markup--em markup--p-em">View</em> code can be pretty thin and concerned only with view based activities, while the <em class="markup--em markup--p-em">Model </em>can remain uncompromising by the demands placed on it by a <em class="markup--em markup--p-em">View </em>meaning it can better represent the data/concepts its supposed model.</p><h3 name="ead7" id="ead7" class="graf graf--h3 graf-after--p">5. If facade layer increases loose coupling then how subsystems or classes interact with each other if they have dependency for each other ?</h3><p name="c2e4" id="c2e4" class="graf graf--p graf-after--h3">Facade promotes weak coupling between the subsystem and its clients. Often the components in a subsystem are strongly coupled.</p><p name="f0df" id="f0df" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Facade</strong></p><ul class="postList"><li name="c457" id="c457" class="graf graf--li graf-after--p">knows which subsystem classes are responsible for a request.</li><li name="0041" id="0041" class="graf graf--li graf-after--li">delegates client requests to appropriate subsystem objects.</li></ul><p name="7973" id="7973" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Subsystem classes</strong></p><ul class="postList"><li name="d25a" id="d25a" class="graf graf--li graf-after--p">implement subsystem functionality.</li><li name="1b04" id="1b04" class="graf graf--li graf-after--li">handle work assigned by the Facade object.</li><li name="f1c3" id="f1c3" class="graf graf--li graf-after--li">have no knowledge of the facade; that is, they keep no references to it.</li></ul><p name="7966" id="7966" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Reducing client-subsystem coupling.</em></strong> The coupling between clients and the subsystem can be reduced even further by making Facade an abstract class with concrete subclasses for different implementations of a subsystem. Then clients can communicate with the subsystem through the interface of the abstract Facade class. This abstract coupling keeps clients from knowing which implementation of a subsystem is used.</p><p name="e5ff" id="e5ff" class="graf graf--p graf-after--p">An alternative to subclassing is to configure a Facade object with different subsystem objects. To customize the facade, simply replace one or more of its subsystem objects.</p><h3 name="4ed9" id="4ed9" class="graf graf--h3 graf-after--p">6. Isn’t it bad experience that if there is a change in subsystems or classes it will effect facade class and client also?</h3><p name="5085" id="5085" class="graf graf--p graf-after--h3">Facade, in general, is about reducing the complexity of interfacing with a subsystem,Even if subsystem or classes change, it affect only facade class implementation but the interface will remain the same.<br>Assume we build one framework which uses facade and provide interface to consume in application. Now even the subsystem or classes changes or the facade class implementation updated but it doesn&#39;t require to change the application code which consumes the API provided by the facade interface.</p><p name="a89d" id="a89d" class="graf graf--p graf-after--p">Take an example, if the day comes when you want to replace your backend service, you won’t have to change the code that uses your API, just the code inside your Facade. Interface or API remains the same.</p><h3 name="a302" id="a302" class="graf graf--h3 graf-after--p">7. Isn’t it bad to create another layer for facade class which will consume memory of app?</h3><p name="3d6e" id="3d6e" class="graf graf--p graf-after--h3">No, client/context does not use a complex interface and the system is more <strong class="markup--strong markup--p-strong">flexible and reusable</strong>. It promotes weak coupling between the subsystem and its clients.</p><h3 name="d243" id="d243" class="graf graf--h3 graf-after--p">8. If i have a project carrying thousands of classes would it be complex to make multiple facade classes and identify functionality?</h3><p name="aaba" id="aaba" class="graf graf--p graf-after--h3">Consider designing small frameworks which can work independently consist of large number of classes and which uses facade to expose the interface to client. Based on the designing of these component, complexity will varies.</p><h3 name="bf5c" id="bf5c" class="graf graf--h3 graf-after--p">Conclusion</h3><p name="0127" id="0127" class="graf graf--p graf-after--h3 graf--trailing">Facade pattern can avoid complexity in your projects, when there are several packages communicating with each other, or a client that requires the use of several classes the facade pattern is perfectly adapted.</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/6b39218ded9f"><time class="dt-published" datetime="2019-07-03T09:50:05.589Z">July 3, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-july-2019-part-i-6b39218ded9f" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (July 2019) Part I
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Previous: Top IOS Interview Questions and Answers (May 2019) Part I
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="6813"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="03f7"
+                id="03f7"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (July 2019) Part I
+              </h3>
+              <!-- <p name="c303" id="c303" class="graf graf--p graf-after--h3">
+                Previous:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-may-2019-part-i-174f3d24816"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-may-2019-part-i-174f3d24816"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers (May 2019) Part
+                    I</strong
+                  ></a
+                >
+              </p> -->
+              <!-- <p name="269a" id="269a" class="graf graf--p graf-after--p">
+                For more:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers for 2019</strong
+                  ></a
+                >
+              </p> -->
+              <h3 name="0154" id="0154" class="graf graf--h3 graf-after--p">
+                1. What is key difference between Facade design pattern and
+                Singleton?
+              </h3>
+              <p name="4467" id="4467" class="graf graf--p graf-after--h3">
+                Facade (simplifies the interface) and Singleton (ensures fixed
+                number, usually 1, of instances for a given object in a library)
+                are two independent design patterns. <br />A Facade may provide
+                an interface to a set of classes or even an entire library and
+                may or may not make sense for it to be Singleton, depending on
+                the scenario.
+              </p>
+              <p name="e1e7" id="e1e7" class="graf graf--p graf-after--p">
+                Should every Facade be implemented as Singleton? No. It is
+                usually implemented because easier to call, but it gives several
+                disadvantages:
+              </p>
+              <ol class="postList">
+                <li name="8f5f" id="8f5f" class="graf graf--li graf-after--p">
+                  Code coupling
+                </li>
+                <li name="95c4" id="95c4" class="graf graf--li graf-after--li">
+                  Not-concurrent safe by default
+                </li>
+                <li name="b3f5" id="b3f5" class="graf graf--li graf-after--li">
+                  Not Testable
+                </li>
+              </ol>
+              <p name="6669" id="6669" class="graf graf--p graf-after--li">
+                As you can see from the simplified diagram below the facade
+                pattern is one way to achieve this, it provides a unified class
+                which reduces communication between the complex subsystem and
+                its clients. Clients do not have to be aware of the actual
+                implementation of the subsystem and are provided with a simpler
+                interface to this subsystem.
+              </p>
+              <figure
+                name="f1b4"
+                id="f1b4"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*ATnx2tWcZOHITQT3.jpg"
+                  data-width="710"
+                  data-height="410"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/0*ATnx2tWcZOHITQT3.jpg"
+                />
+                <figcaption class="imageCaption">facade pattern</figcaption>
+              </figure>
+              <h3
+                name="40c0"
+                id="40c0"
+                class="graf graf--h3 graf-after--figure"
+              >
+                2. If we make multiple Facade class for a big project isn’t it
+                consume more memory of our mobile app? or While using multiple
+                facade class how much of memory it can consume or how much of
+                memory will be needed.
+              </h3>
+              <p name="5b33" id="5b33" class="graf graf--p graf-after--h3">
+                Yes, It will increase memory in runtime but based on the
+                lifetime of object , it will clear it out. The lifetime of a
+                dynamic object begins when memory is allocated for the object
+                (e.g., by a call to init or constructor) and ends when memory is
+                deallocated (when life time of object ends). Dynamic objects are
+                stored in “the heap”.
+              </p>
+              <p name="3cf8" id="3cf8" class="graf graf--p graf-after--p">
+                You’re confusing between two different things: the amount of
+                memory that a
+                <code class="markup--code markup--p-code">class</code> takes
+                (meta-data, or &quot;the blueprint&quot; of the instances) and
+                the amount of memory that an
+                <code class="markup--code markup--p-code">instance</code> takes
+                (data/object).
+              </p>
+              <p name="9f47" id="9f47" class="graf graf--p graf-after--p">
+                You can use profilers in order to see how much memory instances.
+              </p>
+              <h3 name="9165" id="9165" class="graf graf--h3 graf-after--p">
+                3. If client interacts with subsystems directly what is the
+                purpose of making new facade layer, what benefit we can get?
+                Pros and Cons of facade pattern?
+              </h3>
+              <p name="ba24" id="ba24" class="graf graf--p graf-after--h3">
+                Clients that access a complex subsystem directly refer to
+                (depend on) many different objects having different interfaces
+                (tight coupling), which makes the clients hard to implement,
+                change, test, and reuse.
+              </p>
+              <p name="09a6" id="09a6" class="graf graf--p graf-after--p">
+                Use the facade pattern when:
+              </p>
+              <ul class="postList">
+                <li name="3166" id="3166" class="graf graf--li graf-after--p">
+                  you want to provide a simple interface to a complex subsystem.
+                  The application of design patterns often results in a lot of
+                  small classes which makes subsystems more flexible and
+                  customizable. A facade can provide a default view for clients
+                  which don’t need to customize.
+                </li>
+                <li name="42cb" id="42cb" class="graf graf--li graf-after--li">
+                  you want to reduce coupling between clients-subsystems or
+                  subsystems-subsystems.
+                </li>
+                <li name="2c15" id="2c15" class="graf graf--li graf-after--li">
+                  you want to layer your subsystems. Use a facade to define an
+                  entry point to each subsystem level and make them communicate
+                  only through their facades, this can simplify the dependencies
+                  between them.
+                </li>
+              </ul>
+              <p name="849d" id="849d" class="graf graf--p graf-after--li">
+                The Facade Pattern has several
+                <strong class="markup--strong markup--p-strong"
+                  >advantages</strong
+                >, summarized in the following points:
+              </p>
+              <ul class="postList">
+                <li name="bf31" id="bf31" class="graf graf--li graf-after--p">
+                  The code is more
+                  <strong class="markup--strong markup--li-strong"
+                    >easier to use, understand and test</strong
+                  >
+                  since the facade simplify the interface.
+                </li>
+                <li name="3a53" id="3a53" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Clean code</strong
+                  >
+                  because the client/context does not use a complex interface
+                  and the system is more
+                  <strong class="markup--strong markup--li-strong"
+                    >flexible and reusable</strong
+                  >.
+                </li>
+              </ul>
+              <p name="fc48" id="fc48" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Drawbacks/Consequences:</strong
+                >
+              </p>
+              <ul class="postList">
+                <li name="46c9" id="46c9" class="graf graf--li graf-after--p">
+                  One of the drawback is that the subsystem methods are
+                  connected to the Façade layer. If the structure of the
+                  subsystem changes then it will require subsequent change to
+                  the Façade layer and client methods.
+                </li>
+              </ul>
+              <h3 name="43f3" id="43f3" class="graf graf--h3 graf-after--li">
+                4. Where facade layer is use in MVVM model?
+              </h3>
+              <p name="7cb5" id="7cb5" class="graf graf--p graf-after--h3">
+                The
+                <a
+                  href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx"
+                  data-href="http://msdn.microsoft.com/en-us/magazine/dd419663.aspx"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >MVVM (Model-View-ViewModel ) Design Pattern</a
+                >
+                requires that you create a facade layer between the Model and
+                the View called the ViewModel.
+              </p>
+              <p name="7d9c" id="7d9c" class="graf graf--p graf-after--p">
+                The <em class="markup--em markup--p-em">ViewModel </em>is
+                supposed to supplement the functionality provided by the
+                <em class="markup--em markup--p-em">Model</em>, and coerce it
+                into a form the
+                <em class="markup--em markup--p-em">View</em> can more readily
+                consume. The result being; the
+                <em class="markup--em markup--p-em">View</em> code can be pretty
+                thin and concerned only with view based activities, while the
+                <em class="markup--em markup--p-em">Model </em>can remain
+                uncompromising by the demands placed on it by a
+                <em class="markup--em markup--p-em">View </em>meaning it can
+                better represent the data/concepts its supposed model.
+              </p>
+              <h3 name="ead7" id="ead7" class="graf graf--h3 graf-after--p">
+                5. If facade layer increases loose coupling then how subsystems
+                or classes interact with each other if they have dependency for
+                each other ?
+              </h3>
+              <p name="c2e4" id="c2e4" class="graf graf--p graf-after--h3">
+                Facade promotes weak coupling between the subsystem and its
+                clients. Often the components in a subsystem are strongly
+                coupled.
+              </p>
+              <p name="f0df" id="f0df" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Facade</strong>
+              </p>
+              <ul class="postList">
+                <li name="c457" id="c457" class="graf graf--li graf-after--p">
+                  knows which subsystem classes are responsible for a request.
+                </li>
+                <li name="0041" id="0041" class="graf graf--li graf-after--li">
+                  delegates client requests to appropriate subsystem objects.
+                </li>
+              </ul>
+              <p name="7973" id="7973" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Subsystem classes</strong
+                >
+              </p>
+              <ul class="postList">
+                <li name="d25a" id="d25a" class="graf graf--li graf-after--p">
+                  implement subsystem functionality.
+                </li>
+                <li name="1b04" id="1b04" class="graf graf--li graf-after--li">
+                  handle work assigned by the Facade object.
+                </li>
+                <li name="f1c3" id="f1c3" class="graf graf--li graf-after--li">
+                  have no knowledge of the facade; that is, they keep no
+                  references to it.
+                </li>
+              </ul>
+              <p name="7966" id="7966" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Reducing client-subsystem coupling.</em
+                  ></strong
+                >
+                The coupling between clients and the subsystem can be reduced
+                even further by making Facade an abstract class with concrete
+                subclasses for different implementations of a subsystem. Then
+                clients can communicate with the subsystem through the interface
+                of the abstract Facade class. This abstract coupling keeps
+                clients from knowing which implementation of a subsystem is
+                used.
+              </p>
+              <p name="e5ff" id="e5ff" class="graf graf--p graf-after--p">
+                An alternative to subclassing is to configure a Facade object
+                with different subsystem objects. To customize the facade,
+                simply replace one or more of its subsystem objects.
+              </p>
+              <h3 name="4ed9" id="4ed9" class="graf graf--h3 graf-after--p">
+                6. Isn’t it bad experience that if there is a change in
+                subsystems or classes it will effect facade class and
+                client also?
+              </h3>
+              <p name="5085" id="5085" class="graf graf--p graf-after--h3">
+                Facade, in general, is about reducing the complexity of
+                interfacing with a subsystem,Even if subsystem or classes
+                change, it affect only facade class implementation but the
+                interface will remain the same.<br />Assume we build one
+                framework which uses facade and provide interface to consume in
+                application. Now even the subsystem or classes changes or the
+                facade class implementation updated but it doesn&#39;t require
+                to change the application code which consumes the API provided
+                by the facade interface.
+              </p>
+              <p name="a89d" id="a89d" class="graf graf--p graf-after--p">
+                Take an example, if the day comes when you want to replace your
+                backend service, you won’t have to change the code that uses
+                your API, just the code inside your Facade. Interface or API
+                remains the same.
+              </p>
+              <h3 name="a302" id="a302" class="graf graf--h3 graf-after--p">
+                7. Isn’t it bad to create another layer for facade class which
+                will consume memory of app?
+              </h3>
+              <p name="3d6e" id="3d6e" class="graf graf--p graf-after--h3">
+                No, client/context does not use a complex interface and the
+                system is more
+                <strong class="markup--strong markup--p-strong"
+                  >flexible and reusable</strong
+                >. It promotes weak coupling between the subsystem and its
+                clients.
+              </p>
+              <h3 name="d243" id="d243" class="graf graf--h3 graf-after--p">
+                8. If i have a project carrying thousands of classes would it be
+                complex to make multiple facade classes and identify
+                functionality?
+              </h3>
+              <p name="aaba" id="aaba" class="graf graf--p graf-after--h3">
+                Consider designing small frameworks which can work independently
+                consist of large number of classes and which uses facade to
+                expose the interface to client. Based on the designing of these
+                component, complexity will varies.
+              </p>
+              <h3 name="bf5c" id="bf5c" class="graf graf--h3 graf-after--p">
+                Conclusion
+              </h3>
+              <p
+                name="0127"
+                id="0127"
+                class="graf graf--p graf-after--h3 graf--trailing"
+              >
+                Facade pattern can avoid complexity in your projects, when there
+                are several packages communicating with each other, or a client
+                that requires the use of several classes the facade pattern is
+                perfectly adapted.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/6b39218ded9f"
+            ><time class="dt-published" datetime="2019-07-03T09:50:05.589Z"
+              >July 3, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-july-2019-part-i-6b39218ded9f"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

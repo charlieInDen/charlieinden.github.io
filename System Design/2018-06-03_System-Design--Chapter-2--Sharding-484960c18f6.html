@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 2: Sharding</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>System Design, Chapter 2: Sharding</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,314 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">System Design, Chapter 2: Sharding</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Sharding
-</section>
-<section data-field="description" class="p-summary">
-In a simple word, Sharding is the process of storing data records across multiple machines. Lets relate it with some of below picture to have more clarity, these are called Sharding strategies. If…
-</section>
-<section data-field="body" class="e-content">
-<section name="48ba" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="3707" id="3707" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 2: Sharding</h3><p name="3204" id="3204" class="graf graf--p graf-after--h3">In a simple word, Sharding is the process of storing data records across multiple machines. Lets relate it with some of below picture to have more clarity, these are called <strong class="markup--strong markup--p-strong">Sharding strategies</strong>.</p><p name="862e" id="862e" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">The Lookup strategy:</strong></p><figure name="267a" id="267a" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*i5ukNRsKOMNkuGKsnLGnRA.png" data-width="780" data-height="464" src="https://cdn-images-1.medium.com/max/800/1*i5ukNRsKOMNkuGKsnLGnRA.png"></figure><p name="5096" id="5096" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">The Range strategy:</strong></p><figure name="8a57" id="8a57" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*uBwSDk-SUgVpzkbSXa_G2Q.png" data-width="779" data-height="513" src="https://cdn-images-1.medium.com/max/800/1*uBwSDk-SUgVpzkbSXa_G2Q.png"></figure><p name="9a29" id="9a29" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">The Hash strategy:</strong></p><figure name="4f9b" id="4f9b" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*QUMqEWBoLELtPuHcbbw9wA.png" data-width="742" data-height="417" src="https://cdn-images-1.medium.com/max/800/1*QUMqEWBoLELtPuHcbbw9wA.png"></figure><h3 name="0f46" id="0f46" class="graf graf--h3 graf-after--figure">What Drives the Need for Database Sharding?</h3><ul class="postList"><li name="4390" id="4390" class="graf graf--li graf-after--h3">You can scale the system out by adding further shards running on additional storage nodes.</li><li name="c32b" id="c32b" class="graf graf--li graf-after--li">A system can use off-the-shelf hardware rather than specialized and expensive computers for each storage node.</li><li name="4b7c" id="4b7c" class="graf graf--li graf-after--li">You can reduce contention and improve performance by balancing the workload across shards.</li><li name="7b58" id="7b58" class="graf graf--li graf-after--li">In the cloud, shards can be located physically close to the users that’ll access the data.</li></ul><figure name="f55d" id="f55d" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*jJ305dEjTg86-ApCgyOVuA.jpeg" data-width="300" data-height="300" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*jJ305dEjTg86-ApCgyOVuA.jpeg"><figcaption class="imageCaption"><strong class="markup--strong markup--figure-strong">The growth in database transactions and volumes has a large impact on response times</strong></figcaption></figure><h3 name="c10e" id="c10e" class="graf graf--h3 graf-after--figure">Practicalities of Database Sharding</h3><p name="7ab0" id="7ab0" class="graf graf--p graf-after--h3">If Database Sharding is highly scalable, less costly, and improves performance, why hasn’t adoption of the technology been more widespread? Is it feasible for your organization?</p><p name="510d" id="510d" class="graf graf--p graf-after--p">The reality is that Database Sharding is a very useful technology, but like other approaches, there are many factors to consider that ensure a successful implementation. Further, there are some limitations and Database Sharding will not work well for every type of business application. This chapter discusses these critical considerations and how they can be addressed.</p><h3 name="3eae" id="3eae" class="graf graf--h3 graf-after--p">Challenges:</h3><p name="0394" id="0394" class="graf graf--p graf-after--h3">Due to the distributed nature of individual databases, a number of key elements must be taken into account:</p><ol class="postList"><li name="f780" id="f780" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Avoidance of cross-shard joins — </strong>In a sharded system, queries or other statements that use inner-joins that span shards are highly inefficient and difficult to perform.</li><li name="a89b" id="a89b" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Auto-increment key management- </strong>Typical auto-increment functionality provided by database management systems generate a sequential key for each new row inserted into the database. This is fine for a single database application, but when using Database Sharding, keys must be managed across all shards in a coordinated fashion.</li><li name="dcd0" id="dcd0" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong"><em class="markup--em markup--li-em">Reliability</em></strong><em class="markup--em markup--li-em">- </em>The database tier is often the single most critical element in any reliability design, and therefore an implementation of Database Sharding is no exception. In fact, due to the distributed nature of multiple shard databases, the criticality of a well-designed approach is even greater. To ensure a fault-tolerant and reliable approach, the following items are required:</li></ol><ul class="postList"><li name="1635" id="1635" class="graf graf--li graf-after--li">Automated backups of individual Database Shards.</li><li name="c023" id="c023" class="graf graf--li graf-after--li">Database Shard redundancy, ensuring at least 2 “live” copies of each shard are available in the event of an outage or server failure. This requires a high-performance, efficient, and reliable replication mechanism.</li><li name="34c2" id="34c2" class="graf graf--li graf-after--li">Cost-effective hardware redundancy, both within and across servers.</li><li name="e379" id="e379" class="graf graf--li graf-after--li">Automated failover when an outage or server failure occurs.</li><li name="b2f8" id="b2f8" class="graf graf--li graf-after--li">Disaster Recovery site management.</li></ul><h3 name="010f" id="010f" class="graf graf--h3 graf-after--li">Summary:</h3><p name="1d0e" id="1d0e" class="graf graf--p graf-after--h3">Sharding comes in many forms. In the most basic sense, it describes breaking up a large database into many smaller databases. Sharding can include strategies like carving off tables, or cutting up tables vertically (by columns). I’m mostly referring to the strategy of “horizontal table partitioning” — dividing large tables by row. This is a relatively exotic configuration and generally used only by the most demanding applications.</p><ol class="postList"><li name="512f" id="512f" class="graf graf--li graf-after--p">Good strategy for handling extreme database loads</li><li name="5c6b" id="5c6b" class="graf graf--li graf-after--li">Easiest/most appropriate when most load is accessing a few tables and JOIN operations across shards are not required</li><li name="f2e6" id="f2e6" class="graf graf--li graf-after--li">Success depends largely of sharding strategy and shard sizing</li><li name="1e88" id="1e88" class="graf graf--li graf-after--li">May require painful periodic shard resizing</li><li name="da09" id="da09" class="graf graf--li graf-after--li">Very high complexity</li><li name="f68b" id="f68b" class="graf graf--li graf-after--li">Improves availability — The impact of a shard failure is small (affects only a portion of data), but sharding must be coupled with an additional strategy (like active-passive) to provide complete high-availability</li></ol><p name="b6ef" id="b6ef" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Knowledge is Power!</strong></p><p name="0a75" id="0a75" class="graf graf--p graf-after--p graf--trailing"><strong class="markup--strong markup--p-strong">Hope you like it , Go to </strong><a href="https://medium.com/@nishantnitb/system-design-chapter-3-load-balancing-e1c89148e37" data-href="https://medium.com/@nishantnitb/system-design-chapter-3-load-balancing-e1c89148e37" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Chapter 3: Load Balancing</strong></a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/484960c18f6"><time class="dt-published" datetime="2018-06-03T06:47:01.368Z">June 3, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-2-sharding-484960c18f6" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">System Design, Chapter 2: Sharding</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Sharding
+      </section>
+      <section data-field="description" class="p-summary">
+        In a simple word, Sharding is the process of storing data records across
+        multiple machines. Lets relate it with some of below picture to have
+        more clarity, these are called Sharding strategies. If…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="48ba"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="3707"
+                id="3707"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                System Design, Chapter 2: Sharding
+              </h3>
+              <p name="3204" id="3204" class="graf graf--p graf-after--h3">
+                In a simple word, Sharding is the process of storing data
+                records across multiple machines. Lets relate it with some of
+                below picture to have more clarity, these are called
+                <strong class="markup--strong markup--p-strong"
+                  >Sharding strategies</strong
+                >.
+              </p>
+              <p name="862e" id="862e" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >The Lookup strategy:</strong
+                >
+              </p>
+              <figure
+                name="267a"
+                id="267a"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*i5ukNRsKOMNkuGKsnLGnRA.png"
+                  data-width="780"
+                  data-height="464"
+                  src="https://cdn-images-1.medium.com/max/800/1*i5ukNRsKOMNkuGKsnLGnRA.png"
+                />
+              </figure>
+              <p name="5096" id="5096" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >The Range strategy:</strong
+                >
+              </p>
+              <figure
+                name="8a57"
+                id="8a57"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*uBwSDk-SUgVpzkbSXa_G2Q.png"
+                  data-width="779"
+                  data-height="513"
+                  src="https://cdn-images-1.medium.com/max/800/1*uBwSDk-SUgVpzkbSXa_G2Q.png"
+                />
+              </figure>
+              <p name="9a29" id="9a29" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >The Hash strategy:</strong
+                >
+              </p>
+              <figure
+                name="4f9b"
+                id="4f9b"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*QUMqEWBoLELtPuHcbbw9wA.png"
+                  data-width="742"
+                  data-height="417"
+                  src="https://cdn-images-1.medium.com/max/800/1*QUMqEWBoLELtPuHcbbw9wA.png"
+                />
+              </figure>
+              <h3
+                name="0f46"
+                id="0f46"
+                class="graf graf--h3 graf-after--figure"
+              >
+                What Drives the Need for Database Sharding?
+              </h3>
+              <ul class="postList">
+                <li name="4390" id="4390" class="graf graf--li graf-after--h3">
+                  You can scale the system out by adding further shards running
+                  on additional storage nodes.
+                </li>
+                <li name="c32b" id="c32b" class="graf graf--li graf-after--li">
+                  A system can use off-the-shelf hardware rather than
+                  specialized and expensive computers for each storage node.
+                </li>
+                <li name="4b7c" id="4b7c" class="graf graf--li graf-after--li">
+                  You can reduce contention and improve performance by balancing
+                  the workload across shards.
+                </li>
+                <li name="7b58" id="7b58" class="graf graf--li graf-after--li">
+                  In the cloud, shards can be located physically close to the
+                  users that’ll access the data.
+                </li>
+              </ul>
+              <figure
+                name="f55d"
+                id="f55d"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*jJ305dEjTg86-ApCgyOVuA.jpeg"
+                  data-width="300"
+                  data-height="300"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*jJ305dEjTg86-ApCgyOVuA.jpeg"
+                />
+                <figcaption class="imageCaption">
+                  <strong class="markup--strong markup--figure-strong"
+                    >The growth in database transactions and volumes has a large
+                    impact on response times</strong
+                  >
+                </figcaption>
+              </figure>
+              <h3
+                name="c10e"
+                id="c10e"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Practicalities of Database Sharding
+              </h3>
+              <p name="7ab0" id="7ab0" class="graf graf--p graf-after--h3">
+                If Database Sharding is highly scalable, less costly, and
+                improves performance, why hasn’t adoption of the technology been
+                more widespread? Is it feasible for your organization?
+              </p>
+              <p name="510d" id="510d" class="graf graf--p graf-after--p">
+                The reality is that Database Sharding is a very useful
+                technology, but like other approaches, there are many factors to
+                consider that ensure a successful implementation. Further, there
+                are some limitations and Database Sharding will not work well
+                for every type of business application. This chapter discusses
+                these critical considerations and how they can be addressed.
+              </p>
+              <h3 name="3eae" id="3eae" class="graf graf--h3 graf-after--p">
+                Challenges:
+              </h3>
+              <p name="0394" id="0394" class="graf graf--p graf-after--h3">
+                Due to the distributed nature of individual databases, a number
+                of key elements must be taken into account:
+              </p>
+              <ol class="postList">
+                <li name="f780" id="f780" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Avoidance of cross-shard joins — </strong
+                  >In a sharded system, queries or other statements that use
+                  inner-joins that span shards are highly inefficient and
+                  difficult to perform.
+                </li>
+                <li name="a89b" id="a89b" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Auto-increment key management- </strong
+                  >Typical auto-increment functionality provided by database
+                  management systems generate a sequential key for each new row
+                  inserted into the database. This is fine for a single database
+                  application, but when using Database Sharding, keys must be
+                  managed across all shards in a coordinated fashion.
+                </li>
+                <li name="dcd0" id="dcd0" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    ><em class="markup--em markup--li-em"
+                      >Reliability</em
+                    ></strong
+                  ><em class="markup--em markup--li-em">- </em>The database tier
+                  is often the single most critical element in any reliability
+                  design, and therefore an implementation of Database Sharding
+                  is no exception. In fact, due to the distributed nature of
+                  multiple shard databases, the criticality of a well-designed
+                  approach is even greater. To ensure a fault-tolerant and
+                  reliable approach, the following items are required:
+                </li>
+              </ol>
+              <ul class="postList">
+                <li name="1635" id="1635" class="graf graf--li graf-after--li">
+                  Automated backups of individual Database Shards.
+                </li>
+                <li name="c023" id="c023" class="graf graf--li graf-after--li">
+                  Database Shard redundancy, ensuring at least 2 “live” copies
+                  of each shard are available in the event of an outage or
+                  server failure. This requires a high-performance, efficient,
+                  and reliable replication mechanism.
+                </li>
+                <li name="34c2" id="34c2" class="graf graf--li graf-after--li">
+                  Cost-effective hardware redundancy, both within and across
+                  servers.
+                </li>
+                <li name="e379" id="e379" class="graf graf--li graf-after--li">
+                  Automated failover when an outage or server failure occurs.
+                </li>
+                <li name="b2f8" id="b2f8" class="graf graf--li graf-after--li">
+                  Disaster Recovery site management.
+                </li>
+              </ul>
+              <h3 name="010f" id="010f" class="graf graf--h3 graf-after--li">
+                Summary:
+              </h3>
+              <p name="1d0e" id="1d0e" class="graf graf--p graf-after--h3">
+                Sharding comes in many forms. In the most basic sense, it
+                describes breaking up a large database into many smaller
+                databases. Sharding can include strategies like carving off
+                tables, or cutting up tables vertically (by columns). I’m mostly
+                referring to the strategy of “horizontal table
+                partitioning” — dividing large tables by row. This is a
+                relatively exotic configuration and generally used only by the
+                most demanding applications.
+              </p>
+              <ol class="postList">
+                <li name="512f" id="512f" class="graf graf--li graf-after--p">
+                  Good strategy for handling extreme database loads
+                </li>
+                <li name="5c6b" id="5c6b" class="graf graf--li graf-after--li">
+                  Easiest/most appropriate when most load is accessing a few
+                  tables and JOIN operations across shards are not required
+                </li>
+                <li name="f2e6" id="f2e6" class="graf graf--li graf-after--li">
+                  Success depends largely of sharding strategy and shard sizing
+                </li>
+                <li name="1e88" id="1e88" class="graf graf--li graf-after--li">
+                  May require painful periodic shard resizing
+                </li>
+                <li name="da09" id="da09" class="graf graf--li graf-after--li">
+                  Very high complexity
+                </li>
+                <li name="f68b" id="f68b" class="graf graf--li graf-after--li">
+                  Improves availability — The impact of a shard failure is small
+                  (affects only a portion of data), but sharding must be coupled
+                  with an additional strategy (like active-passive) to provide
+                  complete high-availability
+                </li>
+              </ol>
+              <p name="b6ef" id="b6ef" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Knowledge is Power!</strong
+                >
+              </p>
+              <!-- <p
+                name="0a75"
+                id="0a75"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                <strong class="markup--strong markup--p-strong"
+                  >Hope you like it , Go to </strong
+                ><a
+                  href="https://medium.com/@nishantnitb/system-design-chapter-3-load-balancing-e1c89148e37"
+                  data-href="https://medium.com/@nishantnitb/system-design-chapter-3-load-balancing-e1c89148e37"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Chapter 3: Load Balancing</strong
+                  ></a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/484960c18f6"
+            ><time class="dt-published" datetime="2018-06-03T06:47:01.368Z"
+              >June 3, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/system-design-chapter-2-sharding-484960c18f6"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

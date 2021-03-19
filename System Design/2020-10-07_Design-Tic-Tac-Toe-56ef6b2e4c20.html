@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Design Tic-Tac-Toe</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Design Tic-Tac-Toe</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,215 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Design Tic-Tac-Toe</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Assume the following rules are for the tic-tac-toe game on an n x n board between two players:
-</section>
-<section data-field="body" class="e-content">
-<section name="b01f" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="32c5" id="32c5" class="graf graf--h3 graf--leading graf--title">Design Tic-Tac-Toe</h3><p name="d05c" id="d05c" class="graf graf--p graf-after--h3">Assume the following rules are for the tic-tac-toe game on an <code class="markup--code markup--p-code">n x n</code> board between two players:</p><ol class="postList"><li name="7dd0" id="7dd0" class="graf graf--li graf-after--p">A move is guaranteed to be valid and is placed on an empty block.</li><li name="35c0" id="35c0" class="graf graf--li graf-after--li">Once a winning condition is reached, no more moves are allowed.</li><li name="efbd" id="efbd" class="graf graf--li graf-after--li">A player who succeeds in placing <code class="markup--code markup--li-code">n</code> of their marks in a horizontal, vertical, or diagonal row wins the game.</li></ol><p name="5019" id="5019" class="graf graf--p graf-after--li">Implement the <code class="markup--code markup--p-code">TicTacToe</code> class:</p><ul class="postList"><li name="4a14" id="4a14" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">TicTacToe(int n)</code> Initializes the object the size of the board <code class="markup--code markup--li-code">n</code>.</li><li name="73db" id="73db" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">int move(int row, int col, int player)</code> Indicates that player with id <code class="markup--code markup--li-code">player</code> plays at the cell <code class="markup--code markup--li-code">(row, col)</code>of the board. The move is guaranteed to be a valid move.</li></ul><p name="632f" id="632f" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Follow up:</strong><br>Could you do better than <code class="markup--code markup--p-code u-paddingRight0 u-marginRight0">O(<em class="markup--em markup--p-em">n</em>2)</code> per <code class="markup--code markup--p-code">move()</code> operation?</p><p name="3f29" id="3f29" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Constraints:</strong></p><ul class="postList"><li name="ede2" id="ede2" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">2 &lt;= n &lt;= 100</code></li><li name="5072" id="5072" class="graf graf--li graf-after--li">player is <code class="markup--code markup--li-code">1</code> or <code class="markup--code markup--li-code">2</code>.</li><li name="e642" id="e642" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">1 &lt;= row, col &lt;= n</code></li><li name="91cf" id="91cf" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">(row, col)</code> are <strong class="markup--strong markup--li-strong">unique</strong> for each different call to <code class="markup--code markup--li-code">move</code>.</li><li name="8a1c" id="8a1c" class="graf graf--li graf-after--li">At most <code class="markup--code markup--li-code">n2</code> calls will be made to <code class="markup--code markup--li-code">move</code>.</li></ul><p name="848a" id="848a" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/design-tic-tac-toe/" data-href="https://leetcode.com/problems/design-tic-tac-toe/" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/design-tic-tac-toe/</strong></a></p><p name="f18f" id="f18f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong></p><figure name="9d1b" id="9d1b" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/4203c49dde01e5ddb040e2a38dbf59ab.js.js"></script></figure><h4 name="b7e5" id="b7e5" class="graf graf--h4 graf-after--figure">Previous: <a href="https://medium.com/ios-expert-series-or-interview-series/design-in-memory-file-system-2715304ecb56?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-in-memory-file-system-2715304ecb56?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design In-Memory File System</a></h4><h4 name="e3a0" id="e3a0" class="graf graf--h4 graf-after--h4 graf--trailing">More: <a href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Design Interview Questions</a></h4></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/56ef6b2e4c20"><time class="dt-published" datetime="2020-10-07T05:14:41.896Z">October 7, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/design-tic-tac-toe-56ef6b2e4c20" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Design Tic-Tac-Toe</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Assume the following rules are for the tic-tac-toe game on an n x n
+        board between two players:
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="b01f"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="32c5"
+                id="32c5"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Design Tic-Tac-Toe
+              </h3>
+              <p name="d05c" id="d05c" class="graf graf--p graf-after--h3">
+                Assume the following rules are for the tic-tac-toe game on an
+                <code class="markup--code markup--p-code">n x n</code> board
+                between two players:
+              </p>
+              <ol class="postList">
+                <li name="7dd0" id="7dd0" class="graf graf--li graf-after--p">
+                  A move is guaranteed to be valid and is placed on an empty
+                  block.
+                </li>
+                <li name="35c0" id="35c0" class="graf graf--li graf-after--li">
+                  Once a winning condition is reached, no more moves are
+                  allowed.
+                </li>
+                <li name="efbd" id="efbd" class="graf graf--li graf-after--li">
+                  A player who succeeds in placing
+                  <code class="markup--code markup--li-code">n</code> of their
+                  marks in a horizontal, vertical, or diagonal row wins the
+                  game.
+                </li>
+              </ol>
+              <p name="5019" id="5019" class="graf graf--p graf-after--li">
+                Implement the
+                <code class="markup--code markup--p-code">TicTacToe</code>
+                class:
+              </p>
+              <ul class="postList">
+                <li name="4a14" id="4a14" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code"
+                    >TicTacToe(int n)</code
+                  >
+                  Initializes the object the size of the board
+                  <code class="markup--code markup--li-code">n</code>.
+                </li>
+                <li name="73db" id="73db" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >int move(int row, int col, int player)</code
+                  >
+                  Indicates that player with id
+                  <code class="markup--code markup--li-code">player</code> plays
+                  at the cell
+                  <code class="markup--code markup--li-code">(row, col)</code>of
+                  the board. The move is guaranteed to be a valid move.
+                </li>
+              </ul>
+              <p name="632f" id="632f" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Follow up:</strong
+                ><br />Could you do better than
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  >O(<em class="markup--em markup--p-em">n</em>2)</code
+                >
+                per
+                <code class="markup--code markup--p-code">move()</code>
+                operation?
+              </p>
+              <p name="3f29" id="3f29" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Constraints:</strong
+                >
+              </p>
+              <ul class="postList">
+                <li name="ede2" id="ede2" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code"
+                    >2 &lt;= n &lt;= 100</code
+                  >
+                </li>
+                <li name="5072" id="5072" class="graf graf--li graf-after--li">
+                  player is
+                  <code class="markup--code markup--li-code">1</code> or
+                  <code class="markup--code markup--li-code">2</code>.
+                </li>
+                <li name="e642" id="e642" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >1 &lt;= row, col &lt;= n</code
+                  >
+                </li>
+                <li name="91cf" id="91cf" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">(row, col)</code>
+                  are
+                  <strong class="markup--strong markup--li-strong"
+                    >unique</strong
+                  >
+                  for each different call to
+                  <code class="markup--code markup--li-code">move</code>.
+                </li>
+                <li name="8a1c" id="8a1c" class="graf graf--li graf-after--li">
+                  At most
+                  <code class="markup--code markup--li-code">n2</code> calls
+                  will be made to
+                  <code class="markup--code markup--li-code">move</code>.
+                </li>
+              </ul>
+              <p name="848a" id="848a" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/design-tic-tac-toe/"
+                  data-href="https://leetcode.com/problems/design-tic-tac-toe/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/design-tic-tac-toe/</strong
+                  ></a
+                >
+              </p>
+              <p name="f18f" id="f18f" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution</strong
+                >
+              </p>
+              <figure
+                name="9d1b"
+                id="9d1b"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/4203c49dde01e5ddb040e2a38dbf59ab.js.js"></script>
+              </figure>
+              <!-- <h4
+                name="b7e5"
+                id="b7e5"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Previous:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/design-in-memory-file-system-2715304ecb56?source=your_stories_page-------------------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/design-in-memory-file-system-2715304ecb56?source=your_stories_page-------------------------------------"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Design In-Memory File System</a
+                >
+              </h4> -->
+              <!-- <h4
+                name="e3a0"
+                id="e3a0"
+                class="graf graf--h4 graf-after--h4 graf--trailing"
+              >
+                More:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/design-interview-questions-ed68b77d44c8?source=your_stories_page-------------------------------------"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Design Interview Questions</a
+                >
+              </h4> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/56ef6b2e4c20"
+            ><time class="dt-published" datetime="2020-10-07T05:14:41.896Z"
+              >October 7, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/design-tic-tac-toe-56ef6b2e4c20"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

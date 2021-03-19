@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Microservices: Designing Highly Scalable Systems</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Microservices: Designing Highly Scalable Systems</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,722 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Microservices: Designing Highly Scalable Systems</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-The goal of this article it to equip you with all the knowledge required to design a robust, highly scalable micro services architecture.
-</section>
-<section data-field="body" class="e-content">
-<section name="380c" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="5c8a" id="5c8a" class="graf graf--h3 graf--leading graf--title">Microservices: Designing Highly Scalable Systems</h3><p name="07e8" id="07e8" class="graf graf--p graf-after--h3">The goal of this article it to equip you with all the knowledge required to design a robust, highly scalable micro services architecture.</p><p name="c76e" id="c76e" class="graf graf--p graf-after--p">Microservices are an approach to distributed systems that promote the use of finely grained services with their own lifecycles, which collaborate together. Because microservices are primarily modeled around business domains, they avoid the problems of traditional tiered architectures. Microservices also integrate new technologies and techniques that have emerged over the last decade, which helps them avoid the pitfalls of many service-oriented architecture implementations.</p><h3 name="be78" id="be78" class="graf graf--h3 graf-after--p"><strong class="markup--strong markup--h3-strong">Principles of </strong>Microservices</h3><ul class="postList"><li name="24ee" id="24ee" class="graf graf--li graf-after--h3">Microservices should not share code or data</li><li name="ea39" id="ea39" class="graf graf--li graf-after--li">Small, and Focused on Doing One Thing Well</li><li name="3a9c" id="3a9c" class="graf graf--li graf-after--li">Autonomous</li><li name="d62f" id="d62f" class="graf graf--li graf-after--li">Independence and autonomy are more important than code re-usability</li><li name="6d08" id="6d08" class="graf graf--li graf-after--li">No single point of failure</li><li name="27cb" id="27cb" class="graf graf--li graf-after--li">Each micorservice should be responsible for a single system function or process.</li><li name="c499" id="c499" class="graf graf--li graf-after--li">No direct communication allowed, Should use event/message bus.</li></ul><h4 name="4878" id="4878" class="graf graf--h4 graf-after--li"><strong class="markup--strong markup--h4-strong">Key Benefits</strong></h4><ol class="postList"><li name="68b2" id="68b2" class="graf graf--li graf-after--h4">Technology Heterogeneity</li><li name="cc6c" id="cc6c" class="graf graf--li graf-after--li">Resilience</li><li name="4788" id="4788" class="graf graf--li graf-after--li">Scaling</li><li name="b747" id="b747" class="graf graf--li graf-after--li">Ease of Deployment</li><li name="97f8" id="97f8" class="graf graf--li graf-after--li">Organizational Alignment</li><li name="ad55" id="ad55" class="graf graf--li graf-after--li">Composability</li><li name="73be" id="73be" class="graf graf--li graf-after--li">Optimizing for Replaceability</li></ol><h4 name="6411" id="6411" class="graf graf--h4 graf-after--li"><strong class="markup--strong markup--h4-strong">What About Service-Oriented Architecture?</strong></h4><p name="746e" id="746e" class="graf graf--p graf-after--h4">Service-oriented architecture (SOA) is a design approach where multiple services collaborate to provide some end set of capabilities. Communication between these services occurs via calls across a network rather than method calls within a process boundary.</p><h3 name="e6e2" id="e6e2" class="graf graf--h3 graf-after--p">Typical Microservices Architecture</h3><figure name="e68c" id="e68c" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*0isCXf6DB0FoXHB6-qX_Cg.png" data-width="2250" data-height="1072" src="https://cdn-images-1.medium.com/max/800/1*0isCXf6DB0FoXHB6-qX_Cg.png"></figure><p name="5b9b" id="5b9b" class="graf graf--p graf-after--figure">It provides a high level overview of all the building blocks of a typical micro-services architecture. A typical microservices architecture consists of the following components or building blocks.</p><p name="01a2" id="01a2" class="graf graf--p graf-after--p">Client applications that form the presentation layer of the architecture. Where each client application would only be responsible for UI presentation and for consuming the back-end microservices.</p><p name="52d3" id="52d3" class="graf graf--p graf-after--p">In this example we have a web application mobile app and chatbot. The second building block is the container host.</p><p name="7bda" id="7bda" class="graf graf--p graf-after--p">In this example we have a docker host, where our microservices are deployed. Each microservice would typically contain the domain or business logic, and database access logic that are required to facilitate one specific application function or process. Notice that each microservice has its own database.This allows microservices to be totally decoupled from each other and it even gives you the ability to use a different database type for each microservice, should you wish to do so.</p><p name="7988" id="7988" class="graf graf--p graf-after--p">Yet another important building block is an API gateway as a centralized entry point to the back-end microservices.An API Gateway allows client to micro services communications over HTTP instead of calling each micro-service directly. Clients can make their request to one or more API gateways that will route the HTTP requests to the desired microservices that will execute the command and query requests.</p><p name="2b08" id="2b08" class="graf graf--p graf-after--p">Another critical component in a microservices architecture is an authentication service. An authentication service is used to authenticate client applications and provide them with an access token or JWT. This access token needs to be sent with their HTTP request to securely access each microservice. A client application would therefore typically make two HTTP requests. The first to obtain the access token, and secondly to make the actual request to the desired microservice via an API Gateway. Access token are generally only active for a configurable time. Therefore if for example a token is valid for five minutes a client can make multiple requests before the token expires. Removing the need to make a new token request with every call. There should be a balance between the access frequency and expiration time.</p><p name="79cb" id="79cb" class="graf graf--p graf-after--p">Keeping in mind that the shorter the expiration time the more secure the request.</p><p name="95c2" id="95c2" class="graf graf--p graf-after--p">Another important building block and key enabler of a microservices architecture is an event bus. An event bus allows microservices to communicate with each other through asynchronous event based communication. Were microservices can publish events to the event bus and listen for specific events that they can consume and process.</p><p name="f9b9" id="f9b9" class="graf graf--p graf-after--p">This was a high level overview presented in the form of a deployment view of a typical microservices architecture.</p><h3 name="8e8e" id="8e8e" class="graf graf--h3 graf-after--p">What is an API Gateway?</h3><p name="3269" id="3269" class="graf graf--p graf-after--h3">When you design and build large or complex microservice-based applications with multiple client apps, a good approach to consider can be an API Gateway. This pattern is a service that provides a single-entry point for certain groups of microservices. It’s similar to the <strong class="markup--strong markup--p-strong">Facade pattern</strong> from object-oriented design, but in this case, it’s part of a distributed system. The API Gateway pattern is also sometimes known as the “backend for frontend” (<strong class="markup--strong markup--p-strong">BFF</strong>) because you build it while thinking about the needs of the client app.</p><p name="679a" id="679a" class="graf graf--p graf-after--p">Therefore, the API gateway sits between the client apps and the microservices. It acts as a reverse proxy, routing requests from clients to services. It can also provide other cross-cutting features such as authentication, SSL termination, and cache.</p><figure name="6992" id="6992" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*2AGOO_t8enHH8HEGi3Vxrg.png" data-width="2294" data-height="1331" src="https://cdn-images-1.medium.com/max/800/1*2AGOO_t8enHH8HEGi3Vxrg.png"><figcaption class="imageCaption">Reference: <a href="https://docs.microsoft.com" data-href="https://docs.microsoft.com" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://docs.microsoft.com</a></figcaption></figure><h4 name="720f" id="720f" class="graf graf--h4 graf-after--figure">Why consider API Gateways instead of direct client-to-microservice communication</h4><p name="2a9c" id="2a9c" class="graf graf--p graf-after--h4">In a microservices architecture, the client apps usually need to consume functionality from more than one microservice. If that consumption is performed directly, the client needs to handle multiple calls to microservice endpoints. What happens when the application evolves and new microservices are introduced or existing microservices are updated? If your application has many microservices, handling so many endpoints from the client apps can be a nightmare. Since the client app would be coupled to those internal endpoints, evolving the microservices in the future can cause high impact for the client apps.</p><p name="e7e0" id="e7e0" class="graf graf--p graf-after--p">If you don’t have API Gateways, the client apps must send requests directly to the microservices and that raises problems, such as the following issues:</p><ul class="postList"><li name="3ae7" id="3ae7" class="graf graf--li graf-after--p">Coupling</li><li name="7ac4" id="7ac4" class="graf graf--li graf-after--li">Too many round trips(several calls to multiple services)</li><li name="e0f7" id="e0f7" class="graf graf--li graf-after--li">Security issues(microservices exposed to the “external world”)</li><li name="f9ed" id="f9ed" class="graf graf--li graf-after--li">Cross-cutting concerns: Each publicly published microservice must handle concerns such as authorization and SSL. In many situations, those concerns could be handled in a single tier so the internal microservices are simplified.</li></ul><h4 name="910d" id="910d" class="graf graf--h4 graf-after--li">Event-Driven Communication Using an Event Bus</h4><p name="c214" id="c214" class="graf graf--p graf-after--h4">When you use event-based communication, a microservice publishes an event when something notable happens, such as when it updates a business entity. Other microservices subscribe to those events. When a microservice receives an event, it can update its own business entities, which might lead to more events being published. This is the essence of the eventual consistency concept. This publish/subscribe system is usually performed by using an implementation of an event bus. The event bus can be designed as an interface with the API needed to subscribe and unsubscribe to events and to publish events. It can also have one or more implementations based on any inter-process or messaging communication, such as a messaging queue or a service bus that supports asynchronous communication and a publish/subscribe model.</p><figure name="18ae" id="18ae" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*cdDWilytEB2s_s28d2ZHdA.png" data-width="1846" data-height="940" src="https://cdn-images-1.medium.com/max/800/1*cdDWilytEB2s_s28d2ZHdA.png"><figcaption class="imageCaption">Reference: <a href="https://docs.microsoft.com" data-href="https://docs.microsoft.com" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener" target="_blank">https://docs.microsoft.com</a></figcaption></figure><h3 name="dedc" id="dedc" class="graf graf--h3 graf-after--figure">What is Command and Query Responsibility Segregation (CQRS)?</h3><p name="435e" id="435e" class="graf graf--p graf-after--h3">This pattern separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.</p><figure name="8439" id="8439" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*FSEh4tvmVtP6GQIVhCLAJQ.png" data-width="526" data-height="282" src="https://cdn-images-1.medium.com/max/800/1*FSEh4tvmVtP6GQIVhCLAJQ.png"><figcaption class="imageCaption">Reference: <a href="https://docs.microsoft.com" data-href="https://docs.microsoft.com" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener noopener" target="_blank">https://docs.microsoft.com</a></figcaption></figure><p name="2f9f" id="2f9f" class="graf graf--p graf-after--figure">Benefits of CQRS include:</p><ul class="postList"><li name="6829" id="6829" class="graf graf--li graf-after--p">Independent scaling. CQRS allows the read and write workloads to scale independently, and may result in fewer lock contentions.</li><li name="ea78" id="ea78" class="graf graf--li graf-after--li">Optimized data schemas. The read side can use a schema that is optimized for queries, while the write side uses a schema that is optimized for updates.</li><li name="0dc1" id="0dc1" class="graf graf--li graf-after--li">Security. It’s easier to ensure that only the right domain entities are performing writes on the data.</li><li name="599c" id="599c" class="graf graf--li graf-after--li">Separation of concerns. Segregating the read and write sides can result in models that are more maintainable and flexible. Most of the complex business logic goes into the write model. The read model can be relatively simple.</li><li name="7297" id="7297" class="graf graf--li graf-after--li">Simpler queries. By storing a materialized view in the read database, the application can avoid complex joins when querying.</li></ul><h4 name="0a6c" id="0a6c" class="graf graf--h4 graf-after--li">CQRS &amp; Event Sourcing</h4><p name="138e" id="138e" class="graf graf--p graf-after--h4">The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically separate stores. When used with the <strong class="markup--strong markup--p-strong">Event Sourcing pattern</strong>, the store of events is the command model, and is the official source of information. The query model of a CQRS-based system provides materialised views of the data, typically as highly denormalised views. These views are tailored to the interfaces and display requirements of the application, which helps to maximize both display and query performance.</p><figure name="478d" id="478d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*G5QfrtJt7B9a6VxJxiUZ5w.png" data-width="2162" data-height="974" src="https://cdn-images-1.medium.com/max/800/1*G5QfrtJt7B9a6VxJxiUZ5w.png"></figure><h4 name="40b9" id="40b9" class="graf graf--h4 graf-after--figure">Saga Pattern</h4><p name="3f27" id="3f27" class="graf graf--p graf-after--h4">The <em class="markup--em markup--p-em">saga</em> design pattern is a way to manage data consistency across microservices in distributed transaction scenarios. A saga is a sequence of transactions that updates each service and publishes a message or event to trigger the next transaction step. If a step fails, the saga executes compensating transactions that counteract the preceding transactions.</p><figure name="7abb" id="7abb" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*fusNjTo_fKX8XDHUHrUciQ.png" data-width="1388" data-height="994" src="https://cdn-images-1.medium.com/max/800/1*fusNjTo_fKX8XDHUHrUciQ.png"></figure><p name="b225" id="b225" class="graf graf--p graf-after--figure">Assume microservice create an order in a pending state. The order saga orchestrator then publishes a process payment command event to the event pass the payment. Payment Microservice within listen for a process payment command event and a team to process the payment. If it succeeds it would publish a payment process event to the event pass. However this time the order saga orchestrator will consume the payment process event instead of the shipping micro servers. The orders saga orchestrator would then publish a ship order command that the shipping micros service would consume and process if it is successful in its attempts it would reply to the orders saga orchestrator by publishing an order shipped event to the event Press.</p><p name="f115" id="f115" class="graf graf--p graf-after--p">Finally the orders saga orchestrator would consume the orders shipped event and update the order as approved.</p><p name="9a0f" id="9a0f" class="graf graf--p graf-after--p">Again this is a scenario where everything was successful. Let us look at how failures are handled in the orchestration based saga approach.</p><p name="10a9" id="10a9" class="graf graf--p graf-after--p">The orders saga orchestrator could also listen to failure type events. If the payment service publishes an insufficient funds event will the shipping micros service publishers are not shipped event. The order saga orchestrator would handle those events and update the order as reject it. It would also take the responsibility to execute a series of compensating transactions to undo all the changes.</p><h4 name="4f8c" id="4f8c" class="graf graf--h4 graf-after--p">Unified logging for microservices applications</h4><p name="1064" id="1064" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--h4"><span class="graf-dropCap">L</span><em class="markup--em markup--p-em">ogging</em> uses discrete event messages to track and report application data in a centralized way. Log events provide an overview of application execution state, track code errors or application failures, and deliver informational messages. Automation can read event logs and notify relevant parties if events meet a criterion or threshold.</p><p name="7e5d" id="7e5d" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">T</span><em class="markup--em markup--p-em">racing</em> focuses on the continuous flow of an application. Tracing follows program execution through various methods and services from beginning to end, while understanding data state and transitions.</p><p name="075d" id="075d" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">M</span><em class="markup--em markup--p-em">onitoring</em> applies application instrumentation to both tracing or logging data to provide metrics that teams can use to make informed decisions. These metrics can aggregate log or trace data in a dashboard that gives a holistic view of application health, from utilization to error count.</p><p name="8f20" id="8f20" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Architecture</strong></p><p name="da07" id="da07" class="graf graf--p graf-after--p">The following architecture uses Azure services to build a unified logging and monitoring system.</p><figure name="8e20" id="8e20" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*yGtn2f1Zqx2y6YDAeKDltg.png" data-width="2605" data-height="2049" src="https://cdn-images-1.medium.com/max/800/1*yGtn2f1Zqx2y6YDAeKDltg.png"><figcaption class="imageCaption">Reference: <a href="https://docs.microsoft.com" data-href="https://docs.microsoft.com" class="markup--anchor markup--figure-anchor" rel="nofollow noopener noopener noopener noopener" target="_blank">https://docs.microsoft.com</a></figcaption></figure><ol class="postList"><li name="5850" id="5850" class="graf graf--li graf-after--figure">The application emits events from both the API and the user interface to Event Hubs and Application Insights.</li><li name="ae66" id="ae66" class="graf graf--li graf-after--li">Application Insights queries short-term logging, tracing, and monitoring data.</li><li name="bcd9" id="bcd9" class="graf graf--li graf-after--li">Stream Analytics jobs can use the Event Hubs data to trigger Logic Apps workflows.</li><li name="ee61" id="ee61" class="graf graf--li graf-after--li">A Logic Apps job calls the representational state transfer (REST) endpoint of an Information Technology Service Management (ITSM) system, and sends notifications to the development team.</li><li name="0594" id="0594" class="graf graf--li graf-after--li">Azure Sentinel automation uses Playbooks powered by Azure Logic Apps to generate security alerts.</li><li name="0f70" id="0f70" class="graf graf--li graf-after--li">Keeping event logs in long-term storage allows later analysis and diagnostics with Log Analytics.</li></ol><h4 name="b63e" id="b63e" class="graf graf--h4 graf-after--li">Containerized Microservices</h4><p name="4b7d" id="4b7d" class="graf graf--p graf-after--h4">Containerization is an approach to software development in which an application and its versioned set of dependencies, plus its environment configuration abstracted as deployment manifest files, are packaged together as a container image, tested as a unit, and deployed to a host operating system.</p><p name="96d5" id="96d5" class="graf graf--p graf-after--p">A container is an isolated, resource controlled, and portable operating environment, where an application can run without touching the resources of other containers, or the host. Therefore, a container looks and acts like a newly installed physical computer or a virtual machine.</p><figure name="96da" id="96da" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*eTmJKFmhjcd1SqB6sOwWlA.png" data-width="1136" data-height="492" src="https://cdn-images-1.medium.com/max/800/1*eTmJKFmhjcd1SqB6sOwWlA.png"></figure><p name="d12e" id="d12e" class="graf graf--p graf-after--figure">Containers provides many benefits especially when it comes to portability modularity and scalability. It is undoubtably a key enabler of a successful micros services architecture.</p><p name="dbd5" id="dbd5" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">What is container orchestration<br></strong>Container orchestration refers to the automation of tasks that relates to the scheduling and management of containers. More specifically container orchestration is used to automate the following tasks.</p><ul class="postList"><li name="fa0e" id="fa0e" class="graf graf--li graf-after--p">Container deployment and provisioning</li><li name="b89e" id="b89e" class="graf graf--li graf-after--li">Rescheduling of containers that fail scaling and load balancing</li><li name="b05d" id="b05d" class="graf graf--li graf-after--li">Resource allocation between containers</li><li name="0423" id="0423" class="graf graf--li graf-after--li">Container redundancy and availability</li><li name="f045" id="f045" class="graf graf--li graf-after--li">External exposure of services</li><li name="9793" id="9793" class="graf graf--li graf-after--li">Health monitoring of containers and hosts</li></ul><p name="7c61" id="7c61" class="graf graf--p graf-after--li">Container orchestration abstracts container management complexities.It becomes especially important as the number of containers and hosts in the system increases.</p><h3 name="0c07" id="0c07" class="graf graf--h3 graf-after--p">Tools and Technologies</h3></div><div class="section-inner sectionLayout--outsetColumn"><figure name="e75c" id="e75c" class="graf graf--figure graf--layoutOutsetCenter graf-after--h3 graf--trailing"><img class="graf-image" data-image-id="1*ubIMd6fngyfVensucXTDEw.png" data-width="2850" data-height="378" data-is-featured="true" src="https://cdn-images-1.medium.com/max/1200/1*ubIMd6fngyfVensucXTDEw.png"></figure></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/55dbb6f64c94"><time class="dt-published" datetime="2021-01-25T08:10:33.891Z">January 25, 2021</time></a>.</p><p><a href="https://medium.com/@nishantnitb/microservices-designing-highly-scalable-systems-55dbb6f64c94" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Microservices: Designing Highly Scalable Systems</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        The goal of this article it to equip you with all the knowledge required
+        to design a robust, highly scalable micro services architecture.
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="380c"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="5c8a"
+                id="5c8a"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Microservices: Designing Highly Scalable Systems
+              </h3>
+              <p name="07e8" id="07e8" class="graf graf--p graf-after--h3">
+                The goal of this article it to equip you with all the knowledge
+                required to design a robust, highly scalable micro services
+                architecture.
+              </p>
+              <p name="c76e" id="c76e" class="graf graf--p graf-after--p">
+                Microservices are an approach to distributed systems that
+                promote the use of finely grained services with their own
+                lifecycles, which collaborate together. Because microservices
+                are primarily modeled around business domains, they avoid the
+                problems of traditional tiered architectures. Microservices also
+                integrate new technologies and techniques that have emerged over
+                the last decade, which helps them avoid the pitfalls of many
+                service-oriented architecture implementations.
+              </p>
+              <h3 name="be78" id="be78" class="graf graf--h3 graf-after--p">
+                <strong class="markup--strong markup--h3-strong"
+                  >Principles of </strong
+                >Microservices
+              </h3>
+              <ul class="postList">
+                <li name="24ee" id="24ee" class="graf graf--li graf-after--h3">
+                  Microservices should not share code or data
+                </li>
+                <li name="ea39" id="ea39" class="graf graf--li graf-after--li">
+                  Small, and Focused on Doing One Thing Well
+                </li>
+                <li name="3a9c" id="3a9c" class="graf graf--li graf-after--li">
+                  Autonomous
+                </li>
+                <li name="d62f" id="d62f" class="graf graf--li graf-after--li">
+                  Independence and autonomy are more important than code
+                  re-usability
+                </li>
+                <li name="6d08" id="6d08" class="graf graf--li graf-after--li">
+                  No single point of failure
+                </li>
+                <li name="27cb" id="27cb" class="graf graf--li graf-after--li">
+                  Each micorservice should be responsible for a single system
+                  function or process.
+                </li>
+                <li name="c499" id="c499" class="graf graf--li graf-after--li">
+                  No direct communication allowed, Should use event/message bus.
+                </li>
+              </ul>
+              <h4 name="4878" id="4878" class="graf graf--h4 graf-after--li">
+                <strong class="markup--strong markup--h4-strong"
+                  >Key Benefits</strong
+                >
+              </h4>
+              <ol class="postList">
+                <li name="68b2" id="68b2" class="graf graf--li graf-after--h4">
+                  Technology Heterogeneity
+                </li>
+                <li name="cc6c" id="cc6c" class="graf graf--li graf-after--li">
+                  Resilience
+                </li>
+                <li name="4788" id="4788" class="graf graf--li graf-after--li">
+                  Scaling
+                </li>
+                <li name="b747" id="b747" class="graf graf--li graf-after--li">
+                  Ease of Deployment
+                </li>
+                <li name="97f8" id="97f8" class="graf graf--li graf-after--li">
+                  Organizational Alignment
+                </li>
+                <li name="ad55" id="ad55" class="graf graf--li graf-after--li">
+                  Composability
+                </li>
+                <li name="73be" id="73be" class="graf graf--li graf-after--li">
+                  Optimizing for Replaceability
+                </li>
+              </ol>
+              <h4 name="6411" id="6411" class="graf graf--h4 graf-after--li">
+                <strong class="markup--strong markup--h4-strong"
+                  >What About Service-Oriented Architecture?</strong
+                >
+              </h4>
+              <p name="746e" id="746e" class="graf graf--p graf-after--h4">
+                Service-oriented architecture (SOA) is a design approach where
+                multiple services collaborate to provide some end set of
+                capabilities. Communication between these services occurs via
+                calls across a network rather than method calls within a process
+                boundary.
+              </p>
+              <h3 name="e6e2" id="e6e2" class="graf graf--h3 graf-after--p">
+                Typical Microservices Architecture
+              </h3>
+              <figure
+                name="e68c"
+                id="e68c"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*0isCXf6DB0FoXHB6-qX_Cg.png"
+                  data-width="2250"
+                  data-height="1072"
+                  src="https://cdn-images-1.medium.com/max/800/1*0isCXf6DB0FoXHB6-qX_Cg.png"
+                />
+              </figure>
+              <p name="5b9b" id="5b9b" class="graf graf--p graf-after--figure">
+                It provides a high level overview of all the building blocks of
+                a typical micro-services architecture. A typical microservices
+                architecture consists of the following components or building
+                blocks.
+              </p>
+              <p name="01a2" id="01a2" class="graf graf--p graf-after--p">
+                Client applications that form the presentation layer of the
+                architecture. Where each client application would only be
+                responsible for UI presentation and for consuming the back-end
+                microservices.
+              </p>
+              <p name="52d3" id="52d3" class="graf graf--p graf-after--p">
+                In this example we have a web application mobile app and
+                chatbot. The second building block is the container host.
+              </p>
+              <p name="7bda" id="7bda" class="graf graf--p graf-after--p">
+                In this example we have a docker host, where our microservices
+                are deployed. Each microservice would typically contain the
+                domain or business logic, and database access logic that are
+                required to facilitate one specific application function or
+                process. Notice that each microservice has its own database.This
+                allows microservices to be totally decoupled from each other and
+                it even gives you the ability to use a different database type
+                for each microservice, should you wish to do so.
+              </p>
+              <p name="7988" id="7988" class="graf graf--p graf-after--p">
+                Yet another important building block is an API gateway as a
+                centralized entry point to the back-end microservices.An API
+                Gateway allows client to micro services communications over HTTP
+                instead of calling each micro-service directly. Clients can make
+                their request to one or more API gateways that will route the
+                HTTP requests to the desired microservices that will execute the
+                command and query requests.
+              </p>
+              <p name="2b08" id="2b08" class="graf graf--p graf-after--p">
+                Another critical component in a microservices architecture is an
+                authentication service. An authentication service is used to
+                authenticate client applications and provide them with an access
+                token or JWT. This access token needs to be sent with their HTTP
+                request to securely access each microservice. A client
+                application would therefore typically make two HTTP requests.
+                The first to obtain the access token, and secondly to make the
+                actual request to the desired microservice via an API Gateway.
+                Access token are generally only active for a configurable time.
+                Therefore if for example a token is valid for five minutes a
+                client can make multiple requests before the token expires.
+                Removing the need to make a new token request with every call.
+                There should be a balance between the access frequency and
+                expiration time.
+              </p>
+              <p name="79cb" id="79cb" class="graf graf--p graf-after--p">
+                Keeping in mind that the shorter the expiration time the more
+                secure the request.
+              </p>
+              <p name="95c2" id="95c2" class="graf graf--p graf-after--p">
+                Another important building block and key enabler of a
+                microservices architecture is an event bus. An event bus allows
+                microservices to communicate with each other through
+                asynchronous event based communication. Were microservices can
+                publish events to the event bus and listen for specific events
+                that they can consume and process.
+              </p>
+              <p name="f9b9" id="f9b9" class="graf graf--p graf-after--p">
+                This was a high level overview presented in the form of a
+                deployment view of a typical microservices architecture.
+              </p>
+              <h3 name="8e8e" id="8e8e" class="graf graf--h3 graf-after--p">
+                What is an API Gateway?
+              </h3>
+              <p name="3269" id="3269" class="graf graf--p graf-after--h3">
+                When you design and build large or complex microservice-based
+                applications with multiple client apps, a good approach to
+                consider can be an API Gateway. This pattern is a service that
+                provides a single-entry point for certain groups of
+                microservices. It’s similar to the
+                <strong class="markup--strong markup--p-strong"
+                  >Facade pattern</strong
+                >
+                from object-oriented design, but in this case, it’s part of a
+                distributed system. The API Gateway pattern is also sometimes
+                known as the “backend for frontend” (<strong
+                  class="markup--strong markup--p-strong"
+                  >BFF</strong
+                >) because you build it while thinking about the needs of the
+                client app.
+              </p>
+              <p name="679a" id="679a" class="graf graf--p graf-after--p">
+                Therefore, the API gateway sits between the client apps and the
+                microservices. It acts as a reverse proxy, routing requests from
+                clients to services. It can also provide other cross-cutting
+                features such as authentication, SSL termination, and cache.
+              </p>
+              <figure
+                name="6992"
+                id="6992"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*2AGOO_t8enHH8HEGi3Vxrg.png"
+                  data-width="2294"
+                  data-height="1331"
+                  src="https://cdn-images-1.medium.com/max/800/1*2AGOO_t8enHH8HEGi3Vxrg.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://docs.microsoft.com"
+                    data-href="https://docs.microsoft.com"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://docs.microsoft.com</a
+                  >
+                </figcaption>
+              </figure>
+              <h4
+                name="720f"
+                id="720f"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Why consider API Gateways instead of direct
+                client-to-microservice communication
+              </h4>
+              <p name="2a9c" id="2a9c" class="graf graf--p graf-after--h4">
+                In a microservices architecture, the client apps usually need to
+                consume functionality from more than one microservice. If that
+                consumption is performed directly, the client needs to handle
+                multiple calls to microservice endpoints. What happens when the
+                application evolves and new microservices are introduced or
+                existing microservices are updated? If your application has many
+                microservices, handling so many endpoints from the client apps
+                can be a nightmare. Since the client app would be coupled to
+                those internal endpoints, evolving the microservices in the
+                future can cause high impact for the client apps.
+              </p>
+              <p name="e7e0" id="e7e0" class="graf graf--p graf-after--p">
+                If you don’t have API Gateways, the client apps must send
+                requests directly to the microservices and that raises problems,
+                such as the following issues:
+              </p>
+              <ul class="postList">
+                <li name="3ae7" id="3ae7" class="graf graf--li graf-after--p">
+                  Coupling
+                </li>
+                <li name="7ac4" id="7ac4" class="graf graf--li graf-after--li">
+                  Too many round trips(several calls to multiple services)
+                </li>
+                <li name="e0f7" id="e0f7" class="graf graf--li graf-after--li">
+                  Security issues(microservices exposed to the “external world”)
+                </li>
+                <li name="f9ed" id="f9ed" class="graf graf--li graf-after--li">
+                  Cross-cutting concerns: Each publicly published microservice
+                  must handle concerns such as authorization and SSL. In many
+                  situations, those concerns could be handled in a single tier
+                  so the internal microservices are simplified.
+                </li>
+              </ul>
+              <h4 name="910d" id="910d" class="graf graf--h4 graf-after--li">
+                Event-Driven Communication Using an Event Bus
+              </h4>
+              <p name="c214" id="c214" class="graf graf--p graf-after--h4">
+                When you use event-based communication, a microservice publishes
+                an event when something notable happens, such as when it updates
+                a business entity. Other microservices subscribe to those
+                events. When a microservice receives an event, it can update its
+                own business entities, which might lead to more events being
+                published. This is the essence of the eventual consistency
+                concept. This publish/subscribe system is usually performed by
+                using an implementation of an event bus. The event bus can be
+                designed as an interface with the API needed to subscribe and
+                unsubscribe to events and to publish events. It can also have
+                one or more implementations based on any inter-process or
+                messaging communication, such as a messaging queue or a service
+                bus that supports asynchronous communication and a
+                publish/subscribe model.
+              </p>
+              <figure
+                name="18ae"
+                id="18ae"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*cdDWilytEB2s_s28d2ZHdA.png"
+                  data-width="1846"
+                  data-height="940"
+                  src="https://cdn-images-1.medium.com/max/800/1*cdDWilytEB2s_s28d2ZHdA.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://docs.microsoft.com"
+                    data-href="https://docs.microsoft.com"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://docs.microsoft.com</a
+                  >
+                </figcaption>
+              </figure>
+              <h3
+                name="dedc"
+                id="dedc"
+                class="graf graf--h3 graf-after--figure"
+              >
+                What is Command and Query Responsibility Segregation (CQRS)?
+              </h3>
+              <p name="435e" id="435e" class="graf graf--p graf-after--h3">
+                This pattern separates read and update operations for a data
+                store. Implementing CQRS in your application can maximize its
+                performance, scalability, and security. The flexibility created
+                by migrating to CQRS allows a system to better evolve over time
+                and prevents update commands from causing merge conflicts at the
+                domain level.
+              </p>
+              <figure
+                name="8439"
+                id="8439"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*FSEh4tvmVtP6GQIVhCLAJQ.png"
+                  data-width="526"
+                  data-height="282"
+                  src="https://cdn-images-1.medium.com/max/800/1*FSEh4tvmVtP6GQIVhCLAJQ.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://docs.microsoft.com"
+                    data-href="https://docs.microsoft.com"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener noopener noopener"
+                    target="_blank"
+                    >https://docs.microsoft.com</a
+                  >
+                </figcaption>
+              </figure>
+              <p name="2f9f" id="2f9f" class="graf graf--p graf-after--figure">
+                Benefits of CQRS include:
+              </p>
+              <ul class="postList">
+                <li name="6829" id="6829" class="graf graf--li graf-after--p">
+                  Independent scaling. CQRS allows the read and write workloads
+                  to scale independently, and may result in fewer lock
+                  contentions.
+                </li>
+                <li name="ea78" id="ea78" class="graf graf--li graf-after--li">
+                  Optimized data schemas. The read side can use a schema that is
+                  optimized for queries, while the write side uses a schema that
+                  is optimized for updates.
+                </li>
+                <li name="0dc1" id="0dc1" class="graf graf--li graf-after--li">
+                  Security. It’s easier to ensure that only the right domain
+                  entities are performing writes on the data.
+                </li>
+                <li name="599c" id="599c" class="graf graf--li graf-after--li">
+                  Separation of concerns. Segregating the read and write sides
+                  can result in models that are more maintainable and flexible.
+                  Most of the complex business logic goes into the write model.
+                  The read model can be relatively simple.
+                </li>
+                <li name="7297" id="7297" class="graf graf--li graf-after--li">
+                  Simpler queries. By storing a materialized view in the read
+                  database, the application can avoid complex joins when
+                  querying.
+                </li>
+              </ul>
+              <h4 name="0a6c" id="0a6c" class="graf graf--h4 graf-after--li">
+                CQRS &amp; Event Sourcing
+              </h4>
+              <p name="138e" id="138e" class="graf graf--p graf-after--h4">
+                The CQRS pattern is often used along with the Event Sourcing
+                pattern. CQRS-based systems use separate read and write data
+                models, each tailored to relevant tasks and often located in
+                physically separate stores. When used with the
+                <strong class="markup--strong markup--p-strong"
+                  >Event Sourcing pattern</strong
+                >, the store of events is the command model, and is the official
+                source of information. The query model of a CQRS-based system
+                provides materialised views of the data, typically as highly
+                denormalised views. These views are tailored to the interfaces
+                and display requirements of the application, which helps to
+                maximize both display and query performance.
+              </p>
+              <figure
+                name="478d"
+                id="478d"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*G5QfrtJt7B9a6VxJxiUZ5w.png"
+                  data-width="2162"
+                  data-height="974"
+                  src="https://cdn-images-1.medium.com/max/800/1*G5QfrtJt7B9a6VxJxiUZ5w.png"
+                />
+              </figure>
+              <h4
+                name="40b9"
+                id="40b9"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Saga Pattern
+              </h4>
+              <p name="3f27" id="3f27" class="graf graf--p graf-after--h4">
+                The <em class="markup--em markup--p-em">saga</em> design pattern
+                is a way to manage data consistency across microservices in
+                distributed transaction scenarios. A saga is a sequence of
+                transactions that updates each service and publishes a message
+                or event to trigger the next transaction step. If a step fails,
+                the saga executes compensating transactions that counteract the
+                preceding transactions.
+              </p>
+              <figure
+                name="7abb"
+                id="7abb"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*fusNjTo_fKX8XDHUHrUciQ.png"
+                  data-width="1388"
+                  data-height="994"
+                  src="https://cdn-images-1.medium.com/max/800/1*fusNjTo_fKX8XDHUHrUciQ.png"
+                />
+              </figure>
+              <p name="b225" id="b225" class="graf graf--p graf-after--figure">
+                Assume microservice create an order in a pending state. The
+                order saga orchestrator then publishes a process payment command
+                event to the event pass the payment. Payment Microservice within
+                listen for a process payment command event and a team to process
+                the payment. If it succeeds it would publish a payment process
+                event to the event pass. However this time the order saga
+                orchestrator will consume the payment process event instead of
+                the shipping micro servers. The orders saga orchestrator would
+                then publish a ship order command that the shipping micros
+                service would consume and process if it is successful in its
+                attempts it would reply to the orders saga orchestrator by
+                publishing an order shipped event to the event Press.
+              </p>
+              <p name="f115" id="f115" class="graf graf--p graf-after--p">
+                Finally the orders saga orchestrator would consume the orders
+                shipped event and update the order as approved.
+              </p>
+              <p name="9a0f" id="9a0f" class="graf graf--p graf-after--p">
+                Again this is a scenario where everything was successful. Let us
+                look at how failures are handled in the orchestration based saga
+                approach.
+              </p>
+              <p name="10a9" id="10a9" class="graf graf--p graf-after--p">
+                The orders saga orchestrator could also listen to failure type
+                events. If the payment service publishes an insufficient funds
+                event will the shipping micros service publishers are not
+                shipped event. The order saga orchestrator would handle those
+                events and update the order as reject it. It would also take the
+                responsibility to execute a series of compensating transactions
+                to undo all the changes.
+              </p>
+              <h4 name="4f8c" id="4f8c" class="graf graf--h4 graf-after--p">
+                Unified logging for microservices applications
+              </h4>
+              <p
+                name="1064"
+                id="1064"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--h4"
+              >
+                <span class="graf-dropCap">L</span
+                ><em class="markup--em markup--p-em">ogging</em> uses discrete
+                event messages to track and report application data in a
+                centralized way. Log events provide an overview of application
+                execution state, track code errors or application failures, and
+                deliver informational messages. Automation can read event logs
+                and notify relevant parties if events meet a criterion or
+                threshold.
+              </p>
+              <p
+                name="7e5d"
+                id="7e5d"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"
+              >
+                <span class="graf-dropCap">T</span
+                ><em class="markup--em markup--p-em">racing</em> focuses on the
+                continuous flow of an application. Tracing follows program
+                execution through various methods and services from beginning to
+                end, while understanding data state and transitions.
+              </p>
+              <p
+                name="075d"
+                id="075d"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"
+              >
+                <span class="graf-dropCap">M</span
+                ><em class="markup--em markup--p-em">onitoring</em> applies
+                application instrumentation to both tracing or logging data to
+                provide metrics that teams can use to make informed decisions.
+                These metrics can aggregate log or trace data in a dashboard
+                that gives a holistic view of application health, from
+                utilization to error count.
+              </p>
+              <p name="8f20" id="8f20" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Architecture</strong
+                >
+              </p>
+              <p name="da07" id="da07" class="graf graf--p graf-after--p">
+                The following architecture uses Azure services to build a
+                unified logging and monitoring system.
+              </p>
+              <figure
+                name="8e20"
+                id="8e20"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*yGtn2f1Zqx2y6YDAeKDltg.png"
+                  data-width="2605"
+                  data-height="2049"
+                  src="https://cdn-images-1.medium.com/max/800/1*yGtn2f1Zqx2y6YDAeKDltg.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://docs.microsoft.com"
+                    data-href="https://docs.microsoft.com"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener noopener noopener noopener"
+                    target="_blank"
+                    >https://docs.microsoft.com</a
+                  >
+                </figcaption>
+              </figure>
+              <ol class="postList">
+                <li
+                  name="5850"
+                  id="5850"
+                  class="graf graf--li graf-after--figure"
+                >
+                  The application emits events from both the API and the user
+                  interface to Event Hubs and Application Insights.
+                </li>
+                <li name="ae66" id="ae66" class="graf graf--li graf-after--li">
+                  Application Insights queries short-term logging, tracing, and
+                  monitoring data.
+                </li>
+                <li name="bcd9" id="bcd9" class="graf graf--li graf-after--li">
+                  Stream Analytics jobs can use the Event Hubs data to trigger
+                  Logic Apps workflows.
+                </li>
+                <li name="ee61" id="ee61" class="graf graf--li graf-after--li">
+                  A Logic Apps job calls the representational state transfer
+                  (REST) endpoint of an Information Technology Service
+                  Management (ITSM) system, and sends notifications to the
+                  development team.
+                </li>
+                <li name="0594" id="0594" class="graf graf--li graf-after--li">
+                  Azure Sentinel automation uses Playbooks powered by Azure
+                  Logic Apps to generate security alerts.
+                </li>
+                <li name="0f70" id="0f70" class="graf graf--li graf-after--li">
+                  Keeping event logs in long-term storage allows later analysis
+                  and diagnostics with Log Analytics.
+                </li>
+              </ol>
+              <h4 name="b63e" id="b63e" class="graf graf--h4 graf-after--li">
+                Containerized Microservices
+              </h4>
+              <p name="4b7d" id="4b7d" class="graf graf--p graf-after--h4">
+                Containerization is an approach to software development in which
+                an application and its versioned set of dependencies, plus its
+                environment configuration abstracted as deployment manifest
+                files, are packaged together as a container image, tested as a
+                unit, and deployed to a host operating system.
+              </p>
+              <p name="96d5" id="96d5" class="graf graf--p graf-after--p">
+                A container is an isolated, resource controlled, and portable
+                operating environment, where an application can run without
+                touching the resources of other containers, or the host.
+                Therefore, a container looks and acts like a newly installed
+                physical computer or a virtual machine.
+              </p>
+              <figure
+                name="96da"
+                id="96da"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*eTmJKFmhjcd1SqB6sOwWlA.png"
+                  data-width="1136"
+                  data-height="492"
+                  src="https://cdn-images-1.medium.com/max/800/1*eTmJKFmhjcd1SqB6sOwWlA.png"
+                />
+              </figure>
+              <p name="d12e" id="d12e" class="graf graf--p graf-after--figure">
+                Containers provides many benefits especially when it comes to
+                portability modularity and scalability. It is undoubtably a key
+                enabler of a successful micros services architecture.
+              </p>
+              <p name="dbd5" id="dbd5" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >What is container orchestration<br /></strong
+                >Container orchestration refers to the automation of tasks that
+                relates to the scheduling and management of containers. More
+                specifically container orchestration is used to automate the
+                following tasks.
+              </p>
+              <ul class="postList">
+                <li name="fa0e" id="fa0e" class="graf graf--li graf-after--p">
+                  Container deployment and provisioning
+                </li>
+                <li name="b89e" id="b89e" class="graf graf--li graf-after--li">
+                  Rescheduling of containers that fail scaling and load
+                  balancing
+                </li>
+                <li name="b05d" id="b05d" class="graf graf--li graf-after--li">
+                  Resource allocation between containers
+                </li>
+                <li name="0423" id="0423" class="graf graf--li graf-after--li">
+                  Container redundancy and availability
+                </li>
+                <li name="f045" id="f045" class="graf graf--li graf-after--li">
+                  External exposure of services
+                </li>
+                <li name="9793" id="9793" class="graf graf--li graf-after--li">
+                  Health monitoring of containers and hosts
+                </li>
+              </ul>
+              <p name="7c61" id="7c61" class="graf graf--p graf-after--li">
+                Container orchestration abstracts container management
+                complexities.It becomes especially important as the number of
+                containers and hosts in the system increases.
+              </p>
+              <h3 name="0c07" id="0c07" class="graf graf--h3 graf-after--p">
+                Tools and Technologies
+              </h3>
+            </div>
+            <div class="section-inner sectionLayout--outsetColumn">
+              <figure
+                name="e75c"
+                id="e75c"
+                class="graf graf--figure graf--layoutOutsetCenter graf-after--h3 graf--trailing"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*ubIMd6fngyfVensucXTDEw.png"
+                  data-width="2850"
+                  data-height="378"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/1200/1*ubIMd6fngyfVensucXTDEw.png"
+                />
+              </figure>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/55dbb6f64c94"
+            ><time class="dt-published" datetime="2021-01-25T08:10:33.891Z"
+              >January 25, 2021</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/microservices-designing-highly-scalable-systems-55dbb6f64c94"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

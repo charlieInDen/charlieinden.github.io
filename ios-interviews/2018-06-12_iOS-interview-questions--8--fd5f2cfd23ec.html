@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS interview questions (8)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iOS interview questions (8)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,500 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">iOS interview questions (8)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Generics, LRU cache in swift
-</section>
-<section data-field="description" class="p-summary">
-We are going to learn Generics in swift and LRU algorithm through this blog. It seems a hot question for 3rd or 4th round for iOS developer when your interviewer asks you to write a code on paper for…
-</section>
-<section data-field="body" class="e-content">
-<section name="afc4" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="6b67" id="6b67" class="graf graf--h3 graf--leading graf--title">iOS 2018 Series: Cracking iOS interview or Become iOS expert (8)</h3><p name="897c" id="897c" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Generics &amp; LRU cache in swift</strong></p><p name="9f87" id="9f87" class="graf graf--p graf-after--p">We are going to learn Generics in swift and LRU algorithm through this blog. It seems a hot question for 3rd or 4th round for iOS developer when your interviewer asks you to write a code on paper for generic LRU cache, implementation language may vary as per interviewer knowledge…HAHAHA!! Hope you got a good interviewer :)</p><p name="9190" id="9190" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Generic </em></strong><em class="markup--em markup--p-em">code</em> enables you to write flexible, reusable functions and types that can work with any type, subject to requirements that you define.</p><h4 name="7ec7" id="7ec7" class="graf graf--h4 graf-after--p">Generic Functions</h4><pre name="351f" id="351f" class="graf graf--pre graf-after--h4">func swapTwoValues&lt;T&gt;(_ a: inout T, _ b: inout T) {<br>    let tempA = a<br>    a = b<br>    b = tempA<br>}</pre><p name="e938" id="e938" class="graf graf--p graf-after--pre">The generic version of the function uses a <em class="markup--em markup--p-em">placeholder</em> type name (called <code class="markup--code markup--p-code">T</code>, in this case) instead of an <em class="markup--em markup--p-em">actual</em> type name (such as <code class="markup--code markup--p-code">Int</code>, <code class="markup--code markup--p-code">String</code>, or <code class="markup--code markup--p-code">Double</code>). The placeholder type name doesn’t say anything about what <code class="markup--code markup--p-code">T</code> must be, but it <em class="markup--em markup--p-em">does</em> say that both <code class="markup--code markup--p-code">a</code> and <code class="markup--code markup--p-code">b</code> must be of the same type <code class="markup--code markup--p-code">T</code>, whatever <code class="markup--code markup--p-code">T</code> represents. The actual type to use in place of <code class="markup--code markup--p-code">T</code> is determined each time the <code class="markup--code markup--p-code">swapTwoValues(_:_:)</code> function is called.</p><p name="929a" id="929a" class="graf graf--p graf-after--p">The other difference between a generic function and a nongeneric function is that the generic function’s name (<code class="markup--code markup--p-code">swapTwoValues(_:_:)</code>) is followed by the placeholder type name (<code class="markup--code markup--p-code">T</code>) inside angle brackets (<code class="markup--code markup--p-code">&lt;T&gt;</code>). The brackets tell Swift that <code class="markup--code markup--p-code">T</code> is a placeholder type name within the <code class="markup--code markup--p-code">swapTwoValues(_:_:)</code> function definition. Because <code class="markup--code markup--p-code">T</code> is a placeholder, Swift doesn’t look for an actual type called <code class="markup--code markup--p-code">T</code>.</p><h3 name="2067" id="2067" class="graf graf--h3 graf-after--p">Naming Type Parameters</h3><p name="4686" id="4686" class="graf graf--p graf-after--h3">In most cases, type parameters have descriptive names, such as <code class="markup--code markup--p-code">Key</code> and <code class="markup--code markup--p-code">Value</code> in <code class="markup--code markup--p-code">Dictionary&lt;Key, Value&gt;</code> and <code class="markup--code markup--p-code">Element</code> in <code class="markup--code markup--p-code">Array&lt;Element&gt;</code>, which tells the reader about the relationship between the type parameter and the generic type or function it’s used in. However, when there isn’t a meaningful relationship between them, it’s traditional to name them using single letters such as <code class="markup--code markup--p-code">T</code>, <code class="markup--code markup--p-code">U</code>, and <code class="markup--code markup--p-code">V</code>, such as <code class="markup--code markup--p-code">T</code> in the <code class="markup--code markup--p-code">class</code> below.</p><p name="d204" id="d204" class="graf graf--p graf-after--p">Instead of writing theories about generics, let see the use case but for those who need more details , please refer the link given below in this post.</p><h4 name="4d41" id="4d41" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Why do we need LRU Cache, even generic.. WHY ??</strong></h4><p name="6c34" id="6c34" class="graf graf--p graf-after--h4">Lets think of its use in our applications..</p><ol class="postList"><li name="6754" id="6754" class="graf graf--li graf-after--p">Show a list based on users usage.</li><li name="56d4" id="56d4" class="graf graf--li graf-after--li">Order of features based on user usage.</li><li name="69c9" id="69c9" class="graf graf--li graf-after--li">Application settings option based on frequently use of it.</li><li name="d2fd" id="d2fd" class="graf graf--li graf-after--li">Creating touch biz screen on your android phone based on app usage of users.</li><li name="b3c4" id="b3c4" class="graf graf--li graf-after--li">Showing large number of images on list view</li><li name="206a" id="206a" class="graf graf--li graf-after--li">loading large text content on a memory</li></ol><p name="9bd5" id="9bd5" class="graf graf--p graf-after--li">so many use case ..Right!!!</p><p name="2fdb" id="2fdb" class="graf graf--p graf-after--p">Lets start with the implementation of Generic LRU Cache which will take different kind of key , value pair and stored in it. <em class="markup--em markup--p-em">Generic functions</em> can work with any type.</p><p name="fdd0" id="fdd0" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">We use two data structures to implement an LRU Cache.</strong></p><ol class="postList"><li name="8763" id="8763" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Queue</strong> which is implemented using a generic doubly linked list. The maximum size of the queue will be equal to the total number of frames available (cache size).The most recently used pages will be near front end and least recently pages will be near rear end.</li><li name="4e71" id="4e71" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">A Hash</strong> with generics as key and address of the corresponding queue node as value.</li></ol><figure name="be7b" id="be7b" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*ONqaSxolX8IJUiA75hrP0Q.png" data-width="830" data-height="358" src="https://cdn-images-1.medium.com/max/800/1*ONqaSxolX8IJUiA75hrP0Q.png"></figure><h3 name="be97" id="be97" class="graf graf--h3 graf-after--figure"><strong class="markup--strong markup--h3-strong">The Beginning..</strong></h3><p name="92a3" id="92a3" class="graf graf--p graf-after--h3">Create a LRUNode class which will be a node for doubly linked list class. We will be storing key, value information of generic type , init method will help in initializing the class.</p><pre name="8b8a" id="8b8a" class="graf graf--pre graf-after--p">class <strong class="markup--strong markup--pre-strong">LRUNode </strong>&lt;K,V&gt;<br>{<br>    var key : K<br>    var value : V<br>    var next : LRUNode? <br>    var prev : LRUNode?<br>    init (key: K, value: V)<br>    {<br>        self.key = key <br>     	self.value = value <br>    	self.next = nil<br>    	self.prev = nil<br>    }<br>}</pre><p name="581d" id="581d" class="graf graf--p graf-after--pre">we will implement a doubly link list which will help us in maintaining the information least recently used item, recently used item will be on <strong class="markup--strong markup--p-strong">headNode </strong>of doubly link list and least used items will go on <strong class="markup--strong markup--p-strong">tailNode </strong>of it.</p><p name="dd20" id="dd20" class="graf graf--p graf-after--p">To do so, we will implement a class called DLinkList and it will have two functions.</p><ol class="postList"><li name="14e2" id="14e2" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">addToHead </strong>which will take our node as input and add it to <strong class="markup--strong markup--li-strong">headNode</strong>.</li><li name="0d69" id="0d69" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">removeNode </strong>which will take our node as input and check whether its <strong class="markup--strong markup--li-strong">headNode</strong>, <strong class="markup--strong markup--li-strong">tailNode </strong>or <strong class="markup--strong markup--li-strong">inbetween </strong>node, based on it delete logic will work.</li></ol><pre name="f2b2" id="f2b2" class="graf graf--pre graf-after--li">class DLinkList &lt;K,V&gt;<br>{<br>    var headNode : LRUNode &lt;K,V&gt;?<br>    var tailNode : LRUNode &lt;K,V&gt;?<br>    init ()<br>    {<br>    }<br>    func addToHead (node: LRUNode&lt;K,V&gt;)<br>    {<br>        if self.headNode ! = nil {<br>            //Fetch head node in temporary store<br>            let tNode = self.headNode <br>      //assign previous of tNode so that we can insert node at start<br>            tNode?.prev = node<br>      self.headNode = node<br>      self.headNode?.next = tNode<br>        }<br>        else {                 <br>      self.headNode = node <br>      self.tailNode = node      <br>     }<br>    }<br>    func removeNode (node:LRUNode&lt;K,V&gt;)<br>    {<br>        //=== used for comparision between node<br>        if self.headNode ! = nil &amp;&amp; self.headNode! = = = node {<br>            if self.headNode?.next = = nil {                <br>                self.headNode = nil                <br>                self.tailNode = nil      <br>            }<br>            else {<br>                self.headNode = self.headNode?.next <br>                self.headNode?.prev = nil<br>            }<br>        }<br>        else if node.next ! = nil {<br>            //Node is not in start or end<br>            node.next?.prev = node.prev <br>            node.prev?.next = node.next<br>        }<br>        else {<br>            //If node is in tail position<br>            node.prev?.next = nil <br>     	    self.tailNode = node.prev<br>        }<br>    }<br>}</pre><p name="ecb5" id="ecb5" class="graf graf--p graf-after--pre">Swift provides two identity operators (=== and !==), which you use to test whether two object references both refer to the same object instance.</p><p name="46c1" id="46c1" class="graf graf--p graf-after--p">So we are ready with doubly link list.</p><h3 name="a31d" id="a31d" class="graf graf--h3 graf-after--p">The End..</h3><p name="f46a" id="f46a" class="graf graf--p graf-after--h3">lets create a <strong class="markup--strong markup--p-strong">hash map</strong> so that access to LRU will be faster. While implementing a generic hashmap we need to take care that key should be Hashable or not, and do we require value to follow NSCopying protocol.</p><p name="b2ea" id="b2ea" class="graf graf--p graf-after--p">LRUCache class will have a queue which represents a doubly link list, provides addToHead, removeNode functionality, hashTable dictionary which contain generic key and LRUNode as value in it. Multithread access has been taken care of using dispatchQueue and barrier flag.</p><pre name="5f9f" id="5f9f" class="graf graf--pre graf-after--p">class LRUCache &lt;K:Hashable,V:NSCopying&gt;<br>{<br>    var <strong class="markup--strong markup--pre-strong">capacity </strong>: Int <br>    var <strong class="markup--strong markup--pre-strong">length </strong>: Int <br>    private let <strong class="markup--strong markup--pre-strong">queue </strong>: <strong class="markup--strong markup--pre-strong">DLinkList &lt;K,V&gt;</strong><br>    private var <strong class="markup--strong markup--pre-strong">hashTable </strong>: <strong class="markup--strong markup--pre-strong">[K : LRUNode&lt;K,V&gt;]</strong><br>    private let <strong class="markup--strong markup--pre-strong">dispatchQueue </strong>: <strong class="markup--strong markup--pre-strong">DispatchQueue </strong>= DispatchQueue.init (label: &quot;CacheQueue&quot;)<br>    <strong class="markup--strong markup--pre-strong">init (size:Int)</strong><br>    {<br>        self.capacity = size self.length = 0 self.queue = DLinkList.init ()<br>        hashTable = [K:LRUNode&lt;K,V&gt;]<br>        (minimumCapacity:size)<br>    }</pre><pre name="72df" id="72df" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">subscript (key:K)-&gt;V? {</strong><br>     //Removing from where ever it is and making sure it will move to front in a doubly linklist<br>    <br>      <strong class="markup--strong markup--pre-strong">get </strong>{<br>            var node : LRUNode &lt;K,V&gt;?<br>            dispatchQueue.sync {<br>                node = hashTable [key]<br>                if node ! = nil {<br>                    self.queue.removeNode (node: node!)<br>                    self.queue.addToHead (node: node!)<br>                }<br>            }<br>            if node = = nil {<br>                return nil<br>            }<br>            return node!.value<br>     }<br>      <strong class="markup--strong markup--pre-strong">set </strong>(newValue)<br>        {<br>            dispatchQueue.async (flags: .barrier)<br>            {<br>                if newValue = = nil {           <br>                    return      <br>                }<br>                if let node = self.hashTable [key]<br>                {<br>                    node.value = newValue! <br>                    self.queue.removeNode (node: node)<br>                    self.queue.addToHead(node: node)<br>                }<br>                else {</pre><pre name="016a" id="016a" class="graf graf--pre graf-after--pre">                 self.hashTable.removeValue(forKey: self.queue.tailNode!.key)<br>                 self.queue.tailNode = self.queue.tailNode?.prev<br>                 if let node = self.queue.tailNode {<br>                      node.next = nil<br>                  }<br>                 self.queue.addToHead(node: node)<br>                 self.hashTable[key] = node<br>               }<br>	    }<br>	}<br>    }<br>}</pre><p name="f4a4" id="f4a4" class="graf graf--p graf-after--pre">This implementation helps in understanding the concepts of generics in swift and LRU Algorithm implementation.</p><p name="e7ad" id="e7ad" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Using LRU Cache</strong></p><pre name="55dc" id="55dc" class="graf graf--pre graf-after--p">let lruCache = LRUCache&lt;String, Float&gt;(size: 7)</pre><pre name="d310" id="d310" class="graf graf--pre graf-after--pre">lruCache[“India”] = 150000000</pre><p name="d34e" id="d34e" class="graf graf--p graf-after--pre">For more details on <strong class="markup--strong markup--p-strong">generics</strong> , click here: <a href="https://docs.swift.org/swift-book/LanguageGuide/Generics.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/Generics.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">generics in swift</strong></a></p><h3 name="e947" id="e947" class="graf graf--h3 graf-after--p">Bonus time:</h3><p name="4a3e" id="4a3e" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">What is the difference between </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">private</strong></code><strong class="markup--strong markup--p-strong">, </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">public</strong></code><strong class="markup--strong markup--p-strong">, </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">internal</strong></code><strong class="markup--strong markup--p-strong">, </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">open</strong></code><strong class="markup--strong markup--p-strong">, and </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">fileprivate</strong></code><strong class="markup--strong markup--p-strong"> access levels in Swift 4?</strong></p><p name="fd29" id="fd29" class="graf graf--p graf-after--p">In Swift encapsulation is achieved by using the following five access control keywords: <code class="markup--code markup--p-code">private</code>, <code class="markup--code markup--p-code">fileprivate</code>, <code class="markup--code markup--p-code">internal</code>, <code class="markup--code markup--p-code">public</code>, and <code class="markup--code markup--p-code">open</code>. These access levels either restrict or open access within the scope of a file or module. Let’s take a look at each of them from the most restrictive, <code class="markup--code markup--p-code">private</code>, to the least restrictive, <code class="markup--code markup--p-code">open</code>.</p><p name="47b7" id="47b7" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Private</code> access is the most restrictive. If you define something as <code class="markup--code markup--p-code">private</code> it means it is private to that declaration scope and can’t be accessed from the outside.</p><p name="4658" id="4658" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Fileprivate</code> access is the second-most restrictive. Defining something as <code class="markup--code markup--p-code">fileprivate</code> means that it will be only accessible within the scope of the file where it was declared.</p><p name="42b5" id="42b5" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Internal</code> access is the default access level that will be set if you do not explicitly state otherwise. <code class="markup--code markup--p-code">Internal</code> means that this thing can be used anywhere within the module it was defined. Basically if you’re building an app, <code class="markup--code markup--p-code">internal</code> means it will be available anywhere in that app. If you’re building a library/framework, <code class="markup--code markup--p-code">internal</code> means it will be available within that library/framework but not outside from the app that uses the library.</p><p name="178b" id="178b" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Public</code> access means that something can be accessed not only within the defining file and module but also from the outside module that imports the one where it was defined. Effectively, <code class="markup--code markup--p-code">public</code> declares a public interface for the module.</p><p name="0e3f" id="0e3f" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Open</code> access means that something is <code class="markup--code markup--p-code">public</code> and can also be subclassed not only within the module where it was defined but also by whoever imports it.</p><p name="f0db" id="f0db" class="graf graf--p graf-after--p">Hope you like this article &amp; is useful for people looking to find out the use of generics and implementation of generic LRU Cache, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="2b20" id="2b20" class="graf graf--p graf-after--p graf--trailing"><strong class="markup--strong markup--p-strong">Next Chapter: </strong><a href="https://medium.com/@nishantnitb/ios-interview-questions-9-cdef888983bb" data-href="https://medium.com/@nishantnitb/ios-interview-questions-9-cdef888983bb" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Fast Enumerations, Toll-Free Bridging &amp; Must know iOS Basics</strong></a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/fd5f2cfd23ec"><time class="dt-published" datetime="2018-06-12T14:34:17.042Z">June 12, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-8-fd5f2cfd23ec" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">iOS interview questions (8)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Generics, LRU cache in swift
+      </section>
+      <section data-field="description" class="p-summary">
+        We are going to learn Generics in swift and LRU algorithm through this
+        blog. It seems a hot question for 3rd or 4th round for iOS developer
+        when your interviewer asks you to write a code on paper for…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="afc4"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="6b67"
+                id="6b67"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                iOS 2018 Series: Cracking iOS interview or Become iOS expert (8)
+              </h3>
+              <p name="897c" id="897c" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Generics &amp; LRU cache in swift</strong
+                >
+              </p>
+              <p name="9f87" id="9f87" class="graf graf--p graf-after--p">
+                We are going to learn Generics in swift and LRU algorithm
+                through this blog. It seems a hot question for 3rd or 4th round
+                for iOS developer when your interviewer asks you to write a code
+                on paper for generic LRU cache, implementation language may vary
+                as per interviewer knowledge…HAHAHA!! Hope you got a good
+                interviewer :)
+              </p>
+              <p name="9190" id="9190" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em">Generic </em></strong
+                ><em class="markup--em markup--p-em">code</em> enables you to
+                write flexible, reusable functions and types that can work with
+                any type, subject to requirements that you define.
+              </p>
+              <h4 name="7ec7" id="7ec7" class="graf graf--h4 graf-after--p">
+                Generic Functions
+              </h4>
+              <pre
+                name="351f"
+                id="351f"
+                class="graf graf--pre graf-after--h4"
+              >func swapTwoValues&lt;T&gt;(_ a: inout T, _ b: inout T) {<br>    let tempA = a<br>    a = b<br>    b = tempA<br>}</pre>
+              <p name="e938" id="e938" class="graf graf--p graf-after--pre">
+                The generic version of the function uses a
+                <em class="markup--em markup--p-em">placeholder</em> type name
+                (called <code class="markup--code markup--p-code">T</code>, in
+                this case) instead of an
+                <em class="markup--em markup--p-em">actual</em> type name (such
+                as <code class="markup--code markup--p-code">Int</code>,
+                <code class="markup--code markup--p-code">String</code>, or
+                <code class="markup--code markup--p-code">Double</code>). The
+                placeholder type name doesn’t say anything about what
+                <code class="markup--code markup--p-code">T</code> must be, but
+                it <em class="markup--em markup--p-em">does</em> say that both
+                <code class="markup--code markup--p-code">a</code> and
+                <code class="markup--code markup--p-code">b</code> must be of
+                the same type
+                <code class="markup--code markup--p-code">T</code>, whatever
+                <code class="markup--code markup--p-code">T</code> represents.
+                The actual type to use in place of
+                <code class="markup--code markup--p-code">T</code> is determined
+                each time the
+                <code class="markup--code markup--p-code"
+                  >swapTwoValues(_:_:)</code
+                >
+                function is called.
+              </p>
+              <p name="929a" id="929a" class="graf graf--p graf-after--p">
+                The other difference between a generic function and a nongeneric
+                function is that the generic function’s name (<code
+                  class="markup--code markup--p-code"
+                  >swapTwoValues(_:_:)</code
+                >) is followed by the placeholder type name (<code
+                  class="markup--code markup--p-code"
+                  >T</code
+                >) inside angle brackets (<code
+                  class="markup--code markup--p-code"
+                  >&lt;T&gt;</code
+                >). The brackets tell Swift that
+                <code class="markup--code markup--p-code">T</code> is a
+                placeholder type name within the
+                <code class="markup--code markup--p-code"
+                  >swapTwoValues(_:_:)</code
+                >
+                function definition. Because
+                <code class="markup--code markup--p-code">T</code> is a
+                placeholder, Swift doesn’t look for an actual type called
+                <code class="markup--code markup--p-code">T</code>.
+              </p>
+              <h3 name="2067" id="2067" class="graf graf--h3 graf-after--p">
+                Naming Type Parameters
+              </h3>
+              <p name="4686" id="4686" class="graf graf--p graf-after--h3">
+                In most cases, type parameters have descriptive names, such as
+                <code class="markup--code markup--p-code">Key</code> and
+                <code class="markup--code markup--p-code">Value</code> in
+                <code class="markup--code markup--p-code"
+                  >Dictionary&lt;Key, Value&gt;</code
+                >
+                and <code class="markup--code markup--p-code">Element</code> in
+                <code class="markup--code markup--p-code"
+                  >Array&lt;Element&gt;</code
+                >, which tells the reader about the relationship between the
+                type parameter and the generic type or function it’s used in.
+                However, when there isn’t a meaningful relationship between
+                them, it’s traditional to name them using single letters such as
+                <code class="markup--code markup--p-code">T</code>,
+                <code class="markup--code markup--p-code">U</code>, and
+                <code class="markup--code markup--p-code">V</code>, such as
+                <code class="markup--code markup--p-code">T</code> in the
+                <code class="markup--code markup--p-code">class</code> below.
+              </p>
+              <p name="d204" id="d204" class="graf graf--p graf-after--p">
+                Instead of writing theories about generics, let see the use case
+                but for those who need more details , please refer the link
+                given below in this post.
+              </p>
+              <h4 name="4d41" id="4d41" class="graf graf--h4 graf-after--p">
+                <strong class="markup--strong markup--h4-strong"
+                  >Why do we need LRU Cache, even generic.. WHY ??</strong
+                >
+              </h4>
+              <p name="6c34" id="6c34" class="graf graf--p graf-after--h4">
+                Lets think of its use in our applications..
+              </p>
+              <ol class="postList">
+                <li name="6754" id="6754" class="graf graf--li graf-after--p">
+                  Show a list based on users usage.
+                </li>
+                <li name="56d4" id="56d4" class="graf graf--li graf-after--li">
+                  Order of features based on user usage.
+                </li>
+                <li name="69c9" id="69c9" class="graf graf--li graf-after--li">
+                  Application settings option based on frequently use of it.
+                </li>
+                <li name="d2fd" id="d2fd" class="graf graf--li graf-after--li">
+                  Creating touch biz screen on your android phone based on app
+                  usage of users.
+                </li>
+                <li name="b3c4" id="b3c4" class="graf graf--li graf-after--li">
+                  Showing large number of images on list view
+                </li>
+                <li name="206a" id="206a" class="graf graf--li graf-after--li">
+                  loading large text content on a memory
+                </li>
+              </ol>
+              <p name="9bd5" id="9bd5" class="graf graf--p graf-after--li">
+                so many use case ..Right!!!
+              </p>
+              <p name="2fdb" id="2fdb" class="graf graf--p graf-after--p">
+                Lets start with the implementation of Generic LRU Cache which
+                will take different kind of key , value pair and stored in it.
+                <em class="markup--em markup--p-em">Generic functions</em> can
+                work with any type.
+              </p>
+              <p name="fdd0" id="fdd0" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >We use two data structures to implement an LRU Cache.</strong
+                >
+              </p>
+              <ol class="postList">
+                <li name="8763" id="8763" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Queue</strong
+                  >
+                  which is implemented using a generic doubly linked list. The
+                  maximum size of the queue will be equal to the total number of
+                  frames available (cache size).The most recently used pages
+                  will be near front end and least recently pages will be near
+                  rear end.
+                </li>
+                <li name="4e71" id="4e71" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >A Hash</strong
+                  >
+                  with generics as key and address of the corresponding queue
+                  node as value.
+                </li>
+              </ol>
+              <figure
+                name="be7b"
+                id="be7b"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*ONqaSxolX8IJUiA75hrP0Q.png"
+                  data-width="830"
+                  data-height="358"
+                  src="https://cdn-images-1.medium.com/max/800/1*ONqaSxolX8IJUiA75hrP0Q.png"
+                />
+              </figure>
+              <h3
+                name="be97"
+                id="be97"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >The Beginning..</strong
+                >
+              </h3>
+              <p name="92a3" id="92a3" class="graf graf--p graf-after--h3">
+                Create a LRUNode class which will be a node for doubly linked
+                list class. We will be storing key, value information of generic
+                type , init method will help in initializing the class.
+              </p>
+              <pre
+                name="8b8a"
+                id="8b8a"
+                class="graf graf--pre graf-after--p"
+              >class <strong class="markup--strong markup--pre-strong">LRUNode </strong>&lt;K,V&gt;<br>{<br>    var key : K<br>    var value : V<br>    var next : LRUNode? <br>    var prev : LRUNode?<br>    init (key: K, value: V)<br>    {<br>        self.key = key <br>     	self.value = value <br>    	self.next = nil<br>    	self.prev = nil<br>    }<br>}</pre>
+              <p name="581d" id="581d" class="graf graf--p graf-after--pre">
+                we will implement a doubly link list which will help us in
+                maintaining the information least recently used item, recently
+                used item will be on
+                <strong class="markup--strong markup--p-strong"
+                  >headNode </strong
+                >of doubly link list and least used items will go on
+                <strong class="markup--strong markup--p-strong"
+                  >tailNode </strong
+                >of it.
+              </p>
+              <p name="dd20" id="dd20" class="graf graf--p graf-after--p">
+                To do so, we will implement a class called DLinkList and it will
+                have two functions.
+              </p>
+              <ol class="postList">
+                <li name="14e2" id="14e2" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >addToHead </strong
+                  >which will take our node as input and add it to
+                  <strong class="markup--strong markup--li-strong"
+                    >headNode</strong
+                  >.
+                </li>
+                <li name="0d69" id="0d69" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >removeNode </strong
+                  >which will take our node as input and check whether its
+                  <strong class="markup--strong markup--li-strong"
+                    >headNode</strong
+                  >,
+                  <strong class="markup--strong markup--li-strong"
+                    >tailNode </strong
+                  >or
+                  <strong class="markup--strong markup--li-strong"
+                    >inbetween </strong
+                  >node, based on it delete logic will work.
+                </li>
+              </ol>
+              <pre
+                name="f2b2"
+                id="f2b2"
+                class="graf graf--pre graf-after--li"
+              >class DLinkList &lt;K,V&gt;<br>{<br>    var headNode : LRUNode &lt;K,V&gt;?<br>    var tailNode : LRUNode &lt;K,V&gt;?<br>    init ()<br>    {<br>    }<br>    func addToHead (node: LRUNode&lt;K,V&gt;)<br>    {<br>        if self.headNode ! = nil {<br>            //Fetch head node in temporary store<br>            let tNode = self.headNode <br>      //assign previous of tNode so that we can insert node at start<br>            tNode?.prev = node<br>      self.headNode = node<br>      self.headNode?.next = tNode<br>        }<br>        else {                 <br>      self.headNode = node <br>      self.tailNode = node      <br>     }<br>    }<br>    func removeNode (node:LRUNode&lt;K,V&gt;)<br>    {<br>        //=== used for comparision between node<br>        if self.headNode ! = nil &amp;&amp; self.headNode! = = = node {<br>            if self.headNode?.next = = nil {                <br>                self.headNode = nil                <br>                self.tailNode = nil      <br>            }<br>            else {<br>                self.headNode = self.headNode?.next <br>                self.headNode?.prev = nil<br>            }<br>        }<br>        else if node.next ! = nil {<br>            //Node is not in start or end<br>            node.next?.prev = node.prev <br>            node.prev?.next = node.next<br>        }<br>        else {<br>            //If node is in tail position<br>            node.prev?.next = nil <br>     	    self.tailNode = node.prev<br>        }<br>    }<br>}</pre>
+              <p name="ecb5" id="ecb5" class="graf graf--p graf-after--pre">
+                Swift provides two identity operators (=== and !==), which you
+                use to test whether two object references both refer to the same
+                object instance.
+              </p>
+              <p name="46c1" id="46c1" class="graf graf--p graf-after--p">
+                So we are ready with doubly link list.
+              </p>
+              <h3 name="a31d" id="a31d" class="graf graf--h3 graf-after--p">
+                The End..
+              </h3>
+              <p name="f46a" id="f46a" class="graf graf--p graf-after--h3">
+                lets create a
+                <strong class="markup--strong markup--p-strong"
+                  >hash map</strong
+                >
+                so that access to LRU will be faster. While implementing a
+                generic hashmap we need to take care that key should be Hashable
+                or not, and do we require value to follow NSCopying protocol.
+              </p>
+              <p name="b2ea" id="b2ea" class="graf graf--p graf-after--p">
+                LRUCache class will have a queue which represents a doubly link
+                list, provides addToHead, removeNode functionality, hashTable
+                dictionary which contain generic key and LRUNode as value in it.
+                Multithread access has been taken care of using dispatchQueue
+                and barrier flag.
+              </p>
+              <pre
+                name="5f9f"
+                id="5f9f"
+                class="graf graf--pre graf-after--p"
+              >class LRUCache &lt;K:Hashable,V:NSCopying&gt;<br>{<br>    var <strong class="markup--strong markup--pre-strong">capacity </strong>: Int <br>    var <strong class="markup--strong markup--pre-strong">length </strong>: Int <br>    private let <strong class="markup--strong markup--pre-strong">queue </strong>: <strong class="markup--strong markup--pre-strong">DLinkList &lt;K,V&gt;</strong><br>    private var <strong class="markup--strong markup--pre-strong">hashTable </strong>: <strong class="markup--strong markup--pre-strong">[K : LRUNode&lt;K,V&gt;]</strong><br>    private let <strong class="markup--strong markup--pre-strong">dispatchQueue </strong>: <strong class="markup--strong markup--pre-strong">DispatchQueue </strong>= DispatchQueue.init (label: &quot;CacheQueue&quot;)<br>    <strong class="markup--strong markup--pre-strong">init (size:Int)</strong><br>    {<br>        self.capacity = size self.length = 0 self.queue = DLinkList.init ()<br>        hashTable = [K:LRUNode&lt;K,V&gt;]<br>        (minimumCapacity:size)<br>    }</pre>
+              <pre
+                name="72df"
+                id="72df"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong">subscript (key:K)-&gt;V? {</strong><br>     //Removing from where ever it is and making sure it will move to front in a doubly linklist<br>    <br>      <strong class="markup--strong markup--pre-strong">get </strong>{<br>            var node : LRUNode &lt;K,V&gt;?<br>            dispatchQueue.sync {<br>                node = hashTable [key]<br>                if node ! = nil {<br>                    self.queue.removeNode (node: node!)<br>                    self.queue.addToHead (node: node!)<br>                }<br>            }<br>            if node = = nil {<br>                return nil<br>            }<br>            return node!.value<br>     }<br>      <strong class="markup--strong markup--pre-strong">set </strong>(newValue)<br>        {<br>            dispatchQueue.async (flags: .barrier)<br>            {<br>                if newValue = = nil {           <br>                    return      <br>                }<br>                if let node = self.hashTable [key]<br>                {<br>                    node.value = newValue! <br>                    self.queue.removeNode (node: node)<br>                    self.queue.addToHead(node: node)<br>                }<br>                else {</pre>
+              <pre
+                name="016a"
+                id="016a"
+                class="graf graf--pre graf-after--pre"
+              >                 self.hashTable.removeValue(forKey: self.queue.tailNode!.key)<br>                 self.queue.tailNode = self.queue.tailNode?.prev<br>                 if let node = self.queue.tailNode {<br>                      node.next = nil<br>                  }<br>                 self.queue.addToHead(node: node)<br>                 self.hashTable[key] = node<br>               }<br>	    }<br>	}<br>    }<br>}</pre>
+              <p name="f4a4" id="f4a4" class="graf graf--p graf-after--pre">
+                This implementation helps in understanding the concepts of
+                generics in swift and LRU Algorithm implementation.
+              </p>
+              <p name="e7ad" id="e7ad" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Using LRU Cache</strong
+                >
+              </p>
+              <pre name="55dc" id="55dc" class="graf graf--pre graf-after--p">
+let lruCache = LRUCache&lt;String, Float&gt;(size: 7)</pre
+              >
+              <pre name="d310" id="d310" class="graf graf--pre graf-after--pre">
+lruCache[“India”] = 150000000</pre
+              >
+              <p name="d34e" id="d34e" class="graf graf--p graf-after--pre">
+                For more details on
+                <strong class="markup--strong markup--p-strong"
+                  >generics</strong
+                >
+                , click here:
+                <a
+                  href="https://docs.swift.org/swift-book/LanguageGuide/Generics.html"
+                  data-href="https://docs.swift.org/swift-book/LanguageGuide/Generics.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >generics in swift</strong
+                  ></a
+                >
+              </p>
+              <h3 name="e947" id="e947" class="graf graf--h3 graf-after--p">
+                Bonus time:
+              </h3>
+              <p name="4a3e" id="4a3e" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >What is the difference between </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >private</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">, </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >public</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">, </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >internal</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">, </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >open</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">, and </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >fileprivate</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">
+                  access levels in Swift 4?</strong
+                >
+              </p>
+              <p name="fd29" id="fd29" class="graf graf--p graf-after--p">
+                In Swift encapsulation is achieved by using the following five
+                access control keywords:
+                <code class="markup--code markup--p-code">private</code>,
+                <code class="markup--code markup--p-code">fileprivate</code>,
+                <code class="markup--code markup--p-code">internal</code>,
+                <code class="markup--code markup--p-code">public</code>, and
+                <code class="markup--code markup--p-code">open</code>. These
+                access levels either restrict or open access within the scope of
+                a file or module. Let’s take a look at each of them from the
+                most restrictive,
+                <code class="markup--code markup--p-code">private</code>, to the
+                least restrictive,
+                <code class="markup--code markup--p-code">open</code>.
+              </p>
+              <p name="47b7" id="47b7" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">Private</code> access
+                is the most restrictive. If you define something as
+                <code class="markup--code markup--p-code">private</code> it
+                means it is private to that declaration scope and can’t be
+                accessed from the outside.
+              </p>
+              <p name="4658" id="4658" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">Fileprivate</code>
+                access is the second-most restrictive. Defining something as
+                <code class="markup--code markup--p-code">fileprivate</code>
+                means that it will be only accessible within the scope of the
+                file where it was declared.
+              </p>
+              <p name="42b5" id="42b5" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">Internal</code> access
+                is the default access level that will be set if you do not
+                explicitly state otherwise.
+                <code class="markup--code markup--p-code">Internal</code> means
+                that this thing can be used anywhere within the module it was
+                defined. Basically if you’re building an app,
+                <code class="markup--code markup--p-code">internal</code> means
+                it will be available anywhere in that app. If you’re building a
+                library/framework,
+                <code class="markup--code markup--p-code">internal</code> means
+                it will be available within that library/framework but not
+                outside from the app that uses the library.
+              </p>
+              <p name="178b" id="178b" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">Public</code> access
+                means that something can be accessed not only within the
+                defining file and module but also from the outside module that
+                imports the one where it was defined. Effectively,
+                <code class="markup--code markup--p-code">public</code> declares
+                a public interface for the module.
+              </p>
+              <p name="0e3f" id="0e3f" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">Open</code> access
+                means that something is
+                <code class="markup--code markup--p-code">public</code> and can
+                also be subclassed not only within the module where it was
+                defined but also by whoever imports it.
+              </p>
+              <p name="f0db" id="f0db" class="graf graf--p graf-after--p">
+                Hope you like this article &amp; is useful for people looking to
+                find out the use of generics and implementation of generic LRU
+                Cache, Please ❤️ to recommend this post to others 😊. Let me
+                know your feedback. :)
+              </p>
+              <!-- <p
+                name="2b20"
+                id="2b20"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                <strong class="markup--strong markup--p-strong"
+                  >Next Chapter: </strong
+                ><a
+                  href="https://medium.com/@nishantnitb/ios-interview-questions-9-cdef888983bb"
+                  data-href="https://medium.com/@nishantnitb/ios-interview-questions-9-cdef888983bb"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Fast Enumerations, Toll-Free Bridging &amp; Must know iOS
+                    Basics</strong
+                  ></a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/fd5f2cfd23ec"
+            ><time class="dt-published" datetime="2018-06-12T14:34:17.042Z"
+              >June 12, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-8-fd5f2cfd23ec"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

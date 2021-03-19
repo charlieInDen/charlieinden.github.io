@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (Jan 2019) Part 1</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (Jan 2019) Part 1</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,296 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (Jan 2019) Part 1</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-For more questions, Please check previous articles — Top IOS Interview Questions and Answers for 2018/2019
-</section>
-<section data-field="body" class="e-content">
-<section name="cae8" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="1ed0" id="1ed0" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (Jan 2019) Part 1</h3><p name="2c5c" id="2c5c" class="graf graf--p graf-after--h3">For more questions, Please check previous articles —<a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"> <strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2018/2019</strong></a></p><p name="8525" id="8525" class="graf graf--p graf-after--p">Q1. Write down the custom method which works similar to <code class="markup--code markup--p-code">reduce() api?</code></p><p name="8760" id="8760" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">Ans: sum = array.reduce(0, +)</code><br><code class="markup--code markup--p-code">//reduce() here is an ((Int, ((Int, Int) -&gt; Bool)) -&gt; Int)</code><br><code class="markup--code markup--p-code">//and the + operator is func +(lhs: Int, rhs: Int) -&gt; Bool,</code><br><code class="markup--code markup--p-code">//... or ((Int, Int) -&gt; Bool), so there&#39;s no need to define reduce&#39;s closure.</code></p><p name="fa56" id="fa56" class="graf graf--p graf-after--p">Q2. How will you make property’s getter available, but the property is settable only from within code in swift?</p><p name="a3c2" id="a3c2" class="graf graf--p graf-after--p">Ans: The example below shows a version of the <code class="markup--code markup--p-code">TrackedString</code> structure in which the structure is defined with an explicit access level of public. The structure’s members (including the <code class="markup--code markup--p-code">numberOfEdits</code> property) therefore have an internal access level by default. You can make the structure’s <code class="markup--code markup--p-code">numberOfEdits</code> property getter public, and its property setter private, by combining the <code class="markup--code markup--p-code">public</code> and <code class="markup--code markup--p-code">private(set)</code> access-level modifiers:</p><figure name="388d" id="388d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*3P7lXezMt2bFTA9U9UDF6Q.png" data-width="406" data-height="217" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*3P7lXezMt2bFTA9U9UDF6Q.png"><figcaption class="imageCaption">Reference: https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html</figcaption></figure><p name="4841" id="4841" class="graf graf--p graf-after--figure">Q3. In swift 4.2, User-defined “Dynamic Member Lookup” Types introduced, What is the purpose for it?</p><p name="b95d" id="b95d" class="graf graf--p graf-after--p">Ans: The driving motivation for this feature is to improve interoperability with inherently dynamic languages like Python, Javascript, Ruby and others. That said, this feature is designed such that it can be applied to other inherently dynamic domains in a modular way.</p><p name="d75b" id="d75b" class="graf graf--p graf-after--p">Swift 4.2 introduces a new <code class="markup--code markup--p-code">@dynamicMemberLookup</code> attribute. Types that use it provide &quot;dot&quot; syntax for arbitrary names which are resolved at runtime - in a completely type safe way. This provides syntactic sugar that allows the user to write:</p><pre name="315b" id="315b" class="graf graf--pre graf-after--p">a = someValue.someMember<br>  someValue.someMember = a<br>  mutateParameter(&amp;someValue.someMember)</pre><p name="1305" id="1305" class="graf graf--p graf-after--pre">and have it be interpreted by the compiler as:</p><pre name="b689" id="b689" class="graf graf--pre graf-after--p">a = someValue[dynamicMember: &quot;someMember&quot;]<br>  someValue[dynamicMember: &quot;someMember&quot;] = a<br>  mutateParameter(&amp;someValue[dynamicMember: &quot;someMember&quot;])</pre><p name="a21a" id="a21a" class="graf graf--p graf-after--pre">This allows the static type of <code class="markup--code markup--p-code">someValue</code> to decide how to implement these dynamic member references.</p><p name="3706" id="3706" class="graf graf--p graf-after--p">Q4. What is the difference in functional programming and OOPS?</p><p name="1a86" id="1a86" class="graf graf--p graf-after--p">Ans:</p><figure name="0a35" id="0a35" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*wo1pE2iCDBIgVaCIPxw6cw.png" data-width="1359" data-height="506" src="https://cdn-images-1.medium.com/max/800/1*wo1pE2iCDBIgVaCIPxw6cw.png"></figure><p name="ff20" id="ff20" class="graf graf--p graf-after--figure">Q5. How will you Protect a keychain item with biometric authentication?</p><p name="b2bf" id="b2bf" class="graf graf--p graf-after--p">Ans:When you store a secure item like a password or a private key in the keychain, you dictate the conditions under which that item can be accessed later. Among other things, you can tell keychain services that every time it tries to read the item, it should first seek the user’s permission — for example, by authenticating the user biometrically with Face ID or Touch ID. You rely on both the Security and <strong class="markup--strong markup--p-strong">LocalAuthentication</strong> <strong class="markup--strong markup--p-strong">frameworks</strong> to enable this behavior.</p><figure name="74b1" id="74b1" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*pOM3nO_e1Uq5kP6Y.png" data-width="1360" data-height="588" src="https://cdn-images-1.medium.com/max/800/0*pOM3nO_e1Uq5kP6Y.png"><figcaption class="imageCaption">Reference: apple.com</figcaption></figure><p name="f18e" id="f18e" class="graf graf--p graf-after--figure">Go to Next Part: <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-jan-2019-part-2-3b9114dbe542" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-jan-2019-part-2-3b9114dbe542" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers (Jan 2019) Part 2</strong></a></p><p name="3556" id="3556" class="graf graf--p graf-after--p">Hope this article is useful for people looking to gain knowledge on iOS interviews, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="821a" id="821a" class="graf graf--p graf-after--p">References:</p><ol class="postList"><li name="b6d5" id="b6d5" class="graf graf--li graf-after--p"><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md" data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md</a></li><li name="c738" id="c738" class="graf graf--li graf-after--li"><a href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html</a></li><li name="be72" id="be72" class="graf graf--li graf-after--li"><a href="https://www.educba.com/functional-programming-vs-oop/" data-href="https://www.educba.com/functional-programming-vs-oop/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://www.educba.com/functional-programming-vs-oop/</a></li><li name="5d86" id="5d86" class="graf graf--li graf-after--li graf--trailing"><a href="https://developer.apple.com/documentation/localauthentication/accessing_keychain_items_with_face_id_or_touch_id" data-href="https://developer.apple.com/documentation/localauthentication/accessing_keychain_items_with_face_id_or_touch_id" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/localauthentication/accessing_keychain_items_with_face_id_or_touch_id</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/80f225dccc95"><time class="dt-published" datetime="2019-01-04T11:32:09.822Z">January 4, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-jan-2019-part-1-80f225dccc95" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (Jan 2019) Part 1
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        For more questions, Please check previous articles — Top IOS Interview
+        Questions and Answers for 2018/2019
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="cae8"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="1ed0"
+                id="1ed0"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (Jan 2019) Part 1
+              </h3>
+              <p name="2c5c" id="2c5c" class="graf graf--p graf-after--h3">
+                For more questions, Please check previous articles —<a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                >
+                  <strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers for
+                    2018/2019</strong
+                  ></a
+                >
+              </p>
+              <p name="8525" id="8525" class="graf graf--p graf-after--p">
+                Q1. Write down the custom method which works similar to
+                <code class="markup--code markup--p-code">reduce() api?</code>
+              </p>
+              <p name="8760" id="8760" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code"
+                  >Ans: sum = array.reduce(0, +)</code
+                ><br /><code class="markup--code markup--p-code"
+                  >//reduce() here is an ((Int, ((Int, Int) -&gt; Bool)) -&gt;
+                  Int)</code
+                ><br /><code class="markup--code markup--p-code"
+                  >//and the + operator is func +(lhs: Int, rhs: Int) -&gt;
+                  Bool,</code
+                ><br /><code class="markup--code markup--p-code"
+                  >//... or ((Int, Int) -&gt; Bool), so there&#39;s no need to
+                  define reduce&#39;s closure.</code
+                >
+              </p>
+              <p name="fa56" id="fa56" class="graf graf--p graf-after--p">
+                Q2. How will you make property’s getter available, but the
+                property is settable only from within code in swift?
+              </p>
+              <p name="a3c2" id="a3c2" class="graf graf--p graf-after--p">
+                Ans: The example below shows a version of the
+                <code class="markup--code markup--p-code">TrackedString</code>
+                structure in which the structure is defined with an explicit
+                access level of public. The structure’s members (including the
+                <code class="markup--code markup--p-code">numberOfEdits</code>
+                property) therefore have an internal access level by default.
+                You can make the structure’s
+                <code class="markup--code markup--p-code">numberOfEdits</code>
+                property getter public, and its property setter private, by
+                combining the
+                <code class="markup--code markup--p-code">public</code> and
+                <code class="markup--code markup--p-code">private(set)</code>
+                access-level modifiers:
+              </p>
+              <figure
+                name="388d"
+                id="388d"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*3P7lXezMt2bFTA9U9UDF6Q.png"
+                  data-width="406"
+                  data-height="217"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*3P7lXezMt2bFTA9U9UDF6Q.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html
+                </figcaption>
+              </figure>
+              <p name="4841" id="4841" class="graf graf--p graf-after--figure">
+                Q3. In swift 4.2, User-defined “Dynamic Member Lookup” Types
+                introduced, What is the purpose for it?
+              </p>
+              <p name="b95d" id="b95d" class="graf graf--p graf-after--p">
+                Ans: The driving motivation for this feature is to improve
+                interoperability with inherently dynamic languages like Python,
+                Javascript, Ruby and others. That said, this feature is designed
+                such that it can be applied to other inherently dynamic domains
+                in a modular way.
+              </p>
+              <p name="d75b" id="d75b" class="graf graf--p graf-after--p">
+                Swift 4.2 introduces a new
+                <code class="markup--code markup--p-code"
+                  >@dynamicMemberLookup</code
+                >
+                attribute. Types that use it provide &quot;dot&quot; syntax for
+                arbitrary names which are resolved at runtime - in a completely
+                type safe way. This provides syntactic sugar that allows the
+                user to write:
+              </p>
+              <pre
+                name="315b"
+                id="315b"
+                class="graf graf--pre graf-after--p"
+              >a = someValue.someMember<br>  someValue.someMember = a<br>  mutateParameter(&amp;someValue.someMember)</pre>
+              <p name="1305" id="1305" class="graf graf--p graf-after--pre">
+                and have it be interpreted by the compiler as:
+              </p>
+              <pre
+                name="b689"
+                id="b689"
+                class="graf graf--pre graf-after--p"
+              >a = someValue[dynamicMember: &quot;someMember&quot;]<br>  someValue[dynamicMember: &quot;someMember&quot;] = a<br>  mutateParameter(&amp;someValue[dynamicMember: &quot;someMember&quot;])</pre>
+              <p name="a21a" id="a21a" class="graf graf--p graf-after--pre">
+                This allows the static type of
+                <code class="markup--code markup--p-code">someValue</code> to
+                decide how to implement these dynamic member references.
+              </p>
+              <p name="3706" id="3706" class="graf graf--p graf-after--p">
+                Q4. What is the difference in functional programming and OOPS?
+              </p>
+              <p name="1a86" id="1a86" class="graf graf--p graf-after--p">
+                Ans:
+              </p>
+              <figure
+                name="0a35"
+                id="0a35"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*wo1pE2iCDBIgVaCIPxw6cw.png"
+                  data-width="1359"
+                  data-height="506"
+                  src="https://cdn-images-1.medium.com/max/800/1*wo1pE2iCDBIgVaCIPxw6cw.png"
+                />
+              </figure>
+              <p name="ff20" id="ff20" class="graf graf--p graf-after--figure">
+                Q5. How will you Protect a keychain item with biometric
+                authentication?
+              </p>
+              <p name="b2bf" id="b2bf" class="graf graf--p graf-after--p">
+                Ans:When you store a secure item like a password or a private
+                key in the keychain, you dictate the conditions under which that
+                item can be accessed later. Among other things, you can tell
+                keychain services that every time it tries to read the item, it
+                should first seek the user’s permission — for example, by
+                authenticating the user biometrically with Face ID or Touch ID.
+                You rely on both the Security and
+                <strong class="markup--strong markup--p-strong"
+                  >LocalAuthentication</strong
+                >
+                <strong class="markup--strong markup--p-strong"
+                  >frameworks</strong
+                >
+                to enable this behavior.
+              </p>
+              <figure
+                name="74b1"
+                id="74b1"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*pOM3nO_e1Uq5kP6Y.png"
+                  data-width="1360"
+                  data-height="588"
+                  src="https://cdn-images-1.medium.com/max/800/0*pOM3nO_e1Uq5kP6Y.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference: apple.com
+                </figcaption>
+              </figure>
+              <!-- <p name="f18e" id="f18e" class="graf graf--p graf-after--figure">
+                Go to Next Part:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-jan-2019-part-2-3b9114dbe542"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-jan-2019-part-2-3b9114dbe542"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers (Jan 2019) Part
+                    2</strong
+                  ></a
+                >
+              </p> -->
+              <p name="3556" id="3556" class="graf graf--p graf-after--p">
+                Hope this article is useful for people looking to gain knowledge
+                on iOS interviews, Please ❤️ to recommend this post to others
+                😊. Let me know your feedback. :)
+              </p>
+              <p name="821a" id="821a" class="graf graf--p graf-after--p">
+                References:
+              </p>
+              <ol class="postList">
+                <li name="b6d5" id="b6d5" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md"
+                    data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md</a
+                  >
+                </li>
+                <li name="c738" id="c738" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html"
+                    data-href="https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html</a
+                  >
+                </li>
+                <li name="be72" id="be72" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://www.educba.com/functional-programming-vs-oop/"
+                    data-href="https://www.educba.com/functional-programming-vs-oop/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://www.educba.com/functional-programming-vs-oop/</a
+                  >
+                </li>
+                <li
+                  name="5d86"
+                  id="5d86"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  <a
+                    href="https://developer.apple.com/documentation/localauthentication/accessing_keychain_items_with_face_id_or_touch_id"
+                    data-href="https://developer.apple.com/documentation/localauthentication/accessing_keychain_items_with_face_id_or_touch_id"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://developer.apple.com/documentation/localauthentication/accessing_keychain_items_with_face_id_or_touch_id</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/80f225dccc95"
+            ><time class="dt-published" datetime="2019-01-04T11:32:09.822Z"
+              >January 4, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-jan-2019-part-1-80f225dccc95"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>What’s new in Xcode 11</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>What’s new in Xcode 11</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,515 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">What’s new in Xcode 11</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Xcode 11 includes SDKs for iOS 13, macOS 10.15, watchOS 6, and tvOS 13. Xcode 11 supports on-device debugging for iOS 8 and later, tvOS 9…
-</section>
-<section data-field="body" class="e-content">
-<section name="e239" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="664a" id="664a" class="graf graf--h3 graf--leading graf--title">What’s new in Xcode 11</h3><p name="e592" id="e592" class="graf graf--p graf-after--h3">Xcode 11 includes SDKs for iOS 13, macOS 10.15, watchOS 6, and tvOS 13. Xcode 11 supports on-device debugging for iOS 8 and later, tvOS 9 and later, and watchOS 2 and later. Xcode 11 requires a Mac running macOS 10.14.3 or later.</p><ul class="postList"><li name="a73c" id="a73c" class="graf graf--li graf-after--p">Xcode 11 beta supports development with <a href="https://developer.apple.com/documentation/swiftui" data-href="https://developer.apple.com/documentation/swiftui" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">SwiftUI</a>.</li><li name="c265" id="c265" class="graf graf--li graf-after--li">Xcode supports uploading apps from the Organizer window or from the command line with <code class="markup--code markup--li-code">xcodebuild</code> or <code class="markup--code markup--li-code">xcrun altool</code>. Application Loader is no longer included with Xcode.</li><li name="849d" id="849d" class="graf graf--li graf-after--li">LaunchServices on macOS now respects the selected Xcode when launching Instruments, Simulator, and other developer tools embedded within Xcode.</li><li name="288b" id="288b" class="graf graf--li graf-after--li">Assets can now be cut, copied, pasted, and duplicated using the menu or keyboard shortcuts.</li><li name="ed51" id="ed51" class="graf graf--li graf-after--li">Projects may now use custom build rules to process header files (<code class="markup--code markup--li-code">APPLY_RULES_IN_COPY_HEADERS</code>)</li><li name="9fae" id="9fae" class="graf graf--li graf-after--li">Editors can be added to any window without needing the Assistant Editor. Editors are added using the “Add Editor” button in the jump bar or the File &gt; New &gt; Editor command. Each editor can now be in one of three modes: “Editor Only”, “Editor and Assistant” or “Editor and Canvas”. The latter two modes automatically show relevant content when available. When using multiple editors, the View &gt; Editor &gt; Focus command can be used to temporarily expand the active editor to fill the entire window, hiding other editors. For source control support, the Code Review button in the Toolbar replaces the Comparison Editor. The “Show Authors” command is now available from the Source Editor’s Editor menu. The SCM Log is now in the Inspector Area.</li><li name="0842" id="0842" class="graf graf--li graf-after--li">In Core data , There is now a checkbox that makes it possible for you to distinguish whether the default value of a string attribute should be <code class="markup--code markup--li-code">nil</code> or the empty string. When set, the default value is the empty string if no other default is specified.</li><li name="c67c" id="c67c" class="graf graf--li graf-after--li">In Core data ,The Xcode 11 data model file format no longer writes out or preserves deprecated Sync Services information for entities or properties.</li><li name="9cff" id="9cff" class="graf graf--li graf-after--li">When creating an application using Core Data, there is a new checkbox to also enable CloudKit support for the data model’s default configuration. This can also be enabled for an existing data model using the new configuration inspector.</li><li name="0601" id="0601" class="graf graf--li graf-after--li">Interface Builder’s device bar lets you switch between the light and dark appearance for iOS apps.</li><li name="8a5a" id="8a5a" class="graf graf--li graf-after--li">The contents of a <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiscrollview" data-href="https://developer.apple.com/documentation/uikit/uiscrollview" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">UIScrollView</a></code> are scrollable within the canvas, once its subviews are fully constrained with Auto Layout constraints.</li><li name="93fc" id="93fc" class="graf graf--li graf-after--li">You can now localize assets in asset catalogs. Localization is enabled in the attribute inspector.</li><li name="749d" id="749d" class="graf graf--li graf-after--li">In Organizer, The new <a href="https://help.apple.com/xcode/mac/current/#/devb642b28ac" data-href="https://help.apple.com/xcode/mac/current/#/devb642b28ac" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">Metrics organizer</a> shows battery life and performance analytics for your app to help you drive optimizations.The available metrics are battery drain, launch time, hang rate, memory, and disk writes.</li><li name="4925" id="4925" class="graf graf--li graf-after--li">Signing and capabilities settings are now combined within a new Signing &amp; Capabilities tab in the Project Editor. The new tab enables using different app capabilities across multiple build configurations. The new capabilities library makes it possible to search for available capabilities.</li><li name="f408" id="f408" class="graf graf--li graf-after--li">Xcode no longer creates every available iOS simulator device by default. Instead a set of the most commonly used devices are created. To create other devices — or multiple instances of a device — open the Devices window, select Simulators, click the + button, enter a name, and select the relevant device type and OS version.</li><li name="2d1c" id="2d1c" class="graf graf--li graf-after--li">In Source Control, You can now cherry-pick changes from one branch to another.</li><li name="652b" id="652b" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">// MARK:</code> comments and <code class="markup--code markup--li-code">#pragma mark</code> directives now draw a separator line in the editor. The preference for showing mark separators is in Preferences &gt; Text Editing &gt; Display &gt; Show Mark Separators.</li></ul><h3 name="8864" id="8864" class="graf graf--h3 graf-after--li">What’s new in swift with Xcode 11</h3><ol class="postList"><li name="abb3" id="abb3" class="graf graf--li graf-after--h3">The memberwise initializer for structures now provides default values for variables that hold default expressions. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md" data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">SE-0242</a>)</li></ol><figure name="2ac1" id="2ac1" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*TjaOUfa9KPU8cAVRLYgWtg.png" data-width="1330" data-height="490" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*TjaOUfa9KPU8cAVRLYgWtg.png"></figure><p name="f62d" id="f62d" class="graf graf--p graf-after--figure">2. An <code class="markup--code markup--p-code">@autoclosure</code> parameter can now be declared using a type alias. (<a href="https://bugs.swift.org/browse/SR-2688" data-href="https://bugs.swift.org/browse/SR-2688" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SR-2688</a>)</p><figure name="e81f" id="e81f" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*wMG7mPZgYe4CuJA56HWsMQ.png" data-width="1184" data-height="232" src="https://cdn-images-1.medium.com/max/800/1*wMG7mPZgYe4CuJA56HWsMQ.png"></figure><p name="bfb2" id="bfb2" class="graf graf--p graf-after--figure">3. Methods declared using the <code class="markup--code markup--p-code">@objc</code> attribute inside a class can now return <code class="markup--code markup--p-code">Self</code>. (<a href="https://bugs.swift.org/browse/SR-7601" data-href="https://bugs.swift.org/browse/SR-7601" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SR-7601</a>)</p><figure name="2804" id="2804" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*ALU0upfcujB7IvZU3aLXIg.png" data-width="1174" data-height="170" src="https://cdn-images-1.medium.com/max/800/1*ALU0upfcujB7IvZU3aLXIg.png"></figure><p name="e7a0" id="e7a0" class="graf graf--p graf-after--figure">4. Conversions between tuple types are now fully implemented. Previously, the following would diagnose an error. (<a href="https://bugs.swift.org/browse/SR-2672" data-href="https://bugs.swift.org/browse/SR-2672" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SR-2672</a>)</p><figure name="3eef" id="3eef" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*LIm4-IJyHROJHGdDeQPrQg.png" data-width="1014" data-height="126" src="https://cdn-images-1.medium.com/max/800/1*LIm4-IJyHROJHGdDeQPrQg.png"></figure><p name="0fc7" id="0fc7" class="graf graf--p graf-after--figure">5. You can now declare and use type subscripts, just like type properties and type methods. Declare one by applying the <code class="markup--code markup--p-code">static</code> or, in classes, <code class="markup--code markup--p-code">class</code> modifier to the subscript declaration. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0254-static-subscripts.md" data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0254-static-subscripts.md" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SE-0254</a>)</p><figure name="1009" id="1009" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*Me_Z7yv-hXfZ6k3eMAYfKQ.png" data-width="1316" data-height="632" src="https://cdn-images-1.medium.com/max/800/1*Me_Z7yv-hXfZ6k3eMAYfKQ.png"></figure><p name="a88e" id="a88e" class="graf graf--p graf-after--figure">Type subscripts can also be used with dynamic member lookup to create dynamic type properties.</p><figure name="90f2" id="90f2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*iGL5ZpmmzqKEEvi3pYKUvg.png" data-width="1206" data-height="736" src="https://cdn-images-1.medium.com/max/800/1*iGL5ZpmmzqKEEvi3pYKUvg.png"></figure><p name="2e19" id="2e19" class="graf graf--p graf-after--figure">6. Assigning <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/swift/optional/none" data-href="https://developer.apple.com/documentation/swift/optional/none" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Optional.none</a></code> to an enumeration that also has a <code class="markup--code markup--p-code">none</code> case, or comparing such an enumeration with <code class="markup--code markup--p-code">Optional.none</code> now produces a warning. Such expressions create an ambiguity because the compiler chooses <code class="markup--code markup--p-code">Optional.none</code> over the <code class="markup--code markup--p-code">none</code> case defined by your own enumeration. (<a href="https://bugs.swift.org/browse/SR-2176" data-href="https://bugs.swift.org/browse/SR-2176" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SR-2176</a>)</p><figure name="c5f5" id="c5f5" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*gZIIZB1nGu39-drhDMhOJA.png" data-width="1092" data-height="324" src="https://cdn-images-1.medium.com/max/800/1*gZIIZB1nGu39-drhDMhOJA.png"></figure><p name="5765" id="5765" class="graf graf--p graf-after--figure">The compiler provides a warning along with a fix-it to replace <code class="markup--code markup--p-code">.none</code> with <code class="markup--code markup--p-code">Optional.none</code> or <code class="markup--code markup--p-code">Foo.none</code> to resolve the ambiguity.</p><p name="8a2a" id="8a2a" class="graf graf--p graf-after--p">7. Functions can now hide their concrete return type by declaring what protocols it conforms to, instead of specifying the exact return type:</p><figure name="ae19" id="ae19" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*yCdmo9ZRhgX7j_6OsBhrDw.png" data-width="1084" data-height="174" src="https://cdn-images-1.medium.com/max/800/1*yCdmo9ZRhgX7j_6OsBhrDw.png"></figure><p name="d30d" id="d30d" class="graf graf--p graf-after--figure">Code that calls the function can use the interface of the protocol, but doesn’t have visibility into the underlying type. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0244-opaque-result-types.md" data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0244-opaque-result-types.md" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SE-0244</a>)</p><p name="b0a5" id="b0a5" class="graf graf--p graf-after--p">8. Enum cases can now be matched against an optional enum without requiring a ‘?’ at the end of the pattern. (<a href="https://bugs.swift.org/browse/SR-7799" data-href="https://bugs.swift.org/browse/SR-7799" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SR-7799</a>)</p><figure name="8530" id="8530" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*onfVw_6FHb5liQlc8L6rVg.png" data-width="1004" data-height="480" src="https://cdn-images-1.medium.com/max/800/1*onfVw_6FHb5liQlc8L6rVg.png"></figure><p name="df60" id="df60" class="graf graf--p graf-after--figure">9. You can now use the <code class="markup--code markup--p-code">Self</code> expression to refer to the innermost nominal type inside structure, enumeration and class declarations. For example, the two method declarations inside this structure are equivalent:</p><figure name="3138" id="3138" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*zLZslg3jQsiK9ib4uAia4g.png" data-width="1076" data-height="224" src="https://cdn-images-1.medium.com/max/800/1*zLZslg3jQsiK9ib4uAia4g.png"></figure><p name="d05f" id="d05f" class="graf graf--p graf-after--figure">In classes, <code class="markup--code markup--p-code">Self</code> is the dynamic type of the <code class="markup--code markup--p-code">self</code> value, as before. Existing restrictions on <code class="markup--code markup--p-code">Self</code> in declaration types still apply; that is, <code class="markup--code markup--p-code">Self</code> can only appear as the return type of a method. However, <code class="markup--code markup--p-code">Self</code> can now be used inside the body of a method without limitation. (<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0068-universal-self.md" data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0068-universal-self.md" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">SE-0068</a>)</p><ol class="postList"><li name="17a4" id="17a4" class="graf graf--li graf-after--p graf--trailing"><a href="https://developer.apple.com/documentation/xcode_release_notes/xcode_11_beta_release_notes" data-href="https://developer.apple.com/documentation/xcode_release_notes/xcode_11_beta_release_notes" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">https://developer.apple.com/documentation/xcode_release_notes/xcode_11_beta_release_notes</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/edf2b340d15a"><time class="dt-published" datetime="2019-06-05T11:56:41.184Z">June 5, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/whats-new-in-xcode-11-edf2b340d15a" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">What’s new in Xcode 11</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Xcode 11 includes SDKs for iOS 13, macOS 10.15, watchOS 6, and tvOS 13.
+        Xcode 11 supports on-device debugging for iOS 8 and later, tvOS 9…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="e239"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="664a"
+                id="664a"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                What’s new in Xcode 11
+              </h3>
+              <p name="e592" id="e592" class="graf graf--p graf-after--h3">
+                Xcode 11 includes SDKs for iOS 13, macOS 10.15, watchOS 6, and
+                tvOS 13. Xcode 11 supports on-device debugging for iOS 8 and
+                later, tvOS 9 and later, and watchOS 2 and later. Xcode 11
+                requires a Mac running macOS 10.14.3 or later.
+              </p>
+              <ul class="postList">
+                <li name="a73c" id="a73c" class="graf graf--li graf-after--p">
+                  Xcode 11 beta supports development with
+                  <a
+                    href="https://developer.apple.com/documentation/swiftui"
+                    data-href="https://developer.apple.com/documentation/swiftui"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >SwiftUI</a
+                  >.
+                </li>
+                <li name="c265" id="c265" class="graf graf--li graf-after--li">
+                  Xcode supports uploading apps from the Organizer window or
+                  from the command line with
+                  <code class="markup--code markup--li-code">xcodebuild</code>
+                  or
+                  <code class="markup--code markup--li-code">xcrun altool</code
+                  >. Application Loader is no longer included with Xcode.
+                </li>
+                <li name="849d" id="849d" class="graf graf--li graf-after--li">
+                  LaunchServices on macOS now respects the selected Xcode when
+                  launching Instruments, Simulator, and other developer tools
+                  embedded within Xcode.
+                </li>
+                <li name="288b" id="288b" class="graf graf--li graf-after--li">
+                  Assets can now be cut, copied, pasted, and duplicated using
+                  the menu or keyboard shortcuts.
+                </li>
+                <li name="ed51" id="ed51" class="graf graf--li graf-after--li">
+                  Projects may now use custom build rules to process header
+                  files (<code class="markup--code markup--li-code"
+                    >APPLY_RULES_IN_COPY_HEADERS</code
+                  >)
+                </li>
+                <li name="9fae" id="9fae" class="graf graf--li graf-after--li">
+                  Editors can be added to any window without needing the
+                  Assistant Editor. Editors are added using the “Add Editor”
+                  button in the jump bar or the File &gt; New &gt; Editor
+                  command. Each editor can now be in one of three modes: “Editor
+                  Only”, “Editor and Assistant” or “Editor and Canvas”. The
+                  latter two modes automatically show relevant content when
+                  available. When using multiple editors, the View &gt; Editor
+                  &gt; Focus command can be used to temporarily expand the
+                  active editor to fill the entire window, hiding other editors.
+                  For source control support, the Code Review button in the
+                  Toolbar replaces the Comparison Editor. The “Show Authors”
+                  command is now available from the Source Editor’s Editor menu.
+                  The SCM Log is now in the Inspector Area.
+                </li>
+                <li name="0842" id="0842" class="graf graf--li graf-after--li">
+                  In Core data , There is now a checkbox that makes it possible
+                  for you to distinguish whether the default value of a string
+                  attribute should be
+                  <code class="markup--code markup--li-code">nil</code> or the
+                  empty string. When set, the default value is the empty string
+                  if no other default is specified.
+                </li>
+                <li name="c67c" id="c67c" class="graf graf--li graf-after--li">
+                  In Core data ,The Xcode 11 data model file format no longer
+                  writes out or preserves deprecated Sync Services information
+                  for entities or properties.
+                </li>
+                <li name="9cff" id="9cff" class="graf graf--li graf-after--li">
+                  When creating an application using Core Data, there is a new
+                  checkbox to also enable CloudKit support for the data model’s
+                  default configuration. This can also be enabled for an
+                  existing data model using the new configuration inspector.
+                </li>
+                <li name="0601" id="0601" class="graf graf--li graf-after--li">
+                  Interface Builder’s device bar lets you switch between the
+                  light and dark appearance for iOS apps.
+                </li>
+                <li name="8a5a" id="8a5a" class="graf graf--li graf-after--li">
+                  The contents of a
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/uikit/uiscrollview"
+                      data-href="https://developer.apple.com/documentation/uikit/uiscrollview"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >UIScrollView</a
+                    ></code
+                  >
+                  are scrollable within the canvas, once its subviews are fully
+                  constrained with Auto Layout constraints.
+                </li>
+                <li name="93fc" id="93fc" class="graf graf--li graf-after--li">
+                  You can now localize assets in asset catalogs. Localization is
+                  enabled in the attribute inspector.
+                </li>
+                <li name="749d" id="749d" class="graf graf--li graf-after--li">
+                  In Organizer, The new
+                  <a
+                    href="https://help.apple.com/xcode/mac/current/#/devb642b28ac"
+                    data-href="https://help.apple.com/xcode/mac/current/#/devb642b28ac"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >Metrics organizer</a
+                  >
+                  shows battery life and performance analytics for your app to
+                  help you drive optimizations.The available metrics are battery
+                  drain, launch time, hang rate, memory, and disk writes.
+                </li>
+                <li name="4925" id="4925" class="graf graf--li graf-after--li">
+                  Signing and capabilities settings are now combined within a
+                  new Signing &amp; Capabilities tab in the Project Editor. The
+                  new tab enables using different app capabilities across
+                  multiple build configurations. The new capabilities library
+                  makes it possible to search for available capabilities.
+                </li>
+                <li name="f408" id="f408" class="graf graf--li graf-after--li">
+                  Xcode no longer creates every available iOS simulator device
+                  by default. Instead a set of the most commonly used devices
+                  are created. To create other devices — or multiple instances
+                  of a device — open the Devices window, select Simulators,
+                  click the + button, enter a name, and select the relevant
+                  device type and OS version.
+                </li>
+                <li name="2d1c" id="2d1c" class="graf graf--li graf-after--li">
+                  In Source Control, You can now cherry-pick changes from one
+                  branch to another.
+                </li>
+                <li name="652b" id="652b" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">// MARK:</code>
+                  comments and
+                  <code class="markup--code markup--li-code">#pragma mark</code>
+                  directives now draw a separator line in the editor. The
+                  preference for showing mark separators is in Preferences &gt;
+                  Text Editing &gt; Display &gt; Show Mark Separators.
+                </li>
+              </ul>
+              <h3 name="8864" id="8864" class="graf graf--h3 graf-after--li">
+                What’s new in swift with Xcode 11
+              </h3>
+              <ol class="postList">
+                <li name="abb3" id="abb3" class="graf graf--li graf-after--h3">
+                  The memberwise initializer for structures now provides default
+                  values for variables that hold default expressions. (<a
+                    href="https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md"
+                    data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >SE-0242</a
+                  >)
+                </li>
+              </ol>
+              <figure
+                name="2ac1"
+                id="2ac1"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*TjaOUfa9KPU8cAVRLYgWtg.png"
+                  data-width="1330"
+                  data-height="490"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*TjaOUfa9KPU8cAVRLYgWtg.png"
+                />
+              </figure>
+              <p name="f62d" id="f62d" class="graf graf--p graf-after--figure">
+                2. An
+                <code class="markup--code markup--p-code">@autoclosure</code>
+                parameter can now be declared using a type alias. (<a
+                  href="https://bugs.swift.org/browse/SR-2688"
+                  data-href="https://bugs.swift.org/browse/SR-2688"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SR-2688</a
+                >)
+              </p>
+              <figure
+                name="e81f"
+                id="e81f"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*wMG7mPZgYe4CuJA56HWsMQ.png"
+                  data-width="1184"
+                  data-height="232"
+                  src="https://cdn-images-1.medium.com/max/800/1*wMG7mPZgYe4CuJA56HWsMQ.png"
+                />
+              </figure>
+              <p name="bfb2" id="bfb2" class="graf graf--p graf-after--figure">
+                3. Methods declared using the
+                <code class="markup--code markup--p-code">@objc</code> attribute
+                inside a class can now return
+                <code class="markup--code markup--p-code">Self</code>. (<a
+                  href="https://bugs.swift.org/browse/SR-7601"
+                  data-href="https://bugs.swift.org/browse/SR-7601"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SR-7601</a
+                >)
+              </p>
+              <figure
+                name="2804"
+                id="2804"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*ALU0upfcujB7IvZU3aLXIg.png"
+                  data-width="1174"
+                  data-height="170"
+                  src="https://cdn-images-1.medium.com/max/800/1*ALU0upfcujB7IvZU3aLXIg.png"
+                />
+              </figure>
+              <p name="e7a0" id="e7a0" class="graf graf--p graf-after--figure">
+                4. Conversions between tuple types are now fully implemented.
+                Previously, the following would diagnose an error. (<a
+                  href="https://bugs.swift.org/browse/SR-2672"
+                  data-href="https://bugs.swift.org/browse/SR-2672"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SR-2672</a
+                >)
+              </p>
+              <figure
+                name="3eef"
+                id="3eef"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*LIm4-IJyHROJHGdDeQPrQg.png"
+                  data-width="1014"
+                  data-height="126"
+                  src="https://cdn-images-1.medium.com/max/800/1*LIm4-IJyHROJHGdDeQPrQg.png"
+                />
+              </figure>
+              <p name="0fc7" id="0fc7" class="graf graf--p graf-after--figure">
+                5. You can now declare and use type subscripts, just like type
+                properties and type methods. Declare one by applying the
+                <code class="markup--code markup--p-code">static</code> or, in
+                classes,
+                <code class="markup--code markup--p-code">class</code> modifier
+                to the subscript declaration. (<a
+                  href="https://github.com/apple/swift-evolution/blob/master/proposals/0254-static-subscripts.md"
+                  data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0254-static-subscripts.md"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SE-0254</a
+                >)
+              </p>
+              <figure
+                name="1009"
+                id="1009"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Me_Z7yv-hXfZ6k3eMAYfKQ.png"
+                  data-width="1316"
+                  data-height="632"
+                  src="https://cdn-images-1.medium.com/max/800/1*Me_Z7yv-hXfZ6k3eMAYfKQ.png"
+                />
+              </figure>
+              <p name="a88e" id="a88e" class="graf graf--p graf-after--figure">
+                Type subscripts can also be used with dynamic member lookup to
+                create dynamic type properties.
+              </p>
+              <figure
+                name="90f2"
+                id="90f2"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*iGL5ZpmmzqKEEvi3pYKUvg.png"
+                  data-width="1206"
+                  data-height="736"
+                  src="https://cdn-images-1.medium.com/max/800/1*iGL5ZpmmzqKEEvi3pYKUvg.png"
+                />
+              </figure>
+              <p name="2e19" id="2e19" class="graf graf--p graf-after--figure">
+                6. Assigning
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/swift/optional/none"
+                    data-href="https://developer.apple.com/documentation/swift/optional/none"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >Optional.none</a
+                  ></code
+                >
+                to an enumeration that also has a
+                <code class="markup--code markup--p-code">none</code> case, or
+                comparing such an enumeration with
+                <code class="markup--code markup--p-code">Optional.none</code>
+                now produces a warning. Such expressions create an ambiguity
+                because the compiler chooses
+                <code class="markup--code markup--p-code">Optional.none</code>
+                over the
+                <code class="markup--code markup--p-code">none</code> case
+                defined by your own enumeration. (<a
+                  href="https://bugs.swift.org/browse/SR-2176"
+                  data-href="https://bugs.swift.org/browse/SR-2176"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SR-2176</a
+                >)
+              </p>
+              <figure
+                name="c5f5"
+                id="c5f5"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*gZIIZB1nGu39-drhDMhOJA.png"
+                  data-width="1092"
+                  data-height="324"
+                  src="https://cdn-images-1.medium.com/max/800/1*gZIIZB1nGu39-drhDMhOJA.png"
+                />
+              </figure>
+              <p name="5765" id="5765" class="graf graf--p graf-after--figure">
+                The compiler provides a warning along with a fix-it to replace
+                <code class="markup--code markup--p-code">.none</code> with
+                <code class="markup--code markup--p-code">Optional.none</code>
+                or <code class="markup--code markup--p-code">Foo.none</code> to
+                resolve the ambiguity.
+              </p>
+              <p name="8a2a" id="8a2a" class="graf graf--p graf-after--p">
+                7. Functions can now hide their concrete return type by
+                declaring what protocols it conforms to, instead of specifying
+                the exact return type:
+              </p>
+              <figure
+                name="ae19"
+                id="ae19"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*yCdmo9ZRhgX7j_6OsBhrDw.png"
+                  data-width="1084"
+                  data-height="174"
+                  src="https://cdn-images-1.medium.com/max/800/1*yCdmo9ZRhgX7j_6OsBhrDw.png"
+                />
+              </figure>
+              <p name="d30d" id="d30d" class="graf graf--p graf-after--figure">
+                Code that calls the function can use the interface of the
+                protocol, but doesn’t have visibility into the underlying type.
+                (<a
+                  href="https://github.com/apple/swift-evolution/blob/master/proposals/0244-opaque-result-types.md"
+                  data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0244-opaque-result-types.md"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SE-0244</a
+                >)
+              </p>
+              <p name="b0a5" id="b0a5" class="graf graf--p graf-after--p">
+                8. Enum cases can now be matched against an optional enum
+                without requiring a ‘?’ at the end of the pattern. (<a
+                  href="https://bugs.swift.org/browse/SR-7799"
+                  data-href="https://bugs.swift.org/browse/SR-7799"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SR-7799</a
+                >)
+              </p>
+              <figure
+                name="8530"
+                id="8530"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*onfVw_6FHb5liQlc8L6rVg.png"
+                  data-width="1004"
+                  data-height="480"
+                  src="https://cdn-images-1.medium.com/max/800/1*onfVw_6FHb5liQlc8L6rVg.png"
+                />
+              </figure>
+              <p name="df60" id="df60" class="graf graf--p graf-after--figure">
+                9. You can now use the
+                <code class="markup--code markup--p-code">Self</code> expression
+                to refer to the innermost nominal type inside structure,
+                enumeration and class declarations. For example, the two method
+                declarations inside this structure are equivalent:
+              </p>
+              <figure
+                name="3138"
+                id="3138"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*zLZslg3jQsiK9ib4uAia4g.png"
+                  data-width="1076"
+                  data-height="224"
+                  src="https://cdn-images-1.medium.com/max/800/1*zLZslg3jQsiK9ib4uAia4g.png"
+                />
+              </figure>
+              <p name="d05f" id="d05f" class="graf graf--p graf-after--figure">
+                In classes,
+                <code class="markup--code markup--p-code">Self</code> is the
+                dynamic type of the
+                <code class="markup--code markup--p-code">self</code> value, as
+                before. Existing restrictions on
+                <code class="markup--code markup--p-code">Self</code> in
+                declaration types still apply; that is,
+                <code class="markup--code markup--p-code">Self</code> can only
+                appear as the return type of a method. However,
+                <code class="markup--code markup--p-code">Self</code> can now be
+                used inside the body of a method without limitation. (<a
+                  href="https://github.com/apple/swift-evolution/blob/master/proposals/0068-universal-self.md"
+                  data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0068-universal-self.md"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >SE-0068</a
+                >)
+              </p>
+              <ol class="postList">
+                <li
+                  name="17a4"
+                  id="17a4"
+                  class="graf graf--li graf-after--p graf--trailing"
+                >
+                  <a
+                    href="https://developer.apple.com/documentation/xcode_release_notes/xcode_11_beta_release_notes"
+                    data-href="https://developer.apple.com/documentation/xcode_release_notes/xcode_11_beta_release_notes"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >https://developer.apple.com/documentation/xcode_release_notes/xcode_11_beta_release_notes</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/edf2b340d15a"
+            ><time class="dt-published" datetime="2019-06-05T11:56:41.184Z"
+              >June 5, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/whats-new-in-xcode-11-edf2b340d15a"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

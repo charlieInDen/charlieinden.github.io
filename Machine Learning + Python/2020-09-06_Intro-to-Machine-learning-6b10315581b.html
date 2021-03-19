@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Intro to Machine learning</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Intro to Machine learning</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,419 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Intro to Machine learning</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-It has been long understood that learning is a key element of intelligence. This holds both for natural intelligence - we all get smarter…
-</section>
-<section data-field="body" class="e-content">
-<section name="2738" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="b2a5" id="b2a5" class="graf graf--h3 graf--leading graf--title">Intro to Machine learning</h3><p name="5c5c" id="5c5c" class="graf graf--p graf-after--h3">It has been long understood that learning is a key element of intelligence. This holds both for natural intelligence - we all get smarter by learning and artificial intelligence.</p><h3 name="442e" id="442e" class="graf graf--h3 graf-after--p">Types of Machine Learning</h3><p name="69b5" id="69b5" class="graf graf--p graf-after--h3">The roots of machine learning are in statistics, which can also be thought of as the art of <strong class="markup--strong markup--p-strong">extracting knowledge from data</strong>. Especially methods such as linear regression and Bayesian statistics, which are both already more than two centuries old (!), are even today at the heart of machine learning. For more examples and a brief history, see the <a href="https://en.wikipedia.org/wiki/Timeline_of_machine_learning" data-href="https://en.wikipedia.org/wiki/Timeline_of_machine_learning" class="markup--anchor markup--p-anchor" rel="noopener noreferrer noopener" target="_blank">timeline of machine learning</a> (Wikipedia).</p><p name="de92" id="de92" class="graf graf--p graf-after--p">Machine learning is sub-categorized to three types:</p><ul class="postList"><li name="8949" id="8949" class="graf graf--li graf-after--p">Supervised Learning — Train Me!</li><li name="1559" id="1559" class="graf graf--li graf-after--li">Unsupervised Learning — I am self sufficient in learning</li><li name="2f2a" id="2f2a" class="graf graf--li graf-after--li">Reinforcement Learning — My life My rules! (Hit &amp; Trial)</li></ul><figure name="c7d8" id="c7d8" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*5WShezH1tkw49TQXTipI8A.jpeg" data-width="602" data-height="414" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*5WShezH1tkw49TQXTipI8A.jpeg"></figure><h3 name="a937" id="a937" class="graf graf--h3 graf-after--figure">Humans teaching machines: supervised learning</h3><figure name="e033" id="e033" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*QK4SakKRGzrGoCmqCMQA0g.png" data-width="1102" data-height="544" src="https://cdn-images-1.medium.com/max/800/1*QK4SakKRGzrGoCmqCMQA0g.png"></figure><p name="95b5" id="95b5" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">regression</em></strong></p><p name="c785" id="c785" class="graf graf--p graf-after--p">Examples include predicting the number of people who will click a Google ad based on the ad content and data about the user’s prior online behavior, predicting the number of traffic accidents based on road conditions and speed limit, or predicting the selling price of real estate based on its location, size, and condition. These problems are called <em class="markup--em markup--p-em">regression</em>.</p><p name="e598" id="e598" class="graf graf--p graf-after--p">You probably recognize the term <em class="markup--em markup--p-em">linear regression</em>, which is a classical, still very popular technique for regression.</p><p name="29bd" id="29bd" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Overfitting</em></strong></p><p name="b7f7" id="b7f7" class="graf graf--p graf-after--p">It is very important to keep in mind that the accuracy of a predictor learned by machine learning can be quite different in the training data and in separate test data. This is the so-called <strong class="markup--strong markup--p-strong">overfitting</strong> phenomenon, and a lot of machine learning research is focused on avoiding it one way or another.</p><p name="0ac3" id="0ac3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">When does a neural net perform better than linear regression?</em></strong></p><p name="1aec" id="1aec" class="graf graf--p graf-after--p">Linear regression will do better when the underlying relationship between your variables and the response is known to be linear.</p><p name="1d47" id="1d47" class="graf graf--p graf-after--p">However, in many cases this just doesn’t hold. Especially for classification problems. Imagine a high level algorithm that detects faces based on other features. A sensible rule it could learn is “if it has 2 eyes, a nose, and a mouth then it’s a face”. A linear regression model might conclude however that if it saw 3 eyes instead of two then it is even more likely to be a face. Or maybe all it detected were 12 mouths — no eyes or nose but if you multiply the contribution of a mouth by 12 then you get a “face” score even higher than a normal face. Clearly in this situation there is a nonlinear relationship between how much of a Face something is and the number of facial components and so a neural network would do better.</p><p name="0563" id="0563" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">The difference between classification and regression</em></strong></p><p name="6796" id="6796" class="graf graf--p graf-after--p">There is a small but important difference in the kind of predictions that we should produce in different scenarios. While for example the nearest neighbor classifier chooses a class label for any item out of a given set of alternatives (like spam/ham, or 0,1,2,…,9), linear regression produces a numerical prediction that is not constrained to be an integer (a whole number as opposed to something like 3.14). So linear regression is better suited in situations where the output variable can be any number like the price of a product, the distance to an obstacle, the box-office revenue of the next Star Wars movie, and so on.</p><p name="edce" id="edce" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Logistic Regression</em></strong></p><p name="4005" id="4005" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Logistic regression</strong> is the appropriate regression analysis to conduct when the dependent variable is dichotomous (binary). Like all regression analyses, the logistic regression is a predictive analysis. Logistic regression is used to describe data and to explain the relationship between one dependent binary variable and one or more nominal, ordinal, interval or ratio-level independent variables.</p><p name="1199" id="1199" class="graf graf--p graf-after--p">Sometimes logistic regressions are difficult to interpret; the Intellectus Statistics tool easily allows you to conduct the analysis, then in plain English interprets the output.</p><blockquote name="ade4" id="ade4" class="graf graf--blockquote graf-after--p">Types of Questions Binary Logistic Regression Can Answer</blockquote><p name="9b9e" id="9b9e" class="graf graf--p graf-after--blockquote">How does the probability of getting lung cancer (yes vs. no) change for every additional pound a person is overweight and for every pack of cigarettes smoked per day?</p><p name="ce4f" id="ce4f" class="graf graf--p graf-after--p">Do body weight, calorie intake, fat intake, and age have an influence on the probability of having a heart attack (yes vs. no)?</p><h3 name="217b" id="217b" class="graf graf--h3 graf-after--p">Learning without a teacher: unsupervised learning</h3><figure name="4d52" id="4d52" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*3HF5ByN6aMFOmXaOz7W02g.jpeg" data-width="434" data-height="300" src="https://cdn-images-1.medium.com/max/800/1*3HF5ByN6aMFOmXaOz7W02g.jpeg"></figure><p name="b3be" id="b3be" class="graf graf--p graf-after--figure">Unsupervised learning methods attempt to learn some kind of “structure” underlying the data. This can mean, for example, visualization where similar items are placed near each other and dissimilar items further away from each other. It can also mean clustering where we use the data to identify groups or “clusters” of items that are similar to each other but dissimilar from data in other clusters.</p><p name="852b" id="852b" class="graf graf--p graf-after--p">As a concrete example, grocery store chains collect data about their customers’ shopping behavior (that’s why you have all those loyalty cards). To better understand their customers, the store can either visualize the data using a graph where each customer is represented by a dot and customers who tend to buy the same products are placed nearer each other than customers who buy different products. Or, the store could apply clustering to obtain a set of customer groups such as ‘low-budget health food enthusiasts’, ‘high-end fish lovers’, ‘soda and pizza 6 days a week’, and so on. Note that the machine learning method would only group the customers into clusters, but it wouldn’t automatically generate the cluster labels (‘fish lovers’ and so on). This task would be left for the user.</p><h3 name="27d5" id="27d5" class="graf graf--h3 graf-after--p">The nearest neighbor classifier</h3><p name="86b8" id="86b8" class="graf graf--p graf-after--h3">The nearest neighbor classifier is among the simplest possible classifiers. When given an item to classify, it finds the training data item that is most similar to the new item, and outputs its label.</p><figure name="40eb" id="40eb" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*KeD2w5otC8UVa6Qum6k_WQ.png" data-width="2928" data-height="1668" src="https://cdn-images-1.medium.com/max/800/1*KeD2w5otC8UVa6Qum6k_WQ.png"></figure><h3 name="ce19" id="ce19" class="graf graf--h3 graf-after--figure">Machine learning applications of linear regression</h3><p name="4a8f" id="4a8f" class="graf graf--p graf-after--h3">Linear regression is truly the workhorse of many AI and data science applications. It has its limits but they are often compensated by its simplicity, interpretability and efficiency. Linear regression has been successfully used in the following problems to give a few examples:</p><ul class="postList"><li name="8d84" id="8d84" class="graf graf--li graf-after--p">prediction of click rates in online advertising</li><li name="beef" id="beef" class="graf graf--li graf-after--li">prediction of retail demand for products</li><li name="81b8" id="81b8" class="graf graf--li graf-after--li">prediction of box-office revenue of Hollywood movies</li><li name="5d09" id="5d09" class="graf graf--li graf-after--li">prediction of software cost</li><li name="23f3" id="23f3" class="graf graf--li graf-after--li">prediction of insurance cost</li><li name="47ff" id="47ff" class="graf graf--li graf-after--li">prediction of crime rates</li><li name="ebf9" id="ebf9" class="graf graf--li graf-after--li">prediction of real estate prices</li></ul><h3 name="ae76" id="ae76" class="graf graf--h3 graf-after--li">The limits of machine learning</h3><p name="991f" id="991f" class="graf graf--p graf-after--h3">To summarize, machine learning is a very powerful tool for building AI applications. In addition to the nearest neighbor method, linear regression, and logistic regression, there are literally hundreds, if not thousands, of different machine learning techniques, but they all boil down to the same thing: trying to extract patterns and dependencies from data and using them either to gain understanding of a phenomenon or to predict future outcomes.</p><p name="c4af" id="c4af" class="graf graf--p graf-after--p">Machine learning can be a very hard problem and we can’t usually achieve a perfect method that would always produce the correct label. However, in most cases, a good but not perfect prediction is still better than none. Sometimes we may be able to produce better predictions by ourselves but we may still prefer to use machine learning because the machine will make its predictions faster and it will also keep churning out predictions without getting tired. Good examples are recommendation systems that need to predict what music, what videos, or what ads are more likely to be of interest to you.</p><p name="a947" id="a947" class="graf graf--p graf-after--p">The factors that affect how good a result we can achieve include:</p><ul class="postList"><li name="356d" id="356d" class="graf graf--li graf-after--p">The hardness of the task: in handwritten digit recognition, if the digits are written very sloppily, even a human can’t always guess correctly what the writer intended</li><li name="f8bf" id="f8bf" class="graf graf--li graf-after--li">The machine learning method: some methods are far better for a particular task than others</li><li name="5dd4" id="5dd4" class="graf graf--li graf-after--li">The amount of training data: from only a few examples, it is impossible to obtain a good classifier</li><li name="a38a" id="a38a" class="graf graf--li graf-after--li graf--trailing">The quality of the data</li></ul></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/6b10315581b"><time class="dt-published" datetime="2020-09-06T10:04:00.832Z">September 6, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/intro-to-machine-learning-6b10315581b" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Intro to Machine learning</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        It has been long understood that learning is a key element of
+        intelligence. This holds both for natural intelligence - we all get
+        smarter…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="2738"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="b2a5"
+                id="b2a5"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Intro to Machine learning
+              </h3>
+              <p name="5c5c" id="5c5c" class="graf graf--p graf-after--h3">
+                It has been long understood that learning is a key element of
+                intelligence. This holds both for natural intelligence - we all
+                get smarter by learning and artificial intelligence.
+              </p>
+              <h3 name="442e" id="442e" class="graf graf--h3 graf-after--p">
+                Types of Machine Learning
+              </h3>
+              <p name="69b5" id="69b5" class="graf graf--p graf-after--h3">
+                The roots of machine learning are in statistics, which can also
+                be thought of as the art of
+                <strong class="markup--strong markup--p-strong"
+                  >extracting knowledge from data</strong
+                >. Especially methods such as linear regression and Bayesian
+                statistics, which are both already more than two centuries old
+                (!), are even today at the heart of machine learning. For more
+                examples and a brief history, see the
+                <a
+                  href="https://en.wikipedia.org/wiki/Timeline_of_machine_learning"
+                  data-href="https://en.wikipedia.org/wiki/Timeline_of_machine_learning"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener noreferrer noopener"
+                  target="_blank"
+                  >timeline of machine learning</a
+                >
+                (Wikipedia).
+              </p>
+              <p name="de92" id="de92" class="graf graf--p graf-after--p">
+                Machine learning is sub-categorized to three types:
+              </p>
+              <ul class="postList">
+                <li name="8949" id="8949" class="graf graf--li graf-after--p">
+                  Supervised Learning — Train Me!
+                </li>
+                <li name="1559" id="1559" class="graf graf--li graf-after--li">
+                  Unsupervised Learning — I am self sufficient in learning
+                </li>
+                <li name="2f2a" id="2f2a" class="graf graf--li graf-after--li">
+                  Reinforcement Learning — My life My rules! (Hit &amp; Trial)
+                </li>
+              </ul>
+              <figure
+                name="c7d8"
+                id="c7d8"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*5WShezH1tkw49TQXTipI8A.jpeg"
+                  data-width="602"
+                  data-height="414"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*5WShezH1tkw49TQXTipI8A.jpeg"
+                />
+              </figure>
+              <h3
+                name="a937"
+                id="a937"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Humans teaching machines: supervised learning
+              </h3>
+              <figure
+                name="e033"
+                id="e033"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*QK4SakKRGzrGoCmqCMQA0g.png"
+                  data-width="1102"
+                  data-height="544"
+                  src="https://cdn-images-1.medium.com/max/800/1*QK4SakKRGzrGoCmqCMQA0g.png"
+                />
+              </figure>
+              <p name="95b5" id="95b5" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em">regression</em></strong
+                >
+              </p>
+              <p name="c785" id="c785" class="graf graf--p graf-after--p">
+                Examples include predicting the number of people who will click
+                a Google ad based on the ad content and data about the user’s
+                prior online behavior, predicting the number of traffic
+                accidents based on road conditions and speed limit, or
+                predicting the selling price of real estate based on its
+                location, size, and condition. These problems are called
+                <em class="markup--em markup--p-em">regression</em>.
+              </p>
+              <p name="e598" id="e598" class="graf graf--p graf-after--p">
+                You probably recognize the term
+                <em class="markup--em markup--p-em">linear regression</em>,
+                which is a classical, still very popular technique for
+                regression.
+              </p>
+              <p name="29bd" id="29bd" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em">Overfitting</em></strong
+                >
+              </p>
+              <p name="b7f7" id="b7f7" class="graf graf--p graf-after--p">
+                It is very important to keep in mind that the accuracy of a
+                predictor learned by machine learning can be quite different in
+                the training data and in separate test data. This is the
+                so-called
+                <strong class="markup--strong markup--p-strong"
+                  >overfitting</strong
+                >
+                phenomenon, and a lot of machine learning research is focused on
+                avoiding it one way or another.
+              </p>
+              <p name="0ac3" id="0ac3" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >When does a neural net perform better than linear
+                    regression?</em
+                  ></strong
+                >
+              </p>
+              <p name="1aec" id="1aec" class="graf graf--p graf-after--p">
+                Linear regression will do better when the underlying
+                relationship between your variables and the response is known to
+                be linear.
+              </p>
+              <p name="1d47" id="1d47" class="graf graf--p graf-after--p">
+                However, in many cases this just doesn’t hold. Especially for
+                classification problems. Imagine a high level algorithm that
+                detects faces based on other features. A sensible rule it could
+                learn is “if it has 2 eyes, a nose, and a mouth then it’s a
+                face”. A linear regression model might conclude however that if
+                it saw 3 eyes instead of two then it is even more likely to be a
+                face. Or maybe all it detected were 12 mouths — no eyes or nose
+                but if you multiply the contribution of a mouth by 12 then you
+                get a “face” score even higher than a normal face. Clearly in
+                this situation there is a nonlinear relationship between how
+                much of a Face something is and the number of facial components
+                and so a neural network would do better.
+              </p>
+              <p name="0563" id="0563" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >The difference between classification and regression</em
+                  ></strong
+                >
+              </p>
+              <p name="6796" id="6796" class="graf graf--p graf-after--p">
+                There is a small but important difference in the kind of
+                predictions that we should produce in different scenarios. While
+                for example the nearest neighbor classifier chooses a class
+                label for any item out of a given set of alternatives (like
+                spam/ham, or 0,1,2,…,9), linear regression produces a numerical
+                prediction that is not constrained to be an integer (a whole
+                number as opposed to something like 3.14). So linear regression
+                is better suited in situations where the output variable can be
+                any number like the price of a product, the distance to an
+                obstacle, the box-office revenue of the next Star Wars movie,
+                and so on.
+              </p>
+              <p name="edce" id="edce" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Logistic Regression</em
+                  ></strong
+                >
+              </p>
+              <p name="4005" id="4005" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Logistic regression</strong
+                >
+                is the appropriate regression analysis to conduct when the
+                dependent variable is dichotomous (binary). Like all regression
+                analyses, the logistic regression is a predictive analysis.
+                Logistic regression is used to describe data and to explain the
+                relationship between one dependent binary variable and one or
+                more nominal, ordinal, interval or ratio-level independent
+                variables.
+              </p>
+              <p name="1199" id="1199" class="graf graf--p graf-after--p">
+                Sometimes logistic regressions are difficult to interpret; the
+                Intellectus Statistics tool easily allows you to conduct the
+                analysis, then in plain English interprets the output.
+              </p>
+              <blockquote
+                name="ade4"
+                id="ade4"
+                class="graf graf--blockquote graf-after--p"
+              >
+                Types of Questions Binary Logistic Regression Can Answer
+              </blockquote>
+              <p
+                name="9b9e"
+                id="9b9e"
+                class="graf graf--p graf-after--blockquote"
+              >
+                How does the probability of getting lung cancer (yes vs. no)
+                change for every additional pound a person is overweight and for
+                every pack of cigarettes smoked per day?
+              </p>
+              <p name="ce4f" id="ce4f" class="graf graf--p graf-after--p">
+                Do body weight, calorie intake, fat intake, and age have an
+                influence on the probability of having a heart attack (yes vs.
+                no)?
+              </p>
+              <h3 name="217b" id="217b" class="graf graf--h3 graf-after--p">
+                Learning without a teacher: unsupervised learning
+              </h3>
+              <figure
+                name="4d52"
+                id="4d52"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*3HF5ByN6aMFOmXaOz7W02g.jpeg"
+                  data-width="434"
+                  data-height="300"
+                  src="https://cdn-images-1.medium.com/max/800/1*3HF5ByN6aMFOmXaOz7W02g.jpeg"
+                />
+              </figure>
+              <p name="b3be" id="b3be" class="graf graf--p graf-after--figure">
+                Unsupervised learning methods attempt to learn some kind of
+                “structure” underlying the data. This can mean, for example,
+                visualization where similar items are placed near each other and
+                dissimilar items further away from each other. It can also mean
+                clustering where we use the data to identify groups or
+                “clusters” of items that are similar to each other but
+                dissimilar from data in other clusters.
+              </p>
+              <p name="852b" id="852b" class="graf graf--p graf-after--p">
+                As a concrete example, grocery store chains collect data about
+                their customers’ shopping behavior (that’s why you have all
+                those loyalty cards). To better understand their customers, the
+                store can either visualize the data using a graph where each
+                customer is represented by a dot and customers who tend to buy
+                the same products are placed nearer each other than customers
+                who buy different products. Or, the store could apply clustering
+                to obtain a set of customer groups such as ‘low-budget health
+                food enthusiasts’, ‘high-end fish lovers’, ‘soda and pizza 6
+                days a week’, and so on. Note that the machine learning method
+                would only group the customers into clusters, but it wouldn’t
+                automatically generate the cluster labels (‘fish lovers’ and so
+                on). This task would be left for the user.
+              </p>
+              <h3 name="27d5" id="27d5" class="graf graf--h3 graf-after--p">
+                The nearest neighbor classifier
+              </h3>
+              <p name="86b8" id="86b8" class="graf graf--p graf-after--h3">
+                The nearest neighbor classifier is among the simplest possible
+                classifiers. When given an item to classify, it finds the
+                training data item that is most similar to the new item, and
+                outputs its label.
+              </p>
+              <figure
+                name="40eb"
+                id="40eb"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*KeD2w5otC8UVa6Qum6k_WQ.png"
+                  data-width="2928"
+                  data-height="1668"
+                  src="https://cdn-images-1.medium.com/max/800/1*KeD2w5otC8UVa6Qum6k_WQ.png"
+                />
+              </figure>
+              <h3
+                name="ce19"
+                id="ce19"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Machine learning applications of linear regression
+              </h3>
+              <p name="4a8f" id="4a8f" class="graf graf--p graf-after--h3">
+                Linear regression is truly the workhorse of many AI and data
+                science applications. It has its limits but they are often
+                compensated by its simplicity, interpretability and efficiency.
+                Linear regression has been successfully used in the following
+                problems to give a few examples:
+              </p>
+              <ul class="postList">
+                <li name="8d84" id="8d84" class="graf graf--li graf-after--p">
+                  prediction of click rates in online advertising
+                </li>
+                <li name="beef" id="beef" class="graf graf--li graf-after--li">
+                  prediction of retail demand for products
+                </li>
+                <li name="81b8" id="81b8" class="graf graf--li graf-after--li">
+                  prediction of box-office revenue of Hollywood movies
+                </li>
+                <li name="5d09" id="5d09" class="graf graf--li graf-after--li">
+                  prediction of software cost
+                </li>
+                <li name="23f3" id="23f3" class="graf graf--li graf-after--li">
+                  prediction of insurance cost
+                </li>
+                <li name="47ff" id="47ff" class="graf graf--li graf-after--li">
+                  prediction of crime rates
+                </li>
+                <li name="ebf9" id="ebf9" class="graf graf--li graf-after--li">
+                  prediction of real estate prices
+                </li>
+              </ul>
+              <h3 name="ae76" id="ae76" class="graf graf--h3 graf-after--li">
+                The limits of machine learning
+              </h3>
+              <p name="991f" id="991f" class="graf graf--p graf-after--h3">
+                To summarize, machine learning is a very powerful tool for
+                building AI applications. In addition to the nearest neighbor
+                method, linear regression, and logistic regression, there are
+                literally hundreds, if not thousands, of different machine
+                learning techniques, but they all boil down to the same thing:
+                trying to extract patterns and dependencies from data and using
+                them either to gain understanding of a phenomenon or to predict
+                future outcomes.
+              </p>
+              <p name="c4af" id="c4af" class="graf graf--p graf-after--p">
+                Machine learning can be a very hard problem and we can’t usually
+                achieve a perfect method that would always produce the correct
+                label. However, in most cases, a good but not perfect prediction
+                is still better than none. Sometimes we may be able to produce
+                better predictions by ourselves but we may still prefer to use
+                machine learning because the machine will make its predictions
+                faster and it will also keep churning out predictions without
+                getting tired. Good examples are recommendation systems that
+                need to predict what music, what videos, or what ads are more
+                likely to be of interest to you.
+              </p>
+              <p name="a947" id="a947" class="graf graf--p graf-after--p">
+                The factors that affect how good a result we can achieve
+                include:
+              </p>
+              <ul class="postList">
+                <li name="356d" id="356d" class="graf graf--li graf-after--p">
+                  The hardness of the task: in handwritten digit recognition, if
+                  the digits are written very sloppily, even a human can’t
+                  always guess correctly what the writer intended
+                </li>
+                <li name="f8bf" id="f8bf" class="graf graf--li graf-after--li">
+                  The machine learning method: some methods are far better for a
+                  particular task than others
+                </li>
+                <li name="5dd4" id="5dd4" class="graf graf--li graf-after--li">
+                  The amount of training data: from only a few examples, it is
+                  impossible to obtain a good classifier
+                </li>
+                <li
+                  name="a38a"
+                  id="a38a"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  The quality of the data
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/6b10315581b"
+            ><time class="dt-published" datetime="2020-09-06T10:04:00.832Z"
+              >September 6, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/intro-to-machine-learning-6b10315581b"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

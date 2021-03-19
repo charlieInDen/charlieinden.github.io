@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS interview questions (6)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iOS interview questions (6)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,483 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">iOS interview questions (6)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-DispatchGroup and OperationQueue, Concurrency, multithreading
-</section>
-<section data-field="description" class="p-summary">
-Recently i had to do a bunch of asynchronous tasks and i just wanted to get notified when all of them finish. This blog is going to cover two easy ways of doing this: DispatchGroup and…
-</section>
-<section data-field="body" class="e-content">
-<section name="9d5c" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0184" id="0184" class="graf graf--h3 graf--leading graf--title"><strong class="markup--strong markup--h3-strong">iOS 2018 Series: Cracking iOS interview or Become iOS expert (6)</strong></h3><p name="1622" id="1622" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Chapter 6: DispatchGroup and OperationQueue</strong></p><p name="f1de" id="f1de" class="graf graf--p graf-after--p">Recently i had to do a bunch of asynchronous tasks and i just wanted to get notified when all of them finish. This blog is going to cover two easy ways of doing this: <a href="https://developer.apple.com/documentation/dispatch/dispatchgroup" data-href="https://developer.apple.com/documentation/dispatch/dispatchgroup" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">DispatchGroup</a> and <a href="https://developer.apple.com/documentation/foundation/operationqueue" data-href="https://developer.apple.com/documentation/foundation/operationqueue" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">OperationQueue</a>. We’ll cover them both in this post.</p><h3 name="d3b2" id="d3b2" class="graf graf--h3 graf-after--p">DispatchGroup</h3><p name="d2b0" id="d2b0" class="graf graf--p graf-after--h3">If you’re working on a project that’s not using Operations and you don’t want to refactor any of the existing code,<strong class="markup--strong markup--p-strong">DispatchGroup</strong> is a powerful API that lets you group together these tasks into one task.</p><p name="3fc8" id="3fc8" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Situation 1</strong>: Calculate sum of three arrays on three different threads and once all thread completes its execution, i want to use that result.</p><p name="5e32" id="5e32" class="graf graf--p graf-after--p">Before considering the solution for it, lets learn some of the API’s related to dispatch group.</p><p name="404b" id="404b" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--p-strong">enter</strong>() — </code>Explicitly indicates that a block has entered the group.</p><p name="38c3" id="38c3" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--p-strong">leave</strong>() - </code>Explicitly indicates that a block in the group has completed.</p><p name="841a" id="841a" class="graf graf--p graf-after--p">func <strong class="markup--strong markup--p-strong">notify</strong>(qos: DispatchQoS = default, flags: DispatchWorkItemFlags = default, queue: DispatchQueue, execute work: @escaping @convention(block) () -&gt; Swift.Void) -<br><strong class="markup--strong markup--p-strong">Schedules a block</strong> to be submitted to a queue with a specified quality of service class and configuration when a group of previously submitted block objects have completed.</p><p name="05d7" id="05d7" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: These three api will help me to handle above situation, lets learn how to use them.</p><p name="0442" id="0442" class="graf graf--p graf-after--p">I have written below function for adding elements of array and return</p><figure name="5045" id="5045" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*drFm80sFE2U1Y38irLj3ag.png" data-width="1762" data-height="470" src="https://cdn-images-1.medium.com/max/800/1*drFm80sFE2U1Y38irLj3ag.png"></figure><p name="06dc" id="06dc" class="graf graf--p graf-after--figure">This function create thread using <strong class="markup--strong markup--p-strong">DispatchQueue.global().async </strong>and create loop for adding all elements of infoArr using <strong class="markup--strong markup--p-strong">DispatchQueue.concurrentPerform (similar to for loop) </strong>then returning the completion handler named<strong class="markup--strong markup--p-strong"> block().</strong></p><p name="f581" id="f581" class="graf graf--p graf-after--p">Below function will create three threads in parallel which calculate sum and once thread finished, it will call notify function of dispatchgroup.</p><figure name="f472" id="f472" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*oJGNUP4BEOgYhVKtzpaV_w.png" data-width="1658" data-height="1410" src="https://cdn-images-1.medium.com/max/800/1*oJGNUP4BEOgYhVKtzpaV_w.png"></figure><p name="aeb4" id="aeb4" class="graf graf--p graf-after--figure">Once the notify function called, we will have all three array sum and which we can pass in completionBlock().</p><figure name="5272" id="5272" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*LBgXZsIRWwxdxTEQCCAzDg.png" data-width="514" data-height="138" src="https://cdn-images-1.medium.com/max/800/1*LBgXZsIRWwxdxTEQCCAzDg.png"><figcaption class="imageCaption">Block calling order — Console log</figcaption></figure><figure name="1327" id="1327" class="graf graf--figure graf-after--figure"><img class="graf-image" data-image-id="1*CVLq9QkfVOlPteL_TQ_tZw.png" data-width="1380" data-height="72" src="https://cdn-images-1.medium.com/max/800/1*CVLq9QkfVOlPteL_TQ_tZw.png"><figcaption class="imageCaption">Output logs</figcaption></figure><h3 name="49e4" id="49e4" class="graf graf--h3 graf-after--figure">Operation &amp; Operation Queue</h3><p name="a85c" id="a85c" class="graf graf--p graf-after--h3">Its an abstract class, you need to subclass it to use. If you just want to execute a small piece of code or call a method you can use <a href="https://developer.apple.com/documentation/foundation/blockoperation" data-href="https://developer.apple.com/documentation/foundation/blockoperation" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">BlockOperation</a> and <a href="https://developer.apple.com/documentation/foundation/nsinvocationoperation" data-href="https://developer.apple.com/documentation/foundation/nsinvocationoperation" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSInvocationOperation</a> instead of subclassing Operation.</p><p name="0877" id="0877" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Situation 2: </strong>Calculate sum of three arrays on three different threads using operation and once all thread completes its execution, i want to use that result.</p><p name="7cf6" id="7cf6" class="graf graf--p graf-after--p">Solution: Create OperationQueue instance to addOperations, create three BlockOperation for adding sum of array, then add dependency between operation (as we need to get final sum actually they are not dependent), Once we add these three block operations in any order to operation queue, it doesnot matter and register the completion block on Block three to get final sum.</p><figure name="3c0c" id="3c0c" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*epxAd8iRdc2F6pGEmv9IlA.png" data-width="1830" data-height="1404" src="https://cdn-images-1.medium.com/max/800/1*epxAd8iRdc2F6pGEmv9IlA.png"></figure><p name="4862" id="4862" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Output: </strong>Below images indicate — Sequence of calling blocks and final sum result</p><figure name="d3b8" id="d3b8" class="graf graf--figure graf--layoutOutsetLeft graf-after--p"><img class="graf-image" data-image-id="1*rf3Su0rehwGbg4O8w6idOA.png" data-width="204" data-height="122" src="https://cdn-images-1.medium.com/max/600/1*rf3Su0rehwGbg4O8w6idOA.png"></figure><figure name="bec1" id="bec1" class="graf graf--figure graf-after--figure"><img class="graf-image" data-image-id="1*W2xERHfSuas2YcepGjnKEg.png" data-width="1420" data-height="58" src="https://cdn-images-1.medium.com/max/800/1*W2xERHfSuas2YcepGjnKEg.png"></figure><h3 name="d73d" id="d73d" class="graf graf--h3 graf-after--figure"><strong class="markup--strong markup--h3-strong">Concurrent Queue with Barrier</strong></h3><p name="826a" id="826a" class="graf graf--p graf-after--h3">Tasks in concurrent queues execute in any order and can start simultaneously. This is very fast compared to the above serial queue. However, because we may be reading while writing at the same time, we will run in to the readers-writers problem.</p><p name="c53b" id="c53b" class="graf graf--p graf-after--p">What if there was a way that you can ensure no writing occurs while reading and no reading occurs while writing using concurrency? Well, there is a way to this using <em class="markup--em markup--p-em">Concurrent Queue with Barrier</em>. If we take the concurrent code above, and insert a barrier to the write operation, we ensure that the writing will occur after all the reading in the queue is performed and that no reading occurs while writing.</p><figure name="38f1" id="38f1" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*3cTJcPmSOXGh9K3DHc3WIg.png" data-width="1224" data-height="834" src="https://cdn-images-1.medium.com/max/800/1*3cTJcPmSOXGh9K3DHc3WIg.png"></figure><p name="8800" id="8800" class="graf graf--p graf-after--figure">Using concurrent queues with barriers helps us improve and speed up our code while eliminating the readers-writers problem, which is also important for singletons.</p><figure name="5640" id="5640" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*yfeU7Nbg26eDe1RLnfSIwg.png" data-width="602" data-height="341" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*yfeU7Nbg26eDe1RLnfSIwg.png"></figure><h3 name="647b" id="647b" class="graf graf--h3 graf-after--figure">Bonus time: Difference between #import and @class</h3><p name="d6ec" id="d6ec" class="graf graf--p graf--startsWithDoubleQuote graf-after--h3"><strong class="markup--strong markup--p-strong">“#import”</strong> brings the entire header file in question into the current file; any files that THAT file <strong class="markup--strong markup--p-strong">#imports</strong> are also included.</p><p name="4aaf" id="4aaf" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">@class</strong>, on the other hand (when used on a line by itself with some class names), just tells the compiler “Hey, you’re going to see a new token soon; it’s a class, so treat it that way).</p><p name="3d17" id="3d17" class="graf graf--p graf-after--p">This is very useful when you’ve got the potential for ‘<strong class="markup--strong markup--p-strong">circular includes</strong>’; ie, Object1.h makes reference to Object2, and Object2.h makes reference to Object1. If you <code class="markup--code markup--p-code">#import both</code> files into the other, the compiler can get confused as it tries to <code class="markup--code markup--p-code">#import</code> Object1.h, looks in it and sees Object2.h; it tries to <code class="markup--code markup--p-code">#import</code> Object2.h, and sees Object1.h, etc.</p><p name="5871" id="5871" class="graf graf--p graf-after--p">If, on the other hand, each of those files has <code class="markup--code markup--p-code">@class</code> Object1; or <code class="markup--code markup--p-code">@class</code> Object2;, then there&#39;s no circular reference. Just be sure to actually <code class="markup--code markup--p-code">#import</code> the required headers into your implementation (.m) files.</p><h3 name="8ef7" id="8ef7" class="graf graf--h3 graf-after--p">mutating keyword</h3><p name="0fc5" id="0fc5" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Modifying Value Types from Within Instance Methods</strong></p><p name="e310" id="e310" class="graf graf--p graf-after--p">Structures and enumerations are <em class="markup--em markup--p-em">value</em> types. By default, the properties of a value type cannot be modified from within its instance methods.</p><p name="14c3" id="14c3" class="graf graf--p graf-after--p">However, if you need to modify the properties of your structure or enumeration within a particular method, you can opt in to mutating behavior for that method. The method can then mutate (that is, change) its properties from within the method, and any changes that it makes are written back to the original structure when the method ends. The method can also assign a completely new instance to its implicit <code class="markup--code markup--p-code">self</code> property, and this new instance will replace the existing one when the method ends.</p><p name="5d93" id="5d93" class="graf graf--p graf-after--p">You can opt in to this behavior by placing the <code class="markup--code markup--p-code">mutating</code> keyword before the func keyword for that method</p><p name="5c70" id="5c70" class="graf graf--p graf-after--p graf--trailing">Hope you are learning from it, Goto <a href="https://medium.com/@nishantblog/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4" data-href="https://medium.com/@nishantblog/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Core Data.</strong></a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/a3e5a77c2405"><time class="dt-published" datetime="2018-06-01T02:27:37.484Z">June 1, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-6-a3e5a77c2405" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">iOS interview questions (6)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        DispatchGroup and OperationQueue, Concurrency, multithreading
+      </section>
+      <section data-field="description" class="p-summary">
+        Recently i had to do a bunch of asynchronous tasks and i just wanted to
+        get notified when all of them finish. This blog is going to cover two
+        easy ways of doing this: DispatchGroup and…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="9d5c"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="0184"
+                id="0184"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >iOS 2018 Series: Cracking iOS interview or Become iOS
+                  expert (6)</strong
+                >
+              </h3>
+              <p name="1622" id="1622" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Chapter 6: DispatchGroup and OperationQueue</strong
+                >
+              </p>
+              <p name="f1de" id="f1de" class="graf graf--p graf-after--p">
+                Recently i had to do a bunch of asynchronous tasks and i just
+                wanted to get notified when all of them finish. This blog is
+                going to cover two easy ways of doing this:
+                <a
+                  href="https://developer.apple.com/documentation/dispatch/dispatchgroup"
+                  data-href="https://developer.apple.com/documentation/dispatch/dispatchgroup"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >DispatchGroup</a
+                >
+                and
+                <a
+                  href="https://developer.apple.com/documentation/foundation/operationqueue"
+                  data-href="https://developer.apple.com/documentation/foundation/operationqueue"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >OperationQueue</a
+                >. We’ll cover them both in this post.
+              </p>
+              <h3 name="d3b2" id="d3b2" class="graf graf--h3 graf-after--p">
+                DispatchGroup
+              </h3>
+              <p name="d2b0" id="d2b0" class="graf graf--p graf-after--h3">
+                If you’re working on a project that’s not using Operations and
+                you don’t want to refactor any of the existing code,<strong
+                  class="markup--strong markup--p-strong"
+                  >DispatchGroup</strong
+                >
+                is a powerful API that lets you group together these tasks into
+                one task.
+              </p>
+              <p name="3fc8" id="3fc8" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Situation 1</strong
+                >: Calculate sum of three arrays on three different threads and
+                once all thread completes its execution, i want to use that
+                result.
+              </p>
+              <p name="5e32" id="5e32" class="graf graf--p graf-after--p">
+                Before considering the solution for it, lets learn some of the
+                API’s related to dispatch group.
+              </p>
+              <p name="404b" id="404b" class="graf graf--p graf-after--p">
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  ><strong class="markup--strong markup--p-strong">enter</strong
+                  >() — </code
+                >Explicitly indicates that a block has entered the group.
+              </p>
+              <p name="38c3" id="38c3" class="graf graf--p graf-after--p">
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  ><strong class="markup--strong markup--p-strong">leave</strong
+                  >() - </code
+                >Explicitly indicates that a block in the group has completed.
+              </p>
+              <p name="841a" id="841a" class="graf graf--p graf-after--p">
+                func
+                <strong class="markup--strong markup--p-strong">notify</strong
+                >(qos: DispatchQoS = default, flags: DispatchWorkItemFlags =
+                default, queue: DispatchQueue, execute work: @escaping
+                @convention(block) () -&gt; Swift.Void) -<br /><strong
+                  class="markup--strong markup--p-strong"
+                  >Schedules a block</strong
+                >
+                to be submitted to a queue with a specified quality of service
+                class and configuration when a group of previously submitted
+                block objects have completed.
+              </p>
+              <p name="05d7" id="05d7" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >: These three api will help me to handle above situation, lets
+                learn how to use them.
+              </p>
+              <p name="0442" id="0442" class="graf graf--p graf-after--p">
+                I have written below function for adding elements of array and
+                return
+              </p>
+              <figure
+                name="5045"
+                id="5045"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*drFm80sFE2U1Y38irLj3ag.png"
+                  data-width="1762"
+                  data-height="470"
+                  src="https://cdn-images-1.medium.com/max/800/1*drFm80sFE2U1Y38irLj3ag.png"
+                />
+              </figure>
+              <p name="06dc" id="06dc" class="graf graf--p graf-after--figure">
+                This function create thread using
+                <strong class="markup--strong markup--p-strong"
+                  >DispatchQueue.global().async </strong
+                >and create loop for adding all elements of infoArr using
+                <strong class="markup--strong markup--p-strong"
+                  >DispatchQueue.concurrentPerform (similar to for loop) </strong
+                >then returning the completion handler named<strong
+                  class="markup--strong markup--p-strong"
+                >
+                  block().</strong
+                >
+              </p>
+              <p name="f581" id="f581" class="graf graf--p graf-after--p">
+                Below function will create three threads in parallel which
+                calculate sum and once thread finished, it will call notify
+                function of dispatchgroup.
+              </p>
+              <figure
+                name="f472"
+                id="f472"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*oJGNUP4BEOgYhVKtzpaV_w.png"
+                  data-width="1658"
+                  data-height="1410"
+                  src="https://cdn-images-1.medium.com/max/800/1*oJGNUP4BEOgYhVKtzpaV_w.png"
+                />
+              </figure>
+              <p name="aeb4" id="aeb4" class="graf graf--p graf-after--figure">
+                Once the notify function called, we will have all three array
+                sum and which we can pass in completionBlock().
+              </p>
+              <figure
+                name="5272"
+                id="5272"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*LBgXZsIRWwxdxTEQCCAzDg.png"
+                  data-width="514"
+                  data-height="138"
+                  src="https://cdn-images-1.medium.com/max/800/1*LBgXZsIRWwxdxTEQCCAzDg.png"
+                />
+                <figcaption class="imageCaption">
+                  Block calling order — Console log
+                </figcaption>
+              </figure>
+              <figure
+                name="1327"
+                id="1327"
+                class="graf graf--figure graf-after--figure"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*CVLq9QkfVOlPteL_TQ_tZw.png"
+                  data-width="1380"
+                  data-height="72"
+                  src="https://cdn-images-1.medium.com/max/800/1*CVLq9QkfVOlPteL_TQ_tZw.png"
+                />
+                <figcaption class="imageCaption">Output logs</figcaption>
+              </figure>
+              <h3
+                name="49e4"
+                id="49e4"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Operation &amp; Operation Queue
+              </h3>
+              <p name="a85c" id="a85c" class="graf graf--p graf-after--h3">
+                Its an abstract class, you need to subclass it to use. If you
+                just want to execute a small piece of code or call a method you
+                can use
+                <a
+                  href="https://developer.apple.com/documentation/foundation/blockoperation"
+                  data-href="https://developer.apple.com/documentation/foundation/blockoperation"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >BlockOperation</a
+                >
+                and
+                <a
+                  href="https://developer.apple.com/documentation/foundation/nsinvocationoperation"
+                  data-href="https://developer.apple.com/documentation/foundation/nsinvocationoperation"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >NSInvocationOperation</a
+                >
+                instead of subclassing Operation.
+              </p>
+              <p name="0877" id="0877" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Situation 2: </strong
+                >Calculate sum of three arrays on three different threads using
+                operation and once all thread completes its execution, i want to
+                use that result.
+              </p>
+              <p name="7cf6" id="7cf6" class="graf graf--p graf-after--p">
+                Solution: Create OperationQueue instance to addOperations,
+                create three BlockOperation for adding sum of array, then add
+                dependency between operation (as we need to get final sum
+                actually they are not dependent), Once we add these three block
+                operations in any order to operation queue, it doesnot matter
+                and register the completion block on Block three to get final
+                sum.
+              </p>
+              <figure
+                name="3c0c"
+                id="3c0c"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*epxAd8iRdc2F6pGEmv9IlA.png"
+                  data-width="1830"
+                  data-height="1404"
+                  src="https://cdn-images-1.medium.com/max/800/1*epxAd8iRdc2F6pGEmv9IlA.png"
+                />
+              </figure>
+              <p name="4862" id="4862" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong">Output: </strong
+                >Below images indicate — Sequence of calling blocks and final
+                sum result
+              </p>
+              <figure
+                name="d3b8"
+                id="d3b8"
+                class="graf graf--figure graf--layoutOutsetLeft graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*rf3Su0rehwGbg4O8w6idOA.png"
+                  data-width="204"
+                  data-height="122"
+                  src="https://cdn-images-1.medium.com/max/600/1*rf3Su0rehwGbg4O8w6idOA.png"
+                />
+              </figure>
+              <figure
+                name="bec1"
+                id="bec1"
+                class="graf graf--figure graf-after--figure"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*W2xERHfSuas2YcepGjnKEg.png"
+                  data-width="1420"
+                  data-height="58"
+                  src="https://cdn-images-1.medium.com/max/800/1*W2xERHfSuas2YcepGjnKEg.png"
+                />
+              </figure>
+              <h3
+                name="d73d"
+                id="d73d"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >Concurrent Queue with Barrier</strong
+                >
+              </h3>
+              <p name="826a" id="826a" class="graf graf--p graf-after--h3">
+                Tasks in concurrent queues execute in any order and can start
+                simultaneously. This is very fast compared to the above serial
+                queue. However, because we may be reading while writing at the
+                same time, we will run in to the readers-writers problem.
+              </p>
+              <p name="c53b" id="c53b" class="graf graf--p graf-after--p">
+                What if there was a way that you can ensure no writing occurs
+                while reading and no reading occurs while writing using
+                concurrency? Well, there is a way to this using
+                <em class="markup--em markup--p-em"
+                  >Concurrent Queue with Barrier</em
+                >. If we take the concurrent code above, and insert a barrier to
+                the write operation, we ensure that the writing will occur after
+                all the reading in the queue is performed and that no reading
+                occurs while writing.
+              </p>
+              <figure
+                name="38f1"
+                id="38f1"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*3cTJcPmSOXGh9K3DHc3WIg.png"
+                  data-width="1224"
+                  data-height="834"
+                  src="https://cdn-images-1.medium.com/max/800/1*3cTJcPmSOXGh9K3DHc3WIg.png"
+                />
+              </figure>
+              <p name="8800" id="8800" class="graf graf--p graf-after--figure">
+                Using concurrent queues with barriers helps us improve and speed
+                up our code while eliminating the readers-writers problem, which
+                is also important for singletons.
+              </p>
+              <figure
+                name="5640"
+                id="5640"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*yfeU7Nbg26eDe1RLnfSIwg.png"
+                  data-width="602"
+                  data-height="341"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*yfeU7Nbg26eDe1RLnfSIwg.png"
+                />
+              </figure>
+              <h3
+                name="647b"
+                id="647b"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Bonus time: Difference between #import and @class
+              </h3>
+              <p
+                name="d6ec"
+                id="d6ec"
+                class="graf graf--p graf--startsWithDoubleQuote graf-after--h3"
+              >
+                <strong class="markup--strong markup--p-strong"
+                  >“#import”</strong
+                >
+                brings the entire header file in question into the current file;
+                any files that THAT file
+                <strong class="markup--strong markup--p-strong"
+                  >#imports</strong
+                >
+                are also included.
+              </p>
+              <p name="4aaf" id="4aaf" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">@class</strong>,
+                on the other hand (when used on a line by itself with some class
+                names), just tells the compiler “Hey, you’re going to see a new
+                token soon; it’s a class, so treat it that way).
+              </p>
+              <p name="3d17" id="3d17" class="graf graf--p graf-after--p">
+                This is very useful when you’ve got the potential for ‘<strong
+                  class="markup--strong markup--p-strong"
+                  >circular includes</strong
+                >’; ie, Object1.h makes reference to Object2, and Object2.h
+                makes reference to Object1. If you
+                <code class="markup--code markup--p-code">#import both</code>
+                files into the other, the compiler can get confused as it tries
+                to
+                <code class="markup--code markup--p-code">#import</code>
+                Object1.h, looks in it and sees Object2.h; it tries to
+                <code class="markup--code markup--p-code">#import</code>
+                Object2.h, and sees Object1.h, etc.
+              </p>
+              <p name="5871" id="5871" class="graf graf--p graf-after--p">
+                If, on the other hand, each of those files has
+                <code class="markup--code markup--p-code">@class</code> Object1;
+                or
+                <code class="markup--code markup--p-code">@class</code>
+                Object2;, then there&#39;s no circular reference. Just be sure
+                to actually
+                <code class="markup--code markup--p-code">#import</code> the
+                required headers into your implementation (.m) files.
+              </p>
+              <h3 name="8ef7" id="8ef7" class="graf graf--h3 graf-after--p">
+                mutating keyword
+              </h3>
+              <p name="0fc5" id="0fc5" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Modifying Value Types from Within Instance Methods</strong
+                >
+              </p>
+              <p name="e310" id="e310" class="graf graf--p graf-after--p">
+                Structures and enumerations are
+                <em class="markup--em markup--p-em">value</em> types. By
+                default, the properties of a value type cannot be modified from
+                within its instance methods.
+              </p>
+              <p name="14c3" id="14c3" class="graf graf--p graf-after--p">
+                However, if you need to modify the properties of your structure
+                or enumeration within a particular method, you can opt in to
+                mutating behavior for that method. The method can then mutate
+                (that is, change) its properties from within the method, and any
+                changes that it makes are written back to the original structure
+                when the method ends. The method can also assign a completely
+                new instance to its implicit
+                <code class="markup--code markup--p-code">self</code> property,
+                and this new instance will replace the existing one when the
+                method ends.
+              </p>
+              <p name="5d93" id="5d93" class="graf graf--p graf-after--p">
+                You can opt in to this behavior by placing the
+                <code class="markup--code markup--p-code">mutating</code>
+                keyword before the func keyword for that method
+              </p>
+              <!-- <p
+                name="5c70"
+                id="5c70"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope you are learning from it, Goto
+                <a
+                  href="https://medium.com/@nishantblog/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4"
+                  data-href="https://medium.com/@nishantblog/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Core Data.</strong
+                  ></a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/a3e5a77c2405"
+            ><time class="dt-published" datetime="2018-06-01T02:27:37.484Z"
+              >June 1, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-6-a3e5a77c2405"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

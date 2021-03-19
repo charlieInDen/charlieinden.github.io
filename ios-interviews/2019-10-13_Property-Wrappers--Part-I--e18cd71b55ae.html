@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Property Wrappers (Part I)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Property Wrappers (Part I)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,425 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Property Wrappers (Part I)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-A property wrapper is a mechanism to abstract property implementation patterns that come up repeatedly.
-</section>
-<section data-field="body" class="e-content">
-<section name="6082" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="9cc0" id="9cc0" class="graf graf--h3 graf--leading graf--title">Property Wrappers (Part I)</h3><blockquote name="dec5" id="dec5" class="graf graf--blockquote graf-after--h3"><em class="markup--em markup--blockquote-em">A property wrapper is a mechanism to abstract property implementation patterns that come up repeatedly.</em></blockquote><p name="a3e9" id="a3e9" class="graf graf--p graf-after--blockquote">We can solve any problem by introducing an extra level of <a href="https://en.wikipedia.org/wiki/Indirection" data-href="https://en.wikipedia.org/wiki/Indirection" class="markup--anchor markup--p-anchor" title="Indirection" rel="noopener" target="_blank">indirection</a>.</p><p name="d566" id="d566" class="graf graf--p graf-after--p">Imagine you have an object’s property and you want to apply some additional functionality when the property’s value is being set or accessed. Something like lazy loading, some data modifications or additional actions. Most of these things are something that you would usually do in property’s accessors (set/get, didSet/didGet, willSet/willGet). Before we go into details of property wrappers lets read about decorator pattern, extensions, subclassing, we already used these concepts at any point of programming.</p><p name="58ca" id="58ca" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Decorator pattern</strong> is a <a href="https://en.wikipedia.org/wiki/Design_pattern_%28computer_science%29" data-href="https://en.wikipedia.org/wiki/Design_pattern_(computer_science)" class="markup--anchor markup--p-anchor" title="Design pattern (computer science)" rel="noopener" target="_blank">design pattern</a> that allows behavior to be added to an individual <a href="https://en.wikipedia.org/wiki/Object_%28computer_science%29" data-href="https://en.wikipedia.org/wiki/Object_(computer_science)" class="markup--anchor markup--p-anchor" title="Object (computer science)" rel="noopener" target="_blank">object</a>, dynamically, without affecting the behavior of other objects from the same <a href="https://en.wikipedia.org/wiki/Class_%28computer_science%29" data-href="https://en.wikipedia.org/wiki/Class_(computer_science)" class="markup--anchor markup--p-anchor" title="Class (computer science)" rel="noopener" target="_blank">class</a>.</p><p name="b132" id="b132" class="graf graf--p graf-after--p"><em class="markup--em markup--p-em">Extensions</em> add new functionality to an existing class, structure, enumeration, or protocol type. This includes the ability to extend types for which you do not have access to the original source code (known as <em class="markup--em markup--p-em">retroactive modeling</em>). Extensions are similar to categories in Objective-C.</p><p name="57ed" id="57ed" class="graf graf--p graf-after--p"><em class="markup--em markup--p-em">Subclassing</em> is the act of basing a new class on an existing class. The subclass inherits characteristics from the existing class, which you can then refine. You can also add new characteristics to the subclass.</p><p name="db5d" id="db5d" class="graf graf--p graf-after--p">From the swift programming language book , swift 5.1</p><pre name="ab6d" id="ab6d" class="graf graf--pre graf-after--p">A property wrapper adds a layer of separation between code that manages how a property is stored and the code that defines a property. For example, if you have properties that provide thread-safety checks or store their underlying data in a database, you have to write that code on every property. When you use a property wrapper, you write the management code once when you define the wrapper, and then reuse that management code by applying it to multiple properties.</pre><p name="dfb3" id="dfb3" class="graf graf--p graf-after--pre">Lets try to understand the property wrapper!!</p><p name="fdf9" id="fdf9" class="graf graf--p graf-after--p">Property wrappers abstract these actions from the specific data types and make it applicable to the other data models. You basically take the code to implement it and move it to a separate place which makes possible to reuse it. Property wrappers can also be treated as a implementation of decorator pattern or way to way to add some functionality without changing the object’s original implementation like extensions or subsclassing. <br>Property wrapper <strong class="markup--strong markup--p-strong">adds new behaviour to a specific instances of the data structure. It doesn’t influence all the other instances of this type </strong>(in a contract to the extension or subclassing). So changing the functionality of just one property, one instance of some data structure you shouldn’t worry about any side effects for the others.</p><p name="ee01" id="ee01" class="graf graf--p graf-after--p">There are two basic requirements for a property wrapper type:</p><ol class="postList"><li name="d887" id="d887" class="graf graf--li graf-after--p">The property wrapper type must be defined with the attribute <code class="markup--code markup--li-code">@propertyWrapper</code>. The attribute indicates that the type is meant to be used as a property wrapper type, and provides a point at which the compiler can verify any other consistency rules.</li><li name="90c6" id="90c6" class="graf graf--li graf-after--li">The property wrapper type must have a property named <code class="markup--code markup--li-code">wrappedValue</code>, whose access level is the same as that of the type itself. This is the property used by the compiler to access the underlying value on the wrapper instance.</li></ol><p name="538f" id="538f" class="graf graf--p graf-after--li">So, for your consideration, here are some potential use cases for the new <code class="markup--code markup--p-code">@propertyWrapper</code>attribute:</p><h4 name="0649" id="0649" class="graf graf--h4 graf-after--p">Dependency Injection</h4><p name="a4e7" id="a4e7" class="graf graf--p graf-after--h4">Inject dependencies via property wrappers.</p><figure name="3497" id="3497" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*Hy2wY10jvrMA4bzGY5bDjQ.png" data-width="864" data-height="626" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*Hy2wY10jvrMA4bzGY5bDjQ.png"><figcaption class="imageCaption">Reference: <a href="https://github.com/ZamzamInc/Shank" data-href="https://github.com/ZamzamInc/Shank" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://github.com/ZamzamInc/Shank</a></figcaption></figure><p name="7ef2" id="7ef2" class="graf graf--p graf-after--figure">For more details, please visit <a href="https://github.com/ZamzamInc/Shank" data-href="https://github.com/ZamzamInc/Shank" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Dependency Inject using Property Wrappers</a>.</p><h4 name="774e" id="774e" class="graf graf--h4 graf-after--p">Constraining Values</h4><p name="9290" id="9290" class="graf graf--p graf-after--h4">Consider a use case where you want to add the minimum and maximum text limit on a text field in iOS application, by creating a <strong class="markup--strong markup--p-strong">@Limit</strong> property wrapper, you can directly add the limit to a variable.</p><figure name="4995" id="4995" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*qhMdwQXgphcWv7dBZ5lybQ.png" data-width="726" data-height="1046" src="https://cdn-images-1.medium.com/max/800/1*qhMdwQXgphcWv7dBZ5lybQ.png"><figcaption class="imageCaption">Reference: <a href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift" data-href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift</a></figcaption></figure><h4 name="777f" id="777f" class="graf graf--h4 graf-after--figure">Transforming Values on Property Assignment</h4><p name="8cf2" id="8cf2" class="graf graf--p graf-after--h4">Consider the following <code class="markup--code markup--p-code">SpaceRemover</code> struct that removes whitespaces and newlines from incoming string values.</p><figure name="82d7" id="82d7" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*R-UkXqJ7STz4nKQbGIjhYg.png" data-width="1248" data-height="500" src="https://cdn-images-1.medium.com/max/800/1*R-UkXqJ7STz4nKQbGIjhYg.png"><figcaption class="imageCaption">Reference: <a href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift" data-href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift</a></figcaption></figure><h4 name="a55b" id="a55b" class="graf graf--h4 graf-after--figure">Copy-on-write</h4><p name="3f6e" id="3f6e" class="graf graf--p graf-after--h4">With some work, property wrappers can provide copy-on-write wrappers (original example courtesy of Brent Royal-Gordon):</p><pre name="f20e" id="f20e" class="graf graf--pre graf-after--p">protocol Copyable: AnyObject {<br>  func copy() -&gt; Self<br>}</pre><pre name="0859" id="0859" class="graf graf--pre graf-after--pre">@propertyWrapper<br>struct CopyOnWrite&lt;Value: Copyable&gt; {<br>  init(wrappedValue: Value) {<br>    self.wrappedValue = wrappedValue<br>  }<br>  <br>  private(set) var wrappedValue: Value<br>  <br>  var projectedValue: Value {<br>    mutating get {<br>      if !isKnownUniquelyReferenced(&amp;wrappedValue) {<br>        wrappedValue = value.copy()<br>      }<br>      return wrappedValue<br>    }<br>    set {<br>      wrappedValue = newValue<br>    }<br>  }<br>}</pre><p name="1b76" id="1b76" class="graf graf--p graf-after--pre"><a href="https://developer.apple.com/documentation/combine/published" data-href="https://developer.apple.com/documentation/combine/published" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">Combine’s </a><code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/combine/published" data-href="https://developer.apple.com/documentation/combine/published" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">Published</a></code> property wrapper is similar in spirit, allowing clients to subscribe to <code class="markup--code markup--p-code">@Published</code> properties (via the <code class="markup--code markup--p-code">$</code> projection) to receive updates when the value changes.</p><p name="4063" id="4063" class="graf graf--p graf-after--p"><a href="https://developer.apple.com/xcode/swiftui/" data-href="https://developer.apple.com/xcode/swiftui/" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">SwiftUI</a> makes extensive use of property wrappers to declare local state (<code class="markup--code markup--p-code">@State</code>) and express data dependencies on other state that can effect the UI (<code class="markup--code markup--p-code">@EnvironmentObject</code>, <code class="markup--code markup--p-code">@Environment</code>, <code class="markup--code markup--p-code">@ObservedObject</code>). It makes extensive use of projections to the <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/swiftui/binding" data-href="https://developer.apple.com/documentation/swiftui/binding" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">Binding</a></code> property wrapper to allow controlled mutation of the state that affects UI.</p><p name="4a52" id="4a52" class="graf graf--p graf-after--p">Next: <a href="https://medium.com/ios-expert-series-or-interview-series/property-wrappers-part-ii-523eee07693b" data-href="https://medium.com/ios-expert-series-or-interview-series/property-wrappers-part-ii-523eee07693b" class="markup--anchor markup--p-anchor" target="_blank">Property Wrappers (Part II)</a></p><p name="f009" id="f009" class="graf graf--p graf-after--p">For more: <a href="https://docs.swift.org/swift-book/LanguageGuide/Properties.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/Properties.html" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://docs.swift.org/swift-book/LanguageGuide/Properties.html</a></p><p name="8b8a" id="8b8a" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for iOS developers, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/e18cd71b55ae"><time class="dt-published" datetime="2019-10-13T02:03:36.774Z">October 13, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/property-wrappers-part-i-e18cd71b55ae" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Property Wrappers (Part I)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        A property wrapper is a mechanism to abstract property implementation
+        patterns that come up repeatedly.
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="6082"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="9cc0"
+                id="9cc0"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Property Wrappers (Part I)
+              </h3>
+              <blockquote
+                name="dec5"
+                id="dec5"
+                class="graf graf--blockquote graf-after--h3"
+              >
+                <em class="markup--em markup--blockquote-em"
+                  >A property wrapper is a mechanism to abstract property
+                  implementation patterns that come up repeatedly.</em
+                >
+              </blockquote>
+              <p
+                name="a3e9"
+                id="a3e9"
+                class="graf graf--p graf-after--blockquote"
+              >
+                We can solve any problem by introducing an extra level of
+                <a
+                  href="https://en.wikipedia.org/wiki/Indirection"
+                  data-href="https://en.wikipedia.org/wiki/Indirection"
+                  class="markup--anchor markup--p-anchor"
+                  title="Indirection"
+                  rel="noopener"
+                  target="_blank"
+                  >indirection</a
+                >.
+              </p>
+              <p name="d566" id="d566" class="graf graf--p graf-after--p">
+                Imagine you have an object’s property and you want to apply some
+                additional functionality when the property’s value is being set
+                or accessed. Something like lazy loading, some data
+                modifications or additional actions. Most of these things are
+                something that you would usually do in property’s accessors
+                (set/get, didSet/didGet, willSet/willGet). Before we go into
+                details of property wrappers lets read about decorator pattern,
+                extensions, subclassing, we already used these concepts at any
+                point of programming.
+              </p>
+              <p name="58ca" id="58ca" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Decorator pattern</strong
+                >
+                is a
+                <a
+                  href="https://en.wikipedia.org/wiki/Design_pattern_%28computer_science%29"
+                  data-href="https://en.wikipedia.org/wiki/Design_pattern_(computer_science)"
+                  class="markup--anchor markup--p-anchor"
+                  title="Design pattern (computer science)"
+                  rel="noopener"
+                  target="_blank"
+                  >design pattern</a
+                >
+                that allows behavior to be added to an individual
+                <a
+                  href="https://en.wikipedia.org/wiki/Object_%28computer_science%29"
+                  data-href="https://en.wikipedia.org/wiki/Object_(computer_science)"
+                  class="markup--anchor markup--p-anchor"
+                  title="Object (computer science)"
+                  rel="noopener"
+                  target="_blank"
+                  >object</a
+                >, dynamically, without affecting the behavior of other objects
+                from the same
+                <a
+                  href="https://en.wikipedia.org/wiki/Class_%28computer_science%29"
+                  data-href="https://en.wikipedia.org/wiki/Class_(computer_science)"
+                  class="markup--anchor markup--p-anchor"
+                  title="Class (computer science)"
+                  rel="noopener"
+                  target="_blank"
+                  >class</a
+                >.
+              </p>
+              <p name="b132" id="b132" class="graf graf--p graf-after--p">
+                <em class="markup--em markup--p-em">Extensions</em> add new
+                functionality to an existing class, structure, enumeration, or
+                protocol type. This includes the ability to extend types for
+                which you do not have access to the original source code (known
+                as
+                <em class="markup--em markup--p-em">retroactive modeling</em>).
+                Extensions are similar to categories in Objective-C.
+              </p>
+              <p name="57ed" id="57ed" class="graf graf--p graf-after--p">
+                <em class="markup--em markup--p-em">Subclassing</em> is the act
+                of basing a new class on an existing class. The subclass
+                inherits characteristics from the existing class, which you can
+                then refine. You can also add new characteristics to the
+                subclass.
+              </p>
+              <p name="db5d" id="db5d" class="graf graf--p graf-after--p">
+                From the swift programming language book , swift 5.1
+              </p>
+              <pre name="ab6d" id="ab6d" class="graf graf--pre graf-after--p">
+A property wrapper adds a layer of separation between code that manages how a property is stored and the code that defines a property. For example, if you have properties that provide thread-safety checks or store their underlying data in a database, you have to write that code on every property. When you use a property wrapper, you write the management code once when you define the wrapper, and then reuse that management code by applying it to multiple properties.</pre
+              >
+              <p name="dfb3" id="dfb3" class="graf graf--p graf-after--pre">
+                Lets try to understand the property wrapper!!
+              </p>
+              <p name="fdf9" id="fdf9" class="graf graf--p graf-after--p">
+                Property wrappers abstract these actions from the specific data
+                types and make it applicable to the other data models. You
+                basically take the code to implement it and move it to a
+                separate place which makes possible to reuse it. Property
+                wrappers can also be treated as a implementation of decorator
+                pattern or way to way to add some functionality without changing
+                the object’s original implementation like extensions or
+                subsclassing. <br />Property wrapper
+                <strong class="markup--strong markup--p-strong"
+                  >adds new behaviour to a specific instances of the data
+                  structure. It doesn’t influence all the other instances of
+                  this type </strong
+                >(in a contract to the extension or subclassing). So changing
+                the functionality of just one property, one instance of some
+                data structure you shouldn’t worry about any side effects for
+                the others.
+              </p>
+              <p name="ee01" id="ee01" class="graf graf--p graf-after--p">
+                There are two basic requirements for a property wrapper type:
+              </p>
+              <ol class="postList">
+                <li name="d887" id="d887" class="graf graf--li graf-after--p">
+                  The property wrapper type must be defined with the attribute
+                  <code class="markup--code markup--li-code"
+                    >@propertyWrapper</code
+                  >. The attribute indicates that the type is meant to be used
+                  as a property wrapper type, and provides a point at which the
+                  compiler can verify any other consistency rules.
+                </li>
+                <li name="90c6" id="90c6" class="graf graf--li graf-after--li">
+                  The property wrapper type must have a property named
+                  <code class="markup--code markup--li-code">wrappedValue</code
+                  >, whose access level is the same as that of the type itself.
+                  This is the property used by the compiler to access the
+                  underlying value on the wrapper instance.
+                </li>
+              </ol>
+              <p name="538f" id="538f" class="graf graf--p graf-after--li">
+                So, for your consideration, here are some potential use cases
+                for the new
+                <code class="markup--code markup--p-code">@propertyWrapper</code
+                >attribute:
+              </p>
+              <h4 name="0649" id="0649" class="graf graf--h4 graf-after--p">
+                Dependency Injection
+              </h4>
+              <p name="a4e7" id="a4e7" class="graf graf--p graf-after--h4">
+                Inject dependencies via property wrappers.
+              </p>
+              <figure
+                name="3497"
+                id="3497"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Hy2wY10jvrMA4bzGY5bDjQ.png"
+                  data-width="864"
+                  data-height="626"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*Hy2wY10jvrMA4bzGY5bDjQ.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://github.com/ZamzamInc/Shank"
+                    data-href="https://github.com/ZamzamInc/Shank"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://github.com/ZamzamInc/Shank</a
+                  >
+                </figcaption>
+              </figure>
+              <p name="7ef2" id="7ef2" class="graf graf--p graf-after--figure">
+                For more details, please visit
+                <a
+                  href="https://github.com/ZamzamInc/Shank"
+                  data-href="https://github.com/ZamzamInc/Shank"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Dependency Inject using Property Wrappers</a
+                >.
+              </p>
+              <h4 name="774e" id="774e" class="graf graf--h4 graf-after--p">
+                Constraining Values
+              </h4>
+              <p name="9290" id="9290" class="graf graf--p graf-after--h4">
+                Consider a use case where you want to add the minimum and
+                maximum text limit on a text field in iOS application, by
+                creating a
+                <strong class="markup--strong markup--p-strong">@Limit</strong>
+                property wrapper, you can directly add the limit to a variable.
+              </p>
+              <figure
+                name="4995"
+                id="4995"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*qhMdwQXgphcWv7dBZ5lybQ.png"
+                  data-width="726"
+                  data-height="1046"
+                  src="https://cdn-images-1.medium.com/max/800/1*qhMdwQXgphcWv7dBZ5lybQ.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift"
+                    data-href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift</a
+                  >
+                </figcaption>
+              </figure>
+              <h4
+                name="777f"
+                id="777f"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Transforming Values on Property Assignment
+              </h4>
+              <p name="8cf2" id="8cf2" class="graf graf--p graf-after--h4">
+                Consider the following
+                <code class="markup--code markup--p-code">SpaceRemover</code>
+                struct that removes whitespaces and newlines from incoming
+                string values.
+              </p>
+              <figure
+                name="82d7"
+                id="82d7"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*R-UkXqJ7STz4nKQbGIjhYg.png"
+                  data-width="1248"
+                  data-height="500"
+                  src="https://cdn-images-1.medium.com/max/800/1*R-UkXqJ7STz4nKQbGIjhYg.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift"
+                    data-href="https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://github.com/charlieInDen/DataStructuresPractice/blob/master/DataStructuresDemo.playground/Contents.swift</a
+                  >
+                </figcaption>
+              </figure>
+              <h4
+                name="a55b"
+                id="a55b"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Copy-on-write
+              </h4>
+              <p name="3f6e" id="3f6e" class="graf graf--p graf-after--h4">
+                With some work, property wrappers can provide copy-on-write
+                wrappers (original example courtesy of Brent Royal-Gordon):
+              </p>
+              <pre
+                name="f20e"
+                id="f20e"
+                class="graf graf--pre graf-after--p"
+              >protocol Copyable: AnyObject {<br>  func copy() -&gt; Self<br>}</pre>
+              <pre
+                name="0859"
+                id="0859"
+                class="graf graf--pre graf-after--pre"
+              >@propertyWrapper<br>struct CopyOnWrite&lt;Value: Copyable&gt; {<br>  init(wrappedValue: Value) {<br>    self.wrappedValue = wrappedValue<br>  }<br>  <br>  private(set) var wrappedValue: Value<br>  <br>  var projectedValue: Value {<br>    mutating get {<br>      if !isKnownUniquelyReferenced(&amp;wrappedValue) {<br>        wrappedValue = value.copy()<br>      }<br>      return wrappedValue<br>    }<br>    set {<br>      wrappedValue = newValue<br>    }<br>  }<br>}</pre>
+              <p name="1b76" id="1b76" class="graf graf--p graf-after--pre">
+                <a
+                  href="https://developer.apple.com/documentation/combine/published"
+                  data-href="https://developer.apple.com/documentation/combine/published"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >Combine’s </a
+                ><code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/combine/published"
+                    data-href="https://developer.apple.com/documentation/combine/published"
+                    class="markup--anchor markup--p-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >Published</a
+                  ></code
+                >
+                property wrapper is similar in spirit, allowing clients to
+                subscribe to
+                <code class="markup--code markup--p-code">@Published</code>
+                properties (via the
+                <code class="markup--code markup--p-code">$</code> projection)
+                to receive updates when the value changes.
+              </p>
+              <p name="4063" id="4063" class="graf graf--p graf-after--p">
+                <a
+                  href="https://developer.apple.com/xcode/swiftui/"
+                  data-href="https://developer.apple.com/xcode/swiftui/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >SwiftUI</a
+                >
+                makes extensive use of property wrappers to declare local state
+                (<code class="markup--code markup--p-code">@State</code>) and
+                express data dependencies on other state that can effect the UI
+                (<code class="markup--code markup--p-code"
+                  >@EnvironmentObject</code
+                >,
+                <code class="markup--code markup--p-code">@Environment</code>,
+                <code class="markup--code markup--p-code">@ObservedObject</code
+                >). It makes extensive use of projections to the
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/swiftui/binding"
+                    data-href="https://developer.apple.com/documentation/swiftui/binding"
+                    class="markup--anchor markup--p-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >Binding</a
+                  ></code
+                >
+                property wrapper to allow controlled mutation of the state that
+                affects UI.
+              </p>
+              <!-- <p name="4a52" id="4a52" class="graf graf--p graf-after--p">
+                Next:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/property-wrappers-part-ii-523eee07693b"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/property-wrappers-part-ii-523eee07693b"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >Property Wrappers (Part II)</a
+                >
+              </p>
+              <p name="f009" id="f009" class="graf graf--p graf-after--p">
+                For more:
+                <a
+                  href="https://docs.swift.org/swift-book/LanguageGuide/Properties.html"
+                  data-href="https://docs.swift.org/swift-book/LanguageGuide/Properties.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://docs.swift.org/swift-book/LanguageGuide/Properties.html</a
+                >
+              </p> -->
+              <p
+                name="8b8a"
+                id="8b8a"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for iOS developers, Please ❤️ to
+                recommend this post to others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/e18cd71b55ae"
+            ><time class="dt-published" datetime="2019-10-13T02:03:36.774Z"
+              >October 13, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/property-wrappers-part-i-e18cd71b55ae"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Design Tic-Tac-Toe Game</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Design Tic-Tac-Toe Game</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,349 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Design Tic-Tac-Toe Game</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Software design for an tic-tac-toe game
-</section>
-<section data-field="body" class="e-content">
-<section name="088b" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="d2ae" id="d2ae" class="graf graf--h3 graf--leading graf--title">Design Tic-Tac-Toe Game</h3><p name="6377" id="6377" class="graf graf--p graf-after--h3">Software design for an tic-tac-toe game</p><h4 name="9fa6" id="9fa6" class="graf graf--h4 graf-after--p">Panel: Design a Tic-tac-toe game that is played between two players on a n x n grid.</h4><p name="90b1" id="90b1" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">You</strong>: Follow below approach to identify whether panel is interested in class design and its relation or interested in backend as it seems <strong class="markup--strong markup--p-strong">This is a pretty broad question.</strong></p><p name="7ee2" id="7ee2" class="graf graf--p graf-after--p">From the application developer perspective, we should be telling the<strong class="markup--strong markup--p-strong"> classes and its relation, class diagrams</strong>. We all know the time scarcity during a technical discussion and some time its difficult what other guy is expecting from us.</p><h3 name="8ae7" id="8ae7" class="graf graf--h3 graf-after--p">A snapshot of Tic-Tac-Toe Game</h3><p name="38ce" id="38ce" class="graf graf--p graf-after--h3">A move is guaranteed to be valid and is placed on an empty block.<br>Once a winning condition is reached, no more moves is allowed.<br>A player who succeeds in placing n of their marks in a horizontal, vertical, or diagonal row wins the game.</p><figure name="9741" id="9741" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*d4FOXNGI6AbMeZh7T0andA.jpeg" data-width="800" data-height="757" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*d4FOXNGI6AbMeZh7T0andA.jpeg"></figure><h3 name="1098" id="1098" class="graf graf--h3 graf-after--figure">Use Cases and Scenarios</h3><ul class="postList"><li name="2a30" id="2a30" class="graf graf--li graf-after--h3"><strong class="markup--strong markup--li-strong">Use case</strong>: a set of scenarios tied together by a common user goal</li></ul><p name="14c1" id="14c1" class="graf graf--p graf-after--li">• <strong class="markup--strong markup--p-strong">Scenario</strong>: a sequence of steps describing an interaction between a user and a system</p><figure name="a853" id="a853" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*YIC5jcocY-s-L_vKp134OQ.png" data-width="793" data-height="171" src="https://cdn-images-1.medium.com/max/800/1*YIC5jcocY-s-L_vKp134OQ.png"></figure><p name="679e" id="679e" class="graf graf--p graf-after--figure">Lets check the use case diagram below to have better understanding.</p><figure name="d2ce" id="d2ce" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*pxN5e64gd8mIPXQw705Fqg.png" data-width="801" data-height="442" src="https://cdn-images-1.medium.com/max/800/1*pxN5e64gd8mIPXQw705Fqg.png"></figure><h3 name="7bce" id="7bce" class="graf graf--h3 graf-after--figure">Identifying Classes/Objects:</h3><h3 name="09e5" id="09e5" class="graf graf--h3 graf-after--h3">1. GameState</h3><p name="af28" id="af28" class="graf graf--p graf-after--h3">The GameState class contains all the information about the current state of a Tic Tac Toe game. The squares array contains a character value for each square in the Tic Tac Toe board. An empty square is represented by a space character. The player array contains the Players, who each have their own specified symbol which is used to fill the squares array. The playerTurn integer is an index which corresponds to the player in the player array whose turn it is. The constructor creates an empty Tic Tac Toe board, both Players, and initializes the playerTurn index to zero. The reseatBoard method returns the board to an empty state and resets the playerTurn to zero.</p><figure name="ab70" id="ab70" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*aE3e0GWqjDLxB6Ci0Vg9Pg.png" data-width="299" data-height="395" src="https://cdn-images-1.medium.com/max/800/1*aE3e0GWqjDLxB6Ci0Vg9Pg.png"></figure><h3 name="882f" id="882f" class="graf graf--h3 graf-after--figure">2. Player</h3><p name="f7c2" id="f7c2" class="graf graf--p graf-after--h3">The Player class is applied to manage the player’s information. The number of wins and symbol of the player should be got by the methods in the Player class. The variables and methods in Player class are described as follows:</p><p name="2890" id="2890" class="graf graf--p graf-after--p">wins: integer variable, represents the number of wins;</p><p name="073a" id="073a" class="graf graf--p graf-after--p">symbol: char variable, represents the symbol that is used in the board by the player;</p><p name="3fd3" id="3fd3" class="graf graf--p graf-after--p">Player (symbol: char): constructor, creates a new player, defines the new player’s symbol and initializes the number of wins is equal to zero;</p><p name="c7c8" id="c7c8" class="graf graf--p graf-after--p">getWins(): obtains the number of wins;</p><p name="9045" id="9045" class="graf graf--p graf-after--p">addWins(): the number of wins is increased 1;</p><p name="9309" id="9309" class="graf graf--p graf-after--p">getSymbol(): obtains the symbol of the player.</p><figure name="b1e3" id="b1e3" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*3MPfQUAD-zk554P7wOYfbA.png" data-width="193" data-height="158" src="https://cdn-images-1.medium.com/max/800/1*3MPfQUAD-zk554P7wOYfbA.png"></figure><h3 name="29dd" id="29dd" class="graf graf--h3 graf-after--figure">Move</h3><p name="fa41" id="fa41" class="graf graf--p graf-after--h3">The Move class is applied to mark the location of the symbol by the row-column method. The variables and methods in Move class are described as follows:</p><p name="bc7c" id="bc7c" class="graf graf--p graf-after--p">row: integer variable, represents the row number of the Tic-Tac-Toe board;</p><p name="f6a9" id="f6a9" class="graf graf--p graf-after--p">col: integer variable, represents the column number of the Tic-Tac-Toe board;</p><p name="a8fd" id="a8fd" class="graf graf--p graf-after--p">Move (r:int, c:int): constructor, according to the two integer parameters r and c, this method sets the location of the symbol on Tic-Tac-Toe board.</p><figure name="e852" id="e852" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*4WKOyoA86l4tBXkmKzJ-xQ.png" data-width="160" data-height="101" src="https://cdn-images-1.medium.com/max/800/1*4WKOyoA86l4tBXkmKzJ-xQ.png"></figure><h3 name="02dd" id="02dd" class="graf graf--h3 graf-after--figure">AI (Ernest)</h3><p name="078a" id="078a" class="graf graf--p graf-after--h3">The AI class handles the artificial intelligence for the computer players using the minimax algorithm (see references —<strong class="markup--strong markup--p-strong"> </strong><a href="https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/" data-href="https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Minimax Algorithm in Game Theory</strong></a>).</p><p name="ed31" id="ed31" class="graf graf--p graf-after--p">I am expecting most of the things will become picture in your mind and easy to remember as well as explain. <strong class="markup--strong markup--p-strong">For backend design </strong>, please follow<a href="https://medium.com/system-designing-interviews" data-href="https://medium.com/system-designing-interviews" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong"> System Design series</strong></a></p><p name="7fde" id="7fde" class="graf graf--p graf-after--p">For Elevator design — <a href="https://medium.com/system-designing-interviews/design-a-elevator-system-fc5832ca0b8b" data-href="https://medium.com/system-designing-interviews/design-a-elevator-system-fc5832ca0b8b" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">visit here</strong></a></p><h4 name="e25d" id="e25d" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Next</strong>: <a href="https://medium.com/system-designing-interviews/design-a-chess-game-dddd7ba11bc0" data-href="https://medium.com/system-designing-interviews/design-a-chess-game-dddd7ba11bc0" class="markup--anchor markup--h4-anchor" target="_blank">Design a Chess Game</a></h4><p name="f9d9" id="f9d9" class="graf graf--p graf-after--h4 graf--trailing">Hope you like the explanation. For more design questions , Please wait and follow me.</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/1b912bba64cf"><time class="dt-published" datetime="2018-09-06T09:46:19.666Z">September 6, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/design-tic-tac-toe-game-1b912bba64cf" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Design Tic-Tac-Toe Game</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Software design for an tic-tac-toe game
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="088b"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="d2ae"
+                id="d2ae"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Design Tic-Tac-Toe Game
+              </h3>
+              <p name="6377" id="6377" class="graf graf--p graf-after--h3">
+                Software design for an tic-tac-toe game
+              </p>
+              <h4 name="9fa6" id="9fa6" class="graf graf--h4 graf-after--p">
+                Panel: Design a Tic-tac-toe game that is played between two
+                players on a n x n grid.
+              </h4>
+              <p name="90b1" id="90b1" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong">You</strong>:
+                Follow below approach to identify whether panel is interested in
+                class design and its relation or interested in backend as it
+                seems
+                <strong class="markup--strong markup--p-strong"
+                  >This is a pretty broad question.</strong
+                >
+              </p>
+              <p name="7ee2" id="7ee2" class="graf graf--p graf-after--p">
+                From the application developer perspective, we should be telling
+                the<strong class="markup--strong markup--p-strong">
+                  classes and its relation, class diagrams</strong
+                >. We all know the time scarcity during a technical discussion
+                and some time its difficult what other guy is expecting from us.
+              </p>
+              <h3 name="8ae7" id="8ae7" class="graf graf--h3 graf-after--p">
+                A snapshot of Tic-Tac-Toe Game
+              </h3>
+              <p name="38ce" id="38ce" class="graf graf--p graf-after--h3">
+                A move is guaranteed to be valid and is placed on an empty
+                block.<br />Once a winning condition is reached, no more moves
+                is allowed.<br />A player who succeeds in placing n of their
+                marks in a horizontal, vertical, or diagonal row wins the game.
+              </p>
+              <figure
+                name="9741"
+                id="9741"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*d4FOXNGI6AbMeZh7T0andA.jpeg"
+                  data-width="800"
+                  data-height="757"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*d4FOXNGI6AbMeZh7T0andA.jpeg"
+                />
+              </figure>
+              <h3
+                name="1098"
+                id="1098"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Use Cases and Scenarios
+              </h3>
+              <ul class="postList">
+                <li name="2a30" id="2a30" class="graf graf--li graf-after--h3">
+                  <strong class="markup--strong markup--li-strong"
+                    >Use case</strong
+                  >: a set of scenarios tied together by a common user goal
+                </li>
+              </ul>
+              <p name="14c1" id="14c1" class="graf graf--p graf-after--li">
+                •
+                <strong class="markup--strong markup--p-strong">Scenario</strong
+                >: a sequence of steps describing an interaction between a user
+                and a system
+              </p>
+              <figure
+                name="a853"
+                id="a853"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*YIC5jcocY-s-L_vKp134OQ.png"
+                  data-width="793"
+                  data-height="171"
+                  src="https://cdn-images-1.medium.com/max/800/1*YIC5jcocY-s-L_vKp134OQ.png"
+                />
+              </figure>
+              <p name="679e" id="679e" class="graf graf--p graf-after--figure">
+                Lets check the use case diagram below to have better
+                understanding.
+              </p>
+              <figure
+                name="d2ce"
+                id="d2ce"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*pxN5e64gd8mIPXQw705Fqg.png"
+                  data-width="801"
+                  data-height="442"
+                  src="https://cdn-images-1.medium.com/max/800/1*pxN5e64gd8mIPXQw705Fqg.png"
+                />
+              </figure>
+              <h3
+                name="7bce"
+                id="7bce"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Identifying Classes/Objects:
+              </h3>
+              <h3 name="09e5" id="09e5" class="graf graf--h3 graf-after--h3">
+                1. GameState
+              </h3>
+              <p name="af28" id="af28" class="graf graf--p graf-after--h3">
+                The GameState class contains all the information about the
+                current state of a Tic Tac Toe game. The squares array contains
+                a character value for each square in the Tic Tac Toe board. An
+                empty square is represented by a space character. The player
+                array contains the Players, who each have their own specified
+                symbol which is used to fill the squares array. The playerTurn
+                integer is an index which corresponds to the player in the
+                player array whose turn it is. The constructor creates an empty
+                Tic Tac Toe board, both Players, and initializes the playerTurn
+                index to zero. The reseatBoard method returns the board to an
+                empty state and resets the playerTurn to zero.
+              </p>
+              <figure
+                name="ab70"
+                id="ab70"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*aE3e0GWqjDLxB6Ci0Vg9Pg.png"
+                  data-width="299"
+                  data-height="395"
+                  src="https://cdn-images-1.medium.com/max/800/1*aE3e0GWqjDLxB6Ci0Vg9Pg.png"
+                />
+              </figure>
+              <h3
+                name="882f"
+                id="882f"
+                class="graf graf--h3 graf-after--figure"
+              >
+                2. Player
+              </h3>
+              <p name="f7c2" id="f7c2" class="graf graf--p graf-after--h3">
+                The Player class is applied to manage the player’s information.
+                The number of wins and symbol of the player should be got by the
+                methods in the Player class. The variables and methods in Player
+                class are described as follows:
+              </p>
+              <p name="2890" id="2890" class="graf graf--p graf-after--p">
+                wins: integer variable, represents the number of wins;
+              </p>
+              <p name="073a" id="073a" class="graf graf--p graf-after--p">
+                symbol: char variable, represents the symbol that is used in the
+                board by the player;
+              </p>
+              <p name="3fd3" id="3fd3" class="graf graf--p graf-after--p">
+                Player (symbol: char): constructor, creates a new player,
+                defines the new player’s symbol and initializes the number of
+                wins is equal to zero;
+              </p>
+              <p name="c7c8" id="c7c8" class="graf graf--p graf-after--p">
+                getWins(): obtains the number of wins;
+              </p>
+              <p name="9045" id="9045" class="graf graf--p graf-after--p">
+                addWins(): the number of wins is increased 1;
+              </p>
+              <p name="9309" id="9309" class="graf graf--p graf-after--p">
+                getSymbol(): obtains the symbol of the player.
+              </p>
+              <figure
+                name="b1e3"
+                id="b1e3"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*3MPfQUAD-zk554P7wOYfbA.png"
+                  data-width="193"
+                  data-height="158"
+                  src="https://cdn-images-1.medium.com/max/800/1*3MPfQUAD-zk554P7wOYfbA.png"
+                />
+              </figure>
+              <h3
+                name="29dd"
+                id="29dd"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Move
+              </h3>
+              <p name="fa41" id="fa41" class="graf graf--p graf-after--h3">
+                The Move class is applied to mark the location of the symbol by
+                the row-column method. The variables and methods in Move class
+                are described as follows:
+              </p>
+              <p name="bc7c" id="bc7c" class="graf graf--p graf-after--p">
+                row: integer variable, represents the row number of the
+                Tic-Tac-Toe board;
+              </p>
+              <p name="f6a9" id="f6a9" class="graf graf--p graf-after--p">
+                col: integer variable, represents the column number of the
+                Tic-Tac-Toe board;
+              </p>
+              <p name="a8fd" id="a8fd" class="graf graf--p graf-after--p">
+                Move (r:int, c:int): constructor, according to the two integer
+                parameters r and c, this method sets the location of the symbol
+                on Tic-Tac-Toe board.
+              </p>
+              <figure
+                name="e852"
+                id="e852"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*4WKOyoA86l4tBXkmKzJ-xQ.png"
+                  data-width="160"
+                  data-height="101"
+                  src="https://cdn-images-1.medium.com/max/800/1*4WKOyoA86l4tBXkmKzJ-xQ.png"
+                />
+              </figure>
+              <h3
+                name="02dd"
+                id="02dd"
+                class="graf graf--h3 graf-after--figure"
+              >
+                AI (Ernest)
+              </h3>
+              <p name="078a" id="078a" class="graf graf--p graf-after--h3">
+                The AI class handles the artificial intelligence for the
+                computer players using the minimax algorithm (see
+                references —<strong class="markup--strong markup--p-strong">
+                </strong
+                ><a
+                  href="https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/"
+                  data-href="https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Minimax Algorithm in Game Theory</strong
+                  ></a
+                >).
+              </p>
+              <!-- <p name="ed31" id="ed31" class="graf graf--p graf-after--p">
+                I am expecting most of the things will become picture in your
+                mind and easy to remember as well as explain.
+                <strong class="markup--strong markup--p-strong"
+                  >For backend design </strong
+                >, please follow<a
+                  href="https://medium.com/system-designing-interviews"
+                  data-href="https://medium.com/system-designing-interviews"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong">
+                    System Design series</strong
+                  ></a
+                >
+              </p> -->
+              <!-- <p name="7fde" id="7fde" class="graf graf--p graf-after--p">
+                For Elevator design —
+                <a
+                  href="https://medium.com/system-designing-interviews/design-a-elevator-system-fc5832ca0b8b"
+                  data-href="https://medium.com/system-designing-interviews/design-a-elevator-system-fc5832ca0b8b"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >visit here</strong
+                  ></a
+                >
+              </p>
+              <h4 name="e25d" id="e25d" class="graf graf--h4 graf-after--p">
+                <strong class="markup--strong markup--h4-strong">Next</strong>:
+                <a
+                  href="https://medium.com/system-designing-interviews/design-a-chess-game-dddd7ba11bc0"
+                  data-href="https://medium.com/system-designing-interviews/design-a-chess-game-dddd7ba11bc0"
+                  class="markup--anchor markup--h4-anchor"
+                  target="_blank"
+                  >Design a Chess Game</a
+                >
+              </h4> -->
+              <p
+                name="f9d9"
+                id="f9d9"
+                class="graf graf--p graf-after--h4 graf--trailing"
+              >
+                Hope you like the explanation. For more design questions ,
+                Please wait and follow me.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/1b912bba64cf"
+            ><time class="dt-published" datetime="2018-09-06T09:46:19.666Z"
+              >September 6, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/design-tic-tac-toe-game-1b912bba64cf"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>What&#39;s new in iOS 12 for developers</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>What&#39;s new in iOS 12 for developers</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,476 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">What&#39;s new in iOS 12 for developers</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-iOS 12, whats new in iOS 12, iOS new developer changes, iOS 12 new frameworks
-</section>
-<section data-field="description" class="p-summary">
-With the launch of iOS 12, we all get chance to integrate intelligence in our applications and we can use Siri Shortcuts, new camera APIs, and other exciting technologies to deliver more intelligent…
-</section>
-<section data-field="body" class="e-content">
-<section name="145a" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0327" id="0327" class="graf graf--h3 graf--leading graf--title">What’s new in iOS 12 for developers</h3><figure name="0376" id="0376" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*CuVzcVn8G9SzYcq3WH2_Kg.png" data-width="192" data-height="192" src="https://cdn-images-1.medium.com/max/800/1*CuVzcVn8G9SzYcq3WH2_Kg.png"><figcaption class="imageCaption">iOS 12</figcaption></figure><p name="5bd5" id="5bd5" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">iOS 12 — Performance is key</strong></p><p name="9680" id="9680" class="graf graf--p graf-after--p">With the launch of iOS 12, we all get chance to integrate intelligence in our applications and we can use Siri Shortcuts, new camera APIs, and other exciting technologies to deliver more intelligent and immersive user experiences.</p><h3 name="195a" id="195a" class="graf graf--h3 graf-after--p">Summary in a Nutshell</h3><p name="0d12" id="0d12" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Siri</strong> (Updated): Siri integrations with third-party apps are currently limited to <a href="https://developer.apple.com/documentation/sirikit" data-href="https://developer.apple.com/documentation/sirikit" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">12 specific use cases</a> like scan a QR code, hail a ride, or send a message.</p><p name="f0c0" id="f0c0" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">ARKIT 2</strong> (Updated)<strong class="markup--strong markup--p-strong">:</strong> Persistent and multiuser experiences, 3D object recognition, Face tracking,Scene reflection, USDZ file format and a new iOS inbuilt app <em class="markup--em markup--p-em">Measure app</em></p><p name="3015" id="3015" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">CarPlay navigation (</strong>Updated<strong class="markup--strong markup--p-strong">) : </strong>CarPlay now supports third-party navigation apps, giving drivers even more choices for a familiar experience on the dash while they drive.</p><p name="3430" id="3430" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Core ML 2 (</strong>Updated<strong class="markup--strong markup--p-strong">) : </strong>Core ML 2 is 30 percent faster, Apple says, thanks to a technique called batch prediction.</p><p name="8562" id="8562" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Create ML (</strong>New<strong class="markup--strong markup--p-strong">) : </strong>a new GPU-accelerated tool for native AI model training on Macs.</p><p name="e41b" id="e41b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Network</strong> (New): Create network connections to send and receive data using transport and security protocols.</p><p name="3559" id="3559" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Natural Language</strong> (New) : The Natural Language framework is a new framework you use to analyze natural language text and deduce its language-specific metadata.</p><p name="9d87" id="9d87" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">AuthenticationServices</strong> (New): The new AuthenticationServices framework lets you integrate password manager apps with Password AutoFill.</p><p name="9f88" id="9f88" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">MapKit JS &amp; MusicKit JS</strong> : Embed interactive Apple maps on your website and Add an Apple Music player to your web app.</p><p name="001a" id="001a" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Notifications</strong>: Grouped notifications support</p><p name="71fd" id="71fd" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">OS:</strong> macOS Mojave, watchOS 5, iOS 12</p><p name="01db" id="01db" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">New iOS apps: </strong>Measure, ShortCuts, iBook becomes Apple Book, Voice memo come to iPad, rebuilt Stocks app, Car Play gets google maps.</p><p name="4019" id="4019" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Deprecation of OpenGL ES : </strong>Apps built using OpenGL ES will continue to run in iOS 12, but Open GL ES is deprecated in iOS 12. Games and graphics-intensive apps that previously used OpenGL ES should now adopt Metal.</p><p name="ef11" id="ef11" class="graf graf--p graf-after--p">Lets check what all things are new in these frameworks.</p><h3 name="8810" id="8810" class="graf graf--h3 graf-after--p">Siri Shortcuts</h3><p name="a2c6" id="a2c6" class="graf graf--p graf-after--h3">Siri can now intelligently pair users’ daily routines with your apps to suggest convenient shortcuts right when they’re needed.</p><figure name="55c5" id="55c5" class="graf graf--figure graf--layoutOutsetLeft graf-after--p"><img class="graf-image" data-image-id="1*1Yz8UtLqcNxfFilNy26gug.png" data-width="192" data-height="192" src="https://cdn-images-1.medium.com/max/600/1*1Yz8UtLqcNxfFilNy26gug.png"></figure><p name="bd52" id="bd52" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Siri Suggestions.</strong> Using signals like location, time of day and type of motion (such as walking, running or driving), Siri Suggestions learns when to suggest relevant shortcuts.</p><p name="3841" id="3841" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Notifications.</strong> Shortcuts appear as notifications on the lock screen, and users tap the notification to run the task.</p><p name="5322" id="5322" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">On-device.</strong> All learning is done locally on the device, so Siri creates an intelligent, personalized experience without compromising your privacy.</p><h3 name="74e8" id="74e8" class="graf graf--h3 graf-after--p">Machine Learning</h3><figure name="b0ca" id="b0ca" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*oRgIHtn-VUD_ATjC43RvCg.png" data-width="128" data-height="128" src="https://cdn-images-1.medium.com/max/800/1*oRgIHtn-VUD_ATjC43RvCg.png"></figure><p name="1f70" id="1f70" class="graf graf--p graf-after--figure">With <strong class="markup--strong markup--p-strong">Core ML 2</strong>, you can process models faster than ever, make them smaller, and much more. And now, you can easily build and train models using the new <strong class="markup--strong markup--p-strong">Create ML</strong> framework, with no machine learning expertise required.</p><h3 name="2661" id="2661" class="graf graf--h3 graf-after--p">Create ML</h3><p name="11c4" id="11c4" class="graf graf--p graf-after--h3">Use Create ML with familiar tools like Swift and macOS playgrounds to create and train custom machine learning models on your Mac. You can train models to perform tasks like recognizing images, extracting meaning from text, or finding relationships between numerical values.</p><figure name="a7fd" id="a7fd" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*6wMICtfMnW-I6tyQs7rJIA.png" data-width="750" data-height="418" src="https://cdn-images-1.medium.com/max/800/1*6wMICtfMnW-I6tyQs7rJIA.png"></figure><h3 name="7294" id="7294" class="graf graf--h3 graf-after--figure">ARKit 2</h3><figure name="0eb1" id="0eb1" class="graf graf--figure graf--layoutOutsetLeft graf-after--h3"><img class="graf-image" data-image-id="1*fdA64s2wrQK4mqhOeK8wmw.png" data-width="128" data-height="128" src="https://cdn-images-1.medium.com/max/600/1*fdA64s2wrQK4mqhOeK8wmw.png"></figure><p name="2165" id="2165" class="graf graf--p graf-after--figure">iOS is the biggest AR platform in the world, and now you can create even more incredible experiences with ARKit 2. Multiple users can use their iOS device to simultaneously view AR experiences or play multiplayer games, as bystanders spectate. AR experiences can be saved and resumed at a later time in the same state. And you can incorporate real-world objects into your AR experiences, giving your users greater immersive opportunities.</p><h3 name="5f33" id="5f33" class="graf graf--h3 graf-after--p">CarPlay</h3><p name="1517" id="1517" class="graf graf--p graf-after--h3">Add CarPlay support to <strong class="markup--strong markup--p-strong">your navigation app</strong>. Its open for third party app from iOS 12 onwards.</p><h3 name="366e" id="366e" class="graf graf--h3 graf-after--p">Natural Language</h3><p name="8f39" id="8f39" class="graf graf--p graf-after--h3">Analyze natural language text and deduce its language-specific metadata.</p><p name="53e5" id="53e5" class="graf graf--p graf-after--p">Use the Natural Language framework to perform natural language processing tasks like language and script identification, tokenization, lemmatization, parts-of-speech tagging, and named entity recognition. You can also use this framework with <a href="https://developer.apple.com/documentation/create_ml?language=objc" data-href="https://developer.apple.com/documentation/create_ml?language=objc" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Create ML</a> to train and deploy custom natural language models.</p><h3 name="fbfe" id="fbfe" class="graf graf--h3 graf-after--p">MapKit JS</h3><p name="70d9" id="70d9" class="graf graf--p graf-after--h3">Embed interactive Apple maps on your website, annotate points of interest, and perform geo-related searches.</p><figure name="ecb5" id="ecb5" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*2x83c1MZE63a9hez_dqKEg.png" data-width="1360" data-height="1167" src="https://cdn-images-1.medium.com/max/800/1*2x83c1MZE63a9hez_dqKEg.png"></figure><h3 name="cdb0" id="cdb0" class="graf graf--h3 graf-after--figure">MusicKit JS</h3><p name="c3ec" id="c3ec" class="graf graf--p graf-after--h3">Add an Apple Music player to your web app.</p><p name="8e6e" id="8e6e" class="graf graf--p graf-after--p">MusicKit JS lets users play songs from Apple Music and their Cloud Library inside your JavaScript app. When a user provides permission to access their Apple Music account, your JavaScript app can create playlists, add songs to their library, and play any of the millions of songs in the Apple Music catalog directly in a browser, with no additional plugins.</p><h3 name="1209" id="1209" class="graf graf--h3 graf-after--p">AuthenticationServices</h3><p name="8348" id="8348" class="graf graf--p graf-after--h3">Define a new extension point for password manager apps for integration with Password AutoFill.</p><h3 name="7b07" id="7b07" class="graf graf--h3 graf-after--p">Network</h3><p name="3458" id="3458" class="graf graf--p graf-after--h3">The new Network framework makes it easier to create network connections to send and receive data using transport and security protocols.</p><p name="5799" id="5799" class="graf graf--p graf-after--p">Use this framework when you need direct access to protocols like TLS, TCP, and UDP for your custom application protocols. Continue to use <a href="https://developer.apple.com/documentation/foundation/urlsession" data-href="https://developer.apple.com/documentation/foundation/urlsession" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">URLSession</a>, which is built upon this framework, for loading HTTP- and URL-based resources.</p><h4 name="547a" id="547a" class="graf graf--h4 graf-after--p">Note: <strong class="markup--strong markup--h4-strong">Sneak Peek at New Developer Framework for Mac Apps</strong></h4><p name="1b36" id="1b36" class="graf graf--p graf-after--h4">The News, Stocks, Voice Memos, and Home apps announced at WWDC were brought to the Mac using UIKit frameworks that have been adapted and added to macOS. This technology will be available to developers in 2019, making it easier to bring iOS apps to macOS, providing new opportunities, and creating more apps for Mac users to enjoy.</p><h3 name="d1d8" id="d1d8" class="graf graf--h3 graf-after--p">macOS Mojave</h3><p name="3e88" id="3e88" class="graf graf--p graf-after--h3">Stay focused on your work with Dark Mode. Edit and share files without opening them. And explore a completely redesigned Mac App Store.</p><p name="9968" id="9968" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Desktop stacks</strong></p><p name="c534" id="c534" class="graf graf--p graf-after--p">Messy desktop? No problem in MacOS Mojave — it’s introducing Desktop stacks, which group together related icons into piles, auto-tidying your desktop, expanding with a tap. You can also scrub through a stack with gestures to scroll to an individual file that you’re seeking out.</p><h3 name="4dfb" id="4dfb" class="graf graf--h3 graf-after--p">watchOS 5</h3><p name="b1be" id="b1be" class="graf graf--p graf-after--h3">Challenge someone to an Activity competition. Track brand-new workouts, including yoga. And use Walkie-Talkie to connect with friends.</p><h3 name="0d45" id="0d45" class="graf graf--h3 graf-after--p">Apple TV</h3><p name="7915" id="7915" class="graf graf--p graf-after--h3">Immerse yourself in Dolby Atmos 3D sound. Watch TV shows and movies in 4K HDR. And tune in to live news and sports.</p><p name="ad8c" id="ad8c" class="graf graf--p graf-after--p graf--trailing">Hope this summarize most of the developer related stuff, Thanks for reading it.</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/dce6c397ae88"><time class="dt-published" datetime="2018-06-05T02:12:25.282Z">June 5, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/whats-new-in-ios-12-for-developers-dce6c397ae88" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">What&#39;s new in iOS 12 for developers</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        iOS 12, whats new in iOS 12, iOS new developer changes, iOS 12 new
+        frameworks
+      </section>
+      <section data-field="description" class="p-summary">
+        With the launch of iOS 12, we all get chance to integrate intelligence
+        in our applications and we can use Siri Shortcuts, new camera APIs, and
+        other exciting technologies to deliver more intelligent…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="145a"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="0327"
+                id="0327"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                What’s new in iOS 12 for developers
+              </h3>
+              <figure
+                name="0376"
+                id="0376"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*CuVzcVn8G9SzYcq3WH2_Kg.png"
+                  data-width="192"
+                  data-height="192"
+                  src="https://cdn-images-1.medium.com/max/800/1*CuVzcVn8G9SzYcq3WH2_Kg.png"
+                />
+                <figcaption class="imageCaption">iOS 12</figcaption>
+              </figure>
+              <p name="5bd5" id="5bd5" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >iOS 12 — Performance is key</strong
+                >
+              </p>
+              <p name="9680" id="9680" class="graf graf--p graf-after--p">
+                With the launch of iOS 12, we all get chance to integrate
+                intelligence in our applications and we can use Siri Shortcuts,
+                new camera APIs, and other exciting technologies to deliver more
+                intelligent and immersive user experiences.
+              </p>
+              <h3 name="195a" id="195a" class="graf graf--h3 graf-after--p">
+                Summary in a Nutshell
+              </h3>
+              <p name="0d12" id="0d12" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong">Siri</strong>
+                (Updated): Siri integrations with third-party apps are currently
+                limited to
+                <a
+                  href="https://developer.apple.com/documentation/sirikit"
+                  data-href="https://developer.apple.com/documentation/sirikit"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >12 specific use cases</a
+                >
+                like scan a QR code, hail a ride, or send a message.
+              </p>
+              <p name="f0c0" id="f0c0" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">ARKIT 2</strong>
+                (Updated)<strong class="markup--strong markup--p-strong"
+                  >:</strong
+                >
+                Persistent and multiuser experiences, 3D object recognition,
+                Face tracking,Scene reflection, USDZ file format and a new iOS
+                inbuilt app <em class="markup--em markup--p-em">Measure app</em>
+              </p>
+              <p name="3015" id="3015" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >CarPlay navigation (</strong
+                >Updated<strong class="markup--strong markup--p-strong"
+                  >) : </strong
+                >CarPlay now supports third-party navigation apps, giving
+                drivers even more choices for a familiar experience on the dash
+                while they drive.
+              </p>
+              <p name="3430" id="3430" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Core ML 2 (</strong
+                >Updated<strong class="markup--strong markup--p-strong"
+                  >) : </strong
+                >Core ML 2 is 30 percent faster, Apple says, thanks to a
+                technique called batch prediction.
+              </p>
+              <p name="8562" id="8562" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Create ML (</strong
+                >New<strong class="markup--strong markup--p-strong">) : </strong
+                >a new GPU-accelerated tool for native AI model training on
+                Macs.
+              </p>
+              <p name="e41b" id="e41b" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Network</strong>
+                (New): Create network connections to send and receive data using
+                transport and security protocols.
+              </p>
+              <p name="3559" id="3559" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Natural Language</strong
+                >
+                (New) : The Natural Language framework is a new framework you
+                use to analyze natural language text and deduce its
+                language-specific metadata.
+              </p>
+              <p name="9d87" id="9d87" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >AuthenticationServices</strong
+                >
+                (New): The new AuthenticationServices framework lets you
+                integrate password manager apps with Password AutoFill.
+              </p>
+              <p name="9f88" id="9f88" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >MapKit JS &amp; MusicKit JS</strong
+                >
+                : Embed interactive Apple maps on your website and Add an Apple
+                Music player to your web app.
+              </p>
+              <p name="001a" id="001a" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Notifications</strong
+                >: Grouped notifications support
+              </p>
+              <p name="71fd" id="71fd" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">OS:</strong>
+                macOS Mojave, watchOS 5, iOS 12
+              </p>
+              <p name="01db" id="01db" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >New iOS apps: </strong
+                >Measure, ShortCuts, iBook becomes Apple Book, Voice memo come
+                to iPad, rebuilt Stocks app, Car Play gets google maps.
+              </p>
+              <p name="4019" id="4019" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Deprecation of OpenGL ES : </strong
+                >Apps built using OpenGL ES will continue to run in iOS 12, but
+                Open GL ES is deprecated in iOS 12. Games and graphics-intensive
+                apps that previously used OpenGL ES should now adopt Metal.
+              </p>
+              <p name="ef11" id="ef11" class="graf graf--p graf-after--p">
+                Lets check what all things are new in these frameworks.
+              </p>
+              <h3 name="8810" id="8810" class="graf graf--h3 graf-after--p">
+                Siri Shortcuts
+              </h3>
+              <p name="a2c6" id="a2c6" class="graf graf--p graf-after--h3">
+                Siri can now intelligently pair users’ daily routines with your
+                apps to suggest convenient shortcuts right when they’re needed.
+              </p>
+              <figure
+                name="55c5"
+                id="55c5"
+                class="graf graf--figure graf--layoutOutsetLeft graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*1Yz8UtLqcNxfFilNy26gug.png"
+                  data-width="192"
+                  data-height="192"
+                  src="https://cdn-images-1.medium.com/max/600/1*1Yz8UtLqcNxfFilNy26gug.png"
+                />
+              </figure>
+              <p name="bd52" id="bd52" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Siri Suggestions.</strong
+                >
+                Using signals like location, time of day and type of motion
+                (such as walking, running or driving), Siri Suggestions learns
+                when to suggest relevant shortcuts.
+              </p>
+              <p name="3841" id="3841" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Notifications.</strong
+                >
+                Shortcuts appear as notifications on the lock screen, and users
+                tap the notification to run the task.
+              </p>
+              <p name="5322" id="5322" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >On-device.</strong
+                >
+                All learning is done locally on the device, so Siri creates an
+                intelligent, personalized experience without compromising your
+                privacy.
+              </p>
+              <h3 name="74e8" id="74e8" class="graf graf--h3 graf-after--p">
+                Machine Learning
+              </h3>
+              <figure
+                name="b0ca"
+                id="b0ca"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*oRgIHtn-VUD_ATjC43RvCg.png"
+                  data-width="128"
+                  data-height="128"
+                  src="https://cdn-images-1.medium.com/max/800/1*oRgIHtn-VUD_ATjC43RvCg.png"
+                />
+              </figure>
+              <p name="1f70" id="1f70" class="graf graf--p graf-after--figure">
+                With
+                <strong class="markup--strong markup--p-strong"
+                  >Core ML 2</strong
+                >, you can process models faster than ever, make them smaller,
+                and much more. And now, you can easily build and train models
+                using the new
+                <strong class="markup--strong markup--p-strong"
+                  >Create ML</strong
+                >
+                framework, with no machine learning expertise required.
+              </p>
+              <h3 name="2661" id="2661" class="graf graf--h3 graf-after--p">
+                Create ML
+              </h3>
+              <p name="11c4" id="11c4" class="graf graf--p graf-after--h3">
+                Use Create ML with familiar tools like Swift and macOS
+                playgrounds to create and train custom machine learning models
+                on your Mac. You can train models to perform tasks like
+                recognizing images, extracting meaning from text, or finding
+                relationships between numerical values.
+              </p>
+              <figure
+                name="a7fd"
+                id="a7fd"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*6wMICtfMnW-I6tyQs7rJIA.png"
+                  data-width="750"
+                  data-height="418"
+                  src="https://cdn-images-1.medium.com/max/800/1*6wMICtfMnW-I6tyQs7rJIA.png"
+                />
+              </figure>
+              <h3
+                name="7294"
+                id="7294"
+                class="graf graf--h3 graf-after--figure"
+              >
+                ARKit 2
+              </h3>
+              <figure
+                name="0eb1"
+                id="0eb1"
+                class="graf graf--figure graf--layoutOutsetLeft graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*fdA64s2wrQK4mqhOeK8wmw.png"
+                  data-width="128"
+                  data-height="128"
+                  src="https://cdn-images-1.medium.com/max/600/1*fdA64s2wrQK4mqhOeK8wmw.png"
+                />
+              </figure>
+              <p name="2165" id="2165" class="graf graf--p graf-after--figure">
+                iOS is the biggest AR platform in the world, and now you can
+                create even more incredible experiences with ARKit 2. Multiple
+                users can use their iOS device to simultaneously view AR
+                experiences or play multiplayer games, as bystanders spectate.
+                AR experiences can be saved and resumed at a later time in the
+                same state. And you can incorporate real-world objects into your
+                AR experiences, giving your users greater immersive
+                opportunities.
+              </p>
+              <h3 name="5f33" id="5f33" class="graf graf--h3 graf-after--p">
+                CarPlay
+              </h3>
+              <p name="1517" id="1517" class="graf graf--p graf-after--h3">
+                Add CarPlay support to
+                <strong class="markup--strong markup--p-strong"
+                  >your navigation app</strong
+                >. Its open for third party app from iOS 12 onwards.
+              </p>
+              <h3 name="366e" id="366e" class="graf graf--h3 graf-after--p">
+                Natural Language
+              </h3>
+              <p name="8f39" id="8f39" class="graf graf--p graf-after--h3">
+                Analyze natural language text and deduce its language-specific
+                metadata.
+              </p>
+              <p name="53e5" id="53e5" class="graf graf--p graf-after--p">
+                Use the Natural Language framework to perform natural language
+                processing tasks like language and script identification,
+                tokenization, lemmatization, parts-of-speech tagging, and named
+                entity recognition. You can also use this framework with
+                <a
+                  href="https://developer.apple.com/documentation/create_ml?language=objc"
+                  data-href="https://developer.apple.com/documentation/create_ml?language=objc"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Create ML</a
+                >
+                to train and deploy custom natural language models.
+              </p>
+              <h3 name="fbfe" id="fbfe" class="graf graf--h3 graf-after--p">
+                MapKit JS
+              </h3>
+              <p name="70d9" id="70d9" class="graf graf--p graf-after--h3">
+                Embed interactive Apple maps on your website, annotate points of
+                interest, and perform geo-related searches.
+              </p>
+              <figure
+                name="ecb5"
+                id="ecb5"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*2x83c1MZE63a9hez_dqKEg.png"
+                  data-width="1360"
+                  data-height="1167"
+                  src="https://cdn-images-1.medium.com/max/800/1*2x83c1MZE63a9hez_dqKEg.png"
+                />
+              </figure>
+              <h3
+                name="cdb0"
+                id="cdb0"
+                class="graf graf--h3 graf-after--figure"
+              >
+                MusicKit JS
+              </h3>
+              <p name="c3ec" id="c3ec" class="graf graf--p graf-after--h3">
+                Add an Apple Music player to your web app.
+              </p>
+              <p name="8e6e" id="8e6e" class="graf graf--p graf-after--p">
+                MusicKit JS lets users play songs from Apple Music and their
+                Cloud Library inside your JavaScript app. When a user provides
+                permission to access their Apple Music account, your JavaScript
+                app can create playlists, add songs to their library, and play
+                any of the millions of songs in the Apple Music catalog directly
+                in a browser, with no additional plugins.
+              </p>
+              <h3 name="1209" id="1209" class="graf graf--h3 graf-after--p">
+                AuthenticationServices
+              </h3>
+              <p name="8348" id="8348" class="graf graf--p graf-after--h3">
+                Define a new extension point for password manager apps for
+                integration with Password AutoFill.
+              </p>
+              <h3 name="7b07" id="7b07" class="graf graf--h3 graf-after--p">
+                Network
+              </h3>
+              <p name="3458" id="3458" class="graf graf--p graf-after--h3">
+                The new Network framework makes it easier to create network
+                connections to send and receive data using transport and
+                security protocols.
+              </p>
+              <p name="5799" id="5799" class="graf graf--p graf-after--p">
+                Use this framework when you need direct access to protocols like
+                TLS, TCP, and UDP for your custom application protocols.
+                Continue to use
+                <a
+                  href="https://developer.apple.com/documentation/foundation/urlsession"
+                  data-href="https://developer.apple.com/documentation/foundation/urlsession"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >URLSession</a
+                >, which is built upon this framework, for loading HTTP- and
+                URL-based resources.
+              </p>
+              <h4 name="547a" id="547a" class="graf graf--h4 graf-after--p">
+                Note:
+                <strong class="markup--strong markup--h4-strong"
+                  >Sneak Peek at New Developer Framework for Mac Apps</strong
+                >
+              </h4>
+              <p name="1b36" id="1b36" class="graf graf--p graf-after--h4">
+                The News, Stocks, Voice Memos, and Home apps announced at WWDC
+                were brought to the Mac using UIKit frameworks that have been
+                adapted and added to macOS. This technology will be available to
+                developers in 2019, making it easier to bring iOS apps to macOS,
+                providing new opportunities, and creating more apps for Mac
+                users to enjoy.
+              </p>
+              <h3 name="d1d8" id="d1d8" class="graf graf--h3 graf-after--p">
+                macOS Mojave
+              </h3>
+              <p name="3e88" id="3e88" class="graf graf--p graf-after--h3">
+                Stay focused on your work with Dark Mode. Edit and share files
+                without opening them. And explore a completely redesigned Mac
+                App Store.
+              </p>
+              <p name="9968" id="9968" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Desktop stacks</strong
+                >
+              </p>
+              <p name="c534" id="c534" class="graf graf--p graf-after--p">
+                Messy desktop? No problem in MacOS Mojave — it’s introducing
+                Desktop stacks, which group together related icons into piles,
+                auto-tidying your desktop, expanding with a tap. You can also
+                scrub through a stack with gestures to scroll to an individual
+                file that you’re seeking out.
+              </p>
+              <h3 name="4dfb" id="4dfb" class="graf graf--h3 graf-after--p">
+                watchOS 5
+              </h3>
+              <p name="b1be" id="b1be" class="graf graf--p graf-after--h3">
+                Challenge someone to an Activity competition. Track brand-new
+                workouts, including yoga. And use Walkie-Talkie to connect with
+                friends.
+              </p>
+              <h3 name="0d45" id="0d45" class="graf graf--h3 graf-after--p">
+                Apple TV
+              </h3>
+              <p name="7915" id="7915" class="graf graf--p graf-after--h3">
+                Immerse yourself in Dolby Atmos 3D sound. Watch TV shows and
+                movies in 4K HDR. And tune in to live news and sports.
+              </p>
+              <p
+                name="ad8c"
+                id="ad8c"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this summarize most of the developer related stuff, Thanks
+                for reading it.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/dce6c397ae88"
+            ><time class="dt-published" datetime="2018-06-05T02:12:25.282Z"
+              >June 5, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/whats-new-in-ios-12-for-developers-dce6c397ae88"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 5: Indexes in Databases</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>System Design, Chapter 5: Indexes in Databases</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,409 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">System Design, Chapter 5: Indexes in Databases</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Clustered vs NonClustered, Clustered Indexes, NonClustered Indexes,Clustered and non-clustered indexes
-</section>
-<section data-field="body" class="e-content">
-<section name="9140" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="2850" id="2850" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 5: Indexes in Databases</h3><p name="aca3" id="aca3" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Clustered vs NonClustered, Clustered Indexes, NonClustered Indexes,Clustered and non-clustered indexes</strong></p><p name="33ec" id="33ec" class="graf graf--p graf-after--p">In this blog, we are going to look how backend engineer deals with Fast retrieval of records from database.</p><p name="93c0" id="93c0" class="graf graf--p graf-after--p">Lets try to understand with the simple perspective, how things work and what is cluster and non cluster indexes.</p><figure name="8a1d" id="8a1d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*pbRMKXU92_tFN5vE7cK4OQ.png" data-width="1024" data-height="398" src="https://cdn-images-1.medium.com/max/800/1*pbRMKXU92_tFN5vE7cK4OQ.png"><figcaption class="imageCaption">Cluster and NonCluster</figcaption></figure><h4 name="0af9" id="0af9" class="graf graf--h4 graf-after--figure"><strong class="markup--strong markup--h4-strong">Cluster indexes</strong></h4><p name="338c" id="338c" class="graf graf--p graf-after--h4">We all have seen the landline time earlier, we used to have telephone directory at our house, whenever we require any number, we need to look up alphabetically and find out the required number, that’s it you know what is cluster indexes.<br>Telephone directory (single reference — Alphabetically ) — Organize the data</p><figure name="8391" id="8391" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*JCDrK5t0SaAgkq_6YY97xg.jpeg" data-width="527" data-height="873" src="https://cdn-images-1.medium.com/max/800/1*JCDrK5t0SaAgkq_6YY97xg.jpeg"></figure><p name="d02b" id="d02b" class="graf graf--p graf-after--figure">One of the biggest advantages of Clustered Tables is that the data is physically sorted by the Clustered Key in your storage subsystem. You can compare a Clustered Table to a traditional phone book: the phone book is clustered/sorted by last name, which means that the last name Abhishek comes before Tarun, and Tarun comes before Umesh. Clustered Tables are therefore completely different from Heap Tables, where you have no physical sorting order.</p><p name="93e7" id="93e7" class="graf graf--p graf-after--p">Lets try to understand with some of the diagrams how cluster will work at the backend.</p><figure name="5807" id="5807" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*HmJlFgPPv6BMjFf6_bR2PA.png" data-width="552" data-height="434" src="https://cdn-images-1.medium.com/max/800/1*HmJlFgPPv6BMjFf6_bR2PA.png"><figcaption class="imageCaption">Cluster indexes</figcaption></figure><p name="8fd9" id="8fd9" class="graf graf--p graf-after--figure">Below is the diagrammatic representation of employee database using cluster indexes.</p><figure name="a88f" id="a88f" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*5bVmHzJ9mk_N7gqqRKMhWQ.jpeg" data-width="600" data-height="280" src="https://cdn-images-1.medium.com/max/800/1*5bVmHzJ9mk_N7gqqRKMhWQ.jpeg"><figcaption class="imageCaption">Employee database using Cluster indexes</figcaption></figure><h4 name="2922" id="2922" class="graf graf--h4 graf-after--figure"><strong class="markup--strong markup--h4-strong">Non Cluster Indexes</strong></h4><p name="8b8f" id="8b8f" class="graf graf--p graf-after--h4">We have known this from our school time when we used to look at the back of book indexes and able to find out which page need to look for which topic from the last subject index or book index at the back of book.</p><p name="2edd" id="2edd" class="graf graf--p graf-after--p">Book Last pages (indexes reference) — Based on content of page — Multiple topics can have same indexes.</p><figure name="8798" id="8798" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*bnhosEl85l_znr8R0p3uLQ.jpeg" data-width="612" data-height="612" src="https://cdn-images-1.medium.com/max/800/1*bnhosEl85l_znr8R0p3uLQ.jpeg"></figure><h3 name="bbf5" id="bbf5" class="graf graf--h3 graf-after--figure">Comparison</h3><p name="ca4f" id="ca4f" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Clustered index saves an additional I/O</strong> that we have to do in non-clustered index to fetch the row data. This is because the complete row data resides in a clustered index leaf block whereas only the row locator is stored in a non-clustered index leaf block. So we save an additional I/O to get to the row.</p><p name="99bb" id="99bb" class="graf graf--p graf-after--p">This suggests that <strong class="markup--strong markup--p-strong">point lookups using clustered index will usually be faster than non-clustered index. </strong>This is true for both UNIQUE and NON-UNIQUE index type.</p><p name="7c21" id="7c21" class="graf graf--p graf-after--p">Similarly <strong class="markup--strong markup--p-strong">in case of range scan, clustered index will be faster</strong>. The performance gap between clustered and non-clustered index can be very significant if the scan happens to retrieve large amounts of data.</p><figure name="c01a" id="c01a" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*z2MUVlAQ8xAGkxPOitwM1w.jpeg" data-width="663" data-height="660" src="https://cdn-images-1.medium.com/max/800/1*z2MUVlAQ8xAGkxPOitwM1w.jpeg"></figure><h4 name="3034" id="3034" class="graf graf--h4 graf-after--figure"><em class="markup--em markup--h4-em">Disadvantages:</em></h4><ul class="postList"><li name="d3e0" id="d3e0" class="graf graf--li graf-after--h4">Lookup on non-clustered index becomes costly. Let’s say there is a clustered index on column A and non-clustered index on column B. Once the non-clustered index is probed on key value of column B, we would have gotten the value of clustered index key (column A) from leaf block. This index key value of column A is then used to probe the clustered index (which is again a B-Tree traversal) and fetch the corresponding row from leaf block of clustered index.</li><li name="5aaa" id="5aaa" class="graf graf--li graf-after--li">Every time the clustering key is updated, a corresponding update is required on non-clustered index as well because it stores the clustering key.</li><li name="d30e" id="d30e" class="graf graf--li graf-after--li">Wide/Fat clustering key will increase the size of non-clustered index and also the size of each entry in index leaf block. Thus fewer entries will be packed per block and this will increase the disk I/O — more number of index pages/blocks will have to be read.</li></ul><h4 name="a7b7" id="a7b7" class="graf graf--h4 graf-after--li"><em class="markup--em markup--h4-em">Advantages:</em></h4><ul class="postList"><li name="632b" id="632b" class="graf graf--li graf-after--h4">Clustered Index requires the row data to be physically stored in sorted order (on the clustering key). An INSERT in a table (which is literally the clustered index here) has to maintain the invariant of “sorted order”. Therefore, it is very likely that rows will have to be moved around <strong class="markup--strong markup--li-strong">(row movement within a block or across blocks)</strong> to accommodate the new insert. If non-clustered index was storing the row locator, then every such INSERT will require an update to non-clustered index as well because the row locator would have changed due to row movement.</li><li name="fab0" id="fab0" class="graf graf--li graf-after--li">But because non-clustered index stores the clustered index key instead of row locator, no such update is required due to row movement.</li></ul><h4 name="d7c5" id="d7c5" class="graf graf--h4 graf-after--li">How Indexes are used by the Query Optimizer</h4><p name="fc1f" id="fc1f" class="graf graf--p graf-after--h4">Well-designed indexes can reduce disk I/O operations and consume fewer system resources therefore improving query performance. Indexes can be helpful for a variety of queries that contain SELECT, UPDATE, DELETE, or MERGE statements. Consider the query SELECT Title, HireDate FROM HumanResources.Employee WHERE EmployeeID = 250 in the E<strong class="markup--strong markup--p-strong">mpDataBase2018(Imaginary)</strong> database. When this query is executed, the query optimizer evaluates each available method for retrieving the data and selects the most efficient method. The method may be a table scan, or may be scanning one or more indexes if they exist.</p><figure name="61fa" id="61fa" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*1jjg1Ix6LQCNEKq2sh2XkA.png" data-width="746" data-height="257" src="https://cdn-images-1.medium.com/max/800/1*1jjg1Ix6LQCNEKq2sh2XkA.png"></figure><p name="114a" id="114a" class="graf graf--p graf-after--figure">When performing a table scan, the query optimizer reads all the rows in the table, and extracts the rows that meet the criteria of the query. A table scan generates many disk I/O operations and can be resource intensive. However, a table scan could be the most efficient method if, for example, the result set of the query is a high percentage of rows from the table.</p><p name="a259" id="a259" class="graf graf--p graf-after--p">When the query optimizer uses an index, it searches the index key columns, finds the storage location of the rows needed by the query and extracts the matching rows from that location. Generally, searching the index is much faster than searching the table because unlike a table, an index frequently contains very few columns per row and the rows are in sorted order.</p><p name="f897" id="f897" class="graf graf--p graf-after--p">The query optimizer typically selects the most efficient method when executing queries. However, if no indexes are available, the query optimizer must use a table scan. Your task is to design and create indexes that are best suited to your environment so that the query optimizer has a selection of efficient indexes from which to select.</p><p name="ead0" id="ead0" class="graf graf--p graf-after--p">With a clustered index the rows are stored physically on the disk in the same order as the index. Therefore, there can be only one clustered index.</p><p name="c659" id="c659" class="graf graf--p graf-after--p">With a non clustered index there is a second list that has pointers to the physical rows. You can have many non clustered indexes, although each new index will increase the time it takes to write new records.</p><p name="378b" id="378b" class="graf graf--p graf-after--p">It is generally faster to read from a clustered index if you want to get back all the columns. You do not have to go first to the index and then to the table.</p><p name="70a0" id="70a0" class="graf graf--p graf-after--p">Writing to a table with a clustered index can be slower, if there is a need to rearrange the data.</p><h3 name="a356" id="a356" class="graf graf--h3 graf-after--p">Summary</h3><p name="cc1d" id="cc1d" class="graf graf--p graf-after--h3">Clustered Indexes scale very well because internally they use a B-tree structure. SQL Server can make effective use of this structure when performing index seek operations on your table. But choosing the right and correct Clustered Key is an awful job.</p><h4 name="1586" id="1586" class="graf graf--h4 graf-after--p">Next: <a href="https://medium.com/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023" data-href="https://medium.com/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023" class="markup--anchor markup--h4-anchor" target="_blank">System Design, Chapter 6: Proxies</a></h4><p name="1912" id="1912" class="graf graf--p graf-after--h4 graf--trailing">Hope this article is useful for people looking to understand indexes in database at backend, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/beb90295dbcf"><time class="dt-published" datetime="2018-06-21T12:46:44.713Z">June 21, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-5-indexes-in-databases-beb90295dbcf" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">System Design, Chapter 5: Indexes in Databases</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Clustered vs NonClustered, Clustered Indexes, NonClustered
+        Indexes,Clustered and non-clustered indexes
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="9140"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="2850"
+                id="2850"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                System Design, Chapter 5: Indexes in Databases
+              </h3>
+              <p name="aca3" id="aca3" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Clustered vs NonClustered, Clustered Indexes, NonClustered
+                  Indexes,Clustered and non-clustered indexes</strong
+                >
+              </p>
+              <p name="33ec" id="33ec" class="graf graf--p graf-after--p">
+                In this blog, we are going to look how backend engineer deals
+                with Fast retrieval of records from database.
+              </p>
+              <p name="93c0" id="93c0" class="graf graf--p graf-after--p">
+                Lets try to understand with the simple perspective, how things
+                work and what is cluster and non cluster indexes.
+              </p>
+              <figure
+                name="8a1d"
+                id="8a1d"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*pbRMKXU92_tFN5vE7cK4OQ.png"
+                  data-width="1024"
+                  data-height="398"
+                  src="https://cdn-images-1.medium.com/max/800/1*pbRMKXU92_tFN5vE7cK4OQ.png"
+                />
+                <figcaption class="imageCaption">
+                  Cluster and NonCluster
+                </figcaption>
+              </figure>
+              <h4
+                name="0af9"
+                id="0af9"
+                class="graf graf--h4 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h4-strong"
+                  >Cluster indexes</strong
+                >
+              </h4>
+              <p name="338c" id="338c" class="graf graf--p graf-after--h4">
+                We all have seen the landline time earlier, we used to have
+                telephone directory at our house, whenever we require any
+                number, we need to look up alphabetically and find out the
+                required number, that’s it you know what is cluster indexes.<br />Telephone
+                directory (single reference — Alphabetically ) — Organize the
+                data
+              </p>
+              <figure
+                name="8391"
+                id="8391"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*JCDrK5t0SaAgkq_6YY97xg.jpeg"
+                  data-width="527"
+                  data-height="873"
+                  src="https://cdn-images-1.medium.com/max/800/1*JCDrK5t0SaAgkq_6YY97xg.jpeg"
+                />
+              </figure>
+              <p name="d02b" id="d02b" class="graf graf--p graf-after--figure">
+                One of the biggest advantages of Clustered Tables is that the
+                data is physically sorted by the Clustered Key in your storage
+                subsystem. You can compare a Clustered Table to a traditional
+                phone book: the phone book is clustered/sorted by last name,
+                which means that the last name Abhishek comes before Tarun, and
+                Tarun comes before Umesh. Clustered Tables are therefore
+                completely different from Heap Tables, where you have no
+                physical sorting order.
+              </p>
+              <p name="93e7" id="93e7" class="graf graf--p graf-after--p">
+                Lets try to understand with some of the diagrams how cluster
+                will work at the backend.
+              </p>
+              <figure
+                name="5807"
+                id="5807"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*HmJlFgPPv6BMjFf6_bR2PA.png"
+                  data-width="552"
+                  data-height="434"
+                  src="https://cdn-images-1.medium.com/max/800/1*HmJlFgPPv6BMjFf6_bR2PA.png"
+                />
+                <figcaption class="imageCaption">Cluster indexes</figcaption>
+              </figure>
+              <p name="8fd9" id="8fd9" class="graf graf--p graf-after--figure">
+                Below is the diagrammatic representation of employee database
+                using cluster indexes.
+              </p>
+              <figure
+                name="a88f"
+                id="a88f"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*5bVmHzJ9mk_N7gqqRKMhWQ.jpeg"
+                  data-width="600"
+                  data-height="280"
+                  src="https://cdn-images-1.medium.com/max/800/1*5bVmHzJ9mk_N7gqqRKMhWQ.jpeg"
+                />
+                <figcaption class="imageCaption">
+                  Employee database using Cluster indexes
+                </figcaption>
+              </figure>
+              <h4
+                name="2922"
+                id="2922"
+                class="graf graf--h4 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h4-strong"
+                  >Non Cluster Indexes</strong
+                >
+              </h4>
+              <p name="8b8f" id="8b8f" class="graf graf--p graf-after--h4">
+                We have known this from our school time when we used to look at
+                the back of book indexes and able to find out which page need to
+                look for which topic from the last subject index or book index
+                at the back of book.
+              </p>
+              <p name="2edd" id="2edd" class="graf graf--p graf-after--p">
+                Book Last pages (indexes reference) — Based on content of
+                page — Multiple topics can have same indexes.
+              </p>
+              <figure
+                name="8798"
+                id="8798"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*bnhosEl85l_znr8R0p3uLQ.jpeg"
+                  data-width="612"
+                  data-height="612"
+                  src="https://cdn-images-1.medium.com/max/800/1*bnhosEl85l_znr8R0p3uLQ.jpeg"
+                />
+              </figure>
+              <h3
+                name="bbf5"
+                id="bbf5"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Comparison
+              </h3>
+              <p name="ca4f" id="ca4f" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Clustered index saves an additional I/O</strong
+                >
+                that we have to do in non-clustered index to fetch the row data.
+                This is because the complete row data resides in a clustered
+                index leaf block whereas only the row locator is stored in a
+                non-clustered index leaf block. So we save an additional I/O to
+                get to the row.
+              </p>
+              <p name="99bb" id="99bb" class="graf graf--p graf-after--p">
+                This suggests that
+                <strong class="markup--strong markup--p-strong"
+                  >point lookups using clustered index will usually be faster
+                  than non-clustered index. </strong
+                >This is true for both UNIQUE and NON-UNIQUE index type.
+              </p>
+              <p name="7c21" id="7c21" class="graf graf--p graf-after--p">
+                Similarly
+                <strong class="markup--strong markup--p-strong"
+                  >in case of range scan, clustered index will be faster</strong
+                >. The performance gap between clustered and non-clustered index
+                can be very significant if the scan happens to retrieve large
+                amounts of data.
+              </p>
+              <figure
+                name="c01a"
+                id="c01a"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*z2MUVlAQ8xAGkxPOitwM1w.jpeg"
+                  data-width="663"
+                  data-height="660"
+                  src="https://cdn-images-1.medium.com/max/800/1*z2MUVlAQ8xAGkxPOitwM1w.jpeg"
+                />
+              </figure>
+              <h4
+                name="3034"
+                id="3034"
+                class="graf graf--h4 graf-after--figure"
+              >
+                <em class="markup--em markup--h4-em">Disadvantages:</em>
+              </h4>
+              <ul class="postList">
+                <li name="d3e0" id="d3e0" class="graf graf--li graf-after--h4">
+                  Lookup on non-clustered index becomes costly. Let’s say there
+                  is a clustered index on column A and non-clustered index on
+                  column B. Once the non-clustered index is probed on key value
+                  of column B, we would have gotten the value of clustered index
+                  key (column A) from leaf block. This index key value of column
+                  A is then used to probe the clustered index (which is again a
+                  B-Tree traversal) and fetch the corresponding row from leaf
+                  block of clustered index.
+                </li>
+                <li name="5aaa" id="5aaa" class="graf graf--li graf-after--li">
+                  Every time the clustering key is updated, a corresponding
+                  update is required on non-clustered index as well because it
+                  stores the clustering key.
+                </li>
+                <li name="d30e" id="d30e" class="graf graf--li graf-after--li">
+                  Wide/Fat clustering key will increase the size of
+                  non-clustered index and also the size of each entry in index
+                  leaf block. Thus fewer entries will be packed per block and
+                  this will increase the disk I/O — more number of index
+                  pages/blocks will have to be read.
+                </li>
+              </ul>
+              <h4 name="a7b7" id="a7b7" class="graf graf--h4 graf-after--li">
+                <em class="markup--em markup--h4-em">Advantages:</em>
+              </h4>
+              <ul class="postList">
+                <li name="632b" id="632b" class="graf graf--li graf-after--h4">
+                  Clustered Index requires the row data to be physically stored
+                  in sorted order (on the clustering key). An INSERT in a table
+                  (which is literally the clustered index here) has to maintain
+                  the invariant of “sorted order”. Therefore, it is very likely
+                  that rows will have to be moved around
+                  <strong class="markup--strong markup--li-strong"
+                    >(row movement within a block or across blocks)</strong
+                  >
+                  to accommodate the new insert. If non-clustered index was
+                  storing the row locator, then every such INSERT will require
+                  an update to non-clustered index as well because the row
+                  locator would have changed due to row movement.
+                </li>
+                <li name="fab0" id="fab0" class="graf graf--li graf-after--li">
+                  But because non-clustered index stores the clustered index key
+                  instead of row locator, no such update is required due to row
+                  movement.
+                </li>
+              </ul>
+              <h4 name="d7c5" id="d7c5" class="graf graf--h4 graf-after--li">
+                How Indexes are used by the Query Optimizer
+              </h4>
+              <p name="fc1f" id="fc1f" class="graf graf--p graf-after--h4">
+                Well-designed indexes can reduce disk I/O operations and consume
+                fewer system resources therefore improving query performance.
+                Indexes can be helpful for a variety of queries that contain
+                SELECT, UPDATE, DELETE, or MERGE statements. Consider the query
+                SELECT Title, HireDate FROM HumanResources.Employee WHERE
+                EmployeeID = 250 in the E<strong
+                  class="markup--strong markup--p-strong"
+                  >mpDataBase2018(Imaginary)</strong
+                >
+                database. When this query is executed, the query optimizer
+                evaluates each available method for retrieving the data and
+                selects the most efficient method. The method may be a table
+                scan, or may be scanning one or more indexes if they exist.
+              </p>
+              <figure
+                name="61fa"
+                id="61fa"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*1jjg1Ix6LQCNEKq2sh2XkA.png"
+                  data-width="746"
+                  data-height="257"
+                  src="https://cdn-images-1.medium.com/max/800/1*1jjg1Ix6LQCNEKq2sh2XkA.png"
+                />
+              </figure>
+              <p name="114a" id="114a" class="graf graf--p graf-after--figure">
+                When performing a table scan, the query optimizer reads all the
+                rows in the table, and extracts the rows that meet the criteria
+                of the query. A table scan generates many disk I/O operations
+                and can be resource intensive. However, a table scan could be
+                the most efficient method if, for example, the result set of the
+                query is a high percentage of rows from the table.
+              </p>
+              <p name="a259" id="a259" class="graf graf--p graf-after--p">
+                When the query optimizer uses an index, it searches the index
+                key columns, finds the storage location of the rows needed by
+                the query and extracts the matching rows from that location.
+                Generally, searching the index is much faster than searching the
+                table because unlike a table, an index frequently contains very
+                few columns per row and the rows are in sorted order.
+              </p>
+              <p name="f897" id="f897" class="graf graf--p graf-after--p">
+                The query optimizer typically selects the most efficient method
+                when executing queries. However, if no indexes are available,
+                the query optimizer must use a table scan. Your task is to
+                design and create indexes that are best suited to your
+                environment so that the query optimizer has a selection of
+                efficient indexes from which to select.
+              </p>
+              <p name="ead0" id="ead0" class="graf graf--p graf-after--p">
+                With a clustered index the rows are stored physically on the
+                disk in the same order as the index. Therefore, there can be
+                only one clustered index.
+              </p>
+              <p name="c659" id="c659" class="graf graf--p graf-after--p">
+                With a non clustered index there is a second list that has
+                pointers to the physical rows. You can have many non clustered
+                indexes, although each new index will increase the time it takes
+                to write new records.
+              </p>
+              <p name="378b" id="378b" class="graf graf--p graf-after--p">
+                It is generally faster to read from a clustered index if you
+                want to get back all the columns. You do not have to go first to
+                the index and then to the table.
+              </p>
+              <p name="70a0" id="70a0" class="graf graf--p graf-after--p">
+                Writing to a table with a clustered index can be slower, if
+                there is a need to rearrange the data.
+              </p>
+              <h3 name="a356" id="a356" class="graf graf--h3 graf-after--p">
+                Summary
+              </h3>
+              <p name="cc1d" id="cc1d" class="graf graf--p graf-after--h3">
+                Clustered Indexes scale very well because internally they use a
+                B-tree structure. SQL Server can make effective use of this
+                structure when performing index seek operations on your table.
+                But choosing the right and correct Clustered Key is an awful
+                job.
+              </p>
+              <!-- <h4 name="1586" id="1586" class="graf graf--h4 graf-after--p">
+                Next:
+                <a
+                  href="https://medium.com/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023"
+                  data-href="https://medium.com/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023"
+                  class="markup--anchor markup--h4-anchor"
+                  target="_blank"
+                  >System Design, Chapter 6: Proxies</a
+                >
+              </h4> -->
+              <p
+                name="1912"
+                id="1912"
+                class="graf graf--p graf-after--h4 graf--trailing"
+              >
+                Hope this article is useful for people looking to understand
+                indexes in database at backend, Please ❤️ to recommend this post
+                to others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/beb90295dbcf"
+            ><time class="dt-published" datetime="2018-06-21T12:46:44.713Z"
+              >June 21, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/system-design-chapter-5-indexes-in-databases-beb90295dbcf"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

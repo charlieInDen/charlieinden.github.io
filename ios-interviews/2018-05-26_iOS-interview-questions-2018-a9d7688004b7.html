@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS interview questions 2018</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iOS interview questions 2018</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,566 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">iOS interview questions 2018</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-KVC &amp; KVO , iOS interview questions, cracking iOS interview 2018, iOS 2018 interview questions
-</section>
-<section data-field="description" class="p-summary">
-I&#39;m going to explain the concepts behind bindings from the ground up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO). Keys and key paths are frequently used for key-value…
-</section>
-<section data-field="body" class="e-content">
-<section name="89b0" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="2953" id="2953" class="graf graf--h3 graf--leading graf--title">iOS 2018 series — Cracking iOS interview or Become iOS expert (2)</h3><h3 name="e054" id="e054" class="graf graf--h3 graf-after--h3">Chapter 2: KVC &amp; KVO</h3><p name="cb53" id="cb53" class="graf graf--p graf-after--h3">I’m going to explain the concepts behind bindings from the ground up; first explaining Key-Value Coding (KVC), then Key-Value Observing (KVO).</p><p name="b7de" id="b7de" class="graf graf--p graf-after--p">Keys and key paths are frequently used for <em class="markup--em markup--p-em">key-value coding</em> (KVC), a mechanism for indirectly accessing an object’s attributes and relationships using string identifiers. Keys and key paths are also used for <em class="markup--em markup--p-em">key-value observing</em> (KVO), a mechanism that enables an object to be notified directly when a property of another object changes.</p><p name="2a11" id="2a11" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Key-Value-Coding (KVC)</strong> means accessing a property or value using a string.</p><p name="4a0a" id="4a0a" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">id someValue = [myObject valueForKeyPath:@&quot;foo.bar.baz&quot;];</code></p><p name="9bce" id="9bce" class="graf graf--p graf-after--p">Which could be the same as:</p><p name="dbf7" id="dbf7" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">id someValue = [[[myObject foo] bar] baz];</code></p><p name="0320" id="0320" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Key-Value-Observing (KVO)</strong> allows you to observe changes to a property or value.</p><p name="a265" id="a265" class="graf graf--p graf-after--p">To observe a property using KVO you would identify to property with a string; i.e., using KVC. Therefore, the observable object must be KVC compliant.</p><p name="a436" id="a436" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">[myObject addObserver:self forKeyPath:@&quot;foo.bar.baz&quot; options:0 context:NULL];</code></p><p name="f41c" id="f41c" class="graf graf--p graf-after--p">Lets dive into some details:</p><p name="bfd7" id="bfd7" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Key-Value Coding (KVC)</strong></p><p name="4658" id="4658" class="graf graf--p graf-after--p">Actually, any property you want to observe for changes must be Key-Value Coding compliant, An object is key-value coding compliant when it adopts the <code class="markup--code markup--p-code">NSKeyValueCoding</code> protocol. An object that inherits from <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/objectivec/nsobject" data-href="https://developer.apple.com/documentation/objectivec/nsobject" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSObject</a></code>, which provides a default implementation of the protocol’s essential methods, automatically adopts this protocol with certain default behaviors. Lets start with an example to understand it.</p><p name="e08c" id="e08c" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code u-paddingRight0 u-marginRight0">@interface <strong class="markup--strong markup--p-strong">BankAccount </strong>: NSObject</code></p><p name="edea" id="edea" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code u-paddingRight0 u-marginRight0">@property (nonatomic) NSNumber* <strong class="markup--strong markup--p-strong">currentBalance</strong>; // An attribute</code></p><p name="1d36" id="1d36" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code u-paddingRight0 u-marginRight0">@property (nonatomic) Person* <strong class="markup--strong markup--p-strong">owner</strong>; // A to-one relation</code></p><p name="8d96" id="8d96" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code u-paddingRight0 u-marginRight0">@property (nonatomic) NSArray&lt; Transaction* &gt;* <strong class="markup--strong markup--p-strong">transactions</strong>; // A to-many relation</code></p><p name="c6c0" id="c6c0" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">@end</code></p><p name="f91e" id="f91e" class="graf graf--p graf-after--p">In order to maintain encapsulation, an object typically provides accessor methods for the properties on its interface. The object’s author may write these methods explicitly or may rely on the compiler to synthesize them automatically. Either way, the author of code using one of these accessors must write the property name into the code before compiling it. The name of the accessor method becomes a static part of the code that is using it. For example, given the bank account object declared above, the compiler synthesizes a setter that you can invoke for the <code class="markup--code markup--p-code">myAccount</code> instance:</p><p name="7b65" id="7b65" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">[myAccount setCurrentBalance:@(100.0)]; //NORMAL</strong></p><p name="d3b5" id="d3b5" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">[myAccount setValue:@(100.0) forKey:@”currentBalance”]; //KVC</strong></p><p name="597d" id="597d" class="graf graf--p graf-after--p">This is direct, but lacks flexibility. A key-value coding compliant object, on the other hand, offers a more general mechanism to access an object’s properties using string identifiers.</p><h3 name="4d2e" id="4d2e" class="graf graf--h3 graf-after--p">Keys</h3><p name="54a0" id="54a0" class="graf graf--p graf-after--h3">A <em class="markup--em markup--p-em">key</em> is a string that identifies a specific property.</p><p name="e522" id="e522" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">BankAccount</code> class is key-value coding compliant, it recognizes the keys <code class="markup--code markup--p-code">owner</code>, <code class="markup--code markup--p-code">currentBalance</code>, and <code class="markup--code markup--p-code">transactions</code>, which are the names of its properties. Instead of calling the <code class="markup--code markup--p-code">setCurrentBalance:</code> method, you can set the value by its key:</p><p name="86cd" id="86cd" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">[myAccount setValue:@(100.0) forKey:@”currentBalance”];</strong></p><p name="1519" id="1519" class="graf graf--p graf-after--p">In fact, you can set all the properties of the <code class="markup--code markup--p-code">myAccount</code> object with the same method, using different key parameters.</p><h3 name="f843" id="f843" class="graf graf--h3 graf-after--p">Key Paths</h3><p name="b8a3" id="b8a3" class="graf graf--p graf-after--h3">A <em class="markup--em markup--p-em">key path</em> is a string of dot-separated keys used to specify a sequence of object properties to traverse. For example, the key path <code class="markup--code markup--p-code">owner.address.street</code> applied to a bank account instance refers to the value of the street string that is stored in the address of the bank account’s owner, assuming the <code class="markup--code markup--p-code">Person</code> and <code class="markup--code markup--p-code">Address</code> classes are also key-value coding compliant.</p><h3 name="95dd" id="95dd" class="graf graf--h3 graf-after--p"><strong class="markup--strong markup--h3-strong">In Swift,</strong> you can use a key-path expression to create key paths for accessing properties.</h3><p name="3c32" id="3c32" class="graf graf--p graf-after--h3">let balanceAccessor = \<code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">BankAccount.</strong></code>currentBalance</p><p name="5c9f" id="5c9f" class="graf graf--p graf-after--p">myAccount.value(forKeyPath:balanceAccessor) <strong class="markup--strong markup--p-strong">//Type 1</strong></p><p name="54c2" id="54c2" class="graf graf--p graf-after--p">myAccount.value(forKeyPath: #keyPath(<code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--p-strong">BankAccount.</strong>currentBalance</code>)<strong class="markup--strong markup--p-strong">//Type 2</strong></p><p name="6513" id="6513" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note: </strong>In Swift, instead of using a string to indicate a key or key path, you can use a <code class="markup--code markup--p-code">#keyPath</code> expression. This offers the advantage of a compile time check, as described in the <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205" data-href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Keys and Key Paths</a></p><h3 name="c8e9" id="c8e9" class="graf graf--h3 graf-after--p">Key-Value Observing (KVO)</h3><p name="da64" id="da64" class="graf graf--p graf-after--h3"><a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" data-href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Key-Value Observing (KVO)</a> is built on top of KVC. It allows you to observe (i.e. watch) a KVC key path on an object to see when the value changes. For example, let’s write some code that watches to see if a person’s address changes. There are three methods of interest in the following code:</p><ul class="postList"><li name="8261" id="8261" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">watchPersonForChangeOfAddress:</code> begins the observing<br><strong class="markup--strong markup--li-strong">//this begins the observing </strong><br> [p addObserver:self forKeyPath:@”address” options:0 context:KVO_CONTEXT_ADDRESS_CHANGED];</li><li name="7d10" id="7d10" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">observeValueForKeyPath:ofObject:change:context:</code> is called every time there is a change in the value of the observed key path<br><strong class="markup--strong markup--li-strong">//whenever an observed key path changes, this method will be called —</strong> (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context; {<br>}</li><li name="ec27" id="ec27" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">dealloc</code> stops the observing<br>//must stop observing everything before this object is //deallocated, otherwise it will cause crashes<br>[p removeObserver:self forKeyPath:@”address”]</li></ul><p name="a8dc" id="a8dc" class="graf graf--p graf-after--li">To be observable, it has to inherit from <code class="markup--code markup--p-code">NSObject</code> and it has to have <strong class="markup--strong markup--p-strong">dynamic</strong> properties. Being <strong class="markup--strong markup--p-strong">dynamic</strong> means that a property can be dynamically dispatched at runtime.</p><p name="8855" id="8855" class="graf graf--p graf-after--p">I have attached KVO demo video for reference, let’s say I have a <code class="markup--code markup--p-code">WKWebView </code>object and that I want to observe one of its properties, <em class="markup--em markup--p-em">estimatedProgress.</em></p><figure name="8730" id="8730" class="graf graf--figure graf--iframe graf-after--p"><iframe src="https://www.youtube.com/embed/R15_MwMp6kE?feature=oembed" width="700" height="393" frameborder="0" scrolling="no"></iframe></figure><h3 name="9a2a" id="9a2a" class="graf graf--h3 graf-after--figure"><strong class="markup--strong markup--h3-strong">Bonus time: </strong>What’s new in Swift 4</h3><p name="8193" id="8193" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">1. String will be treated as collection- SE-0163</strong></p><pre name="aa40" id="aa40" class="graf graf--pre graf-after--p">let message = &quot;Message!&quot;<br>message.count // no need of message.characters.count</pre><pre name="afb4" id="afb4" class="graf graf--pre graf-after--pre">for character in message {  // no need of message.characters<br>    print(character)<br>}</pre><p name="6e9f" id="6e9f" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">2. MutableCollection.swapAt-SE-0173</strong></p><p name="dc08" id="dc08" class="graf graf--p graf-after--p">New swap function now takes indices of elements which are to be swapped.</p><pre name="31e9" id="31e9" class="graf graf--pre graf-after--p">var names = [“Vipul”,”Vinay”,”Vishal”,”Akshay”]<br>names.swapAt(2,3)</pre><p name="2e36" id="2e36" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">3. Dictionary and Set enhancements — SE-0165<br></strong>a. Now you can create a dictionary using array elements.</p><p name="ac07" id="ac07" class="graf graf--p graf-after--p">b. Provide default value if value for key does not exist. In following statement if there is no value for key 10 found then it will print default value.</p><pre name="ade0" id="ade0" class="graf graf--pre graf-after--p">print(friendsDictionary[10, default: “No Friends Exist yet!”])</pre><p name="a63a" id="a63a" class="graf graf--p graf-after--pre">c. Partition array in different buckets</p><pre name="d086" id="d086" class="graf graf--pre graf-after--p">let mates = [“Akshay”, “Anil”, “Vishal”, “Vinay”, “Ankit”]</pre><pre name="f766" id="f766" class="graf graf--pre graf-after--pre">let buckets = Dictionary(grouping: mates, by: { $0.first! })</pre><p name="80d1" id="80d1" class="graf graf--p graf-after--pre">4. <strong class="markup--strong markup--p-strong">Swift Archival &amp; Serialization — SE-0166</strong></p><p name="cf9e" id="cf9e" class="graf graf--p graf-after--p">Good News! Swift 4 comes with built in encoders and decoders for JSON. JSON &lt;-&gt; Model conversion is comes built in ( Although you can customize that behavior if required ).</p><p name="051f" id="051f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">5. Smart KeyPaths: Key-Value Coding — SE-0161</strong></p><p name="237c" id="237c" class="graf graf--p graf-after--p">This is one of my favorite feature in Swift 4. You can grab root object name and drill down upto any property name to get its value.</p><p name="f64f" id="f64f" class="graf graf--p graf-after--p">Hope you like this page,Goto next chapter — <a href="https://medium.com/@nishantsamsung09/cracking-ios-interview-or-become-ios-expert-3-4130d699f52e" data-href="https://medium.com/@nishantsamsung09/cracking-ios-interview-or-become-ios-expert-3-4130d699f52e" class="markup--anchor markup--p-anchor" target="_blank">Messaging</a></p><p name="bc5d" id="bc5d" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References:-</strong></p><div name="acf0" id="acf0" class="graf graf--mixtapeEmbed graf-after--p"><a href="https://github.com/apple/swift-evolution/" data-href="https://github.com/apple/swift-evolution/" class="markup--anchor markup--mixtapeEmbed-anchor" title="https://github.com/apple/swift-evolution/"><strong class="markup--strong markup--mixtapeEmbed-strong">apple/swift-evolution</strong><br><em class="markup--em markup--mixtapeEmbed-em">swift-evolution - This maintains proposals for changes and user-visible enhancements to the Swift Programming Language.</em>github.com</a><a href="https://github.com/apple/swift-evolution/" class="js-mixtapeImage mixtapeImage u-ignoreBlock" data-media-id="e69cab9be913f1a822feb819218193ac" data-thumbnail-img-id="0*KFkRBX0_oFDYs9UP." style="background-image: url(https://cdn-images-1.medium.com/fit/c/160/160/0*KFkRBX0_oFDYs9UP.);"></a></div><div name="1419" id="1419" class="graf graf--mixtapeEmbed graf-after--mixtapeEmbed"><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205" data-href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205" class="markup--anchor markup--mixtapeEmbed-anchor" title="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"><strong class="markup--strong markup--mixtapeEmbed-strong">Using Swift with Cocoa and Objective-C (Swift 4.1): Interacting with Objective-C APIs</strong><br><em class="markup--em markup--mixtapeEmbed-em">Describes various aspects of Swift&#39;s compatibility with the Objective-C language and Cocoa/Cocoa Touch frameworks.</em>developer.apple.com</a><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205" class="js-mixtapeImage mixtapeImage mixtapeImage--empty u-ignoreBlock" data-media-id="073a5e0ff972ef7acc27bceb1a641ddd"></a></div><div name="1145" id="1145" class="graf graf--mixtapeEmbed graf-after--mixtapeEmbed graf--trailing"><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1" data-href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1" class="markup--anchor markup--mixtapeEmbed-anchor" title="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1"><strong class="markup--strong markup--mixtapeEmbed-strong">Key-Value Coding Programming Guide: About Key-Value Coding</strong><br><em class="markup--em markup--mixtapeEmbed-em">Conceptual information about how to access a Cocoa object&#39;s values using keys.</em>developer.apple.com</a><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1" class="js-mixtapeImage mixtapeImage mixtapeImage--empty u-ignoreBlock" data-media-id="2d6296e403395ad6c0f6666d65ccd0dc"></a></div></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/a9d7688004b7"><time class="dt-published" datetime="2018-05-26T03:14:04.892Z">May 26, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-2-a9d7688004b7" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">iOS interview questions 2018</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        KVC &amp; KVO , iOS interview questions, cracking iOS interview 2018,
+        iOS 2018 interview questions
+      </section>
+      <section data-field="description" class="p-summary">
+        I&#39;m going to explain the concepts behind bindings from the ground
+        up; first explaining Key-Value Coding (KVC), then Key-Value Observing
+        (KVO). Keys and key paths are frequently used for key-value…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="89b0"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="2953"
+                id="2953"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                iOS 2018 series — Cracking iOS interview or Become iOS
+                expert (2)
+              </h3>
+              <h3 name="e054" id="e054" class="graf graf--h3 graf-after--h3">
+                Chapter 2: KVC &amp; KVO
+              </h3>
+              <p name="cb53" id="cb53" class="graf graf--p graf-after--h3">
+                I’m going to explain the concepts behind bindings from the
+                ground up; first explaining Key-Value Coding (KVC), then
+                Key-Value Observing (KVO).
+              </p>
+              <p name="b7de" id="b7de" class="graf graf--p graf-after--p">
+                Keys and key paths are frequently used for
+                <em class="markup--em markup--p-em">key-value coding</em> (KVC),
+                a mechanism for indirectly accessing an object’s attributes and
+                relationships using string identifiers. Keys and key paths are
+                also used for
+                <em class="markup--em markup--p-em">key-value observing</em>
+                (KVO), a mechanism that enables an object to be notified
+                directly when a property of another object changes.
+              </p>
+              <p name="2a11" id="2a11" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Key-Value-Coding (KVC)</strong
+                >
+                means accessing a property or value using a string.
+              </p>
+              <p name="4a0a" id="4a0a" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code"
+                  >id someValue = [myObject
+                  valueForKeyPath:@&quot;foo.bar.baz&quot;];</code
+                >
+              </p>
+              <p name="9bce" id="9bce" class="graf graf--p graf-after--p">
+                Which could be the same as:
+              </p>
+              <p name="dbf7" id="dbf7" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code"
+                  >id someValue = [[[myObject foo] bar] baz];</code
+                >
+              </p>
+              <p name="0320" id="0320" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Key-Value-Observing (KVO)</strong
+                >
+                allows you to observe changes to a property or value.
+              </p>
+              <p name="a265" id="a265" class="graf graf--p graf-after--p">
+                To observe a property using KVO you would identify to property
+                with a string; i.e., using KVC. Therefore, the observable object
+                must be KVC compliant.
+              </p>
+              <p name="a436" id="a436" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code"
+                  >[myObject addObserver:self
+                  forKeyPath:@&quot;foo.bar.baz&quot; options:0
+                  context:NULL];</code
+                >
+              </p>
+              <p name="f41c" id="f41c" class="graf graf--p graf-after--p">
+                Lets dive into some details:
+              </p>
+              <p name="bfd7" id="bfd7" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Key-Value Coding (KVC)</strong
+                >
+              </p>
+              <p name="4658" id="4658" class="graf graf--p graf-after--p">
+                Actually, any property you want to observe for changes must be
+                Key-Value Coding compliant, An object is key-value coding
+                compliant when it adopts the
+                <code class="markup--code markup--p-code"
+                  >NSKeyValueCoding</code
+                >
+                protocol. An object that inherits from
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/objectivec/nsobject"
+                    data-href="https://developer.apple.com/documentation/objectivec/nsobject"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSObject</a
+                  ></code
+                >, which provides a default implementation of the protocol’s
+                essential methods, automatically adopts this protocol with
+                certain default behaviors. Lets start with an example to
+                understand it.
+              </p>
+              <p name="e08c" id="e08c" class="graf graf--p graf-after--p">
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  >@interface
+                  <strong class="markup--strong markup--p-strong"
+                    >BankAccount </strong
+                  >: NSObject</code
+                >
+              </p>
+              <p name="edea" id="edea" class="graf graf--p graf-after--p">
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  >@property (nonatomic) NSNumber*
+                  <strong class="markup--strong markup--p-strong"
+                    >currentBalance</strong
+                  >; // An attribute</code
+                >
+              </p>
+              <p name="1d36" id="1d36" class="graf graf--p graf-after--p">
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  >@property (nonatomic) Person*
+                  <strong class="markup--strong markup--p-strong">owner</strong
+                  >; // A to-one relation</code
+                >
+              </p>
+              <p name="8d96" id="8d96" class="graf graf--p graf-after--p">
+                <code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  >@property (nonatomic) NSArray&lt; Transaction* &gt;*
+                  <strong class="markup--strong markup--p-strong"
+                    >transactions</strong
+                  >; // A to-many relation</code
+                >
+              </p>
+              <p name="c6c0" id="c6c0" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">@end</code>
+              </p>
+              <p name="f91e" id="f91e" class="graf graf--p graf-after--p">
+                In order to maintain encapsulation, an object typically provides
+                accessor methods for the properties on its interface. The
+                object’s author may write these methods explicitly or may rely
+                on the compiler to synthesize them automatically. Either way,
+                the author of code using one of these accessors must write the
+                property name into the code before compiling it. The name of the
+                accessor method becomes a static part of the code that is using
+                it. For example, given the bank account object declared above,
+                the compiler synthesizes a setter that you can invoke for the
+                <code class="markup--code markup--p-code">myAccount</code>
+                instance:
+              </p>
+              <p name="7b65" id="7b65" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >[myAccount setCurrentBalance:@(100.0)]; //NORMAL</strong
+                >
+              </p>
+              <p name="d3b5" id="d3b5" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >[myAccount setValue:@(100.0) forKey:@”currentBalance”];
+                  //KVC</strong
+                >
+              </p>
+              <p name="597d" id="597d" class="graf graf--p graf-after--p">
+                This is direct, but lacks flexibility. A key-value coding
+                compliant object, on the other hand, offers a more general
+                mechanism to access an object’s properties using string
+                identifiers.
+              </p>
+              <h3 name="4d2e" id="4d2e" class="graf graf--h3 graf-after--p">
+                Keys
+              </h3>
+              <p name="54a0" id="54a0" class="graf graf--p graf-after--h3">
+                A <em class="markup--em markup--p-em">key</em> is a string that
+                identifies a specific property.
+              </p>
+              <p name="e522" id="e522" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code">BankAccount</code>
+                class is key-value coding compliant, it recognizes the keys
+                <code class="markup--code markup--p-code">owner</code>,
+                <code class="markup--code markup--p-code">currentBalance</code>,
+                and
+                <code class="markup--code markup--p-code">transactions</code>,
+                which are the names of its properties. Instead of calling the
+                <code class="markup--code markup--p-code"
+                  >setCurrentBalance:</code
+                >
+                method, you can set the value by its key:
+              </p>
+              <p name="86cd" id="86cd" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >[myAccount setValue:@(100.0)
+                  forKey:@”currentBalance”];</strong
+                >
+              </p>
+              <p name="1519" id="1519" class="graf graf--p graf-after--p">
+                In fact, you can set all the properties of the
+                <code class="markup--code markup--p-code">myAccount</code>
+                object with the same method, using different key parameters.
+              </p>
+              <h3 name="f843" id="f843" class="graf graf--h3 graf-after--p">
+                Key Paths
+              </h3>
+              <p name="b8a3" id="b8a3" class="graf graf--p graf-after--h3">
+                A <em class="markup--em markup--p-em">key path</em> is a string
+                of dot-separated keys used to specify a sequence of object
+                properties to traverse. For example, the key path
+                <code class="markup--code markup--p-code"
+                  >owner.address.street</code
+                >
+                applied to a bank account instance refers to the value of the
+                street string that is stored in the address of the bank
+                account’s owner, assuming the
+                <code class="markup--code markup--p-code">Person</code> and
+                <code class="markup--code markup--p-code">Address</code> classes
+                are also key-value coding compliant.
+              </p>
+              <h3 name="95dd" id="95dd" class="graf graf--h3 graf-after--p">
+                <strong class="markup--strong markup--h3-strong"
+                  >In Swift,</strong
+                >
+                you can use a key-path expression to create key paths for
+                accessing properties.
+              </h3>
+              <p name="3c32" id="3c32" class="graf graf--p graf-after--h3">
+                let balanceAccessor = \<code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >BankAccount.</strong
+                  ></code
+                >currentBalance
+              </p>
+              <p name="5c9f" id="5c9f" class="graf graf--p graf-after--p">
+                myAccount.value(forKeyPath:balanceAccessor)
+                <strong class="markup--strong markup--p-strong"
+                  >//Type 1</strong
+                >
+              </p>
+              <p name="54c2" id="54c2" class="graf graf--p graf-after--p">
+                myAccount.value(forKeyPath: #keyPath(<code
+                  class="markup--code markup--p-code u-paddingRight0 u-marginRight0"
+                  ><strong class="markup--strong markup--p-strong"
+                    >BankAccount.</strong
+                  >currentBalance</code
+                >)<strong class="markup--strong markup--p-strong"
+                  >//Type 2</strong
+                >
+              </p>
+              <p name="6513" id="6513" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note: </strong
+                >In Swift, instead of using a string to indicate a key or key
+                path, you can use a
+                <code class="markup--code markup--p-code">#keyPath</code>
+                expression. This offers the advantage of a compile time check,
+                as described in the
+                <a
+                  href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"
+                  data-href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Keys and Key Paths</a
+                >
+              </p>
+              <h3 name="c8e9" id="c8e9" class="graf graf--h3 graf-after--p">
+                Key-Value Observing (KVO)
+              </h3>
+              <p name="da64" id="da64" class="graf graf--p graf-after--h3">
+                <a
+                  href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html"
+                  data-href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Key-Value Observing (KVO)</a
+                >
+                is built on top of KVC. It allows you to observe (i.e. watch) a
+                KVC key path on an object to see when the value changes. For
+                example, let’s write some code that watches to see if a person’s
+                address changes. There are three methods of interest in the
+                following code:
+              </p>
+              <ul class="postList">
+                <li name="8261" id="8261" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code"
+                    >watchPersonForChangeOfAddress:</code
+                  >
+                  begins the observing<br /><strong
+                    class="markup--strong markup--li-strong"
+                    >//this begins the observing </strong
+                  ><br />
+                  [p addObserver:self forKeyPath:@”address” options:0
+                  context:KVO_CONTEXT_ADDRESS_CHANGED];
+                </li>
+                <li name="7d10" id="7d10" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >observeValueForKeyPath:ofObject:change:context:</code
+                  >
+                  is called every time there is a change in the value of the
+                  observed key path<br /><strong
+                    class="markup--strong markup--li-strong"
+                    >//whenever an observed key path changes, this method will
+                    be called —</strong
+                  >
+                  (void)observeValueForKeyPath:(NSString *)keyPath
+                  ofObject:(id)object change:(NSDictionary *)change
+                  context:(void *)context; {<br />}
+                </li>
+                <li name="ec27" id="ec27" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">dealloc</code>
+                  stops the observing<br />//must stop observing everything
+                  before this object is //deallocated, otherwise it will cause
+                  crashes<br />[p removeObserver:self forKeyPath:@”address”]
+                </li>
+              </ul>
+              <p name="a8dc" id="a8dc" class="graf graf--p graf-after--li">
+                To be observable, it has to inherit from
+                <code class="markup--code markup--p-code">NSObject</code> and it
+                has to have
+                <strong class="markup--strong markup--p-strong">dynamic</strong>
+                properties. Being
+                <strong class="markup--strong markup--p-strong">dynamic</strong>
+                means that a property can be dynamically dispatched at runtime.
+              </p>
+              <p name="8855" id="8855" class="graf graf--p graf-after--p">
+                I have attached KVO demo video for reference, let’s say I have a
+                <code class="markup--code markup--p-code">WKWebView </code
+                >object and that I want to observe one of its properties,
+                <em class="markup--em markup--p-em">estimatedProgress.</em>
+              </p>
+              <figure
+                name="8730"
+                id="8730"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <iframe
+                  src="https://www.youtube.com/embed/R15_MwMp6kE?feature=oembed"
+                  width="700"
+                  height="393"
+                  frameborder="0"
+                  scrolling="no"
+                ></iframe>
+              </figure>
+              <h3
+                name="9a2a"
+                id="9a2a"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >Bonus time: </strong
+                >What’s new in Swift 4
+              </h3>
+              <p name="8193" id="8193" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >1. String will be treated as collection- SE-0163</strong
+                >
+              </p>
+              <pre
+                name="aa40"
+                id="aa40"
+                class="graf graf--pre graf-after--p"
+              >let message = &quot;Message!&quot;<br>message.count // no need of message.characters.count</pre>
+              <pre
+                name="afb4"
+                id="afb4"
+                class="graf graf--pre graf-after--pre"
+              >for character in message {  // no need of message.characters<br>    print(character)<br>}</pre>
+              <p name="6e9f" id="6e9f" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >2. MutableCollection.swapAt-SE-0173</strong
+                >
+              </p>
+              <p name="dc08" id="dc08" class="graf graf--p graf-after--p">
+                New swap function now takes indices of elements which are to be
+                swapped.
+              </p>
+              <pre
+                name="31e9"
+                id="31e9"
+                class="graf graf--pre graf-after--p"
+              >var names = [“Vipul”,”Vinay”,”Vishal”,”Akshay”]<br>names.swapAt(2,3)</pre>
+              <p name="2e36" id="2e36" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >3. Dictionary and Set enhancements — SE-0165<br /></strong
+                >a. Now you can create a dictionary using array elements.
+              </p>
+              <p name="ac07" id="ac07" class="graf graf--p graf-after--p">
+                b. Provide default value if value for key does not exist. In
+                following statement if there is no value for key 10 found then
+                it will print default value.
+              </p>
+              <pre name="ade0" id="ade0" class="graf graf--pre graf-after--p">
+print(friendsDictionary[10, default: “No Friends Exist yet!”])</pre
+              >
+              <p name="a63a" id="a63a" class="graf graf--p graf-after--pre">
+                c. Partition array in different buckets
+              </p>
+              <pre name="d086" id="d086" class="graf graf--pre graf-after--p">
+let mates = [“Akshay”, “Anil”, “Vishal”, “Vinay”, “Ankit”]</pre
+              >
+              <pre name="f766" id="f766" class="graf graf--pre graf-after--pre">
+let buckets = Dictionary(grouping: mates, by: { $0.first! })</pre
+              >
+              <p name="80d1" id="80d1" class="graf graf--p graf-after--pre">
+                4.
+                <strong class="markup--strong markup--p-strong"
+                  >Swift Archival &amp; Serialization — SE-0166</strong
+                >
+              </p>
+              <p name="cf9e" id="cf9e" class="graf graf--p graf-after--p">
+                Good News! Swift 4 comes with built in encoders and decoders for
+                JSON. JSON &lt;-&gt; Model conversion is comes built in (
+                Although you can customize that behavior if required ).
+              </p>
+              <p name="051f" id="051f" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >5. Smart KeyPaths: Key-Value Coding — SE-0161</strong
+                >
+              </p>
+              <p name="237c" id="237c" class="graf graf--p graf-after--p">
+                This is one of my favorite feature in Swift 4. You can grab root
+                object name and drill down upto any property name to get its
+                value.
+              </p>
+              <!-- <p name="f64f" id="f64f" class="graf graf--p graf-after--p">
+                Hope you like this page,Goto next chapter —
+                <a
+                  href="https://medium.com/@nishantsamsung09/cracking-ios-interview-or-become-ios-expert-3-4130d699f52e"
+                  data-href="https://medium.com/@nishantsamsung09/cracking-ios-interview-or-become-ios-expert-3-4130d699f52e"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >Messaging</a
+                >
+              </p> -->
+              <p name="bc5d" id="bc5d" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >References:-</strong
+                >
+              </p>
+              <div
+                name="acf0"
+                id="acf0"
+                class="graf graf--mixtapeEmbed graf-after--p"
+              >
+                <a
+                  href="https://github.com/apple/swift-evolution/"
+                  data-href="https://github.com/apple/swift-evolution/"
+                  class="markup--anchor markup--mixtapeEmbed-anchor"
+                  title="https://github.com/apple/swift-evolution/"
+                  ><strong class="markup--strong markup--mixtapeEmbed-strong"
+                    >apple/swift-evolution</strong
+                  ><br /><em class="markup--em markup--mixtapeEmbed-em"
+                    >swift-evolution - This maintains proposals for changes and
+                    user-visible enhancements to the Swift Programming
+                    Language.</em
+                  >github.com</a
+                ><a
+                  href="https://github.com/apple/swift-evolution/"
+                  class="js-mixtapeImage mixtapeImage u-ignoreBlock"
+                  data-media-id="e69cab9be913f1a822feb819218193ac"
+                  data-thumbnail-img-id="0*KFkRBX0_oFDYs9UP."
+                  style="background-image: url(https://cdn-images-1.medium.com/fit/c/160/160/0*KFkRBX0_oFDYs9UP.);"
+                ></a>
+              </div>
+              <div
+                name="1419"
+                id="1419"
+                class="graf graf--mixtapeEmbed graf-after--mixtapeEmbed"
+              >
+                <a
+                  href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"
+                  data-href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"
+                  class="markup--anchor markup--mixtapeEmbed-anchor"
+                  title="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"
+                  ><strong class="markup--strong markup--mixtapeEmbed-strong"
+                    >Using Swift with Cocoa and Objective-C (Swift 4.1):
+                    Interacting with Objective-C APIs</strong
+                  ><br /><em class="markup--em markup--mixtapeEmbed-em"
+                    >Describes various aspects of Swift&#39;s compatibility with
+                    the Objective-C language and Cocoa/Cocoa Touch
+                    frameworks.</em
+                  >developer.apple.com</a
+                ><a
+                  href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID205"
+                  class="js-mixtapeImage mixtapeImage mixtapeImage--empty u-ignoreBlock"
+                  data-media-id="073a5e0ff972ef7acc27bceb1a641ddd"
+                ></a>
+              </div>
+              <div
+                name="1145"
+                id="1145"
+                class="graf graf--mixtapeEmbed graf-after--mixtapeEmbed graf--trailing"
+              >
+                <a
+                  href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1"
+                  data-href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1"
+                  class="markup--anchor markup--mixtapeEmbed-anchor"
+                  title="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1"
+                  ><strong class="markup--strong markup--mixtapeEmbed-strong"
+                    >Key-Value Coding Programming Guide: About Key-Value
+                    Coding</strong
+                  ><br /><em class="markup--em markup--mixtapeEmbed-em"
+                    >Conceptual information about how to access a Cocoa
+                    object&#39;s values using keys.</em
+                  >developer.apple.com</a
+                ><a
+                  href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1"
+                  class="js-mixtapeImage mixtapeImage mixtapeImage--empty u-ignoreBlock"
+                  data-media-id="2d6296e403395ad6c0f6666d65ccd0dc"
+                ></a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/a9d7688004b7"
+            ><time class="dt-published" datetime="2018-05-26T03:14:04.892Z"
+              >May 26, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/ios-2018-series-cracking-ios-interview-or-become-ios-expert-2-a9d7688004b7"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

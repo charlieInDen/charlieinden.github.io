@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Design Patterns on iOS</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Design Patterns on iOS</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,647 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Design Patterns on iOS</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Adapter, Chain of responsibility, Decorator, Facade, iOS design patterns, iOS Architecture Patterns, Cocoa Design Patterns, iOS pattern
-</section>
-<section data-field="description" class="p-summary">
-In this article, i am going to cover four design patterns which you can relate with your current project and its easy to understand with examples like how cocoa adapts those patterns. Let’s start…
-</section>
-<section data-field="body" class="e-content">
-<section name="4313" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="1d57" id="1d57" class="graf graf--h3 graf--leading graf--title">Design Patterns iOS</h3><p name="3d07" id="3d07" class="graf graf--p graf-after--h3">Adapter, Chain of responsibility, Decorator, Facade</p><p name="3120" id="3120" class="graf graf--p graf-after--p">In this article, i am going to cover four design patterns which you can relate with your current project and its easy to understand with examples like how cocoa adapts those patterns. Let’s start with adapter..</p><h3 name="1096" id="1096" class="graf graf--h3 graf-after--p">1. Adapter</h3><p name="8ffe" id="8ffe" class="graf graf--p graf-after--h3">The Adapter design pattern converts the interface of a class into another interface that clients expect. Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces. It decouples the client from the class of the targeted object.</p><figure name="276c" id="276c" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*26pRExAuVva5UPs1T-grmA.jpeg" data-width="309" data-height="163" src="https://cdn-images-1.medium.com/max/800/1*26pRExAuVva5UPs1T-grmA.jpeg"></figure><h4 name="7497" id="7497" class="graf graf--h4 graf-after--figure">How Cocoa adapts Adapter Design Patterns?</h4><h4 name="cec8" id="cec8" class="graf graf--h4 graf-after--h4">Protocols</h4><p name="2524" id="2524" class="graf graf--p graf-after--h4">A protocol is a language-level (Objective-C) feature that makes it possible to define interfaces that are instances of the Adapter pattern. A protocol is essentially a series of method declarations unassociated with a class. (In Java, <em class="markup--em markup--p-em">interface</em> is synonymous with <em class="markup--em markup--p-em">protocol</em>.) If you want a client object to communicate with another object, but the objects’ incompatible interfaces make that difficult, you can define a protocol. The class of the other object then formally adopts the protocol and “conforms” to it by implementing one or more of the methods of the protocol. The protocol may require the conforming class to implement some of its methods and may leave the implementation of others optional. The client object can then send messages to the other object through the protocol interface.</p><p name="b43f" id="b43f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note: </strong>Design of protocols does not perfectly match the description of the Adapter pattern. But it achieves the goal of the pattern: allowing classes with otherwise incompatible interfaces to work together.</p><h4 name="17d2" id="17d2" class="graf graf--h4 graf-after--p">Uses and Limitations</h4><p name="ad89" id="ad89" class="graf graf--p graf-after--h4">For example, the Foundation framework includes the <code class="markup--code markup--p-code"><a href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSObject/Description.html#//apple_ref/occ/intf/NSObject" data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSObject/Description.html#//apple_ref/occ/intf/NSObject" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSObject</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCopying/Description.html#//apple_ref/occ/intf/NSCopying" data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCopying/Description.html#//apple_ref/occ/intf/NSCopying" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSCopying</a></code>, and <code class="markup--code markup--p-code"><a href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCoding/Description.html#//apple_ref/occ/intf/NSCoding" data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCoding/Description.html#//apple_ref/occ/intf/NSCoding" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSCoding</a></code> protocols, which are all very important ones. AppKit protocols include <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsdragginginfo" data-href="https://developer.apple.com/documentation/appkit/nsdragginginfo" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSDraggingInfo</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nstextinput" data-href="https://developer.apple.com/documentation/appkit/nstextinput" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSTextInput</a></code>, and <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nschangespelling" data-href="https://developer.apple.com/documentation/appkit/nschangespelling" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSChangeSpelling</a></code>. UIKit protocols include <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uitextinputtraits" data-href="https://developer.apple.com/documentation/uikit/uitextinputtraits" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UITextInputTraits</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uiwebviewdelegate" data-href="https://developer.apple.com/documentation/uikit/uiwebviewdelegate" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UIWebViewDelegate</a></code>, and <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uitableviewdatasource" data-href="https://developer.apple.com/documentation/uikit/uitableviewdatasource" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UITableViewDataSource</a></code>.</p><h3 name="9730" id="9730" class="graf graf--h3 graf-after--p">2. Chain of Responsibility</h3><p name="15ad" id="15ad" class="graf graf--p graf-after--h3">The Chain of Responsibility design pattern decouples the sender of a request from its receiver by giving more than one object a chance to handle the request. The pattern chains the receiving objects together and passes the request along the chain until an object handles it. Each object in the chain either handles the request or passes it to the next object in the chain.</p><figure name="61b9" id="61b9" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*thZ3jPRF_4CwYly7FqKHpg.jpeg" data-width="938" data-height="272" src="https://cdn-images-1.medium.com/max/800/1*thZ3jPRF_4CwYly7FqKHpg.jpeg"></figure><h4 name="8dd8" id="8dd8" class="graf graf--h4 graf-after--figure">How Cocoa adapts Chain of Responsibility Design Patterns?</h4><h4 name="d9db" id="d9db" class="graf graf--h4 graf-after--h4">Responder Chain</h4><p name="24b5" id="24b5" class="graf graf--p graf-after--h4">The application frameworks include an architecture known as the responder chain. This chain consists of a series of responder objects (that is, objects inheriting from <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsresponder" data-href="https://developer.apple.com/documentation/appkit/nsresponder" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSResponder</a></code> or, in UIKit, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uiresponder" data-href="https://developer.apple.com/documentation/uikit/uiresponder" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UIResponder</a></code>) along which an event (for example, a mouse click) or action message is passed and (usually) eventually handled. If a given responder object doesn’t handle a particular message, it passes the message to the next responder in the chain. The order of responder objects in the chain is generally determined by the view hierarchy, with the progression from lower-level to higher-level responders in the hierarchy, culminating in the window object that manages the view hierarchy, the delegate of the window object, or the global application object. The paths of events and action messages up the responder chain is different. An application can have as many responder chains as it has windows (or even local hierarchies of views); but only one responder chain can be active at a time—the one associated with the currently active window.</p><p name="39d0" id="39d0" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note: </strong>The design of the view hierarchy, which is closely related to the responder chain, adapts the Composite pattern.</p><figure name="15c7" id="15c7" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*BMokk_-OD6SotCsTMstjFQ.png" data-width="453" data-height="438" src="https://cdn-images-1.medium.com/max/800/1*BMokk_-OD6SotCsTMstjFQ.png"><figcaption class="imageCaption">Chain of responsibility example</figcaption></figure><p name="45ce" id="45ce" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Uses and Limitations</strong></p><p name="8949" id="8949" class="graf graf--p graf-after--p">When you construct a user interface for a program either by using Interface Builder or programmatically, you get one or more responder chains “for free.” The responder chain goes hand in hand with a view hierarchy, which you get automatically when you make a view object a subview of a window’s content view. If you have a custom view added to a view hierarchy, it becomes part of the responder chain. If you implement the appropriate <code class="markup--code markup--p-code">NSResponder</code> or <code class="markup--code markup--p-code">UIResponder</code> methods, you can receive and handle events and action messages. A custom object that is a delegate of a window object or the global application object (<code class="markup--code markup--p-code">NSApp</code> in AppKit) can also receive and handle those messages.</p><h3 name="8bb0" id="8bb0" class="graf graf--h3 graf-after--p">3. Decorator</h3><p name="1f8f" id="1f8f" class="graf graf--p graf-after--h3">The Decorator design pattern attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality. As does subclassing, adaptation of the Decorator pattern allows you to incorporate new behavior without modifying existing code. Decorators wrap an object of the class whose behavior they extend. They implement the same interface as the object they wrap and add their own behavior either before or after delegating a task to the wrapped object. The Decorator pattern expresses the design principle that classes should be open to extension but closed to modification.</p><figure name="8611" id="8611" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*fKHkXJnHIpyQvlmJNoKqUQ.png" data-width="529" data-height="170" src="https://cdn-images-1.medium.com/max/800/1*fKHkXJnHIpyQvlmJNoKqUQ.png"></figure><h4 name="2b42" id="2b42" class="graf graf--h4 graf-after--figure">How Cocoa adapts Decorator Design Patterns?</h4><h4 name="4af8" id="4af8" class="graf graf--h4 graf-after--h4">Delegation</h4><p name="fccb" id="fccb" class="graf graf--p graf-after--h4">Delegation is a mechanism by which a host object embeds a weak reference (weak in the sense that it’s a simple pointer reference, unretained) to another object — its delegate — and periodically sends messages to the delegate when it requires its input for a task. The host object is generally an “off-the-shelf” framework object (such as an <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nswindow" data-href="https://developer.apple.com/documentation/appkit/nswindow" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSWindow</a></code> or <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/foundation/xmlparser" data-href="https://developer.apple.com/documentation/foundation/xmlparser" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSXMLParser</a></code> object) that is seeking to accomplish something, but can only do so in a generic fashion. The delegate, which is almost always an instance of a custom class, acts in coordination with the host object, supplying program-specific behavior at certain points in the task (see Figure 1). Thus delegation makes it possible to modify or extend the behavior of another object without the need for subclassing.</p><figure name="078e" id="078e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*VEPBw-XqyP3UEXIEHKwSSA.gif" data-width="390" data-height="159" src="https://cdn-images-1.medium.com/max/800/1*VEPBw-XqyP3UEXIEHKwSSA.gif"><figcaption class="imageCaption"><strong class="markup--strong markup--figure-strong">Figure 1 </strong>Framework object sending a message to its delegate</figcaption></figure><p name="3cd1" id="3cd1" class="graf graf--p graf-after--figure">Cocoa uses the Decorator pattern in the implementation of several of its classes, including <code class="markup--code markup--p-code"><a href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSAttributedString" data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSAttributedString" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSAttributedString</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsscrollview" data-href="https://developer.apple.com/documentation/appkit/nsscrollview" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSScrollView</a></code>, and <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uidatepicker" data-href="https://developer.apple.com/documentation/uikit/uidatepicker" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UIDatePicker</a></code>. The latter two classes are examples of compound views, which group together simple objects of other view classes and coordinate their interaction.</p><p name="7e07" id="7e07" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Uses and Limitations</strong></p><p name="4440" id="4440" class="graf graf--p graf-after--p">Delegation is a common design in the Cocoa frameworks. Many classes in the AppKit and UIKit frameworks send messages to delegates, including <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsapplication" data-href="https://developer.apple.com/documentation/appkit/nsapplication" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSApplication</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uiapplication" data-href="https://developer.apple.com/documentation/uikit/uiapplication" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UIApplication</a></code>, <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/uikit/uitableview" data-href="https://developer.apple.com/documentation/uikit/uitableview" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">UITableView</a></code>, and several subclasses of <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsview" data-href="https://developer.apple.com/documentation/appkit/nsview" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSView</a></code>. Some classes in the Foundation framework, such as <code class="markup--code markup--p-code">NSXMLParser</code> and <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/foundation/stream" data-href="https://developer.apple.com/documentation/foundation/stream" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSStream</a></code>, also maintain delegates. You should always use a class’s delegation mechanism instead of subclassing the class, unless the delegation methods do not allow you to accomplish your goal.</p><p name="ea73" id="ea73" class="graf graf--p graf-after--p">Although you can dynamically change the delegate, only one object can be a delegate at a time. Thus if you want multiple objects to be informed of a particular program event at the same time, you cannot use delegation.</p><h3 name="78ae" id="78ae" class="graf graf--h3 graf-after--p">4. Facade</h3><p name="d52d" id="d52d" class="graf graf--p graf-after--h3">The Facade design pattern provides a unified interface to a set of interfaces in a subsystem. The pattern defines a higher-level interface that makes the subsystem easier to use by reducing complexity and hiding the communication and dependencies between subsystems.</p><figure name="5e26" id="5e26" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*jzRlLLQDa0T_RC-fFNMQaw.jpeg" data-width="825" data-height="288" src="https://cdn-images-1.medium.com/max/800/1*jzRlLLQDa0T_RC-fFNMQaw.jpeg"></figure><h4 name="99d5" id="99d5" class="graf graf--h4 graf-after--figure">How Cocoa adapts Facade Design Patterns?</h4><h4 name="4e0e" id="4e0e" class="graf graf--h4 graf-after--h4">NSImage</h4><p name="811b" id="811b" class="graf graf--p graf-after--h4">The <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsimage" data-href="https://developer.apple.com/documentation/appkit/nsimage" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSImage</a></code> class of the AppKit framework provides a unified interface for loading and using images that can be bitmap-based (such as those in JPEG, PNG, or TIFF format) or vector-based (such as those in EPS or PDF format). <code class="markup--code markup--p-code">NSImage</code> can keep more than one representation of the same image; each representation is a kind of <code class="markup--code markup--p-code"><a href="https://developer.apple.com/documentation/appkit/nsimagerep" data-href="https://developer.apple.com/documentation/appkit/nsimagerep" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">NSImageRep</a></code> object. <code class="markup--code markup--p-code">NSImage</code> automates the choice of the representation that is appropriate for a particular type of data and for a given display device. It also hides the details of image manipulation and selection so that the client can use many different underlying representations interchangeably.</p><p name="370a" id="370a" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Uses and Limitations</strong></p><p name="4aea" id="4aea" class="graf graf--p graf-after--p">Because <code class="markup--code markup--p-code">NSImage</code> supports several different representations of what an image is, some requested attributes might not apply. For example, asking an image for the color of a pixel does not work if the underlying image representation is vector-based and device-independent.</p><h3 name="522a" id="522a" class="graf graf--h3 graf-after--p graf--trailing">Hope you like it , Go to <a href="https://medium.com/ios-expert-series-or-interview-series" data-href="https://medium.com/ios-expert-series-or-interview-series" class="markup--anchor markup--h3-anchor" target="_blank">iOS interview questions 2018 series</a></h3></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/7523230f3d31"><time class="dt-published" datetime="2018-09-05T06:27:47.199Z">September 5, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/design-patterns-on-ios-7523230f3d31" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Design Patterns on iOS</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Adapter, Chain of responsibility, Decorator, Facade, iOS design
+        patterns, iOS Architecture Patterns, Cocoa Design Patterns, iOS pattern
+      </section>
+      <section data-field="description" class="p-summary">
+        In this article, i am going to cover four design patterns which you can
+        relate with your current project and its easy to understand with
+        examples like how cocoa adapts those patterns. Let’s start…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="4313"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="1d57"
+                id="1d57"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Design Patterns iOS
+              </h3>
+              <p name="3d07" id="3d07" class="graf graf--p graf-after--h3">
+                Adapter, Chain of responsibility, Decorator, Facade
+              </p>
+              <p name="3120" id="3120" class="graf graf--p graf-after--p">
+                In this article, i am going to cover four design patterns which
+                you can relate with your current project and its easy to
+                understand with examples like how cocoa adapts those patterns.
+                Let’s start with adapter..
+              </p>
+              <h3 name="1096" id="1096" class="graf graf--h3 graf-after--p">
+                1. Adapter
+              </h3>
+              <p name="8ffe" id="8ffe" class="graf graf--p graf-after--h3">
+                The Adapter design pattern converts the interface of a class
+                into another interface that clients expect. Adapter lets classes
+                work together that couldn’t otherwise because of incompatible
+                interfaces. It decouples the client from the class of the
+                targeted object.
+              </p>
+              <figure
+                name="276c"
+                id="276c"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*26pRExAuVva5UPs1T-grmA.jpeg"
+                  data-width="309"
+                  data-height="163"
+                  src="https://cdn-images-1.medium.com/max/800/1*26pRExAuVva5UPs1T-grmA.jpeg"
+                />
+              </figure>
+              <h4
+                name="7497"
+                id="7497"
+                class="graf graf--h4 graf-after--figure"
+              >
+                How Cocoa adapts Adapter Design Patterns?
+              </h4>
+              <h4 name="cec8" id="cec8" class="graf graf--h4 graf-after--h4">
+                Protocols
+              </h4>
+              <p name="2524" id="2524" class="graf graf--p graf-after--h4">
+                A protocol is a language-level (Objective-C) feature that makes
+                it possible to define interfaces that are instances of the
+                Adapter pattern. A protocol is essentially a series of method
+                declarations unassociated with a class. (In Java,
+                <em class="markup--em markup--p-em">interface</em> is synonymous
+                with <em class="markup--em markup--p-em">protocol</em>.) If you
+                want a client object to communicate with another object, but the
+                objects’ incompatible interfaces make that difficult, you can
+                define a protocol. The class of the other object then formally
+                adopts the protocol and “conforms” to it by implementing one or
+                more of the methods of the protocol. The protocol may require
+                the conforming class to implement some of its methods and may
+                leave the implementation of others optional. The client object
+                can then send messages to the other object through the protocol
+                interface.
+              </p>
+              <p name="b43f" id="b43f" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note: </strong
+                >Design of protocols does not perfectly match the description of
+                the Adapter pattern. But it achieves the goal of the pattern:
+                allowing classes with otherwise incompatible interfaces to work
+                together.
+              </p>
+              <h4 name="17d2" id="17d2" class="graf graf--h4 graf-after--p">
+                Uses and Limitations
+              </h4>
+              <p name="ad89" id="ad89" class="graf graf--p graf-after--h4">
+                For example, the Foundation framework includes the
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSObject/Description.html#//apple_ref/occ/intf/NSObject"
+                    data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSObject/Description.html#//apple_ref/occ/intf/NSObject"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSObject</a
+                  ></code
+                >,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCopying/Description.html#//apple_ref/occ/intf/NSCopying"
+                    data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCopying/Description.html#//apple_ref/occ/intf/NSCopying"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSCopying</a
+                  ></code
+                >, and
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCoding/Description.html#//apple_ref/occ/intf/NSCoding"
+                    data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Protocols/NSCoding/Description.html#//apple_ref/occ/intf/NSCoding"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSCoding</a
+                  ></code
+                >
+                protocols, which are all very important ones. AppKit protocols
+                include
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsdragginginfo"
+                    data-href="https://developer.apple.com/documentation/appkit/nsdragginginfo"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSDraggingInfo</a
+                  ></code
+                >,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nstextinput"
+                    data-href="https://developer.apple.com/documentation/appkit/nstextinput"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSTextInput</a
+                  ></code
+                >, and
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nschangespelling"
+                    data-href="https://developer.apple.com/documentation/appkit/nschangespelling"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSChangeSpelling</a
+                  ></code
+                >. UIKit protocols include
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uitextinputtraits"
+                    data-href="https://developer.apple.com/documentation/uikit/uitextinputtraits"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UITextInputTraits</a
+                  ></code
+                >,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uiwebviewdelegate"
+                    data-href="https://developer.apple.com/documentation/uikit/uiwebviewdelegate"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UIWebViewDelegate</a
+                  ></code
+                >, and
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uitableviewdatasource"
+                    data-href="https://developer.apple.com/documentation/uikit/uitableviewdatasource"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UITableViewDataSource</a
+                  ></code
+                >.
+              </p>
+              <h3 name="9730" id="9730" class="graf graf--h3 graf-after--p">
+                2. Chain of Responsibility
+              </h3>
+              <p name="15ad" id="15ad" class="graf graf--p graf-after--h3">
+                The Chain of Responsibility design pattern decouples the sender
+                of a request from its receiver by giving more than one object a
+                chance to handle the request. The pattern chains the receiving
+                objects together and passes the request along the chain until an
+                object handles it. Each object in the chain either handles the
+                request or passes it to the next object in the chain.
+              </p>
+              <figure
+                name="61b9"
+                id="61b9"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*thZ3jPRF_4CwYly7FqKHpg.jpeg"
+                  data-width="938"
+                  data-height="272"
+                  src="https://cdn-images-1.medium.com/max/800/1*thZ3jPRF_4CwYly7FqKHpg.jpeg"
+                />
+              </figure>
+              <h4
+                name="8dd8"
+                id="8dd8"
+                class="graf graf--h4 graf-after--figure"
+              >
+                How Cocoa adapts Chain of Responsibility Design Patterns?
+              </h4>
+              <h4 name="d9db" id="d9db" class="graf graf--h4 graf-after--h4">
+                Responder Chain
+              </h4>
+              <p name="24b5" id="24b5" class="graf graf--p graf-after--h4">
+                The application frameworks include an architecture known as the
+                responder chain. This chain consists of a series of responder
+                objects (that is, objects inheriting from
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsresponder"
+                    data-href="https://developer.apple.com/documentation/appkit/nsresponder"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSResponder</a
+                  ></code
+                >
+                or, in UIKit,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uiresponder"
+                    data-href="https://developer.apple.com/documentation/uikit/uiresponder"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UIResponder</a
+                  ></code
+                >) along which an event (for example, a mouse click) or action
+                message is passed and (usually) eventually handled. If a given
+                responder object doesn’t handle a particular message, it passes
+                the message to the next responder in the chain. The order of
+                responder objects in the chain is generally determined by the
+                view hierarchy, with the progression from lower-level to
+                higher-level responders in the hierarchy, culminating in the
+                window object that manages the view hierarchy, the delegate of
+                the window object, or the global application object. The paths
+                of events and action messages up the responder chain is
+                different. An application can have as many responder chains as
+                it has windows (or even local hierarchies of views); but only
+                one responder chain can be active at a time—the one associated
+                with the currently active window.
+              </p>
+              <p name="39d0" id="39d0" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note: </strong
+                >The design of the view hierarchy, which is closely related to
+                the responder chain, adapts the Composite pattern.
+              </p>
+              <figure
+                name="15c7"
+                id="15c7"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*BMokk_-OD6SotCsTMstjFQ.png"
+                  data-width="453"
+                  data-height="438"
+                  src="https://cdn-images-1.medium.com/max/800/1*BMokk_-OD6SotCsTMstjFQ.png"
+                />
+                <figcaption class="imageCaption">
+                  Chain of responsibility example
+                </figcaption>
+              </figure>
+              <p name="45ce" id="45ce" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Uses and Limitations</strong
+                >
+              </p>
+              <p name="8949" id="8949" class="graf graf--p graf-after--p">
+                When you construct a user interface for a program either by
+                using Interface Builder or programmatically, you get one or more
+                responder chains “for free.” The responder chain goes hand in
+                hand with a view hierarchy, which you get automatically when you
+                make a view object a subview of a window’s content view. If you
+                have a custom view added to a view hierarchy, it becomes part of
+                the responder chain. If you implement the appropriate
+                <code class="markup--code markup--p-code">NSResponder</code> or
+                <code class="markup--code markup--p-code">UIResponder</code>
+                methods, you can receive and handle events and action messages.
+                A custom object that is a delegate of a window object or the
+                global application object (<code
+                  class="markup--code markup--p-code"
+                  >NSApp</code
+                >
+                in AppKit) can also receive and handle those messages.
+              </p>
+              <h3 name="8bb0" id="8bb0" class="graf graf--h3 graf-after--p">
+                3. Decorator
+              </h3>
+              <p name="1f8f" id="1f8f" class="graf graf--p graf-after--h3">
+                The Decorator design pattern attaches additional
+                responsibilities to an object dynamically. Decorators provide a
+                flexible alternative to subclassing for extending functionality.
+                As does subclassing, adaptation of the Decorator pattern allows
+                you to incorporate new behavior without modifying existing code.
+                Decorators wrap an object of the class whose behavior they
+                extend. They implement the same interface as the object they
+                wrap and add their own behavior either before or after
+                delegating a task to the wrapped object. The Decorator pattern
+                expresses the design principle that classes should be open to
+                extension but closed to modification.
+              </p>
+              <figure
+                name="8611"
+                id="8611"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*fKHkXJnHIpyQvlmJNoKqUQ.png"
+                  data-width="529"
+                  data-height="170"
+                  src="https://cdn-images-1.medium.com/max/800/1*fKHkXJnHIpyQvlmJNoKqUQ.png"
+                />
+              </figure>
+              <h4
+                name="2b42"
+                id="2b42"
+                class="graf graf--h4 graf-after--figure"
+              >
+                How Cocoa adapts Decorator Design Patterns?
+              </h4>
+              <h4 name="4af8" id="4af8" class="graf graf--h4 graf-after--h4">
+                Delegation
+              </h4>
+              <p name="fccb" id="fccb" class="graf graf--p graf-after--h4">
+                Delegation is a mechanism by which a host object embeds a weak
+                reference (weak in the sense that it’s a simple pointer
+                reference, unretained) to another object — its delegate — and
+                periodically sends messages to the delegate when it requires its
+                input for a task. The host object is generally an
+                “off-the-shelf” framework object (such as an
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nswindow"
+                    data-href="https://developer.apple.com/documentation/appkit/nswindow"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSWindow</a
+                  ></code
+                >
+                or
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/foundation/xmlparser"
+                    data-href="https://developer.apple.com/documentation/foundation/xmlparser"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSXMLParser</a
+                  ></code
+                >
+                object) that is seeking to accomplish something, but can only do
+                so in a generic fashion. The delegate, which is almost always an
+                instance of a custom class, acts in coordination with the host
+                object, supplying program-specific behavior at certain points in
+                the task (see Figure 1). Thus delegation makes it possible to
+                modify or extend the behavior of another object without the need
+                for subclassing.
+              </p>
+              <figure
+                name="078e"
+                id="078e"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*VEPBw-XqyP3UEXIEHKwSSA.gif"
+                  data-width="390"
+                  data-height="159"
+                  src="https://cdn-images-1.medium.com/max/800/1*VEPBw-XqyP3UEXIEHKwSSA.gif"
+                />
+                <figcaption class="imageCaption">
+                  <strong class="markup--strong markup--figure-strong"
+                    >Figure 1 </strong
+                  >Framework object sending a message to its delegate
+                </figcaption>
+              </figure>
+              <p name="3cd1" id="3cd1" class="graf graf--p graf-after--figure">
+                Cocoa uses the Decorator pattern in the implementation of
+                several of its classes, including
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSAttributedString"
+                    data-href="https://developer.apple.com/library/archive/documentation/LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSAttributedString"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSAttributedString</a
+                  ></code
+                >,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsscrollview"
+                    data-href="https://developer.apple.com/documentation/appkit/nsscrollview"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSScrollView</a
+                  ></code
+                >, and
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uidatepicker"
+                    data-href="https://developer.apple.com/documentation/uikit/uidatepicker"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UIDatePicker</a
+                  ></code
+                >. The latter two classes are examples of compound views, which
+                group together simple objects of other view classes and
+                coordinate their interaction.
+              </p>
+              <p name="7e07" id="7e07" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Uses and Limitations</strong
+                >
+              </p>
+              <p name="4440" id="4440" class="graf graf--p graf-after--p">
+                Delegation is a common design in the Cocoa frameworks. Many
+                classes in the AppKit and UIKit frameworks send messages to
+                delegates, including
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsapplication"
+                    data-href="https://developer.apple.com/documentation/appkit/nsapplication"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSApplication</a
+                  ></code
+                >,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uiapplication"
+                    data-href="https://developer.apple.com/documentation/uikit/uiapplication"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UIApplication</a
+                  ></code
+                >,
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/uikit/uitableview"
+                    data-href="https://developer.apple.com/documentation/uikit/uitableview"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >UITableView</a
+                  ></code
+                >, and several subclasses of
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsview"
+                    data-href="https://developer.apple.com/documentation/appkit/nsview"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSView</a
+                  ></code
+                >. Some classes in the Foundation framework, such as
+                <code class="markup--code markup--p-code">NSXMLParser</code> and
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/foundation/stream"
+                    data-href="https://developer.apple.com/documentation/foundation/stream"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSStream</a
+                  ></code
+                >, also maintain delegates. You should always use a class’s
+                delegation mechanism instead of subclassing the class, unless
+                the delegation methods do not allow you to accomplish your goal.
+              </p>
+              <p name="ea73" id="ea73" class="graf graf--p graf-after--p">
+                Although you can dynamically change the delegate, only one
+                object can be a delegate at a time. Thus if you want multiple
+                objects to be informed of a particular program event at the same
+                time, you cannot use delegation.
+              </p>
+              <h3 name="78ae" id="78ae" class="graf graf--h3 graf-after--p">
+                4. Facade
+              </h3>
+              <p name="d52d" id="d52d" class="graf graf--p graf-after--h3">
+                The Facade design pattern provides a unified interface to a set
+                of interfaces in a subsystem. The pattern defines a higher-level
+                interface that makes the subsystem easier to use by reducing
+                complexity and hiding the communication and dependencies between
+                subsystems.
+              </p>
+              <figure
+                name="5e26"
+                id="5e26"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*jzRlLLQDa0T_RC-fFNMQaw.jpeg"
+                  data-width="825"
+                  data-height="288"
+                  src="https://cdn-images-1.medium.com/max/800/1*jzRlLLQDa0T_RC-fFNMQaw.jpeg"
+                />
+              </figure>
+              <h4
+                name="99d5"
+                id="99d5"
+                class="graf graf--h4 graf-after--figure"
+              >
+                How Cocoa adapts Facade Design Patterns?
+              </h4>
+              <h4 name="4e0e" id="4e0e" class="graf graf--h4 graf-after--h4">
+                NSImage
+              </h4>
+              <p name="811b" id="811b" class="graf graf--p graf-after--h4">
+                The
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsimage"
+                    data-href="https://developer.apple.com/documentation/appkit/nsimage"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSImage</a
+                  ></code
+                >
+                class of the AppKit framework provides a unified interface for
+                loading and using images that can be bitmap-based (such as those
+                in JPEG, PNG, or TIFF format) or vector-based (such as those in
+                EPS or PDF format).
+                <code class="markup--code markup--p-code">NSImage</code> can
+                keep more than one representation of the same image; each
+                representation is a kind of
+                <code class="markup--code markup--p-code"
+                  ><a
+                    href="https://developer.apple.com/documentation/appkit/nsimagerep"
+                    data-href="https://developer.apple.com/documentation/appkit/nsimagerep"
+                    class="markup--anchor markup--p-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >NSImageRep</a
+                  ></code
+                >
+                object.
+                <code class="markup--code markup--p-code">NSImage</code>
+                automates the choice of the representation that is appropriate
+                for a particular type of data and for a given display device. It
+                also hides the details of image manipulation and selection so
+                that the client can use many different underlying
+                representations interchangeably.
+              </p>
+              <p name="370a" id="370a" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Uses and Limitations</strong
+                >
+              </p>
+              <p name="4aea" id="4aea" class="graf graf--p graf-after--p">
+                Because
+                <code class="markup--code markup--p-code">NSImage</code>
+                supports several different representations of what an image is,
+                some requested attributes might not apply. For example, asking
+                an image for the color of a pixel does not work if the
+                underlying image representation is vector-based and
+                device-independent.
+              </p>
+              <!-- <h3
+                name="522a"
+                id="522a"
+                class="graf graf--h3 graf-after--p graf--trailing"
+              >
+                Hope you like it , Go to
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series"
+                  class="markup--anchor markup--h3-anchor"
+                  target="_blank"
+                  >iOS interview questions 2018 series</a
+                >
+              </h3> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/7523230f3d31"
+            ><time class="dt-published" datetime="2018-09-05T06:27:47.199Z"
+              >September 5, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/design-patterns-on-ios-7523230f3d31"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

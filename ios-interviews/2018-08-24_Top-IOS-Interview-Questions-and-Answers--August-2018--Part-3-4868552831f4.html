@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (August 2018) Part 3</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (August 2018) Part 3</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,360 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (August 2018) Part 3</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-This article contains recent interview experience of iOS engineer, i have collected questions from candidate and sharing with you, Hope it…
-</section>
-<section data-field="body" class="e-content">
-<section name="4478" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="63f0" id="63f0" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (August 2018) Part 3</h3><p name="00f6" id="00f6" class="graf graf--p graf-after--h3">This article contains recent interview experience of iOS engineer, i have collected questions from candidate and sharing with you, Hope it will help you.</p><h4 name="a149" id="a149" class="graf graf--h4 graf-after--p">Q1. What will be the output for following program(look for sync/async)</h4><figure name="31a8" id="31a8" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*Vd4KklMkS5KSJu5GB0XRHA.png" data-width="967" data-height="290" src="https://cdn-images-1.medium.com/max/800/1*Vd4KklMkS5KSJu5GB0XRHA.png"></figure><p name="1975" id="1975" class="graf graf--p graf-after--figure">Solution:</p><figure name="22fd" id="22fd" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*_M9SE83sviQbjjrhVmi8Ug.png" data-width="321" data-height="99" src="https://cdn-images-1.medium.com/max/800/1*_M9SE83sviQbjjrhVmi8Ug.png"></figure><h4 name="f775" id="f775" class="graf graf--h4 graf-after--figure">Q2. What will be the output for following program(look for sync/async)</h4><figure name="88bc" id="88bc" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*J_iOS7DX2B3zhXwb0v5igw.png" data-width="1024" data-height="295" src="https://cdn-images-1.medium.com/max/800/1*J_iOS7DX2B3zhXwb0v5igw.png"></figure><p name="30b5" id="30b5" class="graf graf--p graf-after--figure">Solution:</p><figure name="534e" id="534e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*tAGIoVbstJHfYWgBKRyoqw.png" data-width="375" data-height="102" src="https://cdn-images-1.medium.com/max/800/1*tAGIoVbstJHfYWgBKRyoqw.png"></figure><h4 name="2624" id="2624" class="graf graf--h4 graf-after--figure">Q3. What will be the output for following program(look for sync/async),</h4><p name="7d9a" id="7d9a" class="graf graf--p graf-after--h4">will there be any error — compile time or run time and why?</p><figure name="67ab" id="67ab" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*4bRe8BJGjKXazGJQSBsDLg.png" data-width="1005" data-height="300" src="https://cdn-images-1.medium.com/max/800/1*4bRe8BJGjKXazGJQSBsDLg.png"></figure><p name="0679" id="0679" class="graf graf--p graf-after--figure">Solution:</p><p name="4e9a" id="4e9a" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">NEVER call the sync function on the main queue</strong></p><p name="d869" id="d869" class="graf graf--p graf-after--p">If you call the sync function on the main queue it will block the queue as well as the queue will be waiting for the task to be completed but the task will never be finished since it will not be even able to start due to the queue is already blocked. It is called <strong class="markup--strong markup--p-strong">deadlock</strong>.</p><figure name="abcf" id="abcf" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*XsRmu1E3_Xsu3LNzr_ICPw.png" data-width="1302" data-height="292" src="https://cdn-images-1.medium.com/max/800/1*XsRmu1E3_Xsu3LNzr_ICPw.png"></figure><h4 name="e25d" id="e25d" class="graf graf--h4 graf-after--figure">Q4. What will be the output for following program(look for sync/async)</h4><figure name="4fd4" id="4fd4" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*eubOwPcCOjy3Fyi9y_WzXQ.png" data-width="981" data-height="233" src="https://cdn-images-1.medium.com/max/800/1*eubOwPcCOjy3Fyi9y_WzXQ.png"></figure><p name="e712" id="e712" class="graf graf--p graf-after--figure">Solution:</p><figure name="1bae" id="1bae" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*DtfdUeAm78tnXR3rVTpv8g.png" data-width="1313" data-height="240" src="https://cdn-images-1.medium.com/max/800/1*DtfdUeAm78tnXR3rVTpv8g.png"></figure><h4 name="1843" id="1843" class="graf graf--h4 graf-after--figure">Q5. What is the entry point of iOS application in objective C?</h4><figure name="a121" id="a121" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*gUrQWzY62t0aZZHX8ZnYAg.png" data-width="1019" data-height="140" src="https://cdn-images-1.medium.com/max/800/1*gUrQWzY62t0aZZHX8ZnYAg.png"></figure><h4 name="9eba" id="9eba" class="graf graf--h4 graf-after--figure">Q6. What is the difference between delegate and data source?</h4><h4 name="7028" id="7028" class="graf graf--h4 graf-after--h4">Solution: <strong class="markup--strong markup--h4-strong">Theoretically</strong></h4><p name="cb66" id="cb66" class="graf graf--p graf-after--h4">The delegate and datasource patterns are largely independent, and orthogonal:</p><p name="7495" id="7495" class="graf graf--p graf-after--p">The delegate pattern is very common in Cocoa and allows a delegate (any instance implementing the informal delegate protocol prior to OS X 10.6, or the formal delegate <code class="markup--code markup--p-code">@protocol</code> in 10.6 and later) to modify the behavior of an object instance. This pattern is often used instead of subclassing: instead of subclassing a class to change its behavior, you supply a delegate that responds to the appropriate methods. Classes that use delegates send messages to their delegate at contracted events. The API between class and delegate is defined by the class and is different for each class that uses the pattern, but the API generally consists of messages asking the delegate how to handle a particular event. One advantage of the delegate pattern over subclassing is that a class may implement multiple delegate protocols, allowing its instances to act as delegate for multiple classes. Similarly, an object instance can be the delegate for multiple other objects (hence most delegate APIs pass the object as the first argument to each message in the API). The delegate pattern is not as common in other UI frameworks (though Qt does use the delegate pattern in its Model/View framework), and is <em class="markup--em markup--p-em">not</em> the same as .Net/CLR delegates which are essentially typed function pointers.</p><p name="005b" id="005b" class="graf graf--p graf-after--p">The data source pattern is often used by <code class="markup--code markup--p-code">NSView</code> sub-classes in Cocoa that have complex state data such as NSBrowser, NSTableView, NSOutlineView, etc. The data source protocol defines an API that instances of these (and other) classes may use to get the data to display in the view. Although the <code class="markup--code markup--p-code">NSController</code> and Cocoa Bindings architectures have replaced many uses of the data source pattern, it&#39;s still common and very powerful. Like the delegate pattern described above, part of its power comes from an object being able to act as the data source for multiple data-source-using instances (and possibly even instances of multiple classes that have different data source protocols). The data source pattern is used commonly in other UI frameworks, such as Qt (in the Model/View framework where the model is analogous to the data source) and WPF/Silverlight (where the data source might be more closely analogous to the view model).</p><h4 name="17f7" id="17f7" class="graf graf--h4 graf-after--p">Practically:</h4><p name="e258" id="e258" class="graf graf--p graf-after--h4">Delegates are for communication between classes , Data source is for providing runtime behavior to a class.</p><h4 name="2a2c" id="2a2c" class="graf graf--h4 graf-after--p">Q7. What is the difference between frame and bound?</h4><p name="d507" id="d507" class="graf graf--p graf-after--h4">Solution:</p><figure name="79a6" id="79a6" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*c5zUVktkRSYOK5yjPWGnpQ.png" data-width="1476" data-height="1296" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*c5zUVktkRSYOK5yjPWGnpQ.png"></figure><p name="911a" id="911a" class="graf graf--p graf-after--figure graf--trailing">Hope you like the explanation. For more questions , Please visit — <a href="https://medium.com/ios-expert-series-or-interview-series" data-href="https://medium.com/ios-expert-series-or-interview-series" class="markup--anchor markup--p-anchor" title="Go to iOS expert series or Interview Series" target="_blank">iOS expert series or Interview Series</a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/4868552831f4"><time class="dt-published" datetime="2018-08-24T03:34:36.228Z">August 24, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-august-2018-part-3-4868552831f4" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (August 2018) Part 3
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        This article contains recent interview experience of iOS engineer, i
+        have collected questions from candidate and sharing with you, Hope it…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="4478"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="63f0"
+                id="63f0"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (August 2018) Part 3
+              </h3>
+              <p name="00f6" id="00f6" class="graf graf--p graf-after--h3">
+                This article contains recent interview experience of iOS
+                engineer, i have collected questions from candidate and sharing
+                with you, Hope it will help you.
+              </p>
+              <h4 name="a149" id="a149" class="graf graf--h4 graf-after--p">
+                Q1. What will be the output for following program(look for
+                sync/async)
+              </h4>
+              <figure
+                name="31a8"
+                id="31a8"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Vd4KklMkS5KSJu5GB0XRHA.png"
+                  data-width="967"
+                  data-height="290"
+                  src="https://cdn-images-1.medium.com/max/800/1*Vd4KklMkS5KSJu5GB0XRHA.png"
+                />
+              </figure>
+              <p name="1975" id="1975" class="graf graf--p graf-after--figure">
+                Solution:
+              </p>
+              <figure
+                name="22fd"
+                id="22fd"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*_M9SE83sviQbjjrhVmi8Ug.png"
+                  data-width="321"
+                  data-height="99"
+                  src="https://cdn-images-1.medium.com/max/800/1*_M9SE83sviQbjjrhVmi8Ug.png"
+                />
+              </figure>
+              <h4
+                name="f775"
+                id="f775"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q2. What will be the output for following program(look for
+                sync/async)
+              </h4>
+              <figure
+                name="88bc"
+                id="88bc"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*J_iOS7DX2B3zhXwb0v5igw.png"
+                  data-width="1024"
+                  data-height="295"
+                  src="https://cdn-images-1.medium.com/max/800/1*J_iOS7DX2B3zhXwb0v5igw.png"
+                />
+              </figure>
+              <p name="30b5" id="30b5" class="graf graf--p graf-after--figure">
+                Solution:
+              </p>
+              <figure
+                name="534e"
+                id="534e"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*tAGIoVbstJHfYWgBKRyoqw.png"
+                  data-width="375"
+                  data-height="102"
+                  src="https://cdn-images-1.medium.com/max/800/1*tAGIoVbstJHfYWgBKRyoqw.png"
+                />
+              </figure>
+              <h4
+                name="2624"
+                id="2624"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q3. What will be the output for following program(look for
+                sync/async),
+              </h4>
+              <p name="7d9a" id="7d9a" class="graf graf--p graf-after--h4">
+                will there be any error — compile time or run time and why?
+              </p>
+              <figure
+                name="67ab"
+                id="67ab"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*4bRe8BJGjKXazGJQSBsDLg.png"
+                  data-width="1005"
+                  data-height="300"
+                  src="https://cdn-images-1.medium.com/max/800/1*4bRe8BJGjKXazGJQSBsDLg.png"
+                />
+              </figure>
+              <p name="0679" id="0679" class="graf graf--p graf-after--figure">
+                Solution:
+              </p>
+              <p name="4e9a" id="4e9a" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >NEVER call the sync function on the main queue</strong
+                >
+              </p>
+              <p name="d869" id="d869" class="graf graf--p graf-after--p">
+                If you call the sync function on the main queue it will block
+                the queue as well as the queue will be waiting for the task to
+                be completed but the task will never be finished since it will
+                not be even able to start due to the queue is already blocked.
+                It is called
+                <strong class="markup--strong markup--p-strong">deadlock</strong
+                >.
+              </p>
+              <figure
+                name="abcf"
+                id="abcf"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*XsRmu1E3_Xsu3LNzr_ICPw.png"
+                  data-width="1302"
+                  data-height="292"
+                  src="https://cdn-images-1.medium.com/max/800/1*XsRmu1E3_Xsu3LNzr_ICPw.png"
+                />
+              </figure>
+              <h4
+                name="e25d"
+                id="e25d"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q4. What will be the output for following program(look for
+                sync/async)
+              </h4>
+              <figure
+                name="4fd4"
+                id="4fd4"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*eubOwPcCOjy3Fyi9y_WzXQ.png"
+                  data-width="981"
+                  data-height="233"
+                  src="https://cdn-images-1.medium.com/max/800/1*eubOwPcCOjy3Fyi9y_WzXQ.png"
+                />
+              </figure>
+              <p name="e712" id="e712" class="graf graf--p graf-after--figure">
+                Solution:
+              </p>
+              <figure
+                name="1bae"
+                id="1bae"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*DtfdUeAm78tnXR3rVTpv8g.png"
+                  data-width="1313"
+                  data-height="240"
+                  src="https://cdn-images-1.medium.com/max/800/1*DtfdUeAm78tnXR3rVTpv8g.png"
+                />
+              </figure>
+              <h4
+                name="1843"
+                id="1843"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q5. What is the entry point of iOS application in objective C?
+              </h4>
+              <figure
+                name="a121"
+                id="a121"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*gUrQWzY62t0aZZHX8ZnYAg.png"
+                  data-width="1019"
+                  data-height="140"
+                  src="https://cdn-images-1.medium.com/max/800/1*gUrQWzY62t0aZZHX8ZnYAg.png"
+                />
+              </figure>
+              <h4
+                name="9eba"
+                id="9eba"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q6. What is the difference between delegate and data source?
+              </h4>
+              <h4 name="7028" id="7028" class="graf graf--h4 graf-after--h4">
+                Solution:
+                <strong class="markup--strong markup--h4-strong"
+                  >Theoretically</strong
+                >
+              </h4>
+              <p name="cb66" id="cb66" class="graf graf--p graf-after--h4">
+                The delegate and datasource patterns are largely independent,
+                and orthogonal:
+              </p>
+              <p name="7495" id="7495" class="graf graf--p graf-after--p">
+                The delegate pattern is very common in Cocoa and allows a
+                delegate (any instance implementing the informal delegate
+                protocol prior to OS X 10.6, or the formal delegate
+                <code class="markup--code markup--p-code">@protocol</code> in
+                10.6 and later) to modify the behavior of an object instance.
+                This pattern is often used instead of subclassing: instead of
+                subclassing a class to change its behavior, you supply a
+                delegate that responds to the appropriate methods. Classes that
+                use delegates send messages to their delegate at contracted
+                events. The API between class and delegate is defined by the
+                class and is different for each class that uses the pattern, but
+                the API generally consists of messages asking the delegate how
+                to handle a particular event. One advantage of the delegate
+                pattern over subclassing is that a class may implement multiple
+                delegate protocols, allowing its instances to act as delegate
+                for multiple classes. Similarly, an object instance can be the
+                delegate for multiple other objects (hence most delegate APIs
+                pass the object as the first argument to each message in the
+                API). The delegate pattern is not as common in other UI
+                frameworks (though Qt does use the delegate pattern in its
+                Model/View framework), and is
+                <em class="markup--em markup--p-em">not</em> the same
+                as .Net/CLR delegates which are essentially typed function
+                pointers.
+              </p>
+              <p name="005b" id="005b" class="graf graf--p graf-after--p">
+                The data source pattern is often used by
+                <code class="markup--code markup--p-code">NSView</code>
+                sub-classes in Cocoa that have complex state data such as
+                NSBrowser, NSTableView, NSOutlineView, etc. The data source
+                protocol defines an API that instances of these (and other)
+                classes may use to get the data to display in the view. Although
+                the
+                <code class="markup--code markup--p-code">NSController</code>
+                and Cocoa Bindings architectures have replaced many uses of the
+                data source pattern, it&#39;s still common and very powerful.
+                Like the delegate pattern described above, part of its power
+                comes from an object being able to act as the data source for
+                multiple data-source-using instances (and possibly even
+                instances of multiple classes that have different data source
+                protocols). The data source pattern is used commonly in other UI
+                frameworks, such as Qt (in the Model/View framework where the
+                model is analogous to the data source) and WPF/Silverlight
+                (where the data source might be more closely analogous to the
+                view model).
+              </p>
+              <h4 name="17f7" id="17f7" class="graf graf--h4 graf-after--p">
+                Practically:
+              </h4>
+              <p name="e258" id="e258" class="graf graf--p graf-after--h4">
+                Delegates are for communication between classes , Data source is
+                for providing runtime behavior to a class.
+              </p>
+              <h4 name="2a2c" id="2a2c" class="graf graf--h4 graf-after--p">
+                Q7. What is the difference between frame and bound?
+              </h4>
+              <p name="d507" id="d507" class="graf graf--p graf-after--h4">
+                Solution:
+              </p>
+              <figure
+                name="79a6"
+                id="79a6"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*c5zUVktkRSYOK5yjPWGnpQ.png"
+                  data-width="1476"
+                  data-height="1296"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*c5zUVktkRSYOK5yjPWGnpQ.png"
+                />
+              </figure>
+              <!-- <p
+                name="911a"
+                id="911a"
+                class="graf graf--p graf-after--figure graf--trailing"
+              >
+                Hope you like the explanation. For more questions , Please
+                visit —
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series"
+                  class="markup--anchor markup--p-anchor"
+                  title="Go to iOS expert series or Interview Series"
+                  target="_blank"
+                  >iOS expert series or Interview Series</a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/4868552831f4"
+            ><time class="dt-published" datetime="2018-08-24T03:34:36.228Z"
+              >August 24, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-august-2018-part-3-4868552831f4"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (Oct 2018)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (Oct 2018)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,491 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (Oct 2018)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Hope you are loving these articles and its helping you, Let’s start with October months part 1.
-</section>
-<section data-field="body" class="e-content">
-<section name="4aae" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="5b77" id="5b77" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (Oct 2018)</h3><p name="860a" id="860a" class="graf graf--p graf-after--h3">Hope you are loving these articles and its helping you, Let’s start with October months part 1.</p><p name="8728" id="8728" class="graf graf--p graf-after--p">For old month : Please check — <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2018</strong></a></p><h3 name="9604" id="9604" class="graf graf--h3 graf-after--p">Q1: What is the concurrency?. How many ways you know to achieve concurrency?</h3><p name="53c4" id="53c4" class="graf graf--p graf-after--h3">Ans: Its a condition when two or more tasks can work independently, even if other task is also executing at same time.</p><ol class="postList"><li name="e57e" id="e57e" class="graf graf--li graf-after--p">NSOperation &amp; NSOperationQueue</li><li name="43dd" id="43dd" class="graf graf--li graf-after--li">Grand Central Dispatch (GCD)</li></ol><h4 name="673c" id="673c" class="graf graf--h4 graf-after--li">Queues Types</h4><p name="900e" id="900e" class="graf graf--p graf-after--h4">Defining the type of queue is important in achieving the results you want, and will help prioritize the way your blocks of code are executed.</p><p name="70a2" id="70a2" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Synchronous</strong>: The current thread will be blocked while execution is happening</p><p name="5849" id="5849" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Asynchronous</strong>: Tasks will be run on a background thread, keeping the current thread free for other tasks</p><p name="c292" id="c292" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Serial</strong>: Serial queues execute the blocks one at a time, in the order of which they were entered (FIFO — First In First Out).</p><p name="76f5" id="76f5" class="graf graf--p graf-after--p">You can create more than one serial queue; if you had four serial queues, they could be running all four tasks at the same time asynchronously, the advantage being that you can control the order(FIFO) in which the blocks of code execute, and they are thread-safe on each Serial Queue.</p><p name="5d99" id="5d99" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Concurrent</strong>: Concurrent queues have the potential to execute the blocks together, (with a default of 2 blocks at a time), allowing processes to be run in parallel. The disadvantage being that you might not have perfect control over which tasks finish first.</p><h3 name="bda9" id="bda9" class="graf graf--h3 graf-after--p">Dispatch Queues</h3><p name="5df2" id="5df2" class="graf graf--p graf-after--h3">Below are the 5 global queues, and their corresponding QoS class, which provides more specific definitions of their functionality.</p><figure name="79c5" id="79c5" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*3OVHwmmz1a-6C0_kGzBLAg.png" data-width="842" data-height="347" src="https://cdn-images-1.medium.com/max/800/1*3OVHwmmz1a-6C0_kGzBLAg.png"><figcaption class="imageCaption">From Apple</figcaption></figure><h3 name="9c94" id="9c94" class="graf graf--h3 graf-after--figure">Q2: What are differences between Manual and Automatic Reference Counting?</h3><p name="7850" id="7850" class="graf graf--p graf-after--h3">Ans: WE WILL COVER EXPLANATION OF: <code class="markup--code markup--p-code">RETAIN</code>, <code class="markup--code markup--p-code">RELEASE</code>, <code class="markup--code markup--p-code">AUTORELEASE</code>, <code class="markup--code markup--p-code">ALLOC</code>, <code class="markup--code markup--p-code">DEALLOC</code>, <code class="markup--code markup--p-code">COPY</code>, AND <code class="markup--code markup--p-code">NSAUTORELEASEPOOL</code>.</p><h4 name="6974" id="6974" class="graf graf--h4 graf-after--p">Manual Reference Counting</h4><p name="3d58" id="3d58" class="graf graf--p graf-after--h4">Memory management in Objective-C involves four basic rules. If you follow these rules, then you will not leak memory or cause dangling pointers.</p><p name="49a6" id="49a6" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">RULE 1. IF YOU CREATE AN OBJECT USING A METHOD THAT STARTS WITH “ALLOC”, “COPY” OR “NEW”, THEN YOU OWN IT.</strong></p><p name="f746" id="f746" class="graf graf--p graf-after--p">This is where you have created a new object with a retain count of one, which automatically makes you the owner.</p><p name="a419" id="a419" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">RULE 2. IF YOU </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">RETAIN</strong></code><strong class="markup--strong markup--p-strong"> AN OBJECT, THEN YOU OWN IT.</strong></p><p name="d663" id="d663" class="graf graf--p graf-after--p">This is where you call <code class="markup--code markup--p-code">retain</code> on an object, which increases the retain count by one.</p><p name="66dd" id="66dd" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">RULE 3. IF YOU OWN IT, YOU MUST RELEASE IT.</strong></p><p name="7256" id="7256" class="graf graf--p graf-after--p">This is where you call the <code class="markup--code markup--p-code">release</code> method on an object, which decreases the retain count by one. When you call <code class="markup--code markup--p-code">release</code> and the retain count reaches zero, the object will deallocate itself by calling <code class="markup--code markup--p-code">dealloc</code>. <strong class="markup--strong markup--p-strong">This means you should never call </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">dealloc</strong></code><strong class="markup--strong markup--p-strong"> directly.</strong> Just release the object correctly, and it will handle everything itself.</p><p name="62a2" id="62a2" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">RULE 4. IF YOU KEEP A POINTER TO AN OBJECT, THEN YOU MUST OWN THE OBJECT (WITH SOME RARE EXCEPTIONS).</strong></p><p name="734a" id="734a" class="graf graf--p graf-after--p">Basically, if you own an object, then you know it is definitely safe to use. If you <em class="markup--em markup--p-em">don’t</em> own it, then it is sometimes safe to use temporarily (discussed in the autorelease section). If you want to <em class="markup--em markup--p-em">keep</em> an object to use later, such as storing it in an ivar or a global, you must retain it. Otherwise, it might be deallocated and you will be left with a dangling pointer.</p><p name="05cd" id="05cd" class="graf graf--p graf-after--p">One exception is the use of strings you type directly into the code (string literals). String literals are never deallocated, and <code class="markup--code markup--p-code">retain</code> and <code class="markup--code markup--p-code">release</code> don’t do anything to them.</p><h4 name="ea4c" id="ea4c" class="graf graf--h4 graf-after--p">Automatic Reference Counting(<strong class="markup--strong markup--h4-strong">ARC)</strong></h4><p name="13d8" id="13d8" class="graf graf--p graf-after--h4">Apple has used the LLVM compiler toolset to implement ARC.</p><p name="c0be" id="c0be" class="graf graf--p graf-after--p">— It is not part of the runtime</p><p name="e0fc" id="e0fc" class="graf graf--p graf-after--p">— Instead the compiler injects reference tracking and clean-up code, similar to what a developer would do</p><p name="af0d" id="af0d" class="graf graf--p graf-after--p">— Deterministic reclamation of memory, at the time when the object goes out of scope</p><p name="aa5c" id="aa5c" class="graf graf--p graf-after--p">— Since there is no background or runtime processing, it requires less CPU and RAM, making it efficient on mobile devices</p><p name="c80f" id="c80f" class="graf graf--p graf-after--p">— Cannot cope with retain cycles/object graphs — gets stuck with an object graph, whereas a GC would look for an external reference to an object graph, and if not found would clear up the entire object graph</p><p name="20d3" id="20d3" class="graf graf--p graf-after--p">— Is more prone to memory leaks based on the quality of code written</p><h3 name="8498" id="8498" class="graf graf--h3 graf-after--p">Q3: What are the benefits of Swift over Objective-C?</h3><p name="7f0b" id="7f0b" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Ans:</strong></p></div><div class="section-inner sectionLayout--outsetRow" data-paragraph-count="3"><figure name="4955" id="4955" class="graf graf--figure graf--layoutOutsetRow is-partialWidth graf-after--p" style="width: 33.333%;"><img class="graf-image" data-image-id="1*YSFZS8vKN4A5ogX2pqSq5Q.png" data-width="336" data-height="280" data-is-featured="true" src="https://cdn-images-1.medium.com/max/400/1*YSFZS8vKN4A5ogX2pqSq5Q.png"></figure><figure name="f061" id="f061" class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure" style="width: 33.333%;"><img class="graf-image" data-image-id="1*huBUCfVnbqPhNFtR4sulHw.png" data-width="336" data-height="280" src="https://cdn-images-1.medium.com/max/400/1*huBUCfVnbqPhNFtR4sulHw.png"></figure><figure name="f0a6" id="f0a6" class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure" style="width: 33.333%;"><img class="graf-image" data-image-id="1*L9f6qvsYpyR4pdfk7xScag.png" data-width="336" data-height="280" src="https://cdn-images-1.medium.com/max/400/1*L9f6qvsYpyR4pdfk7xScag.png"></figure></div><div class="section-inner sectionLayout--outsetRow" data-paragraph-count="3"><figure name="e099" id="e099" class="graf graf--figure graf--layoutOutsetRow is-partialWidth graf-after--figure" style="width: 33.333%;"><img class="graf-image" data-image-id="1*vS5HTPU3LdCOJ54-MetN4w.png" data-width="336" data-height="280" src="https://cdn-images-1.medium.com/max/400/1*vS5HTPU3LdCOJ54-MetN4w.png"></figure><figure name="4e41" id="4e41" class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure" style="width: 33.333%;"><img class="graf-image" data-image-id="1*ZXbFjcS7XAvqziI39Ezj8w.png" data-width="336" data-height="280" src="https://cdn-images-1.medium.com/max/400/1*ZXbFjcS7XAvqziI39Ezj8w.png"></figure><figure name="c692" id="c692" class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure" style="width: 33.333%;"><img class="graf-image" data-image-id="1*81QPE3NjOf8gvGGurrMuug.png" data-width="336" data-height="280" src="https://cdn-images-1.medium.com/max/400/1*81QPE3NjOf8gvGGurrMuug.png"></figure></div><div class="section-inner sectionLayout--insetColumn"><h3 name="5bca" id="5bca" class="graf graf--h3 graf-after--figure">Q4: What are delegates? Why you need to use?</h3><p name="f4fe" id="f4fe" class="graf graf--p graf-after--h3">Ans: <strong class="markup--strong markup--p-strong">Delegates</strong> are a design pattern that allows one object to send messages to another object when a specific event happens.</p><p name="4e7d" id="4e7d" class="graf graf--p graf-after--p">Delegates are useful to offer to the <strong class="markup--strong markup--p-strong">user</strong> of your objects some ability to customize their behavior.</p><h3 name="b362" id="b362" class="graf graf--h3 graf-after--p">Q5: How you explain dependency Injection, how you use?</h3><p name="2d57" id="2d57" class="graf graf--p graf-after--h3">Ans: Dependency Injection is often used with the intention of writing code that is loosely coupled, and thus, easier to test. When we use dependency injection in our code, we are essentially giving an object its instance variables. What this means is that instead of giving our object the responsibility of creating it’s own dependencies, we inject the dependencies to the object instead. There are three ways to achieve :</p><ol class="postList"><li name="3710" id="3710" class="graf graf--li graf-after--p">Property based injection</li><li name="b163" id="b163" class="graf graf--li graf-after--li">Initializer based injection</li><li name="42db" id="42db" class="graf graf--li graf-after--li">Method based injection</li></ol><p name="37a8" id="37a8" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">References</strong>:</p><ol class="postList"><li name="d01d" id="d01d" class="graf graf--li graf-after--p"><a href="https://swift007blog.wordpress.com/2017/01/14/what-is-arc-in-ios/" data-href="https://swift007blog.wordpress.com/2017/01/14/what-is-arc-in-ios/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://swift007blog.wordpress.com/2017/01/14/what-is-arc-in-ios/</a></li><li name="a2e6" id="a2e6" class="graf graf--li graf-after--li"><a href="https://metova.com/concurrency-in-ios/" data-href="https://metova.com/concurrency-in-ios/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://metova.com/concurrency-in-ios/</a></li><li name="667d" id="667d" class="graf graf--li graf-after--li"><a href="https://mlsdev.com/blog/51-7-advantages-of-using-swift-over-objective-c" data-href="https://mlsdev.com/blog/51-7-advantages-of-using-swift-over-objective-c" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://mlsdev.com/blog/51-7-advantages-of-using-swift-over-objective-c</a></li></ol><p name="24bf" id="24bf" class="graf graf--p graf-after--li graf--trailing">Hope this is going to help you. Please like and share with your colleagues!!!</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/c98e8821ff6c"><time class="dt-published" datetime="2018-10-08T04:40:30.866Z">October 8, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-oct-2018-c98e8821ff6c" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (Oct 2018)
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Hope you are loving these articles and its helping you, Let’s start with
+        October months part 1.
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="4aae"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="5b77"
+                id="5b77"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (Oct 2018)
+              </h3>
+              <p name="860a" id="860a" class="graf graf--p graf-after--h3">
+                Hope you are loving these articles and its helping you, Let’s
+                start with October months part 1.
+              </p>
+              <!-- <p name="8728" id="8728" class="graf graf--p graf-after--p">
+                For old month : Please check —
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers for 2018</strong
+                  ></a
+                >
+              </p> -->
+              <h3 name="9604" id="9604" class="graf graf--h3 graf-after--p">
+                Q1: What is the concurrency?. How many ways you know to achieve
+                concurrency?
+              </h3>
+              <p name="53c4" id="53c4" class="graf graf--p graf-after--h3">
+                Ans: Its a condition when two or more tasks can work
+                independently, even if other task is also executing at same
+                time.
+              </p>
+              <ol class="postList">
+                <li name="e57e" id="e57e" class="graf graf--li graf-after--p">
+                  NSOperation &amp; NSOperationQueue
+                </li>
+                <li name="43dd" id="43dd" class="graf graf--li graf-after--li">
+                  Grand Central Dispatch (GCD)
+                </li>
+              </ol>
+              <h4 name="673c" id="673c" class="graf graf--h4 graf-after--li">
+                Queues Types
+              </h4>
+              <p name="900e" id="900e" class="graf graf--p graf-after--h4">
+                Defining the type of queue is important in achieving the results
+                you want, and will help prioritize the way your blocks of code
+                are executed.
+              </p>
+              <p name="70a2" id="70a2" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Synchronous</strong
+                >: The current thread will be blocked while execution is
+                happening
+              </p>
+              <p name="5849" id="5849" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Asynchronous</strong
+                >: Tasks will be run on a background thread, keeping the current
+                thread free for other tasks
+              </p>
+              <p name="c292" id="c292" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Serial</strong>:
+                Serial queues execute the blocks one at a time, in the order of
+                which they were entered (FIFO — First In First Out).
+              </p>
+              <p name="76f5" id="76f5" class="graf graf--p graf-after--p">
+                You can create more than one serial queue; if you had four
+                serial queues, they could be running all four tasks at the same
+                time asynchronously, the advantage being that you can control
+                the order(FIFO) in which the blocks of code execute, and they
+                are thread-safe on each Serial Queue.
+              </p>
+              <p name="5d99" id="5d99" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Concurrent</strong
+                >: Concurrent queues have the potential to execute the blocks
+                together, (with a default of 2 blocks at a time), allowing
+                processes to be run in parallel. The disadvantage being that you
+                might not have perfect control over which tasks finish first.
+              </p>
+              <h3 name="bda9" id="bda9" class="graf graf--h3 graf-after--p">
+                Dispatch Queues
+              </h3>
+              <p name="5df2" id="5df2" class="graf graf--p graf-after--h3">
+                Below are the 5 global queues, and their corresponding QoS
+                class, which provides more specific definitions of their
+                functionality.
+              </p>
+              <figure
+                name="79c5"
+                id="79c5"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*3OVHwmmz1a-6C0_kGzBLAg.png"
+                  data-width="842"
+                  data-height="347"
+                  src="https://cdn-images-1.medium.com/max/800/1*3OVHwmmz1a-6C0_kGzBLAg.png"
+                />
+                <figcaption class="imageCaption">From Apple</figcaption>
+              </figure>
+              <h3
+                name="9c94"
+                id="9c94"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Q2: What are differences between Manual and Automatic Reference
+                Counting?
+              </h3>
+              <p name="7850" id="7850" class="graf graf--p graf-after--h3">
+                Ans: WE WILL COVER EXPLANATION OF:
+                <code class="markup--code markup--p-code">RETAIN</code>,
+                <code class="markup--code markup--p-code">RELEASE</code>,
+                <code class="markup--code markup--p-code">AUTORELEASE</code>,
+                <code class="markup--code markup--p-code">ALLOC</code>,
+                <code class="markup--code markup--p-code">DEALLOC</code>,
+                <code class="markup--code markup--p-code">COPY</code>, AND
+                <code class="markup--code markup--p-code"
+                  >NSAUTORELEASEPOOL</code
+                >.
+              </p>
+              <h4 name="6974" id="6974" class="graf graf--h4 graf-after--p">
+                Manual Reference Counting
+              </h4>
+              <p name="3d58" id="3d58" class="graf graf--p graf-after--h4">
+                Memory management in Objective-C involves four basic rules. If
+                you follow these rules, then you will not leak memory or cause
+                dangling pointers.
+              </p>
+              <p name="49a6" id="49a6" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >RULE 1. IF YOU CREATE AN OBJECT USING A METHOD THAT STARTS
+                  WITH “ALLOC”, “COPY” OR “NEW”, THEN YOU OWN IT.</strong
+                >
+              </p>
+              <p name="f746" id="f746" class="graf graf--p graf-after--p">
+                This is where you have created a new object with a retain count
+                of one, which automatically makes you the owner.
+              </p>
+              <p name="a419" id="a419" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >RULE 2. IF YOU </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >RETAIN</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">
+                  AN OBJECT, THEN YOU OWN IT.</strong
+                >
+              </p>
+              <p name="d663" id="d663" class="graf graf--p graf-after--p">
+                This is where you call
+                <code class="markup--code markup--p-code">retain</code> on an
+                object, which increases the retain count by one.
+              </p>
+              <p name="66dd" id="66dd" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >RULE 3. IF YOU OWN IT, YOU MUST RELEASE IT.</strong
+                >
+              </p>
+              <p name="7256" id="7256" class="graf graf--p graf-after--p">
+                This is where you call the
+                <code class="markup--code markup--p-code">release</code> method
+                on an object, which decreases the retain count by one. When you
+                call
+                <code class="markup--code markup--p-code">release</code> and the
+                retain count reaches zero, the object will deallocate itself by
+                calling
+                <code class="markup--code markup--p-code">dealloc</code>.
+                <strong class="markup--strong markup--p-strong"
+                  >This means you should never call </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >dealloc</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">
+                  directly.</strong
+                >
+                Just release the object correctly, and it will handle everything
+                itself.
+              </p>
+              <p name="62a2" id="62a2" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >RULE 4. IF YOU KEEP A POINTER TO AN OBJECT, THEN YOU MUST OWN
+                  THE OBJECT (WITH SOME RARE EXCEPTIONS).</strong
+                >
+              </p>
+              <p name="734a" id="734a" class="graf graf--p graf-after--p">
+                Basically, if you own an object, then you know it is definitely
+                safe to use. If you
+                <em class="markup--em markup--p-em">don’t</em> own it, then it
+                is sometimes safe to use temporarily (discussed in the
+                autorelease section). If you want to
+                <em class="markup--em markup--p-em">keep</em> an object to use
+                later, such as storing it in an ivar or a global, you must
+                retain it. Otherwise, it might be deallocated and you will be
+                left with a dangling pointer.
+              </p>
+              <p name="05cd" id="05cd" class="graf graf--p graf-after--p">
+                One exception is the use of strings you type directly into the
+                code (string literals). String literals are never deallocated,
+                and <code class="markup--code markup--p-code">retain</code> and
+                <code class="markup--code markup--p-code">release</code> don’t
+                do anything to them.
+              </p>
+              <h4 name="ea4c" id="ea4c" class="graf graf--h4 graf-after--p">
+                Automatic Reference Counting(<strong
+                  class="markup--strong markup--h4-strong"
+                  >ARC)</strong
+                >
+              </h4>
+              <p name="13d8" id="13d8" class="graf graf--p graf-after--h4">
+                Apple has used the LLVM compiler toolset to implement ARC.
+              </p>
+              <p name="c0be" id="c0be" class="graf graf--p graf-after--p">
+                — It is not part of the runtime
+              </p>
+              <p name="e0fc" id="e0fc" class="graf graf--p graf-after--p">
+                — Instead the compiler injects reference tracking and clean-up
+                code, similar to what a developer would do
+              </p>
+              <p name="af0d" id="af0d" class="graf graf--p graf-after--p">
+                — Deterministic reclamation of memory, at the time when the
+                object goes out of scope
+              </p>
+              <p name="aa5c" id="aa5c" class="graf graf--p graf-after--p">
+                — Since there is no background or runtime processing, it
+                requires less CPU and RAM, making it efficient on mobile devices
+              </p>
+              <p name="c80f" id="c80f" class="graf graf--p graf-after--p">
+                — Cannot cope with retain cycles/object graphs — gets stuck with
+                an object graph, whereas a GC would look for an external
+                reference to an object graph, and if not found would clear up
+                the entire object graph
+              </p>
+              <p name="20d3" id="20d3" class="graf graf--p graf-after--p">
+                — Is more prone to memory leaks based on the quality of code
+                written
+              </p>
+              <h3 name="8498" id="8498" class="graf graf--h3 graf-after--p">
+                Q3: What are the benefits of Swift over Objective-C?
+              </h3>
+              <p name="7f0b" id="7f0b" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong">Ans:</strong>
+              </p>
+            </div>
+            <div
+              class="section-inner sectionLayout--outsetRow"
+              data-paragraph-count="3"
+            >
+              <figure
+                name="4955"
+                id="4955"
+                class="graf graf--figure graf--layoutOutsetRow is-partialWidth graf-after--p"
+                style="width: 33.333%;"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*YSFZS8vKN4A5ogX2pqSq5Q.png"
+                  data-width="336"
+                  data-height="280"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/400/1*YSFZS8vKN4A5ogX2pqSq5Q.png"
+                />
+              </figure>
+              <figure
+                name="f061"
+                id="f061"
+                class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure"
+                style="width: 33.333%;"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*huBUCfVnbqPhNFtR4sulHw.png"
+                  data-width="336"
+                  data-height="280"
+                  src="https://cdn-images-1.medium.com/max/400/1*huBUCfVnbqPhNFtR4sulHw.png"
+                />
+              </figure>
+              <figure
+                name="f0a6"
+                id="f0a6"
+                class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure"
+                style="width: 33.333%;"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*L9f6qvsYpyR4pdfk7xScag.png"
+                  data-width="336"
+                  data-height="280"
+                  src="https://cdn-images-1.medium.com/max/400/1*L9f6qvsYpyR4pdfk7xScag.png"
+                />
+              </figure>
+            </div>
+            <div
+              class="section-inner sectionLayout--outsetRow"
+              data-paragraph-count="3"
+            >
+              <figure
+                name="e099"
+                id="e099"
+                class="graf graf--figure graf--layoutOutsetRow is-partialWidth graf-after--figure"
+                style="width: 33.333%;"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*vS5HTPU3LdCOJ54-MetN4w.png"
+                  data-width="336"
+                  data-height="280"
+                  src="https://cdn-images-1.medium.com/max/400/1*vS5HTPU3LdCOJ54-MetN4w.png"
+                />
+              </figure>
+              <figure
+                name="4e41"
+                id="4e41"
+                class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure"
+                style="width: 33.333%;"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*ZXbFjcS7XAvqziI39Ezj8w.png"
+                  data-width="336"
+                  data-height="280"
+                  src="https://cdn-images-1.medium.com/max/400/1*ZXbFjcS7XAvqziI39Ezj8w.png"
+                />
+              </figure>
+              <figure
+                name="c692"
+                id="c692"
+                class="graf graf--figure graf--layoutOutsetRowContinue is-partialWidth graf-after--figure"
+                style="width: 33.333%;"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*81QPE3NjOf8gvGGurrMuug.png"
+                  data-width="336"
+                  data-height="280"
+                  src="https://cdn-images-1.medium.com/max/400/1*81QPE3NjOf8gvGGurrMuug.png"
+                />
+              </figure>
+            </div>
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="5bca"
+                id="5bca"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Q4: What are delegates? Why you need to use?
+              </h3>
+              <p name="f4fe" id="f4fe" class="graf graf--p graf-after--h3">
+                Ans:
+                <strong class="markup--strong markup--p-strong"
+                  >Delegates</strong
+                >
+                are a design pattern that allows one object to send messages to
+                another object when a specific event happens.
+              </p>
+              <p name="4e7d" id="4e7d" class="graf graf--p graf-after--p">
+                Delegates are useful to offer to the
+                <strong class="markup--strong markup--p-strong">user</strong> of
+                your objects some ability to customize their behavior.
+              </p>
+              <h3 name="b362" id="b362" class="graf graf--h3 graf-after--p">
+                Q5: How you explain dependency Injection, how you use?
+              </h3>
+              <p name="2d57" id="2d57" class="graf graf--p graf-after--h3">
+                Ans: Dependency Injection is often used with the intention of
+                writing code that is loosely coupled, and thus, easier to test.
+                When we use dependency injection in our code, we are essentially
+                giving an object its instance variables. What this means is that
+                instead of giving our object the responsibility of creating it’s
+                own dependencies, we inject the dependencies to the object
+                instead. There are three ways to achieve :
+              </p>
+              <ol class="postList">
+                <li name="3710" id="3710" class="graf graf--li graf-after--p">
+                  Property based injection
+                </li>
+                <li name="b163" id="b163" class="graf graf--li graf-after--li">
+                  Initializer based injection
+                </li>
+                <li name="42db" id="42db" class="graf graf--li graf-after--li">
+                  Method based injection
+                </li>
+              </ol>
+              <p name="37a8" id="37a8" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >References</strong
+                >:
+              </p>
+              <ol class="postList">
+                <li name="d01d" id="d01d" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://swift007blog.wordpress.com/2017/01/14/what-is-arc-in-ios/"
+                    data-href="https://swift007blog.wordpress.com/2017/01/14/what-is-arc-in-ios/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://swift007blog.wordpress.com/2017/01/14/what-is-arc-in-ios/</a
+                  >
+                </li>
+                <li name="a2e6" id="a2e6" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://metova.com/concurrency-in-ios/"
+                    data-href="https://metova.com/concurrency-in-ios/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://metova.com/concurrency-in-ios/</a
+                  >
+                </li>
+                <li name="667d" id="667d" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://mlsdev.com/blog/51-7-advantages-of-using-swift-over-objective-c"
+                    data-href="https://mlsdev.com/blog/51-7-advantages-of-using-swift-over-objective-c"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://mlsdev.com/blog/51-7-advantages-of-using-swift-over-objective-c</a
+                  >
+                </li>
+              </ol>
+              <p
+                name="24bf"
+                id="24bf"
+                class="graf graf--p graf-after--li graf--trailing"
+              >
+                Hope this is going to help you. Please like and share with your
+                colleagues!!!
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/c98e8821ff6c"
+            ><time class="dt-published" datetime="2018-10-08T04:40:30.866Z"
+              >October 8, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-oct-2018-c98e8821ff6c"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Programmatic UIScrollview with Autolayout in iOS 11</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Programmatic UIScrollview with Autolayout in iOS 11</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,236 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Programmatic UIScrollview with Autolayout in iOS 11</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-I’ve carefully read Apple’s documentation on UIScrollView and specifically how it works with auto layout and I, prefer the programmatic…
-</section>
-<section data-field="body" class="e-content">
-<section name="2e22" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="7b68" id="7b68" class="graf graf--h3 graf--leading graf--title">Programmatic UIScrollview with Autolayout in iOS 11</h3><figure name="39e4" id="39e4" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*IB_oN4bG_Vs5EVzVSp2Aqg.jpeg" data-width="1268" data-height="226" src="https://cdn-images-1.medium.com/max/800/1*IB_oN4bG_Vs5EVzVSp2Aqg.jpeg"></figure><p name="a690" id="a690" class="graf graf--p graf-after--figure">I’ve carefully read Apple’s documentation on <code class="markup--code markup--p-code">UIScrollView</code> and specifically how it works with <code class="markup--code markup--p-code">auto layout</code> and I, prefer the programmatic path. I am going to demonstrates a “mixed” and a “pure” auto layout approach for UIScrollViews.</p><p name="39fa" id="39fa" class="graf graf--p graf-after--p">Do you know that UIScrollView class scrolls its content by changing the origin of its bounds? Cool right!</p><p name="9e1e" id="9e1e" class="graf graf--p graf-after--p">The constraints on the subviews of the scroll view must result in a size to fill, which is then interpreted as the content size of the scroll view. (This should not be confused with the intrinsicContentSize method used for Auto Layout.) To size the scroll view’s frame with Auto Layout, constraints must either be explicit regarding the width and height of the scroll view, or the edges of the scroll view must be tied to views outside of its subtree.Note that you can make a subview of the scroll view appear to float (not scroll) over the other scrolling content by creating constraints between the view and a view outside the scroll view’s subtree, such as the scroll view’s superview.</p><p name="4c30" id="4c30" class="graf graf--p graf-after--p">Here are two examples of how to configure the scroll view, first the mixed approach, and then the pure approach.</p><h3 name="6a7f" id="6a7f" class="graf graf--h3 graf-after--p">Mixed Approach</h3><p name="c431" id="c431" class="graf graf--p graf-after--h3">Position and size your scroll view with constraints external to the scroll view — that is, the translatesAutoresizingMaskIntoConstraints property is set to NO.</p><p name="0fe7" id="0fe7" class="graf graf--p graf-after--p">Create a plain UIView content view for your scroll view that will be the size you want your content to have. Make it a subview of the scroll view but let it continue to translate the autoresizing mask into constraints:</p><p name="ede0" id="ede0" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Listing 1</strong> Mixed Approach Code Listing</p><pre name="1944" id="1944" class="graf graf--pre graf-after--p">- (void)<strong class="markup--strong markup--pre-strong">viewDidLoad</strong> {<br>UIView *contentView;<br>contentView = [[UIView alloc] initWithFrame:CGRectMake(0,0,contentWidth,contentHeight)];<br>[scrollView addSubview:contentView];<br>// DON&#39;T change contentView&#39;s translatesAutoresizingMaskIntoConstraints,which defaults to YES;</pre><pre name="68a8" id="68a8" class="graf graf--pre graf-after--pre">// Set the content size of the scroll view to match the size of the content view:<br>[scrollView setContentSize:CGSizeMake(contentWidth,contentHeight)];</pre><pre name="e870" id="e870" class="graf graf--pre graf-after--pre">/* the rest of your code here... */<br>}</pre><p name="aeea" id="aeea" class="graf graf--p graf-after--pre">Create the views you want to put inside the content view and configure their constraints so as to position them within the content view.</p><p name="c1c8" id="c1c8" class="graf graf--p graf-after--p">Alternatively, you can create a view subtree to go in the scroll view, set up your constraints, and call the systemLayoutSizeFittingSize: method (with the UILayoutFittingCompressedSize option) to find the size you want to use for your content view and the contentSize property of the scroll view.</p><h3 name="fdf8" id="fdf8" class="graf graf--h3 graf-after--p">Pure Auto Layout Approach</h3><p name="2aee" id="2aee" class="graf graf--p graf-after--h3">To use the pure autolayout approach do the following:</p><ul class="postList"><li name="7408" id="7408" class="graf graf--li graf-after--p">Set translatesAutoresizingMaskIntoConstraints to NO on all views involved.</li><li name="ad5a" id="ad5a" class="graf graf--li graf-after--li">Position and size your scroll view with constraints external to the scroll view.</li><li name="4594" id="4594" class="graf graf--li graf-after--li">Use constraints to lay out the subviews within the scroll view, being sure that the constraints tie to all four edges of the scroll view and do not rely on the scroll view to get their size.</li></ul><p name="0614" id="0614" class="graf graf--p graf-after--li">A simple example would be a large image view, which has an intrinsic content size derived from the size of the image. In the viewDidLoad method of your view controller, you would include code similar to the code shown in the listing below:</p><p name="dbd3" id="dbd3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Listing 2</strong> Pure Auto Layout Approach Code Listing</p><pre name="8311" id="8311" class="graf graf--pre graf-after--p">- (void)<strong class="markup--strong markup--pre-strong">viewDidLoad </strong>{<br>UIScrollView *scrollView;<br>UIImageView *imageView;<br>NSDictionary *viewsDictionary;<br>// Create the scroll view and the image view.<br>scrollView  = [[UIScrollView alloc] init];<br>imageView = [[UIImageView alloc] init];<br>// Add an image to the image view.<br>[imageView setImage:[UIImage imageNamed:&quot;MyReallyBigImage&quot;]];<br>// Add the scroll view to our view.<br>[self.view addSubview:scrollView];<br>// Add the image view to the scroll view.<br>[scrollView addSubview:imageView];<br>// Set the translatesAutoresizingMaskIntoConstraints to NO so that the views autoresizing mask is not translated into auto layout constraints.</pre><pre name="539d" id="539d" class="graf graf--pre graf-after--pre">scrollView.translatesAutoresizingMaskIntoConstraints  = NO;<br>imageView.translatesAutoresizingMaskIntoConstraints = NO;</pre><pre name="7d7e" id="7d7e" class="graf graf--pre graf-after--pre">//Set the constraints for the scroll view and the image view.<br>viewsDictionary = NSDictionaryOfVariableBindings(scrollView, imageView);<br>[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;H:|[scrollView]|&quot; options:0 metrics: 0 views:viewsDictionary]];<br>[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;V:|[scrollView]|&quot; options:0 metrics: 0 views:viewsDictionary]];<br>[scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;H:|[imageView]|&quot; options:0 metrics: 0 views:viewsDictionary]];</pre><pre name="a309" id="a309" class="graf graf--pre graf-after--pre">[scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;V:|[imageView]|&quot; options:0 metrics: 0 views:viewsDictionary]];<br>/* the rest of your code here... */<br>}</pre><p name="4f8f" id="4f8f" class="graf graf--p graf-after--pre">This would give you a scroll view that resized as the view controller’s view resized (such as on device rotation), and the image view would be a scrolling subview. You don’t have to set the content size of the scroll view.</p><p name="9664" id="9664" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to apply autolayout programmatically, This article content is referred from <a href="https://developer.apple.com/library/content/technotes/tn2154/_index.html" data-href="https://developer.apple.com/library/content/technotes/tn2154/_index.html" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/library/content/technotes/tn2154/_index.html</a>, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/f4f50c9e9dd7"><time class="dt-published" datetime="2018-05-22T11:26:56.867Z">May 22, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/programmatic-uiscrollview-with-autolayout-in-ios-11-f4f50c9e9dd7" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Programmatic UIScrollview with Autolayout in iOS 11
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        I’ve carefully read Apple’s documentation on UIScrollView and
+        specifically how it works with auto layout and I, prefer the
+        programmatic…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="2e22"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="7b68"
+                id="7b68"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Programmatic UIScrollview with Autolayout in iOS 11
+              </h3>
+              <figure
+                name="39e4"
+                id="39e4"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*IB_oN4bG_Vs5EVzVSp2Aqg.jpeg"
+                  data-width="1268"
+                  data-height="226"
+                  src="https://cdn-images-1.medium.com/max/800/1*IB_oN4bG_Vs5EVzVSp2Aqg.jpeg"
+                />
+              </figure>
+              <p name="a690" id="a690" class="graf graf--p graf-after--figure">
+                I’ve carefully read Apple’s documentation on
+                <code class="markup--code markup--p-code">UIScrollView</code>
+                and specifically how it works with
+                <code class="markup--code markup--p-code">auto layout</code> and
+                I, prefer the programmatic path. I am going to demonstrates a
+                “mixed” and a “pure” auto layout approach for UIScrollViews.
+              </p>
+              <p name="39fa" id="39fa" class="graf graf--p graf-after--p">
+                Do you know that UIScrollView class scrolls its content by
+                changing the origin of its bounds? Cool right!
+              </p>
+              <p name="9e1e" id="9e1e" class="graf graf--p graf-after--p">
+                The constraints on the subviews of the scroll view must result
+                in a size to fill, which is then interpreted as the content size
+                of the scroll view. (This should not be confused with the
+                intrinsicContentSize method used for Auto Layout.) To size the
+                scroll view’s frame with Auto Layout, constraints must either be
+                explicit regarding the width and height of the scroll view, or
+                the edges of the scroll view must be tied to views outside of
+                its subtree.Note that you can make a subview of the scroll view
+                appear to float (not scroll) over the other scrolling content by
+                creating constraints between the view and a view outside the
+                scroll view’s subtree, such as the scroll view’s superview.
+              </p>
+              <p name="4c30" id="4c30" class="graf graf--p graf-after--p">
+                Here are two examples of how to configure the scroll view, first
+                the mixed approach, and then the pure approach.
+              </p>
+              <h3 name="6a7f" id="6a7f" class="graf graf--h3 graf-after--p">
+                Mixed Approach
+              </h3>
+              <p name="c431" id="c431" class="graf graf--p graf-after--h3">
+                Position and size your scroll view with constraints external to
+                the scroll view — that is, the
+                translatesAutoresizingMaskIntoConstraints property is set to NO.
+              </p>
+              <p name="0fe7" id="0fe7" class="graf graf--p graf-after--p">
+                Create a plain UIView content view for your scroll view that
+                will be the size you want your content to have. Make it a
+                subview of the scroll view but let it continue to translate the
+                autoresizing mask into constraints:
+              </p>
+              <p name="ede0" id="ede0" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Listing 1</strong
+                >
+                Mixed Approach Code Listing
+              </p>
+              <pre
+                name="1944"
+                id="1944"
+                class="graf graf--pre graf-after--p"
+              >- (void)<strong class="markup--strong markup--pre-strong">viewDidLoad</strong> {<br>UIView *contentView;<br>contentView = [[UIView alloc] initWithFrame:CGRectMake(0,0,contentWidth,contentHeight)];<br>[scrollView addSubview:contentView];<br>// DON&#39;T change contentView&#39;s translatesAutoresizingMaskIntoConstraints,which defaults to YES;</pre>
+              <pre
+                name="68a8"
+                id="68a8"
+                class="graf graf--pre graf-after--pre"
+              >// Set the content size of the scroll view to match the size of the content view:<br>[scrollView setContentSize:CGSizeMake(contentWidth,contentHeight)];</pre>
+              <pre
+                name="e870"
+                id="e870"
+                class="graf graf--pre graf-after--pre"
+              >/* the rest of your code here... */<br>}</pre>
+              <p name="aeea" id="aeea" class="graf graf--p graf-after--pre">
+                Create the views you want to put inside the content view and
+                configure their constraints so as to position them within the
+                content view.
+              </p>
+              <p name="c1c8" id="c1c8" class="graf graf--p graf-after--p">
+                Alternatively, you can create a view subtree to go in the scroll
+                view, set up your constraints, and call the
+                systemLayoutSizeFittingSize: method (with the
+                UILayoutFittingCompressedSize option) to find the size you want
+                to use for your content view and the contentSize property of the
+                scroll view.
+              </p>
+              <h3 name="fdf8" id="fdf8" class="graf graf--h3 graf-after--p">
+                Pure Auto Layout Approach
+              </h3>
+              <p name="2aee" id="2aee" class="graf graf--p graf-after--h3">
+                To use the pure autolayout approach do the following:
+              </p>
+              <ul class="postList">
+                <li name="7408" id="7408" class="graf graf--li graf-after--p">
+                  Set translatesAutoresizingMaskIntoConstraints to NO on all
+                  views involved.
+                </li>
+                <li name="ad5a" id="ad5a" class="graf graf--li graf-after--li">
+                  Position and size your scroll view with constraints external
+                  to the scroll view.
+                </li>
+                <li name="4594" id="4594" class="graf graf--li graf-after--li">
+                  Use constraints to lay out the subviews within the scroll
+                  view, being sure that the constraints tie to all four edges of
+                  the scroll view and do not rely on the scroll view to get
+                  their size.
+                </li>
+              </ul>
+              <p name="0614" id="0614" class="graf graf--p graf-after--li">
+                A simple example would be a large image view, which has an
+                intrinsic content size derived from the size of the image. In
+                the viewDidLoad method of your view controller, you would
+                include code similar to the code shown in the listing below:
+              </p>
+              <p name="dbd3" id="dbd3" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Listing 2</strong
+                >
+                Pure Auto Layout Approach Code Listing
+              </p>
+              <pre
+                name="8311"
+                id="8311"
+                class="graf graf--pre graf-after--p"
+              >- (void)<strong class="markup--strong markup--pre-strong">viewDidLoad </strong>{<br>UIScrollView *scrollView;<br>UIImageView *imageView;<br>NSDictionary *viewsDictionary;<br>// Create the scroll view and the image view.<br>scrollView  = [[UIScrollView alloc] init];<br>imageView = [[UIImageView alloc] init];<br>// Add an image to the image view.<br>[imageView setImage:[UIImage imageNamed:&quot;MyReallyBigImage&quot;]];<br>// Add the scroll view to our view.<br>[self.view addSubview:scrollView];<br>// Add the image view to the scroll view.<br>[scrollView addSubview:imageView];<br>// Set the translatesAutoresizingMaskIntoConstraints to NO so that the views autoresizing mask is not translated into auto layout constraints.</pre>
+              <pre
+                name="539d"
+                id="539d"
+                class="graf graf--pre graf-after--pre"
+              >scrollView.translatesAutoresizingMaskIntoConstraints  = NO;<br>imageView.translatesAutoresizingMaskIntoConstraints = NO;</pre>
+              <pre
+                name="7d7e"
+                id="7d7e"
+                class="graf graf--pre graf-after--pre"
+              >//Set the constraints for the scroll view and the image view.<br>viewsDictionary = NSDictionaryOfVariableBindings(scrollView, imageView);<br>[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;H:|[scrollView]|&quot; options:0 metrics: 0 views:viewsDictionary]];<br>[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;V:|[scrollView]|&quot; options:0 metrics: 0 views:viewsDictionary]];<br>[scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;H:|[imageView]|&quot; options:0 metrics: 0 views:viewsDictionary]];</pre>
+              <pre
+                name="a309"
+                id="a309"
+                class="graf graf--pre graf-after--pre"
+              >[scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@&quot;V:|[imageView]|&quot; options:0 metrics: 0 views:viewsDictionary]];<br>/* the rest of your code here... */<br>}</pre>
+              <p name="4f8f" id="4f8f" class="graf graf--p graf-after--pre">
+                This would give you a scroll view that resized as the view
+                controller’s view resized (such as on device rotation), and the
+                image view would be a scrolling subview. You don’t have to set
+                the content size of the scroll view.
+              </p>
+              <p
+                name="9664"
+                id="9664"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people looking to apply
+                autolayout programmatically, This article content is referred
+                from
+                <a
+                  href="https://developer.apple.com/library/content/technotes/tn2154/_index.html"
+                  data-href="https://developer.apple.com/library/content/technotes/tn2154/_index.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://developer.apple.com/library/content/technotes/tn2154/_index.html</a
+                >, Please ❤️ to recommend this post to others 😊. Let me know
+                your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/f4f50c9e9dd7"
+            ><time class="dt-published" datetime="2018-05-22T11:26:56.867Z"
+              >May 22, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/programmatic-uiscrollview-with-autolayout-in-ios-11-f4f50c9e9dd7"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

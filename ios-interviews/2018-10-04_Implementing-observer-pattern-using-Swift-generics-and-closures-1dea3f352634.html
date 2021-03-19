@@ -1,8 +1,16 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Implementing observer pattern using Swift generics and closures</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      Implementing observer pattern using Swift generics and closures
+    </title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +63,253 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Implementing observer pattern using Swift generics and closures</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Binding between ViewModel and UIView
-</section>
-<section data-field="body" class="e-content">
-<section name="8dea" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="be5f" id="be5f" class="graf graf--h3 graf--leading graf--title">Implementing observer pattern using Swift generics and closures</h3><p name="c1ef" id="c1ef" class="graf graf--p graf-after--h3">Binding between ViewModel and UIView</p><p name="e478" id="e478" class="graf graf--p graf-after--p">In this post, I’ll present simple binding mechanism by implementing observer pattern using Swift generics and closures.</p><p name="d222" id="d222" class="graf graf--p graf-after--p">Objects of basic data types and values of primitive types do not provide us a way to observe their changes. In order to do that we would have to gain control of their setters (or of that which sets them) and in there notify those who are interested. Fortunately, Swift is smart enough not to allow that. Having that level of freedom would quickly go wrong. However it is possible to create our own data types and tailor them by our desires. We could make them encapsulate basic data or primitive type. That would make modifying value of encapsulated type go through our type’s interface and that’s where we can do what pleases us.</p><p name="06ab" id="06ab" class="graf graf--p graf-after--p">I’ve used <code class="markup--code markup--p-code">typealias</code> command to introduce new type, <strong class="markup--strong markup--p-strong">Observer</strong>, which is a closure that accepts one argument and returns nothing. With that type we declared a <code class="markup--code markup--p-code">observer</code> property, making it an Optional so it’s not required to be set.</p><figure name="4348" id="4348" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*5N3GTSIW1IS3TE7E3eWmwQ.png" data-width="354" data-height="55" src="https://cdn-images-1.medium.com/max/800/1*5N3GTSIW1IS3TE7E3eWmwQ.png"></figure><p name="2cd9" id="2cd9" class="graf graf--p graf-after--figure">Next, we’ve created a setter for observer property just to make syntax a bit nicer. Finally, we’ve changed property observer to call that observer closure if it is set. That’s it! Let’s go through the example.</p><figure name="4905" id="4905" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*B-L061RsNmEqf-9yS-SmyQ.png" data-width="554" data-height="554" src="https://cdn-images-1.medium.com/max/800/1*B-L061RsNmEqf-9yS-SmyQ.png"></figure><p name="7070" id="7070" class="graf graf--p graf-after--figure">Now we are ready with basic template of generic dynamic class which can be used to define custom type for binding purpose between viewModel and Views.</p><p name="782a" id="782a" class="graf graf--p graf-after--p">Lets try to understand the use case for it, Consider a viewModel class which has <strong class="markup--strong markup--p-strong">bool</strong> variable named <strong class="markup--strong markup--p-strong">status</strong> which can be true or false and based on its state, a <strong class="markup--strong markup--p-strong">button</strong> in Xib need to enable and disable, There are several ways to do this thing, in this article we are covering how to create binding between <strong class="markup--strong markup--p-strong">status</strong> variable and <strong class="markup--strong markup--p-strong">button</strong> UI element.</p><figure name="bffa" id="bffa" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*r4Qdv-y_W5Kn9M1wUdFVOg.png" data-width="394" data-height="45" src="https://cdn-images-1.medium.com/max/800/1*r4Qdv-y_W5Kn9M1wUdFVOg.png"><figcaption class="imageCaption">Initialization</figcaption></figure><p name="6285" id="6285" class="graf graf--p graf-after--figure">In the above image , default initialization of status variable has been shown and during run time we have changed the status var like below:</p><figure name="457c" id="457c" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*9yume45SAfNUpLrvJyaHNQ.png" data-width="298" data-height="41" src="https://cdn-images-1.medium.com/max/800/1*9yume45SAfNUpLrvJyaHNQ.png"><figcaption class="imageCaption">run time updating of status variable</figcaption></figure><p name="4728" id="4728" class="graf graf--p graf-after--figure">still we have not bind the button with status, so lets see how we will do it.</p><figure name="72f7" id="72f7" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*WeGdrY-FgRkhl5wx9Cs0ag.png" data-width="485" data-height="169" src="https://cdn-images-1.medium.com/max/800/1*WeGdrY-FgRkhl5wx9Cs0ag.png"><figcaption class="imageCaption">Binding between viewModel.status variable and UIButton</figcaption></figure><p name="5744" id="5744" class="graf graf--p graf-after--figure">Now when ever there is a change in status var of viewModel class, our button enable state will update accordingly.</p><figure name="81ec" id="81ec" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*5C3T2UnXUvxS2-KFf4OSLg.jpeg" data-width="800" data-height="215" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*5C3T2UnXUvxS2-KFf4OSLg.jpeg"><figcaption class="imageCaption">Source: <a href="https://icetime17.github.io/2018/03/13/2018-03/%E7%A7%BB%E5%8A%A8%E6%9E%B6%E6%9E%84%E4%B9%8BMVVM/" data-href="https://icetime17.github.io/2018/03/13/2018-03/%E7%A7%BB%E5%8A%A8%E6%9E%B6%E6%9E%84%E4%B9%8BMVVM/" class="markup--anchor markup--figure-anchor" rel="noopener nofollow noopener" target="_blank">icetime17</a></figcaption></figure><p name="d41a" id="d41a" class="graf graf--p graf-after--figure">Hope this clarify the use case of observer pattern, This above example shows use-case in MVVM based app architecture.</p><p name="ba4e" id="ba4e" class="graf graf--p graf-after--p graf--trailing">Check more at <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2018</strong></a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/1dea3f352634"><time class="dt-published" datetime="2018-10-04T09:14:14.056Z">October 4, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/implementing-observer-pattern-using-swift-generics-and-closures-1dea3f352634" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Implementing observer pattern using Swift generics and closures
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Binding between ViewModel and UIView
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="8dea"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="be5f"
+                id="be5f"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Implementing observer pattern using Swift generics and closures
+              </h3>
+              <p name="c1ef" id="c1ef" class="graf graf--p graf-after--h3">
+                Binding between ViewModel and UIView
+              </p>
+              <p name="e478" id="e478" class="graf graf--p graf-after--p">
+                In this post, I’ll present simple binding mechanism by
+                implementing observer pattern using Swift generics and closures.
+              </p>
+              <p name="d222" id="d222" class="graf graf--p graf-after--p">
+                Objects of basic data types and values of primitive types do not
+                provide us a way to observe their changes. In order to do that
+                we would have to gain control of their setters (or of that which
+                sets them) and in there notify those who are interested.
+                Fortunately, Swift is smart enough not to allow that. Having
+                that level of freedom would quickly go wrong. However it is
+                possible to create our own data types and tailor them by our
+                desires. We could make them encapsulate basic data or primitive
+                type. That would make modifying value of encapsulated type go
+                through our type’s interface and that’s where we can do what
+                pleases us.
+              </p>
+              <p name="06ab" id="06ab" class="graf graf--p graf-after--p">
+                I’ve used
+                <code class="markup--code markup--p-code">typealias</code>
+                command to introduce new type,
+                <strong class="markup--strong markup--p-strong">Observer</strong
+                >, which is a closure that accepts one argument and returns
+                nothing. With that type we declared a
+                <code class="markup--code markup--p-code">observer</code>
+                property, making it an Optional so it’s not required to be set.
+              </p>
+              <figure
+                name="4348"
+                id="4348"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*5N3GTSIW1IS3TE7E3eWmwQ.png"
+                  data-width="354"
+                  data-height="55"
+                  src="https://cdn-images-1.medium.com/max/800/1*5N3GTSIW1IS3TE7E3eWmwQ.png"
+                />
+              </figure>
+              <p name="2cd9" id="2cd9" class="graf graf--p graf-after--figure">
+                Next, we’ve created a setter for observer property just to make
+                syntax a bit nicer. Finally, we’ve changed property observer to
+                call that observer closure if it is set. That’s it! Let’s go
+                through the example.
+              </p>
+              <figure
+                name="4905"
+                id="4905"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*B-L061RsNmEqf-9yS-SmyQ.png"
+                  data-width="554"
+                  data-height="554"
+                  src="https://cdn-images-1.medium.com/max/800/1*B-L061RsNmEqf-9yS-SmyQ.png"
+                />
+              </figure>
+              <p name="7070" id="7070" class="graf graf--p graf-after--figure">
+                Now we are ready with basic template of generic dynamic class
+                which can be used to define custom type for binding purpose
+                between viewModel and Views.
+              </p>
+              <p name="782a" id="782a" class="graf graf--p graf-after--p">
+                Lets try to understand the use case for it, Consider a viewModel
+                class which has
+                <strong class="markup--strong markup--p-strong">bool</strong>
+                variable named
+                <strong class="markup--strong markup--p-strong">status</strong>
+                which can be true or false and based on its state, a
+                <strong class="markup--strong markup--p-strong">button</strong>
+                in Xib need to enable and disable, There are several ways to do
+                this thing, in this article we are covering how to create
+                binding between
+                <strong class="markup--strong markup--p-strong">status</strong>
+                variable and
+                <strong class="markup--strong markup--p-strong">button</strong>
+                UI element.
+              </p>
+              <figure
+                name="bffa"
+                id="bffa"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*r4Qdv-y_W5Kn9M1wUdFVOg.png"
+                  data-width="394"
+                  data-height="45"
+                  src="https://cdn-images-1.medium.com/max/800/1*r4Qdv-y_W5Kn9M1wUdFVOg.png"
+                />
+                <figcaption class="imageCaption">Initialization</figcaption>
+              </figure>
+              <p name="6285" id="6285" class="graf graf--p graf-after--figure">
+                In the above image , default initialization of status variable
+                has been shown and during run time we have changed the status
+                var like below:
+              </p>
+              <figure
+                name="457c"
+                id="457c"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*9yume45SAfNUpLrvJyaHNQ.png"
+                  data-width="298"
+                  data-height="41"
+                  src="https://cdn-images-1.medium.com/max/800/1*9yume45SAfNUpLrvJyaHNQ.png"
+                />
+                <figcaption class="imageCaption">
+                  run time updating of status variable
+                </figcaption>
+              </figure>
+              <p name="4728" id="4728" class="graf graf--p graf-after--figure">
+                still we have not bind the button with status, so lets see how
+                we will do it.
+              </p>
+              <figure
+                name="72f7"
+                id="72f7"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*WeGdrY-FgRkhl5wx9Cs0ag.png"
+                  data-width="485"
+                  data-height="169"
+                  src="https://cdn-images-1.medium.com/max/800/1*WeGdrY-FgRkhl5wx9Cs0ag.png"
+                />
+                <figcaption class="imageCaption">
+                  Binding between viewModel.status variable and UIButton
+                </figcaption>
+              </figure>
+              <p name="5744" id="5744" class="graf graf--p graf-after--figure">
+                Now when ever there is a change in status var of viewModel
+                class, our button enable state will update accordingly.
+              </p>
+              <figure
+                name="81ec"
+                id="81ec"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*5C3T2UnXUvxS2-KFf4OSLg.jpeg"
+                  data-width="800"
+                  data-height="215"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*5C3T2UnXUvxS2-KFf4OSLg.jpeg"
+                />
+                <figcaption class="imageCaption">
+                  Source:
+                  <a
+                    href="https://icetime17.github.io/2018/03/13/2018-03/%E7%A7%BB%E5%8A%A8%E6%9E%B6%E6%9E%84%E4%B9%8BMVVM/"
+                    data-href="https://icetime17.github.io/2018/03/13/2018-03/%E7%A7%BB%E5%8A%A8%E6%9E%B6%E6%9E%84%E4%B9%8BMVVM/"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="noopener nofollow noopener"
+                    target="_blank"
+                    >icetime17</a
+                  >
+                </figcaption>
+              </figure>
+              <p name="d41a" id="d41a" class="graf graf--p graf-after--figure">
+                Hope this clarify the use case of observer pattern, This above
+                example shows use-case in MVVM based app architecture.
+              </p>
+              <!-- <p
+                name="ba4e"
+                id="ba4e"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Check more at
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers for 2018</strong
+                  ></a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/1dea3f352634"
+            ><time class="dt-published" datetime="2018-10-04T09:14:14.056Z"
+              >October 4, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/implementing-observer-pattern-using-swift-generics-and-closures-1dea3f352634"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

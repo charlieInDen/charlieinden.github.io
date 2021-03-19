@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Understanding the Swift Build Pipeline</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Understanding the Swift Build Pipeline</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,147 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Understanding the Swift Build Pipeline</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-How swift works without header file or include files?
-</section>
-<section data-field="body" class="e-content">
-<section name="d574" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0e9b" id="0e9b" class="graf graf--h3 graf--leading graf--title">Understanding the Swift Build Pipeline</h3><p name="8d1b" id="8d1b" class="graf graf--p graf-after--h3">How swift works without header file or include files?</p><p name="0b3d" id="0b3d" class="graf graf--p graf-after--p">I was curious about how swift manages all the things without using header files, include header files…and finally i read things about it , let me share with you.</p><p name="168d" id="168d" class="graf graf--p graf-after--p">Obj-C compilation relies on headers and object files. Swift doesn’t use headers, and you’ve probably never run into a Swift object file, either. How does Xcode solve this?</p><p name="24e2" id="24e2" class="graf graf--p graf-after--p">By generating a header and object file per Swift file, of course!</p><p name="0fc4" id="0fc4" class="graf graf--p graf-after--p">Each Swift file gets compiled into an object file and, for use from Obj-C, a header file: <code class="markup--code markup--p-code">A.swift</code> -&gt; <code class="markup--code markup--p-code">A.o</code>, <code class="markup--code markup--p-code">A.h</code></p><p name="53f9" id="53f9" class="graf graf--p graf-after--p">Yup — the Swift files themselves are effectively header files!</p><p name="e195" id="e195" class="graf graf--p graf-after--p">Importing names from other files in a module is implicit in the source code: you can freely use a type <code class="markup--code markup--p-code">B</code> defined in <code class="markup--code markup--p-code">B.swift</code> while you’re writing code in <code class="markup--code markup--p-code">A.swift</code>, and you just expect it to be available. If this were Obj-C, it’d be roughly like every <code class="markup--code markup--p-code">.m</code> file in your project automagically gained a series of <code class="markup--code markup--p-code">#import</code>s of every <code class="markup--code markup--p-code">.h</code> file in your project.</p><p name="4b14" id="4b14" class="graf graf--p graf-after--p">Swift code does not have <code class="markup--code markup--p-code">#import</code>s to name the specific files to factor into compilation of a single <code class="markup--code markup--p-code">.swift</code> file, though. So instead of listing all the files in the module in the <code class="markup--code markup--p-code">.swift</code>file, that list moves to the compiler invocation: When you compile a single Swift file, the compiler invocation lists every other Swift file in that module.</p><p name="d215" id="d215" class="graf graf--p graf-after--p">Good thing Xcode is writing those compiler invocations for you, yeah?</p><p name="1fe7" id="1fe7" class="graf graf--p graf-after--p">Hope you like this article &amp; is useful for people looking to find out the answer, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="0a80" id="0a80" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References:</strong></p><ol class="postList"><li name="82f3" id="82f3" class="graf graf--li graf-after--p graf--trailing"><a href="https://www.bignerdranch.com/blog/manual-swift-understanding-the-swift-objective-c-build-pipeline/" data-href="https://www.bignerdranch.com/blog/manual-swift-understanding-the-swift-objective-c-build-pipeline/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://www.bignerdranch.com/blog/manual-swift-understanding-the-swift-objective-c-build-pipeline/</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/a4bdd795a53d"><time class="dt-published" datetime="2018-08-16T11:05:00.859Z">August 16, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/understanding-the-swift-build-pipeline-a4bdd795a53d" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Understanding the Swift Build Pipeline</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        How swift works without header file or include files?
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="d574"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="0e9b"
+                id="0e9b"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Understanding the Swift Build Pipeline
+              </h3>
+              <p name="8d1b" id="8d1b" class="graf graf--p graf-after--h3">
+                How swift works without header file or include files?
+              </p>
+              <p name="0b3d" id="0b3d" class="graf graf--p graf-after--p">
+                I was curious about how swift manages all the things without
+                using header files, include header files…and finally i read
+                things about it , let me share with you.
+              </p>
+              <p name="168d" id="168d" class="graf graf--p graf-after--p">
+                Obj-C compilation relies on headers and object files. Swift
+                doesn’t use headers, and you’ve probably never run into a Swift
+                object file, either. How does Xcode solve this?
+              </p>
+              <p name="24e2" id="24e2" class="graf graf--p graf-after--p">
+                By generating a header and object file per Swift file, of
+                course!
+              </p>
+              <p name="0fc4" id="0fc4" class="graf graf--p graf-after--p">
+                Each Swift file gets compiled into an object file and, for use
+                from Obj-C, a header file:
+                <code class="markup--code markup--p-code">A.swift</code> -&gt;
+                <code class="markup--code markup--p-code">A.o</code>,
+                <code class="markup--code markup--p-code">A.h</code>
+              </p>
+              <p name="53f9" id="53f9" class="graf graf--p graf-after--p">
+                Yup — the Swift files themselves are effectively header files!
+              </p>
+              <p name="e195" id="e195" class="graf graf--p graf-after--p">
+                Importing names from other files in a module is implicit in the
+                source code: you can freely use a type
+                <code class="markup--code markup--p-code">B</code> defined in
+                <code class="markup--code markup--p-code">B.swift</code> while
+                you’re writing code in
+                <code class="markup--code markup--p-code">A.swift</code>, and
+                you just expect it to be available. If this were Obj-C, it’d be
+                roughly like every
+                <code class="markup--code markup--p-code">.m</code> file in your
+                project automagically gained a series of
+                <code class="markup--code markup--p-code">#import</code>s of
+                every <code class="markup--code markup--p-code">.h</code> file
+                in your project.
+              </p>
+              <p name="4b14" id="4b14" class="graf graf--p graf-after--p">
+                Swift code does not have
+                <code class="markup--code markup--p-code">#import</code>s to
+                name the specific files to factor into compilation of a single
+                <code class="markup--code markup--p-code">.swift</code> file,
+                though. So instead of listing all the files in the module in the
+                <code class="markup--code markup--p-code">.swift</code>file,
+                that list moves to the compiler invocation: When you compile a
+                single Swift file, the compiler invocation lists every other
+                Swift file in that module.
+              </p>
+              <p name="d215" id="d215" class="graf graf--p graf-after--p">
+                Good thing Xcode is writing those compiler invocations for you,
+                yeah?
+              </p>
+              <p name="1fe7" id="1fe7" class="graf graf--p graf-after--p">
+                Hope you like this article &amp; is useful for people looking to
+                find out the answer, Please ❤️ to recommend this post to others
+                😊. Let me know your feedback. :)
+              </p>
+              <p name="0a80" id="0a80" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >References:</strong
+                >
+              </p>
+              <ol class="postList">
+                <li
+                  name="82f3"
+                  id="82f3"
+                  class="graf graf--li graf-after--p graf--trailing"
+                >
+                  <a
+                    href="https://www.bignerdranch.com/blog/manual-swift-understanding-the-swift-objective-c-build-pipeline/"
+                    data-href="https://www.bignerdranch.com/blog/manual-swift-understanding-the-swift-objective-c-build-pipeline/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://www.bignerdranch.com/blog/manual-swift-understanding-the-swift-objective-c-build-pipeline/</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/a4bdd795a53d"
+            ><time class="dt-published" datetime="2018-08-16T11:05:00.859Z"
+              >August 16, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/understanding-the-swift-build-pipeline-a4bdd795a53d"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Programming In Python(Part II)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Programming In Python(Part II)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,660 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Programming In Python(Part II)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-In this Article, you will learn about Fundamentals of Python like Dictionaries, Modules and Packages, Generators, List Comprehensions…
-</section>
-<section data-field="body" class="e-content">
-<section name="a29f" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="ed2d" id="ed2d" class="graf graf--h3 graf--leading graf--title">Programming In Python(Part II)</h3><p name="10e6" id="10e6" class="graf graf--p graf-after--h3">In this Article, you will learn about Fundamentals of Python like Dictionaries, Modules and Packages, Generators, List Comprehensions, Multiple Function Arguments, Regular Expressions, Exception Handling, Sets, Serialization, Code Introspection, Closures, Decorators &amp; Map, Filter, Reduce.</p><figure name="37a5" id="37a5" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*R2B_dBIz7CsLJOkxr6BFtw.jpeg" data-width="1280" data-height="626" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*R2B_dBIz7CsLJOkxr6BFtw.jpeg"></figure><h3 name="96d0" id="96d0" class="graf graf--h3 graf-after--figure">Dictionaries</h3><p name="f8f6" id="f8f6" class="graf graf--p graf-after--h3">A dictionary is a data type similar to arrays, but works with keys and values instead of indexes. Each value stored in a dictionary can be accessed using a key, which is any type of object (a string, a number, a list, etc.) instead of using its index to address it.</p><pre name="faaf" id="faaf" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">#script.py</strong><br>phonebook = {<br>    &quot;John&quot; : 938477566,<br>    &quot;Jack&quot; : 938377264,<br>    &quot;Jill&quot; : 947662781<br>}</pre><pre name="1b08" id="1b08" class="graf graf--pre graf-after--pre">phonebook[&quot;Jake&quot;] = 938273443<br>del phonebook[&quot;Jill&quot;]</pre><pre name="cd6d" id="cd6d" class="graf graf--pre graf-after--pre">if &quot;Jake&quot; in phonebook:<br>    print(&quot;Jake is listed in the phonebook.&quot;)<br>if &quot;Jill&quot; not in phonebook:<br>    print(&quot;Jill is not listed in the phonebook.&quot;)</pre><h3 name="910a" id="910a" class="graf graf--h3 graf-after--pre">Modules and Packages</h3><p name="bff8" id="bff8" class="graf graf--p graf-after--h3">In programming, a module is a piece of software that has a specific functionality. For example, when building a chess game, one module would be responsible for the game logic, and another module would be responsible for drawing the game on the screen. Each module is a different file, which can be edited separately.</p><h4 name="7492" id="7492" class="graf graf--h4 graf-after--p">Writing modules</h4><p name="ccbb" id="ccbb" class="graf graf--p graf-after--h4">Modules in Python are simply Python files with a .py extension. The name of the module will be the name of the file. A Python module can have a set of functions, classes or variables defined and implemented. In the example, we will have two files:</p><pre name="e6a3" id="e6a3" class="graf graf--pre graf-after--p">mygame/<br>mygame/game.py<br>mygame/draw.py</pre><pre name="2f87" id="2f87" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong"># game.py</strong><br># import the draw module<br>import draw</pre><pre name="149d" id="149d" class="graf graf--pre graf-after--pre">def play_game():<br>    ...</pre><pre name="ff71" id="ff71" class="graf graf--pre graf-after--pre">def main():<br>    result = play_game()<br>    draw.draw_game(result)</pre><pre name="eefa" id="eefa" class="graf graf--pre graf-after--pre"># this means that if this script is executed, then <br># main() will be executed<br>if __name__ == &#39;__main__&#39;:<br>    main()</pre><pre name="313b" id="313b" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong"># draw.py<br></strong>def draw_game():<br>    ...</pre><pre name="e9d4" id="e9d4" class="graf graf--pre graf-after--pre">def clear_screen(screen):<br>    ...</pre><h4 name="1a84" id="1a84" class="graf graf--h4 graf-after--pre">Importing module objects to the current namespace</h4><p name="bd43" id="bd43" class="graf graf--p graf-after--h4">We may also import the function <code class="markup--code markup--p-code">draw_game</code> directly into the main script&#39;s namespace, by using the <code class="markup--code markup--p-code">from</code> command.</p><pre name="1809" id="1809" class="graf graf--pre graf-after--p"># script.py<br><strong class="markup--strong markup--pre-strong"># game.py<br># import the draw module</strong></pre><pre name="896f" id="896f" class="graf graf--pre graf-after--pre">from draw import draw_game</pre><pre name="8032" id="8032" class="graf graf--pre graf-after--pre">def main():</pre><pre name="1363" id="1363" class="graf graf--pre graf-after--pre">result = play_game()</pre><pre name="af14" id="af14" class="graf graf--pre graf-after--pre">draw_game(result)</pre><h3 name="9ee2" id="9ee2" class="graf graf--h3 graf-after--pre">Module initialization</h3><p name="ecac" id="ecac" class="graf graf--p graf-after--h3">The first time a module is loaded into a running Python script, it is initialized by executing the code in the module once. If another module in your code imports the same module again, it will not be loaded twice but once only — so local variables inside the module act as a “singleton” — they are initialized only once.</p><p name="c04d" id="c04d" class="graf graf--p graf-after--p">This is useful to know, because this means that you can rely on this behavior for initializing objects. For example:</p><pre name="a03c" id="a03c" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong"># draw.py</strong></pre><pre name="6506" id="6506" class="graf graf--pre graf-after--pre">def draw_game():<br>    # when clearing the screen we can use the main screen object initialized in this module<br>    clear_screen(main_screen)<br>    ...</pre><pre name="9b5b" id="9b5b" class="graf graf--pre graf-after--pre">def clear_screen(screen):<br>    ...</pre><pre name="8066" id="8066" class="graf graf--pre graf-after--pre">class Screen():<br>    ...</pre><pre name="07c4" id="07c4" class="graf graf--pre graf-after--pre"># initialize main_screen as a singleton<br>main_screen = Screen()</pre><h3 name="df22" id="df22" class="graf graf--h3 graf-after--pre">Writing packages</h3><p name="32bb" id="32bb" class="graf graf--p graf-after--h3">Packages are namespaces which contain multiple packages and modules themselves. They are simply directories, but with a twist.</p><p name="0b33" id="0b33" class="graf graf--p graf-after--p">Each package in Python is a directory which <strong class="markup--strong markup--p-strong">MUST</strong> contain a special file called <code class="markup--code markup--p-code">__init__.py</code>. This file can be empty, and it indicates that the directory it contains is a Python package, so it can be imported the same way a module can be imported.</p><p name="206f" id="206f" class="graf graf--p graf-after--p">If we create a directory called <code class="markup--code markup--p-code">foo</code>, which marks the package name, we can then create a module inside that package called <code class="markup--code markup--p-code">bar</code>. We also must not forget to add the <code class="markup--code markup--p-code">__init__.py</code> file inside the <code class="markup--code markup--p-code">foo</code> directory.</p><p name="2165" id="2165" class="graf graf--p graf-after--p">To use the module <code class="markup--code markup--p-code">bar</code>, we can import it in two ways:</p><p name="7eb9" id="7eb9" class="graf graf--p graf-after--p">import foo.bar <strong class="markup--strong markup--p-strong">or</strong> from foo import bar</p><h3 name="b8d6" id="b8d6" class="graf graf--h3 graf-after--p">Generators</h3><p name="1f94" id="1f94" class="graf graf--p graf-after--h3">Generators are very easy to implement, but a bit difficult to understand.</p><p name="745b" id="745b" class="graf graf--p graf-after--p">Generators are used to create iterators, but with a different approach. Generators are simple functions which return an iterable set of items, one at a time, in a special way.</p><p name="cf9e" id="cf9e" class="graf graf--p graf-after--p">When an iteration over a set of item starts using the for statement, the generator is run. Once the generator’s function code reaches a “yield” statement, the generator yields its execution back to the for loop, returning a new value from the set. The generator function can generate as many values (possibly infinite) as it wants, yielding each one in its turn.</p><p name="3eb4" id="3eb4" class="graf graf--p graf-after--p">Here is a simple example of a generator function which returns 7 random integers:</p><pre name="7d0f" id="7d0f" class="graf graf--pre graf-after--p">import random</pre><pre name="ed68" id="ed68" class="graf graf--pre graf-after--pre">def lottery():<br>    # returns 6 numbers between 1 and 40<br>    for i in range(6):<br>        yield random.randint(1, 40)</pre><pre name="f30f" id="f30f" class="graf graf--pre graf-after--pre"># returns a 7th number between 1 and 15<br>    yield random.randint(1,15)</pre><pre name="6e0d" id="6e0d" class="graf graf--pre graf-after--pre">for random_number in lottery():<br>       print(&quot;And the next number is... %d!&quot; %(random_number))</pre><h3 name="9d53" id="9d53" class="graf graf--h3 graf-after--pre">List Comprehensions</h3><p name="d2ed" id="d2ed" class="graf graf--p graf-after--h3">List Comprehensions is a very powerful tool, which creates a new list based on another list, in a single, readable line.</p><p name="bdd2" id="bdd2" class="graf graf--p graf-after--p">For example, let’s say we need to create a list of integers which specify the length of each word in a certain sentence, but only if the word is not the word “the”.</p><pre name="4a40" id="4a40" class="graf graf--pre graf-after--p">sentence = &quot;the quick brown fox jumps over the lazy dog&quot;<br>words = sentence.split()<br>word_lengths = [len(word) for word in words if word != &quot;the&quot;]<br>print(words)<br>print(word_lengths)</pre><h3 name="091d" id="091d" class="graf graf--h3 graf-after--pre">Multiple Function Arguments</h3><p name="9110" id="9110" class="graf graf--p graf-after--h3">Every function in Python receives a predefined number of arguments, if declared normally, like this:</p><pre name="2574" id="2574" class="graf graf--pre graf-after--p">def foo(first, second, third, *therest):<br>    print(&quot;First: %s&quot; % first)<br>    print(&quot;Second: %s&quot; % second)<br>    print(&quot;Third: %s&quot; % third)<br>    print(&quot;And all the rest... %s&quot; % list(therest))</pre><p name="9323" id="9323" class="graf graf--p graf-after--pre">The “therest” variable is a list of variables, which receives all arguments which were given to the “foo” function after the first 3 arguments. So calling <code class="markup--code markup--p-code">foo(1,2,3,4,5)</code> will print out:</p><pre name="f965" id="f965" class="graf graf--pre graf-after--p">def foo(first, second, third, *therest):<br> print(“First: %s” %(first))<br> print(“Second: %s” %(second))<br> print(“Third: %s” %(third))<br> print(“And all the rest… %s” %(list(therest)))</pre><pre name="07dc" id="07dc" class="graf graf--pre graf-after--pre">foo(1,2,3,4,5)</pre><p name="45f2" id="45f2" class="graf graf--p graf-after--pre">It is also possible to send functions arguments by keyword, so that the order of the argument does not matter, using the following syntax.</p><pre name="4cfe" id="4cfe" class="graf graf--pre graf-after--p">def bar(first, second, third, **options):<br>    if options.get(&quot;action&quot;) == &quot;sum&quot;:<br>        print(&quot;The sum is: %d&quot; %(first + second + third))</pre><pre name="deeb" id="deeb" class="graf graf--pre graf-after--pre">if options.get(&quot;number&quot;) == &quot;first&quot;:<br>        return first</pre><pre name="eafc" id="eafc" class="graf graf--pre graf-after--pre">result = bar(1, 2, 3, action = &quot;sum&quot;, number = &quot;first&quot;)<br>print(&quot;Result: %d&quot; %(result))</pre><h3 name="e4a7" id="e4a7" class="graf graf--h3 graf-after--pre">Regular Expressions</h3><p name="2296" id="2296" class="graf graf--p graf-after--h3">Regular Expressions (sometimes shortened to regexp, regex, or re) are a tool for matching patterns in text. In Python, we have the re module. The applications for regular expressions are wide-spread, but they are fairly complex, so when contemplating using a regex for a certain task, think about alternatives, and come to regexes as a last resort.</p><p name="1e16" id="1e16" class="graf graf--p graf-after--p">An example regex is <code class="markup--code markup--p-code">r&quot;^(From|To|Cc).*?python-list@python.org&quot;</code> Now for an explanation: the caret <code class="markup--code markup--p-code">^</code> matches text at the beginning of a line. The following group, the part with <code class="markup--code markup--p-code">(From|To|Cc)</code> means that the line has to start with one of the words that are separated by the pipe <code class="markup--code markup--p-code">|</code>. That is called the OR operator, and the regex will match if the line starts with any of the words in the group. The <code class="markup--code markup--p-code">.*?</code> means to un-greedily match any number of characters, except the newline <code class="markup--code markup--p-code">\n</code> character. The un-greedy part means to match as few repetitions as possible. The <code class="markup--code markup--p-code">.</code> character means any non-newline character, the <code class="markup--code markup--p-code">*</code> means to repeat 0 or more times, and the <code class="markup--code markup--p-code">?</code> character makes it un-greedy.</p><h3 name="d08b" id="d08b" class="graf graf--h3 graf-after--p">Exception Handling</h3><p name="f33c" id="f33c" class="graf graf--p graf-after--h3">You might want to do something special when an exception is raised. This is done in a <em class="markup--em markup--p-em">try/except</em> block.</p><p name="c191" id="c191" class="graf graf--p graf-after--p">Here’s a trivial example: Suppose you’re iterating over a list. You need to iterate over 20 numbers, but the list is made from user input, and might not have 20 numbers in it. After you reach the end of the list, you just want the rest of the numbers to be interpreted as a 0. Here’s how you could do that:</p><pre name="f453" id="f453" class="graf graf--pre graf-after--p">def do_stuff_with_number(n):<br>    print(n)</pre><pre name="c790" id="c790" class="graf graf--pre graf-after--pre">def catch_this():<br>    the_list = (1, 2, 3, 4, 5)</pre><pre name="8afd" id="8afd" class="graf graf--pre graf-after--pre">for i in range(20):<br>        try:<br>            do_stuff_with_number(the_list[i])<br>        except IndexError: # Raised when accessing a non-existing index of a list<br>            do_stuff_with_number(0)</pre><pre name="a715" id="a715" class="graf graf--pre graf-after--pre">catch_this()</pre><h3 name="ddf0" id="ddf0" class="graf graf--h3 graf-after--pre">Sets</h3><p name="641d" id="641d" class="graf graf--p graf-after--h3">Sets are lists with no duplicate entries. Let’s say you want to collect a list of words used in a paragraph:</p><pre name="16da" id="16da" class="graf graf--pre graf-after--p">print(set(&quot;my name is Eric and Eric is my name&quot;.split()))</pre><h3 name="4ab0" id="4ab0" class="graf graf--h3 graf-after--pre">Serialization</h3><p name="286b" id="286b" class="graf graf--p graf-after--h3">Python provides built-in JSON libraries to encode and decode JSON.</p><pre name="283c" id="283c" class="graf graf--pre graf-after--p">import json</pre><pre name="0db4" id="0db4" class="graf graf--pre graf-after--pre"># it adds the given name and salary pair to salaries_json, and return it<br>def add_employee(salaries_json, name, salary):<br>    salaries = json.loads(salaries_json)<br>    salaries[name] = salary</pre><pre name="781f" id="781f" class="graf graf--pre graf-after--pre">return json.dumps(salaries)</pre><pre name="6cb3" id="6cb3" class="graf graf--pre graf-after--pre"># test code<br>salaries = &#39;{&quot;Alfred&quot; : 300, &quot;Jane&quot; : 400 }&#39;<br>new_salaries = add_employee(salaries, &quot;Me&quot;, 800)<br>decoded_salaries = json.loads(new_salaries)<br>print(decoded_salaries[&quot;Alfred&quot;])<br>print(decoded_salaries[&quot;Jane&quot;])<br>print(decoded_salaries[&quot;Me&quot;])</pre><h3 name="40e4" id="40e4" class="graf graf--h3 graf-after--pre">Code Introspection</h3><p name="3bfa" id="3bfa" class="graf graf--p graf-after--h3">Code introspection is the ability to examine classes, functions and keywords to know what they are, what they do and what they know.</p><p name="e89b" id="e89b" class="graf graf--p graf-after--p">Python provides several functions and utilities for code introspection.</p><pre name="676c" id="676c" class="graf graf--pre graf-after--p">help()<br>dir() <br>hasattr() <br>id() <br>type() <br>repr() <br>callable() <br>issubclass() <br>isinstance() <br>__doc__ <br>__name__</pre><h3 name="5b13" id="5b13" class="graf graf--h3 graf-after--pre">Closures</h3><p name="cfee" id="cfee" class="graf graf--p graf-after--h3">A Closure is a function object that remembers values in enclosing scopes even if they are not present in memory.</p><pre name="6eb9" id="6eb9" class="graf graf--pre graf-after--p">def transmit_to_space(message):<br>  &quot;This is the enclosing function&quot;<br>  def data_transmitter():<br>      &quot;The nested function&quot;<br>      print(message)<br>  return data_transmitter</pre><pre name="cac8" id="cac8" class="graf graf--pre graf-after--pre">fun2 = transmit_to_space(&quot;Burn the Sun!&quot;)<br>fun2()</pre><h3 name="e88a" id="e88a" class="graf graf--h3 graf-after--pre">Decorators</h3><p name="f2cf" id="f2cf" class="graf graf--p graf-after--h3">Decorators allow you to make simple modifications to callable objects like functions, methods, or classes.</p><pre name="096a" id="096a" class="graf graf--pre graf-after--p">def type_check(correct_type):<br>    def check(old_function):<br>        def new_function(arg):<br>            if (isinstance(arg, correct_type)):<br>                return old_function(arg)<br>            else:<br>                print(&quot;Bad Type&quot;)<br>        return new_function<br>    return check</pre><pre name="996e" id="996e" class="graf graf--pre graf-after--pre">@type_check(int)<br>def times2(num):<br>    return num*2</pre><pre name="49d4" id="49d4" class="graf graf--pre graf-after--pre">print(times2(2))<br>times2(&#39;Not A Number&#39;)</pre><pre name="b9ed" id="b9ed" class="graf graf--pre graf-after--pre">@type_check(str)<br>def first_letter(word):<br>    return word[0]</pre><pre name="19c6" id="19c6" class="graf graf--pre graf-after--pre">print(first_letter(&#39;Hello World&#39;))<br>first_letter([&#39;Not&#39;, &#39;A&#39;, &#39;String&#39;])</pre><p name="e68b" id="e68b" class="graf graf--p graf-after--pre">Its a decorator factory which returns a decorator that decorates functions with one argument. The factory takes one argument, a type, and then returns a decorator that makes function should check if the input is the correct type. If it is wrong, it should print(“Bad Type”)</p><h3 name="4d09" id="4d09" class="graf graf--h3 graf-after--p">Map, Filter, Reduce</h3><p name="a506" id="a506" class="graf graf--p graf-after--h3">Map, Filter, and Reduce are paradigms of functional programming. They allow the programmer (you) to write simpler, shorter code, without neccessarily needing to bother about intricacies like loops and branching.</p><p name="e45b" id="e45b" class="graf graf--p graf-after--p">Essentially, these three functions allow you to apply a function across a number of iterables, in one full swoop. <code class="markup--code markup--p-code">map</code> and <code class="markup--code markup--p-code">filter</code>come built-in with Python (in the <code class="markup--code markup--p-code">__builtins__</code> module) and require no importing. <code class="markup--code markup--p-code">reduce</code>, however, needs to be imported as it resides in the <code class="markup--code markup--p-code">functools</code> module.</p><p name="cff0" id="cff0" class="graf graf--p graf-after--p">With <code class="markup--code markup--p-code">map()</code> functions:</p><pre name="e267" id="e267" class="graf graf--pre graf-after--p"># Python 3<br>my_pets = [&#39;alfred&#39;, &#39;tabitha&#39;, &#39;william&#39;, &#39;arla&#39;]</pre><pre name="9878" id="9878" class="graf graf--pre graf-after--pre">uppered_pets = list(map(str.upper, my_pets))</pre><pre name="43b2" id="43b2" class="graf graf--pre graf-after--pre">print(uppered_pets)</pre><p name="c74c" id="c74c" class="graf graf--p graf-after--pre">The next example will be a palindrome detector. A “palindrome” is a word, phrase, or sequence that reads the same backwards as forwards. Let’s filter out words that are palindromes from a tuple (<code class="markup--code markup--p-code">iterable</code>) of suspected palindromes.</p><pre name="2068" id="2068" class="graf graf--pre graf-after--p"># Python 3<br>dromes = (&quot;demigod&quot;, &quot;rewire&quot;, &quot;madam&quot;, &quot;freer&quot;, &quot;anutforajaroftuna&quot;, &quot;kiosk&quot;)</pre><pre name="fd73" id="fd73" class="graf graf--pre graf-after--pre">palindromes = list(filter(lambda word: word == word[::-1], dromes))</pre><pre name="6d2d" id="6d2d" class="graf graf--pre graf-after--pre">print(palindromes)</pre><p name="e30d" id="e30d" class="graf graf--p graf-after--pre">With <strong class="markup--strong markup--p-strong">reduce</strong>() functions:</p><pre name="b4bd" id="b4bd" class="graf graf--pre graf-after--p"># Python 3<br>from functools import reduce</pre><pre name="19ac" id="19ac" class="graf graf--pre graf-after--pre">numbers = [3, 4, 6, 9, 34, 12]</pre><pre name="e942" id="e942" class="graf graf--pre graf-after--pre">def custom_sum(first, second):<br> return first + second</pre><pre name="2d70" id="2d70" class="graf graf--pre graf-after--pre">result = reduce(custom_sum, numbers, 10)<br>print(result)</pre><h4 name="65c1" id="65c1" class="graf graf--h4 graf-after--pre">Previous: <a href="/@nishantnitb/programming-in-python-part-i-76699fb857e2?source=your_stories_page-------------------------------------" data-href="/@nishantnitb/programming-in-python-part-i-76699fb857e2?source=your_stories_page-------------------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Programming In Python(Part I)</a></h4><h4 name="e033" id="e033" class="graf graf--h4 graf-after--h4 graf--trailing">Next: <a href="https://nishantnitb.medium.com/kata-in-python-part-iii-4a4f6dcf8425" data-href="https://nishantnitb.medium.com/kata-in-python-part-iii-4a4f6dcf8425" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">KATA in Python Part — III</a></h4></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/e54ef083f868"><time class="dt-published" datetime="2020-10-18T07:08:33.585Z">October 18, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/programming-in-python-part-ii-e54ef083f868" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Programming In Python(Part II)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        In this Article, you will learn about Fundamentals of Python like
+        Dictionaries, Modules and Packages, Generators, List Comprehensions…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="a29f"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="ed2d"
+                id="ed2d"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Programming In Python(Part II)
+              </h3>
+              <p name="10e6" id="10e6" class="graf graf--p graf-after--h3">
+                In this Article, you will learn about Fundamentals of Python
+                like Dictionaries, Modules and Packages, Generators, List
+                Comprehensions, Multiple Function Arguments, Regular
+                Expressions, Exception Handling, Sets, Serialization, Code
+                Introspection, Closures, Decorators &amp; Map, Filter, Reduce.
+              </p>
+              <figure
+                name="37a5"
+                id="37a5"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*R2B_dBIz7CsLJOkxr6BFtw.jpeg"
+                  data-width="1280"
+                  data-height="626"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*R2B_dBIz7CsLJOkxr6BFtw.jpeg"
+                />
+              </figure>
+              <h3
+                name="96d0"
+                id="96d0"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Dictionaries
+              </h3>
+              <p name="f8f6" id="f8f6" class="graf graf--p graf-after--h3">
+                A dictionary is a data type similar to arrays, but works with
+                keys and values instead of indexes. Each value stored in a
+                dictionary can be accessed using a key, which is any type of
+                object (a string, a number, a list, etc.) instead of using its
+                index to address it.
+              </p>
+              <pre
+                name="faaf"
+                id="faaf"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">#script.py</strong><br>phonebook = {<br>    &quot;John&quot; : 938477566,<br>    &quot;Jack&quot; : 938377264,<br>    &quot;Jill&quot; : 947662781<br>}</pre>
+              <pre
+                name="1b08"
+                id="1b08"
+                class="graf graf--pre graf-after--pre"
+              >phonebook[&quot;Jake&quot;] = 938273443<br>del phonebook[&quot;Jill&quot;]</pre>
+              <pre
+                name="cd6d"
+                id="cd6d"
+                class="graf graf--pre graf-after--pre"
+              >if &quot;Jake&quot; in phonebook:<br>    print(&quot;Jake is listed in the phonebook.&quot;)<br>if &quot;Jill&quot; not in phonebook:<br>    print(&quot;Jill is not listed in the phonebook.&quot;)</pre>
+              <h3 name="910a" id="910a" class="graf graf--h3 graf-after--pre">
+                Modules and Packages
+              </h3>
+              <p name="bff8" id="bff8" class="graf graf--p graf-after--h3">
+                In programming, a module is a piece of software that has a
+                specific functionality. For example, when building a chess game,
+                one module would be responsible for the game logic, and another
+                module would be responsible for drawing the game on the screen.
+                Each module is a different file, which can be edited separately.
+              </p>
+              <h4 name="7492" id="7492" class="graf graf--h4 graf-after--p">
+                Writing modules
+              </h4>
+              <p name="ccbb" id="ccbb" class="graf graf--p graf-after--h4">
+                Modules in Python are simply Python files with a .py extension.
+                The name of the module will be the name of the file. A Python
+                module can have a set of functions, classes or variables defined
+                and implemented. In the example, we will have two files:
+              </p>
+              <pre
+                name="e6a3"
+                id="e6a3"
+                class="graf graf--pre graf-after--p"
+              >mygame/<br>mygame/game.py<br>mygame/draw.py</pre>
+              <pre
+                name="2f87"
+                id="2f87"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"># game.py</strong><br># import the draw module<br>import draw</pre>
+              <pre
+                name="149d"
+                id="149d"
+                class="graf graf--pre graf-after--pre"
+              >def play_game():<br>    ...</pre>
+              <pre
+                name="ff71"
+                id="ff71"
+                class="graf graf--pre graf-after--pre"
+              >def main():<br>    result = play_game()<br>    draw.draw_game(result)</pre>
+              <pre
+                name="eefa"
+                id="eefa"
+                class="graf graf--pre graf-after--pre"
+              ># this means that if this script is executed, then <br># main() will be executed<br>if __name__ == &#39;__main__&#39;:<br>    main()</pre>
+              <pre
+                name="313b"
+                id="313b"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong"># draw.py<br></strong>def draw_game():<br>    ...</pre>
+              <pre
+                name="e9d4"
+                id="e9d4"
+                class="graf graf--pre graf-after--pre"
+              >def clear_screen(screen):<br>    ...</pre>
+              <h4 name="1a84" id="1a84" class="graf graf--h4 graf-after--pre">
+                Importing module objects to the current namespace
+              </h4>
+              <p name="bd43" id="bd43" class="graf graf--p graf-after--h4">
+                We may also import the function
+                <code class="markup--code markup--p-code">draw_game</code>
+                directly into the main script&#39;s namespace, by using the
+                <code class="markup--code markup--p-code">from</code> command.
+              </p>
+              <pre
+                name="1809"
+                id="1809"
+                class="graf graf--pre graf-after--p"
+              ># script.py<br><strong class="markup--strong markup--pre-strong"># game.py<br># import the draw module</strong></pre>
+              <pre name="896f" id="896f" class="graf graf--pre graf-after--pre">
+from draw import draw_game</pre
+              >
+              <pre name="8032" id="8032" class="graf graf--pre graf-after--pre">
+def main():</pre
+              >
+              <pre name="1363" id="1363" class="graf graf--pre graf-after--pre">
+result = play_game()</pre
+              >
+              <pre name="af14" id="af14" class="graf graf--pre graf-after--pre">
+draw_game(result)</pre
+              >
+              <h3 name="9ee2" id="9ee2" class="graf graf--h3 graf-after--pre">
+                Module initialization
+              </h3>
+              <p name="ecac" id="ecac" class="graf graf--p graf-after--h3">
+                The first time a module is loaded into a running Python script,
+                it is initialized by executing the code in the module once. If
+                another module in your code imports the same module again, it
+                will not be loaded twice but once only — so local variables
+                inside the module act as a “singleton” — they are initialized
+                only once.
+              </p>
+              <p name="c04d" id="c04d" class="graf graf--p graf-after--p">
+                This is useful to know, because this means that you can rely on
+                this behavior for initializing objects. For example:
+              </p>
+              <pre
+                name="a03c"
+                id="a03c"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong"># draw.py</strong></pre>
+              <pre
+                name="6506"
+                id="6506"
+                class="graf graf--pre graf-after--pre"
+              >def draw_game():<br>    # when clearing the screen we can use the main screen object initialized in this module<br>    clear_screen(main_screen)<br>    ...</pre>
+              <pre
+                name="9b5b"
+                id="9b5b"
+                class="graf graf--pre graf-after--pre"
+              >def clear_screen(screen):<br>    ...</pre>
+              <pre
+                name="8066"
+                id="8066"
+                class="graf graf--pre graf-after--pre"
+              >class Screen():<br>    ...</pre>
+              <pre
+                name="07c4"
+                id="07c4"
+                class="graf graf--pre graf-after--pre"
+              ># initialize main_screen as a singleton<br>main_screen = Screen()</pre>
+              <h3 name="df22" id="df22" class="graf graf--h3 graf-after--pre">
+                Writing packages
+              </h3>
+              <p name="32bb" id="32bb" class="graf graf--p graf-after--h3">
+                Packages are namespaces which contain multiple packages and
+                modules themselves. They are simply directories, but with a
+                twist.
+              </p>
+              <p name="0b33" id="0b33" class="graf graf--p graf-after--p">
+                Each package in Python is a directory which
+                <strong class="markup--strong markup--p-strong">MUST</strong>
+                contain a special file called
+                <code class="markup--code markup--p-code">__init__.py</code>.
+                This file can be empty, and it indicates that the directory it
+                contains is a Python package, so it can be imported the same way
+                a module can be imported.
+              </p>
+              <p name="206f" id="206f" class="graf graf--p graf-after--p">
+                If we create a directory called
+                <code class="markup--code markup--p-code">foo</code>, which
+                marks the package name, we can then create a module inside that
+                package called
+                <code class="markup--code markup--p-code">bar</code>. We also
+                must not forget to add the
+                <code class="markup--code markup--p-code">__init__.py</code>
+                file inside the
+                <code class="markup--code markup--p-code">foo</code> directory.
+              </p>
+              <p name="2165" id="2165" class="graf graf--p graf-after--p">
+                To use the module
+                <code class="markup--code markup--p-code">bar</code>, we can
+                import it in two ways:
+              </p>
+              <p name="7eb9" id="7eb9" class="graf graf--p graf-after--p">
+                import foo.bar
+                <strong class="markup--strong markup--p-strong">or</strong> from
+                foo import bar
+              </p>
+              <h3 name="b8d6" id="b8d6" class="graf graf--h3 graf-after--p">
+                Generators
+              </h3>
+              <p name="1f94" id="1f94" class="graf graf--p graf-after--h3">
+                Generators are very easy to implement, but a bit difficult to
+                understand.
+              </p>
+              <p name="745b" id="745b" class="graf graf--p graf-after--p">
+                Generators are used to create iterators, but with a different
+                approach. Generators are simple functions which return an
+                iterable set of items, one at a time, in a special way.
+              </p>
+              <p name="cf9e" id="cf9e" class="graf graf--p graf-after--p">
+                When an iteration over a set of item starts using the for
+                statement, the generator is run. Once the generator’s function
+                code reaches a “yield” statement, the generator yields its
+                execution back to the for loop, returning a new value from the
+                set. The generator function can generate as many values
+                (possibly infinite) as it wants, yielding each one in its turn.
+              </p>
+              <p name="3eb4" id="3eb4" class="graf graf--p graf-after--p">
+                Here is a simple example of a generator function which returns 7
+                random integers:
+              </p>
+              <pre name="7d0f" id="7d0f" class="graf graf--pre graf-after--p">
+import random</pre
+              >
+              <pre
+                name="ed68"
+                id="ed68"
+                class="graf graf--pre graf-after--pre"
+              >def lottery():<br>    # returns 6 numbers between 1 and 40<br>    for i in range(6):<br>        yield random.randint(1, 40)</pre>
+              <pre
+                name="f30f"
+                id="f30f"
+                class="graf graf--pre graf-after--pre"
+              ># returns a 7th number between 1 and 15<br>    yield random.randint(1,15)</pre>
+              <pre
+                name="6e0d"
+                id="6e0d"
+                class="graf graf--pre graf-after--pre"
+              >for random_number in lottery():<br>       print(&quot;And the next number is... %d!&quot; %(random_number))</pre>
+              <h3 name="9d53" id="9d53" class="graf graf--h3 graf-after--pre">
+                List Comprehensions
+              </h3>
+              <p name="d2ed" id="d2ed" class="graf graf--p graf-after--h3">
+                List Comprehensions is a very powerful tool, which creates a new
+                list based on another list, in a single, readable line.
+              </p>
+              <p name="bdd2" id="bdd2" class="graf graf--p graf-after--p">
+                For example, let’s say we need to create a list of integers
+                which specify the length of each word in a certain sentence, but
+                only if the word is not the word “the”.
+              </p>
+              <pre
+                name="4a40"
+                id="4a40"
+                class="graf graf--pre graf-after--p"
+              >sentence = &quot;the quick brown fox jumps over the lazy dog&quot;<br>words = sentence.split()<br>word_lengths = [len(word) for word in words if word != &quot;the&quot;]<br>print(words)<br>print(word_lengths)</pre>
+              <h3 name="091d" id="091d" class="graf graf--h3 graf-after--pre">
+                Multiple Function Arguments
+              </h3>
+              <p name="9110" id="9110" class="graf graf--p graf-after--h3">
+                Every function in Python receives a predefined number of
+                arguments, if declared normally, like this:
+              </p>
+              <pre
+                name="2574"
+                id="2574"
+                class="graf graf--pre graf-after--p"
+              >def foo(first, second, third, *therest):<br>    print(&quot;First: %s&quot; % first)<br>    print(&quot;Second: %s&quot; % second)<br>    print(&quot;Third: %s&quot; % third)<br>    print(&quot;And all the rest... %s&quot; % list(therest))</pre>
+              <p name="9323" id="9323" class="graf graf--p graf-after--pre">
+                The “therest” variable is a list of variables, which receives
+                all arguments which were given to the “foo” function after the
+                first 3 arguments. So calling
+                <code class="markup--code markup--p-code">foo(1,2,3,4,5)</code>
+                will print out:
+              </p>
+              <pre
+                name="f965"
+                id="f965"
+                class="graf graf--pre graf-after--p"
+              >def foo(first, second, third, *therest):<br> print(“First: %s” %(first))<br> print(“Second: %s” %(second))<br> print(“Third: %s” %(third))<br> print(“And all the rest… %s” %(list(therest)))</pre>
+              <pre name="07dc" id="07dc" class="graf graf--pre graf-after--pre">
+foo(1,2,3,4,5)</pre
+              >
+              <p name="45f2" id="45f2" class="graf graf--p graf-after--pre">
+                It is also possible to send functions arguments by keyword, so
+                that the order of the argument does not matter, using the
+                following syntax.
+              </p>
+              <pre
+                name="4cfe"
+                id="4cfe"
+                class="graf graf--pre graf-after--p"
+              >def bar(first, second, third, **options):<br>    if options.get(&quot;action&quot;) == &quot;sum&quot;:<br>        print(&quot;The sum is: %d&quot; %(first + second + third))</pre>
+              <pre
+                name="deeb"
+                id="deeb"
+                class="graf graf--pre graf-after--pre"
+              >if options.get(&quot;number&quot;) == &quot;first&quot;:<br>        return first</pre>
+              <pre
+                name="eafc"
+                id="eafc"
+                class="graf graf--pre graf-after--pre"
+              >result = bar(1, 2, 3, action = &quot;sum&quot;, number = &quot;first&quot;)<br>print(&quot;Result: %d&quot; %(result))</pre>
+              <h3 name="e4a7" id="e4a7" class="graf graf--h3 graf-after--pre">
+                Regular Expressions
+              </h3>
+              <p name="2296" id="2296" class="graf graf--p graf-after--h3">
+                Regular Expressions (sometimes shortened to regexp, regex, or
+                re) are a tool for matching patterns in text. In Python, we have
+                the re module. The applications for regular expressions are
+                wide-spread, but they are fairly complex, so when contemplating
+                using a regex for a certain task, think about alternatives, and
+                come to regexes as a last resort.
+              </p>
+              <p name="1e16" id="1e16" class="graf graf--p graf-after--p">
+                An example regex is
+                <code class="markup--code markup--p-code"
+                  >r&quot;^(From|To|Cc).*?python-list@python.org&quot;</code
+                >
+                Now for an explanation: the caret
+                <code class="markup--code markup--p-code">^</code> matches text
+                at the beginning of a line. The following group, the part with
+                <code class="markup--code markup--p-code">(From|To|Cc)</code>
+                means that the line has to start with one of the words that are
+                separated by the pipe
+                <code class="markup--code markup--p-code">|</code>. That is
+                called the OR operator, and the regex will match if the line
+                starts with any of the words in the group. The
+                <code class="markup--code markup--p-code">.*?</code> means to
+                un-greedily match any number of characters, except the newline
+                <code class="markup--code markup--p-code">\n</code> character.
+                The un-greedy part means to match as few repetitions as
+                possible. The
+                <code class="markup--code markup--p-code">.</code> character
+                means any non-newline character, the
+                <code class="markup--code markup--p-code">*</code> means to
+                repeat 0 or more times, and the
+                <code class="markup--code markup--p-code">?</code> character
+                makes it un-greedy.
+              </p>
+              <h3 name="d08b" id="d08b" class="graf graf--h3 graf-after--p">
+                Exception Handling
+              </h3>
+              <p name="f33c" id="f33c" class="graf graf--p graf-after--h3">
+                You might want to do something special when an exception is
+                raised. This is done in a
+                <em class="markup--em markup--p-em">try/except</em> block.
+              </p>
+              <p name="c191" id="c191" class="graf graf--p graf-after--p">
+                Here’s a trivial example: Suppose you’re iterating over a list.
+                You need to iterate over 20 numbers, but the list is made from
+                user input, and might not have 20 numbers in it. After you reach
+                the end of the list, you just want the rest of the numbers to be
+                interpreted as a 0. Here’s how you could do that:
+              </p>
+              <pre
+                name="f453"
+                id="f453"
+                class="graf graf--pre graf-after--p"
+              >def do_stuff_with_number(n):<br>    print(n)</pre>
+              <pre
+                name="c790"
+                id="c790"
+                class="graf graf--pre graf-after--pre"
+              >def catch_this():<br>    the_list = (1, 2, 3, 4, 5)</pre>
+              <pre
+                name="8afd"
+                id="8afd"
+                class="graf graf--pre graf-after--pre"
+              >for i in range(20):<br>        try:<br>            do_stuff_with_number(the_list[i])<br>        except IndexError: # Raised when accessing a non-existing index of a list<br>            do_stuff_with_number(0)</pre>
+              <pre name="a715" id="a715" class="graf graf--pre graf-after--pre">
+catch_this()</pre
+              >
+              <h3 name="ddf0" id="ddf0" class="graf graf--h3 graf-after--pre">
+                Sets
+              </h3>
+              <p name="641d" id="641d" class="graf graf--p graf-after--h3">
+                Sets are lists with no duplicate entries. Let’s say you want to
+                collect a list of words used in a paragraph:
+              </p>
+              <pre name="16da" id="16da" class="graf graf--pre graf-after--p">
+print(set(&quot;my name is Eric and Eric is my name&quot;.split()))</pre
+              >
+              <h3 name="4ab0" id="4ab0" class="graf graf--h3 graf-after--pre">
+                Serialization
+              </h3>
+              <p name="286b" id="286b" class="graf graf--p graf-after--h3">
+                Python provides built-in JSON libraries to encode and decode
+                JSON.
+              </p>
+              <pre name="283c" id="283c" class="graf graf--pre graf-after--p">
+import json</pre
+              >
+              <pre
+                name="0db4"
+                id="0db4"
+                class="graf graf--pre graf-after--pre"
+              ># it adds the given name and salary pair to salaries_json, and return it<br>def add_employee(salaries_json, name, salary):<br>    salaries = json.loads(salaries_json)<br>    salaries[name] = salary</pre>
+              <pre name="781f" id="781f" class="graf graf--pre graf-after--pre">
+return json.dumps(salaries)</pre
+              >
+              <pre
+                name="6cb3"
+                id="6cb3"
+                class="graf graf--pre graf-after--pre"
+              ># test code<br>salaries = &#39;{&quot;Alfred&quot; : 300, &quot;Jane&quot; : 400 }&#39;<br>new_salaries = add_employee(salaries, &quot;Me&quot;, 800)<br>decoded_salaries = json.loads(new_salaries)<br>print(decoded_salaries[&quot;Alfred&quot;])<br>print(decoded_salaries[&quot;Jane&quot;])<br>print(decoded_salaries[&quot;Me&quot;])</pre>
+              <h3 name="40e4" id="40e4" class="graf graf--h3 graf-after--pre">
+                Code Introspection
+              </h3>
+              <p name="3bfa" id="3bfa" class="graf graf--p graf-after--h3">
+                Code introspection is the ability to examine classes, functions
+                and keywords to know what they are, what they do and what they
+                know.
+              </p>
+              <p name="e89b" id="e89b" class="graf graf--p graf-after--p">
+                Python provides several functions and utilities for code
+                introspection.
+              </p>
+              <pre
+                name="676c"
+                id="676c"
+                class="graf graf--pre graf-after--p"
+              >help()<br>dir() <br>hasattr() <br>id() <br>type() <br>repr() <br>callable() <br>issubclass() <br>isinstance() <br>__doc__ <br>__name__</pre>
+              <h3 name="5b13" id="5b13" class="graf graf--h3 graf-after--pre">
+                Closures
+              </h3>
+              <p name="cfee" id="cfee" class="graf graf--p graf-after--h3">
+                A Closure is a function object that remembers values in
+                enclosing scopes even if they are not present in memory.
+              </p>
+              <pre
+                name="6eb9"
+                id="6eb9"
+                class="graf graf--pre graf-after--p"
+              >def transmit_to_space(message):<br>  &quot;This is the enclosing function&quot;<br>  def data_transmitter():<br>      &quot;The nested function&quot;<br>      print(message)<br>  return data_transmitter</pre>
+              <pre
+                name="cac8"
+                id="cac8"
+                class="graf graf--pre graf-after--pre"
+              >fun2 = transmit_to_space(&quot;Burn the Sun!&quot;)<br>fun2()</pre>
+              <h3 name="e88a" id="e88a" class="graf graf--h3 graf-after--pre">
+                Decorators
+              </h3>
+              <p name="f2cf" id="f2cf" class="graf graf--p graf-after--h3">
+                Decorators allow you to make simple modifications to callable
+                objects like functions, methods, or classes.
+              </p>
+              <pre
+                name="096a"
+                id="096a"
+                class="graf graf--pre graf-after--p"
+              >def type_check(correct_type):<br>    def check(old_function):<br>        def new_function(arg):<br>            if (isinstance(arg, correct_type)):<br>                return old_function(arg)<br>            else:<br>                print(&quot;Bad Type&quot;)<br>        return new_function<br>    return check</pre>
+              <pre
+                name="996e"
+                id="996e"
+                class="graf graf--pre graf-after--pre"
+              >@type_check(int)<br>def times2(num):<br>    return num*2</pre>
+              <pre
+                name="49d4"
+                id="49d4"
+                class="graf graf--pre graf-after--pre"
+              >print(times2(2))<br>times2(&#39;Not A Number&#39;)</pre>
+              <pre
+                name="b9ed"
+                id="b9ed"
+                class="graf graf--pre graf-after--pre"
+              >@type_check(str)<br>def first_letter(word):<br>    return word[0]</pre>
+              <pre
+                name="19c6"
+                id="19c6"
+                class="graf graf--pre graf-after--pre"
+              >print(first_letter(&#39;Hello World&#39;))<br>first_letter([&#39;Not&#39;, &#39;A&#39;, &#39;String&#39;])</pre>
+              <p name="e68b" id="e68b" class="graf graf--p graf-after--pre">
+                Its a decorator factory which returns a decorator that decorates
+                functions with one argument. The factory takes one argument, a
+                type, and then returns a decorator that makes function should
+                check if the input is the correct type. If it is wrong, it
+                should print(“Bad Type”)
+              </p>
+              <h3 name="4d09" id="4d09" class="graf graf--h3 graf-after--p">
+                Map, Filter, Reduce
+              </h3>
+              <p name="a506" id="a506" class="graf graf--p graf-after--h3">
+                Map, Filter, and Reduce are paradigms of functional programming.
+                They allow the programmer (you) to write simpler, shorter code,
+                without neccessarily needing to bother about intricacies like
+                loops and branching.
+              </p>
+              <p name="e45b" id="e45b" class="graf graf--p graf-after--p">
+                Essentially, these three functions allow you to apply a function
+                across a number of iterables, in one full swoop.
+                <code class="markup--code markup--p-code">map</code> and
+                <code class="markup--code markup--p-code">filter</code>come
+                built-in with Python (in the
+                <code class="markup--code markup--p-code">__builtins__</code>
+                module) and require no importing.
+                <code class="markup--code markup--p-code">reduce</code>,
+                however, needs to be imported as it resides in the
+                <code class="markup--code markup--p-code">functools</code>
+                module.
+              </p>
+              <p name="cff0" id="cff0" class="graf graf--p graf-after--p">
+                With
+                <code class="markup--code markup--p-code">map()</code>
+                functions:
+              </p>
+              <pre
+                name="e267"
+                id="e267"
+                class="graf graf--pre graf-after--p"
+              ># Python 3<br>my_pets = [&#39;alfred&#39;, &#39;tabitha&#39;, &#39;william&#39;, &#39;arla&#39;]</pre>
+              <pre name="9878" id="9878" class="graf graf--pre graf-after--pre">
+uppered_pets = list(map(str.upper, my_pets))</pre
+              >
+              <pre name="43b2" id="43b2" class="graf graf--pre graf-after--pre">
+print(uppered_pets)</pre
+              >
+              <p name="c74c" id="c74c" class="graf graf--p graf-after--pre">
+                The next example will be a palindrome detector. A “palindrome”
+                is a word, phrase, or sequence that reads the same backwards as
+                forwards. Let’s filter out words that are palindromes from a
+                tuple (<code class="markup--code markup--p-code">iterable</code
+                >) of suspected palindromes.
+              </p>
+              <pre
+                name="2068"
+                id="2068"
+                class="graf graf--pre graf-after--p"
+              ># Python 3<br>dromes = (&quot;demigod&quot;, &quot;rewire&quot;, &quot;madam&quot;, &quot;freer&quot;, &quot;anutforajaroftuna&quot;, &quot;kiosk&quot;)</pre>
+              <pre name="fd73" id="fd73" class="graf graf--pre graf-after--pre">
+palindromes = list(filter(lambda word: word == word[::-1], dromes))</pre
+              >
+              <pre name="6d2d" id="6d2d" class="graf graf--pre graf-after--pre">
+print(palindromes)</pre
+              >
+              <p name="e30d" id="e30d" class="graf graf--p graf-after--pre">
+                With
+                <strong class="markup--strong markup--p-strong">reduce</strong
+                >() functions:
+              </p>
+              <pre
+                name="b4bd"
+                id="b4bd"
+                class="graf graf--pre graf-after--p"
+              ># Python 3<br>from functools import reduce</pre>
+              <pre name="19ac" id="19ac" class="graf graf--pre graf-after--pre">
+numbers = [3, 4, 6, 9, 34, 12]</pre
+              >
+              <pre
+                name="e942"
+                id="e942"
+                class="graf graf--pre graf-after--pre"
+              >def custom_sum(first, second):<br> return first + second</pre>
+              <pre
+                name="2d70"
+                id="2d70"
+                class="graf graf--pre graf-after--pre"
+              >result = reduce(custom_sum, numbers, 10)<br>print(result)</pre>
+              <!-- <h4 name="65c1" id="65c1" class="graf graf--h4 graf-after--pre">
+                Previous:
+                <a
+                  href="/@nishantnitb/programming-in-python-part-i-76699fb857e2?source=your_stories_page-------------------------------------"
+                  data-href="/@nishantnitb/programming-in-python-part-i-76699fb857e2?source=your_stories_page-------------------------------------"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Programming In Python(Part I)</a
+                >
+              </h4> -->
+              <!-- <h4
+                name="e033"
+                id="e033"
+                class="graf graf--h4 graf-after--h4 graf--trailing"
+              >
+                Next:
+                <a
+                  href="https://nishantnitb.medium.com/kata-in-python-part-iii-4a4f6dcf8425"
+                  data-href="https://nishantnitb.medium.com/kata-in-python-part-iii-4a4f6dcf8425"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >KATA in Python Part — III</a
+                >
+              </h4> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/e54ef083f868"
+            ><time class="dt-published" datetime="2020-10-18T07:08:33.585Z"
+              >October 18, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/programming-in-python-part-ii-e54ef083f868"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

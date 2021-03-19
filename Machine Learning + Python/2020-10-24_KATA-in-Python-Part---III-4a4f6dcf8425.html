@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>KATA in Python Part — III</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>KATA in Python Part — III</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,288 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">KATA in Python Part — III</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Kata are code challenges focused on improving skill and technique. Some of these challenges train programming fundamentals, while others…
-</section>
-<section data-field="body" class="e-content">
-<section name="848b" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="aae7" id="aae7" class="graf graf--h3 graf--leading graf--title">KATA in Python Part — III</h3><p name="935a" id="935a" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Kata</strong> are code challenges focused on improving skill and technique. Some of these challenges train programming fundamentals, while others focus on complex problem solving.</p><h4 name="b185" id="b185" class="graf graf--h4 graf-after--p">1. Write a function that takes an integer as input, and returns the number of bits that are equal to one in the binary representation of that number. You can guarantee that input is non-negative.</h4><h4 name="712f" id="712f" class="graf graf--h4 graf-after--h4"><em class="markup--em markup--h4-em">Example</em>: The binary representation of <code class="markup--code markup--h4-code">1234</code> is <code class="markup--code markup--h4-code">10011010010</code>, so the function should return <code class="markup--code markup--h4-code">5</code> in this case</h4><p name="24bd" id="24bd" class="graf graf--p graf-after--h4">Practise: <a href="https://www.codewars.com/kata/526571aae218b8ee490006f4/train/python" data-href="https://www.codewars.com/kata/526571aae218b8ee490006f4/train/python" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://www.codewars.com/kata/526571aae218b8ee490006f4/train/python</a></p><p name="82c8" id="82c8" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="7130" id="7130" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/29dd0531b1984c097eb59d2e47029609.js.js"></script></figure><p name="3f60" id="3f60" class="graf graf--p graf-after--figure">Other Possible solutions:</p><pre name="cc53" id="cc53" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">1. def countBits(n):<br>    return bin(n).count(&quot;1&quot;)</code></pre><pre name="e6ed" id="e6ed" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">2. def countBits(n):<br>    return &#39;{:b}&#39;.format(n).count(&#39;1&#39;)</code></pre><pre name="9ce6" id="9ce6" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">3. def countBits(n):<br>    total = 0<br>    while n &gt; 0:<br>        total += n % 2<br>        n &gt;&gt;= 1<br>    return total</code></pre><h4 name="6a22" id="6a22" class="graf graf--h4 graf-after--pre">2. In this kata you will create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.</h4><p name="5f1a" id="5f1a" class="graf graf--p graf-after--h4"><em class="markup--em markup--p-em">Example</em></p><pre name="070d" id="070d" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">filter_list([1,2,&#39;a&#39;,&#39;b&#39;]) == [1,2]<br>filter_list([1,&#39;a&#39;,&#39;b&#39;,0,15]) == [1,0,15]<br>filter_list([1,2,&#39;aasf&#39;,&#39;1&#39;,&#39;123&#39;,123]) == [1,2,123]</code></pre><p name="8a56" id="8a56" class="graf graf--p graf-after--pre">Practise: <a href="https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/python" data-href="https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/python" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/python</a></p><p name="1978" id="1978" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="dd94" id="dd94" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/8c8271f2c7c118fb38c70ca1b255d0ee.js.js"></script></figure><p name="facb" id="facb" class="graf graf--p graf-after--figure">Other Possible solutions:</p><pre name="ff4e" id="ff4e" class="graf graf--pre graf-after--p">1. <code class="markup--code markup--pre-code">def filter_list(l):<br>  return [x for x in l if isinstance(x, int)]</code></pre><pre name="96d9" id="96d9" class="graf graf--pre graf-after--pre">2. <code class="markup--code markup--pre-code">def filter_list(l):<br>  &#39;return a new list with the strings filtered out&#39;<br>  return [i for i in l if not isinstance(i, str)]</code></pre><pre name="c05e" id="c05e" class="graf graf--pre graf-after--pre">3. <code class="markup--code markup--pre-code">def filter_list(l):<br>  &#39;return a new list with the strings filtered out&#39;<br>  return [x for x in l if type(x) is not str]</code></pre><pre name="7ab0" id="7ab0" class="graf graf--pre graf-after--pre">4. <code class="markup--code markup--pre-code">def filter_list(l):<br>    return filter(lambda x: not type(x) is str, l)</code></pre><h4 name="dc9b" id="dc9b" class="graf graf--h4 graf-after--pre">3. Return the number (count) of vowels in the given string. We will consider <code class="markup--code markup--h4-code">a, e, i, o, u</code> as vowels for this Kata (but not <code class="markup--code markup--h4-code">y</code>). The input string will only consist of lower case letters and/or spaces.</h4><p name="f619" id="f619" class="graf graf--p graf-after--h4">Practise: <a href="https://www.codewars.com/kata/54ff3102c1bad923760001f3/train/python" data-href="https://www.codewars.com/kata/54ff3102c1bad923760001f3/train/python" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://www.codewars.com/kata/54ff3102c1bad923760001f3/train/python</a></p><p name="3eb4" id="3eb4" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="749d" id="749d" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/eff8362cab15d343cfc4f42858881b95.js.js"></script></figure><p name="ee89" id="ee89" class="graf graf--p graf-after--figure">Other Possible solutions:</p><pre name="4a05" id="4a05" class="graf graf--pre graf-after--p">1. <code class="markup--code markup--pre-code">def getCount(inputStr):<br>    return sum(inputStr.count(char) for char in [&#39;a&#39;, &#39;e&#39;, &#39;i&#39;, &#39;o&#39;, &#39;u&#39;])</code></pre><pre name="cb99" id="cb99" class="graf graf--pre graf-after--pre">2. <code class="markup--code markup--pre-code">def getCount(inputStr):<br>    vocals_dict = {x: 0 for x in &quot;aeiou&quot;}<br>    for char in inputStr:<br>        try:<br>            vocals_dict[char] += 1<br>        except KeyError:<br>            continue<br>    return sum(vocals_dict.values())</code></pre><pre name="833b" id="833b" class="graf graf--pre graf-after--pre">3. <code class="markup--code markup--pre-code">import re<br>def getCount(str):<br>    return len(re.findall(&#39;[aeiou]&#39;, str, re.IGNORECASE))</code></pre><h4 name="d114" id="d114" class="graf graf--h4 graf-after--pre">4. Implement a function that adds two numbers together and returns their sum in binary. The conversion can be done before, or after the addition.</h4><h4 name="0c4e" id="0c4e" class="graf graf--h4 graf-after--h4">The binary number returned should be a string.</h4><p name="f81a" id="f81a" class="graf graf--p graf-after--h4">Practise: <a href="https://www.codewars.com/kata/551f37452ff852b7bd000139/train/python" data-href="https://www.codewars.com/kata/551f37452ff852b7bd000139/train/python" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://www.codewars.com/kata/551f37452ff852b7bd000139/train/python</a></p><p name="052f" id="052f" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><figure name="686e" id="686e" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/d7e7f92d7bf596e865ec831b768be6a0.js.js"></script></figure><p name="2411" id="2411" class="graf graf--p graf-after--figure">Other Possible solutions:</p><pre name="29b9" id="29b9" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">1. def add_binary(a,b):<br>    return bin(a+b)[2:]</code></pre><pre name="9d5d" id="9d5d" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">2. def add_binary(a,b):<br>    return &#39;{0:b}&#39;.format(a + b)</code></pre><pre name="6b1f" id="6b1f" class="graf graf--pre graf-after--pre">3. <code class="markup--code markup--pre-code">def find_highest_power_2(num):<br>    n=0<br>    while 2**n &lt;= num:<br>        n += 1<br>    return n-1    <br><br>def add_binary(a,b):<br>    sum = a + b<br>    number = 0<br>    while sum != 0:<br>        place_holder = find_highest_power_2(sum)<br>        number += 10**place_holder<br>        sum = sum - 2**place_holder<br>    return str(number)</code></pre><pre name="b135" id="b135" class="graf graf--pre graf-after--pre graf--trailing">4. <code class="markup--code markup--pre-code">def add_binary(a,b):<br>    n = a + b<br>    binList = []<br>    while (n &gt; 0):<br>        binList.append(n % 2)<br>        n = n // 2<br>    return &#39;&#39;.join(map(str, reversed(binList)))</code></pre></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/4a4f6dcf8425"><time class="dt-published" datetime="2020-10-24T13:53:01.728Z">October 24, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/kata-in-python-part-iii-4a4f6dcf8425" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">KATA in Python Part — III</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Kata are code challenges focused on improving skill and technique. Some
+        of these challenges train programming fundamentals, while others…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="848b"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="aae7"
+                id="aae7"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                KATA in Python Part — III
+              </h3>
+              <p name="935a" id="935a" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong">Kata</strong>
+                are code challenges focused on improving skill and technique.
+                Some of these challenges train programming fundamentals, while
+                others focus on complex problem solving.
+              </p>
+              <h4 name="b185" id="b185" class="graf graf--h4 graf-after--p">
+                1. Write a function that takes an integer as input, and returns
+                the number of bits that are equal to one in the binary
+                representation of that number. You can guarantee that input is
+                non-negative.
+              </h4>
+              <h4 name="712f" id="712f" class="graf graf--h4 graf-after--h4">
+                <em class="markup--em markup--h4-em">Example</em>: The binary
+                representation of
+                <code class="markup--code markup--h4-code">1234</code> is
+                <code class="markup--code markup--h4-code">10011010010</code>,
+                so the function should return
+                <code class="markup--code markup--h4-code">5</code> in this case
+              </h4>
+              <p name="24bd" id="24bd" class="graf graf--p graf-after--h4">
+                Practise:
+                <a
+                  href="https://www.codewars.com/kata/526571aae218b8ee490006f4/train/python"
+                  data-href="https://www.codewars.com/kata/526571aae218b8ee490006f4/train/python"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://www.codewars.com/kata/526571aae218b8ee490006f4/train/python</a
+                >
+              </p>
+              <p name="82c8" id="82c8" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution:</strong
+                >
+              </p>
+              <figure
+                name="7130"
+                id="7130"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/29dd0531b1984c097eb59d2e47029609.js.js"></script>
+              </figure>
+              <p name="3f60" id="3f60" class="graf graf--p graf-after--figure">
+                Other Possible solutions:
+              </p>
+              <pre
+                name="cc53"
+                id="cc53"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">1. def countBits(n):<br>    return bin(n).count(&quot;1&quot;)</code></pre>
+              <pre
+                name="e6ed"
+                id="e6ed"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">2. def countBits(n):<br>    return &#39;{:b}&#39;.format(n).count(&#39;1&#39;)</code></pre>
+              <pre
+                name="9ce6"
+                id="9ce6"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">3. def countBits(n):<br>    total = 0<br>    while n &gt; 0:<br>        total += n % 2<br>        n &gt;&gt;= 1<br>    return total</code></pre>
+              <h4 name="6a22" id="6a22" class="graf graf--h4 graf-after--pre">
+                2. In this kata you will create a function that takes a list of
+                non-negative integers and strings and returns a new list with
+                the strings filtered out.
+              </h4>
+              <p name="5f1a" id="5f1a" class="graf graf--p graf-after--h4">
+                <em class="markup--em markup--p-em">Example</em>
+              </p>
+              <pre
+                name="070d"
+                id="070d"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">filter_list([1,2,&#39;a&#39;,&#39;b&#39;]) == [1,2]<br>filter_list([1,&#39;a&#39;,&#39;b&#39;,0,15]) == [1,0,15]<br>filter_list([1,2,&#39;aasf&#39;,&#39;1&#39;,&#39;123&#39;,123]) == [1,2,123]</code></pre>
+              <p name="8a56" id="8a56" class="graf graf--p graf-after--pre">
+                Practise:
+                <a
+                  href="https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/python"
+                  data-href="https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/python"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://www.codewars.com/kata/53dbd5315a3c69eed20002dd/train/python</a
+                >
+              </p>
+              <p name="1978" id="1978" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution:</strong
+                >
+              </p>
+              <figure
+                name="dd94"
+                id="dd94"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/8c8271f2c7c118fb38c70ca1b255d0ee.js.js"></script>
+              </figure>
+              <p name="facb" id="facb" class="graf graf--p graf-after--figure">
+                Other Possible solutions:
+              </p>
+              <pre
+                name="ff4e"
+                id="ff4e"
+                class="graf graf--pre graf-after--p"
+              >1. <code class="markup--code markup--pre-code">def filter_list(l):<br>  return [x for x in l if isinstance(x, int)]</code></pre>
+              <pre
+                name="96d9"
+                id="96d9"
+                class="graf graf--pre graf-after--pre"
+              >2. <code class="markup--code markup--pre-code">def filter_list(l):<br>  &#39;return a new list with the strings filtered out&#39;<br>  return [i for i in l if not isinstance(i, str)]</code></pre>
+              <pre
+                name="c05e"
+                id="c05e"
+                class="graf graf--pre graf-after--pre"
+              >3. <code class="markup--code markup--pre-code">def filter_list(l):<br>  &#39;return a new list with the strings filtered out&#39;<br>  return [x for x in l if type(x) is not str]</code></pre>
+              <pre
+                name="7ab0"
+                id="7ab0"
+                class="graf graf--pre graf-after--pre"
+              >4. <code class="markup--code markup--pre-code">def filter_list(l):<br>    return filter(lambda x: not type(x) is str, l)</code></pre>
+              <h4 name="dc9b" id="dc9b" class="graf graf--h4 graf-after--pre">
+                3. Return the number (count) of vowels in the given string. We
+                will consider
+                <code class="markup--code markup--h4-code">a, e, i, o, u</code>
+                as vowels for this Kata (but not
+                <code class="markup--code markup--h4-code">y</code>). The input
+                string will only consist of lower case letters and/or spaces.
+              </h4>
+              <p name="f619" id="f619" class="graf graf--p graf-after--h4">
+                Practise:
+                <a
+                  href="https://www.codewars.com/kata/54ff3102c1bad923760001f3/train/python"
+                  data-href="https://www.codewars.com/kata/54ff3102c1bad923760001f3/train/python"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://www.codewars.com/kata/54ff3102c1bad923760001f3/train/python</a
+                >
+              </p>
+              <p name="3eb4" id="3eb4" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution:</strong
+                >
+              </p>
+              <figure
+                name="749d"
+                id="749d"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/eff8362cab15d343cfc4f42858881b95.js.js"></script>
+              </figure>
+              <p name="ee89" id="ee89" class="graf graf--p graf-after--figure">
+                Other Possible solutions:
+              </p>
+              <pre
+                name="4a05"
+                id="4a05"
+                class="graf graf--pre graf-after--p"
+              >1. <code class="markup--code markup--pre-code">def getCount(inputStr):<br>    return sum(inputStr.count(char) for char in [&#39;a&#39;, &#39;e&#39;, &#39;i&#39;, &#39;o&#39;, &#39;u&#39;])</code></pre>
+              <pre
+                name="cb99"
+                id="cb99"
+                class="graf graf--pre graf-after--pre"
+              >2. <code class="markup--code markup--pre-code">def getCount(inputStr):<br>    vocals_dict = {x: 0 for x in &quot;aeiou&quot;}<br>    for char in inputStr:<br>        try:<br>            vocals_dict[char] += 1<br>        except KeyError:<br>            continue<br>    return sum(vocals_dict.values())</code></pre>
+              <pre
+                name="833b"
+                id="833b"
+                class="graf graf--pre graf-after--pre"
+              >3. <code class="markup--code markup--pre-code">import re<br>def getCount(str):<br>    return len(re.findall(&#39;[aeiou]&#39;, str, re.IGNORECASE))</code></pre>
+              <h4 name="d114" id="d114" class="graf graf--h4 graf-after--pre">
+                4. Implement a function that adds two numbers together and
+                returns their sum in binary. The conversion can be done before,
+                or after the addition.
+              </h4>
+              <h4 name="0c4e" id="0c4e" class="graf graf--h4 graf-after--h4">
+                The binary number returned should be a string.
+              </h4>
+              <p name="f81a" id="f81a" class="graf graf--p graf-after--h4">
+                Practise:
+                <a
+                  href="https://www.codewars.com/kata/551f37452ff852b7bd000139/train/python"
+                  data-href="https://www.codewars.com/kata/551f37452ff852b7bd000139/train/python"
+                  class="markup--anchor markup--p-anchor"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >https://www.codewars.com/kata/551f37452ff852b7bd000139/train/python</a
+                >
+              </p>
+              <p name="052f" id="052f" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution:</strong
+                >
+              </p>
+              <figure
+                name="686e"
+                id="686e"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/d7e7f92d7bf596e865ec831b768be6a0.js.js"></script>
+              </figure>
+              <p name="2411" id="2411" class="graf graf--p graf-after--figure">
+                Other Possible solutions:
+              </p>
+              <pre
+                name="29b9"
+                id="29b9"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">1. def add_binary(a,b):<br>    return bin(a+b)[2:]</code></pre>
+              <pre
+                name="9d5d"
+                id="9d5d"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">2. def add_binary(a,b):<br>    return &#39;{0:b}&#39;.format(a + b)</code></pre>
+              <pre
+                name="6b1f"
+                id="6b1f"
+                class="graf graf--pre graf-after--pre"
+              >3. <code class="markup--code markup--pre-code">def find_highest_power_2(num):<br>    n=0<br>    while 2**n &lt;= num:<br>        n += 1<br>    return n-1    <br><br>def add_binary(a,b):<br>    sum = a + b<br>    number = 0<br>    while sum != 0:<br>        place_holder = find_highest_power_2(sum)<br>        number += 10**place_holder<br>        sum = sum - 2**place_holder<br>    return str(number)</code></pre>
+              <pre
+                name="b135"
+                id="b135"
+                class="graf graf--pre graf-after--pre graf--trailing"
+              >4. <code class="markup--code markup--pre-code">def add_binary(a,b):<br>    n = a + b<br>    binList = []<br>    while (n &gt; 0):<br>        binList.append(n % 2)<br>        n = n // 2<br>    return &#39;&#39;.join(map(str, reversed(binList)))</code></pre>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/4a4f6dcf8425"
+            ><time class="dt-published" datetime="2020-10-24T13:53:01.728Z"
+              >October 24, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/kata-in-python-part-iii-4a4f6dcf8425"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

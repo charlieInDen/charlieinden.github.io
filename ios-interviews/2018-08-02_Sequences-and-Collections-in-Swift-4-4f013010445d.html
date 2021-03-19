@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Sequences and Collections in Swift 4</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sequences and Collections in Swift 4</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,294 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Sequences and Collections in Swift 4</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Swift — Map, compactMap, Filter and Reduce
-</section>
-<section data-field="body" class="e-content">
-<section name="0ff2" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="28dd" id="28dd" class="graf graf--h3 graf--leading graf--title"><strong class="markup--strong markup--h3-strong">Sequences and Collections in Swift 4</strong></h3><p name="141d" id="141d" class="graf graf--p graf-after--h3">Swift — <strong class="markup--strong markup--p-strong">Map, compactMap, Filter and Reduce</strong></p><p name="2d2b" id="2d2b" class="graf graf--p graf-after--p">When we’re working with Swift, we need an ordered list of elements. 9 times out of 10 we need to reach for an array. But array and all the other Collection protocols in or Collection objects in Swift are built off of a well thought out hierarchy of protocols, associated types and various other components that add to functionality that we use and we take for granted day to day.</p><p name="f820" id="f820" class="graf graf--p graf-after--p">In this article, I am going to cover three most asked questions related to collection/sequences.</p><p name="6755" id="6755" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Q: </strong>What is <strong class="markup--strong markup--p-strong">map/filter/reduce</strong> API, what its return type and what’s the purpose of using it?</p><p name="5830" id="5830" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Lets start!!!</strong></p><p name="b4d9" id="b4d9" class="graf graf--p graf-after--p">Sequences and collections implement methods such as map(_:), filter(_:), and reduce(_:_:) to consume and transform their contents. You can compose these methods together to efficiently implement complex algorithms.</p><p name="7f11" id="7f11" class="graf graf--p graf-after--p">The map(_:) method returns a new array by applying a transform to each element in a collection. For example, the following code multiplies the quantity of the ingredient by the cost of the ingredient to find the total cost for each ingredient.</p><pre name="6d84" id="6d84" class="graf graf--pre graf-after--p">let totalPrices = shoppingList.<strong class="markup--strong markup--pre-strong">map</strong> { ingredient in</pre><pre name="7f42" id="7f42" class="graf graf--pre graf-after--pre">     return ingredient.quantity * ingredient.price</pre><pre name="969c" id="969c" class="graf graf--pre graf-after--pre">}</pre><p name="2db7" id="2db7" class="graf graf--p graf-after--pre">A collection’s filter(_:) method returns an array containing only the elements that pass the provided test. Let’s create a shopping list by filtering out ingredients that have already been purchased.</p><pre name="7acd" id="7acd" class="graf graf--pre graf-after--p">let shoppingList = sampleIngredients.<strong class="markup--strong markup--pre-strong">filter</strong> { ingredient in<br>       return !ingredient.purchased<br>}</pre><p name="5756" id="5756" class="graf graf--p graf-after--pre">You can use the reduce(_:_:) method to combine elements of an array into a single value. The reduce(_:_:) method takes an initial value to start with and then a closure or function to combine each element in the array with the previous value. The following code takes the total price list and adds them together to compute a final remaining cost:</p><pre name="89b5" id="89b5" class="graf graf--pre graf-after--p">let sum = totalPrices.<strong class="markup--strong markup--pre-strong">reduce</strong>(0) { currentPrice, priceToAdd in</pre><pre name="42bc" id="42bc" class="graf graf--pre graf-after--pre">     return currentPrice + priceToAdd</pre><pre name="ff11" id="ff11" class="graf graf--pre graf-after--pre">}</pre><h3 name="8ab6" id="8ab6" class="graf graf--h3 graf-after--pre">compactMap(_:)</h3><p name="0b95" id="0b95" class="graf graf--p graf-after--h3">Returns an array containing the non-<code class="markup--code markup--p-code">nil</code> results of calling the given transformation with each element of this sequence.</p><p name="1a7e" id="1a7e" class="graf graf--p graf-after--p">Use this method to receive an array of nonoptional values when your transformation produces an optional value.</p><p name="83de" id="83de" class="graf graf--p graf-after--p">In this example, note the difference in the result of using <code class="markup--code markup--p-code">map</code> and <code class="markup--code markup--p-code">compactMap</code> with a transformation that returns an optional <code class="markup--code markup--p-code">Int</code> value.</p><pre name="b3cb" id="b3cb" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">let possibleNumbers = [&quot;1&quot;, &quot;2&quot;, &quot;three&quot;, &quot;///4///&quot;, &quot;5&quot;] </code></pre><pre name="0216" id="0216" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">let mapped: [Int?] = possibleNumbers.map { str in <br>   Int(str) <br>} <br>// [1, 2, nil, nil, 5]  </code></pre><pre name="d6a5" id="d6a5" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">let compactMapped: [Int] = possibleNumbers.<strong class="markup--strong markup--pre-strong">compactMap</strong> { str in Int(str) } <br>// [1, 2, 5]</code></pre><h3 name="138a" id="138a" class="graf graf--h3 graf-after--pre">Sequence</h3><p name="4ac2" id="4ac2" class="graf graf--p graf-after--h3">We’re going to start from the bottom level: Sequence (very straight forward). Sequence is a list of elements. It has two important caveats: <strong class="markup--strong markup--p-strong">1</strong>, it can be either finite or infinite, and <strong class="markup--strong markup--p-strong">2</strong>, you can only ever iterate through it one time. Sometimes you will be able to iterate it more than once, but your not guaranteed to be able to iterate it more than once.</p><pre name="d5e6" id="d5e6" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">protocol</strong> <strong class="markup--strong markup--pre-strong">Sequence</strong> {<br>    <strong class="markup--strong markup--pre-strong">associatedtype</strong> <strong class="markup--strong markup--pre-strong">Iterator</strong>: <strong class="markup--strong markup--pre-strong">IteratorProtocol</strong><br>    <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">makeIterator</strong>() <strong class="markup--strong markup--pre-strong">-&gt;</strong> <strong class="markup--strong markup--pre-strong">Iterator</strong><br>}</code></pre><p name="2f49" id="2f49" class="graf graf--p graf-after--pre">The Sequence protocol has two components. One is an associated type, which is the iterator. That associated type has to conform to the <strong class="markup--strong markup--p-strong">Iterator protocol</strong>, and it has a function which constructs an Iterator for us and that function has to be the same type as the Iterator that we declared.</p><h3 name="b68a" id="b68a" class="graf graf--h3 graf-after--p">Collection</h3><p name="a153" id="a153" class="graf graf--p graf-after--h3">After Sequence, we go up one level to Collection. Every Collection inherits from Sequence and Collection fixes those two problems that we have with Sequence. Every Collection will always be finite. That means that you will always know how many elements are in there. It can never be infinite, and you can iterate that Collection as many times as you want. With Sequence you can only iterate once, but with Collection you can iterate it over and over and over again which is great.</p><p name="834c" id="834c" class="graf graf--p graf-after--p">Let’s take a look at the Collection protocol.</p><pre name="70d1" id="70d1" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">protocol</strong> <strong class="markup--strong markup--pre-strong">Collection</strong> {<br>  <strong class="markup--strong markup--pre-strong">associatedtype</strong> <strong class="markup--strong markup--pre-strong">Index</strong>: <strong class="markup--strong markup--pre-strong">Comparable</strong><br>  <strong class="markup--strong markup--pre-strong">var</strong> startIndex: <strong class="markup--strong markup--pre-strong">Index</strong><br>  <strong class="markup--strong markup--pre-strong">var</strong> endIndex: <strong class="markup--strong markup--pre-strong">Index</strong><br>  <strong class="markup--strong markup--pre-strong">subscript</strong>(position: <strong class="markup--strong markup--pre-strong">Index</strong>) <strong class="markup--strong markup--pre-strong">-&gt;</strong> <strong class="markup--strong markup--pre-strong">Iterator.Element</strong> { <strong class="markup--strong markup--pre-strong">get</strong> }<br>  <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">index</strong>(after index: <strong class="markup--strong markup--pre-strong">Index</strong>) <strong class="markup--strong markup--pre-strong">-&gt;</strong> <strong class="markup--strong markup--pre-strong">Index</strong><br>}</code></pre><h3 name="a739" id="a739" class="graf graf--h3 graf-after--pre">Accessing Slices of a Collection</h3><p name="00dc" id="00dc" class="graf graf--p graf-after--h3">You can access a slice of a collection through its ranged subscript or by calling methods like <code class="markup--code markup--p-code">prefix(while:)</code> or <code class="markup--code markup--p-code">suffix(_:)</code>. A slice of a collection can contain zero or more of the original collection’s elements and shares the original collection’s semantics.</p><p name="bf55" id="bf55" class="graf graf--p graf-after--p">The following example creates a <code class="markup--code markup--p-code">firstWord</code> constant by using the <code class="markup--code markup--p-code">prefix(while:)</code> method to get a slice of the <code class="markup--code markup--p-code">text</code> string.</p><pre name="a0e3" id="a0e3" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">let text = &quot;Buffalo buffalo buffalo buffalo.&quot;</code></pre><pre name="e82c" id="e82c" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">let firstWord = text.prefix(while: { $0 != &quot; &quot; }) <br>print(firstWord) <br>// Prints &quot;Buffalo&quot;</code></pre><p name="790a" id="790a" class="graf graf--p graf-after--pre">You can retrieve the same slice using the string’s ranged subscript, which takes a range expression.</p><pre name="7d36" id="7d36" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">if let firstSpace = text.firstIndex(of: &quot; &quot;) {     <br>print(text[..&lt;firstSpace]     <br>// Prints &quot;Buffalo&quot; <br>}</code></pre><p name="c545" id="c545" class="graf graf--p graf-after--pre">The retrieved slice of <code class="markup--code markup--p-code">text</code> is equivalent in each of these cases.</p><p name="0485" id="0485" class="graf graf--p graf-after--p">This article covers only few important API’s which are currently asked by interviewers.</p><p name="0762" id="0762" class="graf graf--p graf-after--p graf--trailing">Hope you like this article , Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/4f013010445d"><time class="dt-published" datetime="2018-08-02T04:35:03.566Z">August 2, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/sequences-and-collections-in-swift-4-4f013010445d" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Sequences and Collections in Swift 4</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Swift — Map, compactMap, Filter and Reduce
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="0ff2"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="28dd"
+                id="28dd"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >Sequences and Collections in Swift 4</strong
+                >
+              </h3>
+              <p name="141d" id="141d" class="graf graf--p graf-after--h3">
+                Swift —
+                <strong class="markup--strong markup--p-strong"
+                  >Map, compactMap, Filter and Reduce</strong
+                >
+              </p>
+              <p name="2d2b" id="2d2b" class="graf graf--p graf-after--p">
+                When we’re working with Swift, we need an ordered list of
+                elements. 9 times out of 10 we need to reach for an array. But
+                array and all the other Collection protocols in or Collection
+                objects in Swift are built off of a well thought out hierarchy
+                of protocols, associated types and various other components that
+                add to functionality that we use and we take for granted day to
+                day.
+              </p>
+              <p name="f820" id="f820" class="graf graf--p graf-after--p">
+                In this article, I am going to cover three most asked questions
+                related to collection/sequences.
+              </p>
+              <p name="6755" id="6755" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Q: </strong>What
+                is
+                <strong class="markup--strong markup--p-strong"
+                  >map/filter/reduce</strong
+                >
+                API, what its return type and what’s the purpose of using it?
+              </p>
+              <p name="5830" id="5830" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Lets start!!!</strong
+                >
+              </p>
+              <p name="b4d9" id="b4d9" class="graf graf--p graf-after--p">
+                Sequences and collections implement methods such as map(_:),
+                filter(_:), and reduce(_:_:) to consume and transform their
+                contents. You can compose these methods together to efficiently
+                implement complex algorithms.
+              </p>
+              <p name="7f11" id="7f11" class="graf graf--p graf-after--p">
+                The map(_:) method returns a new array by applying a transform
+                to each element in a collection. For example, the following code
+                multiplies the quantity of the ingredient by the cost of the
+                ingredient to find the total cost for each ingredient.
+              </p>
+              <pre
+                name="6d84"
+                id="6d84"
+                class="graf graf--pre graf-after--p"
+              >let totalPrices = shoppingList.<strong class="markup--strong markup--pre-strong">map</strong> { ingredient in</pre>
+              <pre name="7f42" id="7f42" class="graf graf--pre graf-after--pre">
+     return ingredient.quantity * ingredient.price</pre
+              >
+              <pre name="969c" id="969c" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <p name="2db7" id="2db7" class="graf graf--p graf-after--pre">
+                A collection’s filter(_:) method returns an array containing
+                only the elements that pass the provided test. Let’s create a
+                shopping list by filtering out ingredients that have already
+                been purchased.
+              </p>
+              <pre
+                name="7acd"
+                id="7acd"
+                class="graf graf--pre graf-after--p"
+              >let shoppingList = sampleIngredients.<strong class="markup--strong markup--pre-strong">filter</strong> { ingredient in<br>       return !ingredient.purchased<br>}</pre>
+              <p name="5756" id="5756" class="graf graf--p graf-after--pre">
+                You can use the reduce(_:_:) method to combine elements of an
+                array into a single value. The reduce(_:_:) method takes an
+                initial value to start with and then a closure or function to
+                combine each element in the array with the previous value. The
+                following code takes the total price list and adds them together
+                to compute a final remaining cost:
+              </p>
+              <pre
+                name="89b5"
+                id="89b5"
+                class="graf graf--pre graf-after--p"
+              >let sum = totalPrices.<strong class="markup--strong markup--pre-strong">reduce</strong>(0) { currentPrice, priceToAdd in</pre>
+              <pre name="42bc" id="42bc" class="graf graf--pre graf-after--pre">
+     return currentPrice + priceToAdd</pre
+              >
+              <pre name="ff11" id="ff11" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <h3 name="8ab6" id="8ab6" class="graf graf--h3 graf-after--pre">
+                compactMap(_:)
+              </h3>
+              <p name="0b95" id="0b95" class="graf graf--p graf-after--h3">
+                Returns an array containing the non-<code
+                  class="markup--code markup--p-code"
+                  >nil</code
+                >
+                results of calling the given transformation with each element of
+                this sequence.
+              </p>
+              <p name="1a7e" id="1a7e" class="graf graf--p graf-after--p">
+                Use this method to receive an array of nonoptional values when
+                your transformation produces an optional value.
+              </p>
+              <p name="83de" id="83de" class="graf graf--p graf-after--p">
+                In this example, note the difference in the result of using
+                <code class="markup--code markup--p-code">map</code> and
+                <code class="markup--code markup--p-code">compactMap</code> with
+                a transformation that returns an optional
+                <code class="markup--code markup--p-code">Int</code> value.
+              </p>
+              <pre
+                name="b3cb"
+                id="b3cb"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">let possibleNumbers = [&quot;1&quot;, &quot;2&quot;, &quot;three&quot;, &quot;///4///&quot;, &quot;5&quot;] </code></pre>
+              <pre
+                name="0216"
+                id="0216"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">let mapped: [Int?] = possibleNumbers.map { str in <br>   Int(str) <br>} <br>// [1, 2, nil, nil, 5]  </code></pre>
+              <pre
+                name="d6a5"
+                id="d6a5"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">let compactMapped: [Int] = possibleNumbers.<strong class="markup--strong markup--pre-strong">compactMap</strong> { str in Int(str) } <br>// [1, 2, 5]</code></pre>
+              <h3 name="138a" id="138a" class="graf graf--h3 graf-after--pre">
+                Sequence
+              </h3>
+              <p name="4ac2" id="4ac2" class="graf graf--p graf-after--h3">
+                We’re going to start from the bottom level: Sequence (very
+                straight forward). Sequence is a list of elements. It has two
+                important caveats:
+                <strong class="markup--strong markup--p-strong">1</strong>, it
+                can be either finite or infinite, and
+                <strong class="markup--strong markup--p-strong">2</strong>, you
+                can only ever iterate through it one time. Sometimes you will be
+                able to iterate it more than once, but your not guaranteed to be
+                able to iterate it more than once.
+              </p>
+              <pre
+                name="d5e6"
+                id="d5e6"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">protocol</strong> <strong class="markup--strong markup--pre-strong">Sequence</strong> {<br>    <strong class="markup--strong markup--pre-strong">associatedtype</strong> <strong class="markup--strong markup--pre-strong">Iterator</strong>: <strong class="markup--strong markup--pre-strong">IteratorProtocol</strong><br>    <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">makeIterator</strong>() <strong class="markup--strong markup--pre-strong">-&gt;</strong> <strong class="markup--strong markup--pre-strong">Iterator</strong><br>}</code></pre>
+              <p name="2f49" id="2f49" class="graf graf--p graf-after--pre">
+                The Sequence protocol has two components. One is an associated
+                type, which is the iterator. That associated type has to conform
+                to the
+                <strong class="markup--strong markup--p-strong"
+                  >Iterator protocol</strong
+                >, and it has a function which constructs an Iterator for us and
+                that function has to be the same type as the Iterator that we
+                declared.
+              </p>
+              <h3 name="b68a" id="b68a" class="graf graf--h3 graf-after--p">
+                Collection
+              </h3>
+              <p name="a153" id="a153" class="graf graf--p graf-after--h3">
+                After Sequence, we go up one level to Collection. Every
+                Collection inherits from Sequence and Collection fixes those two
+                problems that we have with Sequence. Every Collection will
+                always be finite. That means that you will always know how many
+                elements are in there. It can never be infinite, and you can
+                iterate that Collection as many times as you want. With Sequence
+                you can only iterate once, but with Collection you can iterate
+                it over and over and over again which is great.
+              </p>
+              <p name="834c" id="834c" class="graf graf--p graf-after--p">
+                Let’s take a look at the Collection protocol.
+              </p>
+              <pre
+                name="70d1"
+                id="70d1"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">protocol</strong> <strong class="markup--strong markup--pre-strong">Collection</strong> {<br>  <strong class="markup--strong markup--pre-strong">associatedtype</strong> <strong class="markup--strong markup--pre-strong">Index</strong>: <strong class="markup--strong markup--pre-strong">Comparable</strong><br>  <strong class="markup--strong markup--pre-strong">var</strong> startIndex: <strong class="markup--strong markup--pre-strong">Index</strong><br>  <strong class="markup--strong markup--pre-strong">var</strong> endIndex: <strong class="markup--strong markup--pre-strong">Index</strong><br>  <strong class="markup--strong markup--pre-strong">subscript</strong>(position: <strong class="markup--strong markup--pre-strong">Index</strong>) <strong class="markup--strong markup--pre-strong">-&gt;</strong> <strong class="markup--strong markup--pre-strong">Iterator.Element</strong> { <strong class="markup--strong markup--pre-strong">get</strong> }<br>  <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">index</strong>(after index: <strong class="markup--strong markup--pre-strong">Index</strong>) <strong class="markup--strong markup--pre-strong">-&gt;</strong> <strong class="markup--strong markup--pre-strong">Index</strong><br>}</code></pre>
+              <h3 name="a739" id="a739" class="graf graf--h3 graf-after--pre">
+                Accessing Slices of a Collection
+              </h3>
+              <p name="00dc" id="00dc" class="graf graf--p graf-after--h3">
+                You can access a slice of a collection through its ranged
+                subscript or by calling methods like
+                <code class="markup--code markup--p-code">prefix(while:)</code>
+                or <code class="markup--code markup--p-code">suffix(_:)</code>.
+                A slice of a collection can contain zero or more of the original
+                collection’s elements and shares the original collection’s
+                semantics.
+              </p>
+              <p name="bf55" id="bf55" class="graf graf--p graf-after--p">
+                The following example creates a
+                <code class="markup--code markup--p-code">firstWord</code>
+                constant by using the
+                <code class="markup--code markup--p-code">prefix(while:)</code>
+                method to get a slice of the
+                <code class="markup--code markup--p-code">text</code> string.
+              </p>
+              <pre
+                name="a0e3"
+                id="a0e3"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">let text = &quot;Buffalo buffalo buffalo buffalo.&quot;</code></pre>
+              <pre
+                name="e82c"
+                id="e82c"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">let firstWord = text.prefix(while: { $0 != &quot; &quot; }) <br>print(firstWord) <br>// Prints &quot;Buffalo&quot;</code></pre>
+              <p name="790a" id="790a" class="graf graf--p graf-after--pre">
+                You can retrieve the same slice using the string’s ranged
+                subscript, which takes a range expression.
+              </p>
+              <pre
+                name="7d36"
+                id="7d36"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">if let firstSpace = text.firstIndex(of: &quot; &quot;) {     <br>print(text[..&lt;firstSpace]     <br>// Prints &quot;Buffalo&quot; <br>}</code></pre>
+              <p name="c545" id="c545" class="graf graf--p graf-after--pre">
+                The retrieved slice of
+                <code class="markup--code markup--p-code">text</code> is
+                equivalent in each of these cases.
+              </p>
+              <p name="0485" id="0485" class="graf graf--p graf-after--p">
+                This article covers only few important API’s which are currently
+                asked by interviewers.
+              </p>
+              <p
+                name="0762"
+                id="0762"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope you like this article , Please ❤️ to recommend this post to
+                others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/4f013010445d"
+            ><time class="dt-published" datetime="2018-08-02T04:35:03.566Z"
+              >August 2, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/sequences-and-collections-in-swift-4-4f013010445d"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 6: Proxies</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>System Design, Chapter 6: Proxies</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,490 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">System Design, Chapter 6: Proxies</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-For previous chapter — System Design, Chapter 5: Indexes in Databases
-</section>
-<section data-field="body" class="e-content">
-<section name="5bf3" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="93f3" id="93f3" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 6: Proxies</h3><p name="2581" id="2581" class="graf graf--p graf-after--h3">For previous chapter — <a href="https://medium.com/@nishantnitb/system-design-chapter-5-indexes-in-databases-beb90295dbcf" data-href="https://medium.com/@nishantnitb/system-design-chapter-5-indexes-in-databases-beb90295dbcf" class="markup--anchor markup--p-anchor" target="_blank">System Design, Chapter 5: Indexes in Databases</a></p><figure name="1089" id="1089" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*lssQcVCfjnHYMFLJNe_MkA.png" data-width="1024" data-height="542" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*lssQcVCfjnHYMFLJNe_MkA.png"></figure><h3 name="a44d" id="a44d" class="graf graf--h3 graf-after--figure">The Concept</h3><p name="031b" id="031b" class="graf graf--p graf-after--h3">A <strong class="markup--strong markup--p-strong">proxy</strong> server is an intermediary piece of hardware/software that sits between the client and the back-end server. It <strong class="markup--strong markup--p-strong">receives requests</strong> from clients and <strong class="markup--strong markup--p-strong">relays</strong> them to the origin servers.</p><p name="3b0c" id="3b0c" class="graf graf--p graf-after--p">In this Article, Lets take an example of nginx server which has http proxying capabilities, which allow server to pass requests off to backend http servers for further processing. Server is often set up as a reverse proxy solution to help scale out infrastructure or to pass requests to other servers that are not designed to handle large client loads.</p><h3 name="9740" id="9740" class="graf graf--h3 graf-after--p">Usage</h3><p name="559f" id="559f" class="graf graf--p graf-after--h3">Typically, proxies are used to <strong class="markup--strong markup--p-strong">filter requests</strong> or <strong class="markup--strong markup--p-strong">log requests</strong>, or sometimes <strong class="markup--strong markup--p-strong">transform requests</strong> (by adding/removing headers, encrypting/decrypting, or compression).</p><p name="ea46" id="ea46" class="graf graf--p graf-after--p">Another advantage of a proxy server is that its <strong class="markup--strong markup--p-strong">cache</strong> can serve a lot of requests.</p><p name="7add" id="7add" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Coordinating requests</strong> from multiple servers and can be used to optimize request traffic from a system-wide perspective. e.g. collapse the same (or similar) data access requests into one request and then return the single result to the user; this scheme is called <strong class="markup--strong markup--p-strong">collapsed forwarding</strong>.</p><h3 name="9c57" id="9c57" class="graf graf--h3 graf-after--p">API Proxies</h3><p name="bfc8" id="bfc8" class="graf graf--p graf-after--h3">An API Proxy decouples the frontend of the API from the backend services and filters all incoming and outgoing traffic. The decoupling of front-end and back-end services allows for changes to be made to backend services without disrupting the production API. The filtering of incoming and outgoing traffic allows for monitoring, basic forms of security, request routing, and protocol translation.</p><h3 name="057e" id="057e" class="graf graf--h3 graf-after--p">Notable API Proxies</h3><ul class="postList"><li name="e383" id="e383" class="graf graf--li graf-after--h3"><a href="https://docs.apigee.com/api-platform/get-started/get-started" data-href="https://docs.apigee.com/api-platform/get-started/get-started" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">Apigee API Proxy</a></li><li name="642d" id="642d" class="graf graf--li graf-after--li"><a href="https://www.tibco.com/products/api-management" data-href="https://www.tibco.com/products/api-management" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">Mashery Proxy</a></li><li name="35a7" id="35a7" class="graf graf--li graf-after--li"><a href="https://www.nginx.com/" data-href="https://www.nginx.com/" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">Nginx</a> (Open Source)</li><li name="1d23" id="1d23" class="graf graf--li graf-after--li"><a href="https://traefik.io/" data-href="https://traefik.io/" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">Traekif</a> (Open Source)</li></ul><h4 name="9078" id="9078" class="graf graf--h4 graf-after--li">Nginx</h4><p name="97a6" id="97a6" class="graf graf--p graf-after--h4">One reason to proxy to other servers from Nginx is the ability to scale out your infrastructure. Nginx is built to handle many concurrent connections at the same time. This makes it ideal for being the point-of-contact for clients. The server can pass requests to any number of backend servers to handle the bulk of the work, which spreads the load across your infrastructure. This design also provides you with flexibility in easily adding backend servers or taking them down as needed for maintenance.</p><p name="3ef4" id="3ef4" class="graf graf--p graf-after--p">Another instance where an http proxy might be useful is when using an application servers that might not be built to handle requests directly from clients in production environments. Many frameworks include web servers, but most of them are not as robust as servers designed for high performance like Nginx. Putting Nginx in front of these servers can lead to a better experience for users and increased security.</p><p name="0d8d" id="0d8d" class="graf graf--p graf-after--p">Proxying in Nginx is accomplished by manipulating a request aimed at the Nginx server and passing it to other servers for the actual processing. The result of the request is passed back to Nginx, which then relays the information to the client. The other servers in this instance can be remote machines, local servers, or even other virtual servers defined within Nginx. The servers that Nginx proxies requests to are known as <em class="markup--em markup--p-em">upstream servers</em>.</p><p name="44f6" id="44f6" class="graf graf--p graf-after--p">Nginx can proxy requests to servers that communicate using the http(s), FastCGI, SCGI, and uwsgi, or memcached protocols through separate sets of directives for each type of proxy. In this guide, we will be focusing on the http protocol. The Nginx instance is responsible for passing on the request and massaging any message components into a format that the upstream server can understand.</p><p name="25df" id="25df" class="graf graf--p graf-after--p">Nginx allows us to easily scale this configuration out by specifying entire pools of backend servers that we can pass requests to.</p><p name="fe74" id="fe74" class="graf graf--p graf-after--p">We can do this by using the <code class="markup--code markup--p-code">upstream</code> directive to define a pool of servers. This configuration assumes that any one of the listed servers is capable of handling a client’s request. This allows us to scale out our infrastructure with almost no effort. The <code class="markup--code markup--p-code">upstream</code> directive must be set in the http context of your Nginx configuration.</p><figure name="4b2d" id="4b2d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*NmHCCCEDA27LI6Pym-dAvg.gif" data-width="1200" data-height="577" src="https://cdn-images-1.medium.com/max/800/1*NmHCCCEDA27LI6Pym-dAvg.gif"><figcaption class="imageCaption">Reference: <a href="https://www.digitalocean.com" data-href="https://www.digitalocean.com" class="markup--anchor markup--figure-anchor" rel="nofollow noopener" target="_blank">https://www.digitalocean.com</a></figcaption></figure><h3 name="252d" id="252d" class="graf graf--h3 graf-after--figure">Nginx Upstream Balancing Algorithm</h3><p name="680b" id="680b" class="graf graf--p graf-after--h3">You can modify the balancing algorithm used by the upstream pool by including directives or flags within the upstream context:</p><ul class="postList"><li name="3ad2" id="3ad2" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">(round robin)</strong>: The default load balancing algorithm that is used if no other balancing directives are present. Each server defined in the upstream context is passed requests sequentially in turn.</li><li name="3f87" id="3f87" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code"><strong class="markup--strong markup--li-strong">least_conn</strong></code>: Specifies that new connections should always be given to the backend that has the least number of active connections. This can be especially useful in situations where connections to the backend may persist for some time.</li><li name="9171" id="9171" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code"><strong class="markup--strong markup--li-strong">ip_hash</strong></code>: This balancing algorithm distributes requests to different servers based on the client’s IP address. The first three octets are used as a key to decide on the server to handle the request. The result is that clients tend to be served by the same server each time, which can assist in session consistency.</li><li name="3c37" id="3c37" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code"><strong class="markup--strong markup--li-strong">hash</strong></code>: This balancing algorithm is mainly used with memcached proxying. The servers are divided based on the value of an arbitrarily provided hash key. This can be text, variables, or a combination. This is the only balancing method that requires the user to provide data, which is the key that should be used for the hash.</li></ul><p name="7da7" id="7da7" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--li"><span class="graf-dropCap">O</span>ne issue with proxying that concerns many users is the performance impact of adding an additional server to the process. In most cases, this can be largely mitigated by taking advantage of Nginx’s buffering and caching capabilities.</p><p name="a4e9" id="a4e9" class="graf graf--p graf-after--p">When proxying to another server, the speed of two different connections will affect the client’s experience:</p><ul class="postList"><li name="045b" id="045b" class="graf graf--li graf-after--p">The connection from the client to the Nginx proxy.</li><li name="62eb" id="62eb" class="graf graf--li graf-after--li">The connection from the Nginx proxy to the backend server.</li></ul><p name="99ac" id="99ac" class="graf graf--p graf-after--li">Nginx has the ability to adjust its behavior based on whichever one of these connections you wish to optimize.</p><p name="1877" id="1877" class="graf graf--p graf-after--p">Without buffers, data is sent from the proxied server and immediately begins to be transmitted to the client. If the clients are assumed to be fast, buffering can be turned off in order to get the data to the client as soon as possible. With buffers, the Nginx proxy will temporarily store the backend’s response and then feed this data to the client. If the client is slow, this allows the Nginx server to close the connection to the backend sooner. It can then handle distributing the data to the client at whatever pace is possible.</p><p name="90f2" id="90f2" class="graf graf--p graf-after--p">Nginx defaults to a buffering design since clients tend to have vastly different connection speeds. We can adjust the buffering behavior with the following directives. These can be set in the http, server, or location contexts. It is important to keep in mind that the sizing directives are configured <em class="markup--em markup--p-em">per request</em>, so increasing them beyond your need can affect your performance when there are many client requests:</p><p name="bc87" id="bc87" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">R</span><strong class="markup--strong markup--p-strong">everse proxy server</strong> is a type of proxy server that typically sits behind the firewall in a private network and directs client requests to the appropriate backend server. A reverse proxy provides an additional level of abstraction and control to ensure the smooth flow of network traffic between clients and servers.</p><p name="fbb7" id="fbb7" class="graf graf--p graf-after--p">Common uses for a reverse proxy server include:</p><ul class="postList"><li name="c13c" id="c13c" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Load balancing</strong> — A reverse proxy server can act as a “traffic cop,” sitting in front of your backend servers and distributing client requests across a group of servers in a manner that maximizes speed and capacity utilization while ensuring no one server is overloaded, which can degrade performance. If a server goes down, the load balancer redirects traffic to the remaining online servers.</li><li name="3c6a" id="3c6a" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Web acceleration</strong> — Reverse proxies can compress inbound and outbound data, as well as cache commonly requested content, both of which speed up the flow of traffic between clients and servers. They can also perform additional tasks such as SSL encryption to take load off of your web servers, thereby boosting their performance.</li><li name="f856" id="f856" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Security and anonymity</strong> — By intercepting requests headed for your backend servers, a reverse proxy server protects their identities and acts as an additional defense against security attacks. It also ensures that multiple servers can be accessed from a single record locator or URL regardless of the structure of your local area network.</li></ul><p name="ca16" id="ca16" class="graf graf--p graf-after--li">Hope this article is useful for people looking to understand proxies &amp; its use case, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="76da" id="76da" class="graf graf--p graf-after--p">References:</p><ol class="postList"><li name="bdf4" id="bdf4" class="graf graf--li graf-after--p"><a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/" data-href="https://www.nginx.com/resources/glossary/reverse-proxy-server/" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://www.nginx.com/resources/glossary/reverse-proxy-server/</a></li><li name="6170" id="6170" class="graf graf--li graf-after--li"><a href="https://aaronice.gitbooks.io/system-design/distributed-systems-glossary/proxies.html" data-href="https://aaronice.gitbooks.io/system-design/distributed-systems-glossary/proxies.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://aaronice.gitbooks.io/system-design/distributed-systems-glossary/proxies.html</a></li><li name="2b7e" id="2b7e" class="graf graf--li graf-after--li graf--trailing"><a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching" data-href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/f77be8858023"><time class="dt-published" datetime="2019-12-28T10:30:38.128Z">December 28, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-6-proxies-f77be8858023" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">System Design, Chapter 6: Proxies</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        For previous chapter — System Design, Chapter 5: Indexes in Databases
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="5bf3"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="93f3"
+                id="93f3"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                System Design, Chapter 6: Proxies
+              </h3>
+              <!-- <p name="2581" id="2581" class="graf graf--p graf-after--h3">
+                For previous chapter —
+                <a
+                  href="https://medium.com/@nishantnitb/system-design-chapter-5-indexes-in-databases-beb90295dbcf"
+                  data-href="https://medium.com/@nishantnitb/system-design-chapter-5-indexes-in-databases-beb90295dbcf"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >System Design, Chapter 5: Indexes in Databases</a
+                >
+              </p> -->
+              <figure
+                name="1089"
+                id="1089"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*lssQcVCfjnHYMFLJNe_MkA.png"
+                  data-width="1024"
+                  data-height="542"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*lssQcVCfjnHYMFLJNe_MkA.png"
+                />
+              </figure>
+              <h3
+                name="a44d"
+                id="a44d"
+                class="graf graf--h3 graf-after--figure"
+              >
+                The Concept
+              </h3>
+              <p name="031b" id="031b" class="graf graf--p graf-after--h3">
+                A
+                <strong class="markup--strong markup--p-strong">proxy</strong>
+                server is an intermediary piece of hardware/software that sits
+                between the client and the back-end server. It
+                <strong class="markup--strong markup--p-strong"
+                  >receives requests</strong
+                >
+                from clients and
+                <strong class="markup--strong markup--p-strong">relays</strong>
+                them to the origin servers.
+              </p>
+              <p name="3b0c" id="3b0c" class="graf graf--p graf-after--p">
+                In this Article, Lets take an example of nginx server which has
+                http proxying capabilities, which allow server to pass requests
+                off to backend http servers for further processing. Server is
+                often set up as a reverse proxy solution to help scale out
+                infrastructure or to pass requests to other servers that are not
+                designed to handle large client loads.
+              </p>
+              <h3 name="9740" id="9740" class="graf graf--h3 graf-after--p">
+                Usage
+              </h3>
+              <p name="559f" id="559f" class="graf graf--p graf-after--h3">
+                Typically, proxies are used to
+                <strong class="markup--strong markup--p-strong"
+                  >filter requests</strong
+                >
+                or
+                <strong class="markup--strong markup--p-strong"
+                  >log requests</strong
+                >, or sometimes
+                <strong class="markup--strong markup--p-strong"
+                  >transform requests</strong
+                >
+                (by adding/removing headers, encrypting/decrypting, or
+                compression).
+              </p>
+              <p name="ea46" id="ea46" class="graf graf--p graf-after--p">
+                Another advantage of a proxy server is that its
+                <strong class="markup--strong markup--p-strong">cache</strong>
+                can serve a lot of requests.
+              </p>
+              <p name="7add" id="7add" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Coordinating requests</strong
+                >
+                from multiple servers and can be used to optimize request
+                traffic from a system-wide perspective. e.g. collapse the same
+                (or similar) data access requests into one request and then
+                return the single result to the user; this scheme is called
+                <strong class="markup--strong markup--p-strong"
+                  >collapsed forwarding</strong
+                >.
+              </p>
+              <h3 name="9c57" id="9c57" class="graf graf--h3 graf-after--p">
+                API Proxies
+              </h3>
+              <p name="bfc8" id="bfc8" class="graf graf--p graf-after--h3">
+                An API Proxy decouples the frontend of the API from the backend
+                services and filters all incoming and outgoing traffic. The
+                decoupling of front-end and back-end services allows for changes
+                to be made to backend services without disrupting the production
+                API. The filtering of incoming and outgoing traffic allows for
+                monitoring, basic forms of security, request routing, and
+                protocol translation.
+              </p>
+              <h3 name="057e" id="057e" class="graf graf--h3 graf-after--p">
+                Notable API Proxies
+              </h3>
+              <ul class="postList">
+                <li name="e383" id="e383" class="graf graf--li graf-after--h3">
+                  <a
+                    href="https://docs.apigee.com/api-platform/get-started/get-started"
+                    data-href="https://docs.apigee.com/api-platform/get-started/get-started"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >Apigee API Proxy</a
+                  >
+                </li>
+                <li name="642d" id="642d" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://www.tibco.com/products/api-management"
+                    data-href="https://www.tibco.com/products/api-management"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >Mashery Proxy</a
+                  >
+                </li>
+                <li name="35a7" id="35a7" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://www.nginx.com/"
+                    data-href="https://www.nginx.com/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >Nginx</a
+                  >
+                  (Open Source)
+                </li>
+                <li name="1d23" id="1d23" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://traefik.io/"
+                    data-href="https://traefik.io/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >Traekif</a
+                  >
+                  (Open Source)
+                </li>
+              </ul>
+              <h4 name="9078" id="9078" class="graf graf--h4 graf-after--li">
+                Nginx
+              </h4>
+              <p name="97a6" id="97a6" class="graf graf--p graf-after--h4">
+                One reason to proxy to other servers from Nginx is the ability
+                to scale out your infrastructure. Nginx is built to handle many
+                concurrent connections at the same time. This makes it ideal for
+                being the point-of-contact for clients. The server can pass
+                requests to any number of backend servers to handle the bulk of
+                the work, which spreads the load across your infrastructure.
+                This design also provides you with flexibility in easily adding
+                backend servers or taking them down as needed for maintenance.
+              </p>
+              <p name="3ef4" id="3ef4" class="graf graf--p graf-after--p">
+                Another instance where an http proxy might be useful is when
+                using an application servers that might not be built to handle
+                requests directly from clients in production environments. Many
+                frameworks include web servers, but most of them are not as
+                robust as servers designed for high performance like Nginx.
+                Putting Nginx in front of these servers can lead to a better
+                experience for users and increased security.
+              </p>
+              <p name="0d8d" id="0d8d" class="graf graf--p graf-after--p">
+                Proxying in Nginx is accomplished by manipulating a request
+                aimed at the Nginx server and passing it to other servers for
+                the actual processing. The result of the request is passed back
+                to Nginx, which then relays the information to the client. The
+                other servers in this instance can be remote machines, local
+                servers, or even other virtual servers defined within Nginx. The
+                servers that Nginx proxies requests to are known as
+                <em class="markup--em markup--p-em">upstream servers</em>.
+              </p>
+              <p name="44f6" id="44f6" class="graf graf--p graf-after--p">
+                Nginx can proxy requests to servers that communicate using the
+                http(s), FastCGI, SCGI, and uwsgi, or memcached protocols
+                through separate sets of directives for each type of proxy. In
+                this guide, we will be focusing on the http protocol. The Nginx
+                instance is responsible for passing on the request and massaging
+                any message components into a format that the upstream server
+                can understand.
+              </p>
+              <p name="25df" id="25df" class="graf graf--p graf-after--p">
+                Nginx allows us to easily scale this configuration out by
+                specifying entire pools of backend servers that we can pass
+                requests to.
+              </p>
+              <p name="fe74" id="fe74" class="graf graf--p graf-after--p">
+                We can do this by using the
+                <code class="markup--code markup--p-code">upstream</code>
+                directive to define a pool of servers. This configuration
+                assumes that any one of the listed servers is capable of
+                handling a client’s request. This allows us to scale out our
+                infrastructure with almost no effort. The
+                <code class="markup--code markup--p-code">upstream</code>
+                directive must be set in the http context of your Nginx
+                configuration.
+              </p>
+              <figure
+                name="4b2d"
+                id="4b2d"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*NmHCCCEDA27LI6Pym-dAvg.gif"
+                  data-width="1200"
+                  data-height="577"
+                  src="https://cdn-images-1.medium.com/max/800/1*NmHCCCEDA27LI6Pym-dAvg.gif"
+                />
+                <figcaption class="imageCaption">
+                  Reference:
+                  <a
+                    href="https://www.digitalocean.com"
+                    data-href="https://www.digitalocean.com"
+                    class="markup--anchor markup--figure-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://www.digitalocean.com</a
+                  >
+                </figcaption>
+              </figure>
+              <h3
+                name="252d"
+                id="252d"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Nginx Upstream Balancing Algorithm
+              </h3>
+              <p name="680b" id="680b" class="graf graf--p graf-after--h3">
+                You can modify the balancing algorithm used by the upstream pool
+                by including directives or flags within the upstream context:
+              </p>
+              <ul class="postList">
+                <li name="3ad2" id="3ad2" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >(round robin)</strong
+                  >: The default load balancing algorithm that is used if no
+                  other balancing directives are present. Each server defined in
+                  the upstream context is passed requests sequentially in turn.
+                </li>
+                <li name="3f87" id="3f87" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    ><strong class="markup--strong markup--li-strong"
+                      >least_conn</strong
+                    ></code
+                  >: Specifies that new connections should always be given to
+                  the backend that has the least number of active connections.
+                  This can be especially useful in situations where connections
+                  to the backend may persist for some time.
+                </li>
+                <li name="9171" id="9171" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    ><strong class="markup--strong markup--li-strong"
+                      >ip_hash</strong
+                    ></code
+                  >: This balancing algorithm distributes requests to different
+                  servers based on the client’s IP address. The first three
+                  octets are used as a key to decide on the server to handle the
+                  request. The result is that clients tend to be served by the
+                  same server each time, which can assist in session
+                  consistency.
+                </li>
+                <li name="3c37" id="3c37" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    ><strong class="markup--strong markup--li-strong"
+                      >hash</strong
+                    ></code
+                  >: This balancing algorithm is mainly used with memcached
+                  proxying. The servers are divided based on the value of an
+                  arbitrarily provided hash key. This can be text, variables, or
+                  a combination. This is the only balancing method that requires
+                  the user to provide data, which is the key that should be used
+                  for the hash.
+                </li>
+              </ul>
+              <p
+                name="7da7"
+                id="7da7"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--li"
+              >
+                <span class="graf-dropCap">O</span>ne issue with proxying that
+                concerns many users is the performance impact of adding an
+                additional server to the process. In most cases, this can be
+                largely mitigated by taking advantage of Nginx’s buffering and
+                caching capabilities.
+              </p>
+              <p name="a4e9" id="a4e9" class="graf graf--p graf-after--p">
+                When proxying to another server, the speed of two different
+                connections will affect the client’s experience:
+              </p>
+              <ul class="postList">
+                <li name="045b" id="045b" class="graf graf--li graf-after--p">
+                  The connection from the client to the Nginx proxy.
+                </li>
+                <li name="62eb" id="62eb" class="graf graf--li graf-after--li">
+                  The connection from the Nginx proxy to the backend server.
+                </li>
+              </ul>
+              <p name="99ac" id="99ac" class="graf graf--p graf-after--li">
+                Nginx has the ability to adjust its behavior based on whichever
+                one of these connections you wish to optimize.
+              </p>
+              <p name="1877" id="1877" class="graf graf--p graf-after--p">
+                Without buffers, data is sent from the proxied server and
+                immediately begins to be transmitted to the client. If the
+                clients are assumed to be fast, buffering can be turned off in
+                order to get the data to the client as soon as possible. With
+                buffers, the Nginx proxy will temporarily store the backend’s
+                response and then feed this data to the client. If the client is
+                slow, this allows the Nginx server to close the connection to
+                the backend sooner. It can then handle distributing the data to
+                the client at whatever pace is possible.
+              </p>
+              <p name="90f2" id="90f2" class="graf graf--p graf-after--p">
+                Nginx defaults to a buffering design since clients tend to have
+                vastly different connection speeds. We can adjust the buffering
+                behavior with the following directives. These can be set in the
+                http, server, or location contexts. It is important to keep in
+                mind that the sizing directives are configured
+                <em class="markup--em markup--p-em">per request</em>, so
+                increasing them beyond your need can affect your performance
+                when there are many client requests:
+              </p>
+              <p
+                name="bc87"
+                id="bc87"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"
+              >
+                <span class="graf-dropCap">R</span
+                ><strong class="markup--strong markup--p-strong"
+                  >everse proxy server</strong
+                >
+                is a type of proxy server that typically sits behind the
+                firewall in a private network and directs client requests to the
+                appropriate backend server. A reverse proxy provides an
+                additional level of abstraction and control to ensure the smooth
+                flow of network traffic between clients and servers.
+              </p>
+              <p name="fbb7" id="fbb7" class="graf graf--p graf-after--p">
+                Common uses for a reverse proxy server include:
+              </p>
+              <ul class="postList">
+                <li name="c13c" id="c13c" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Load balancing</strong
+                  >
+                  — A reverse proxy server can act as a “traffic cop,” sitting
+                  in front of your backend servers and distributing client
+                  requests across a group of servers in a manner that maximizes
+                  speed and capacity utilization while ensuring no one server is
+                  overloaded, which can degrade performance. If a server goes
+                  down, the load balancer redirects traffic to the remaining
+                  online servers.
+                </li>
+                <li name="3c6a" id="3c6a" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Web acceleration</strong
+                  >
+                  — Reverse proxies can compress inbound and outbound data, as
+                  well as cache commonly requested content, both of which speed
+                  up the flow of traffic between clients and servers. They can
+                  also perform additional tasks such as SSL encryption to take
+                  load off of your web servers, thereby boosting their
+                  performance.
+                </li>
+                <li name="f856" id="f856" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Security and anonymity</strong
+                  >
+                  — By intercepting requests headed for your backend servers, a
+                  reverse proxy server protects their identities and acts as an
+                  additional defense against security attacks. It also ensures
+                  that multiple servers can be accessed from a single record
+                  locator or URL regardless of the structure of your local area
+                  network.
+                </li>
+              </ul>
+              <p name="ca16" id="ca16" class="graf graf--p graf-after--li">
+                Hope this article is useful for people looking to understand
+                proxies &amp; its use case, Please ❤️ to recommend this post to
+                others 😊. Let me know your feedback. :)
+              </p>
+              <p name="76da" id="76da" class="graf graf--p graf-after--p">
+                References:
+              </p>
+              <ol class="postList">
+                <li name="bdf4" id="bdf4" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://www.nginx.com/resources/glossary/reverse-proxy-server/"
+                    data-href="https://www.nginx.com/resources/glossary/reverse-proxy-server/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://www.nginx.com/resources/glossary/reverse-proxy-server/</a
+                  >
+                </li>
+                <li name="6170" id="6170" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://aaronice.gitbooks.io/system-design/distributed-systems-glossary/proxies.html"
+                    data-href="https://aaronice.gitbooks.io/system-design/distributed-systems-glossary/proxies.html"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://aaronice.gitbooks.io/system-design/distributed-systems-glossary/proxies.html</a
+                  >
+                </li>
+                <li
+                  name="2b7e"
+                  id="2b7e"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  <a
+                    href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching"
+                    data-href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/f77be8858023"
+            ><time class="dt-published" datetime="2019-12-28T10:30:38.128Z"
+              >December 28, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/system-design-chapter-6-proxies-f77be8858023"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

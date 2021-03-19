@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 7: Queues</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>System Design, Chapter 7: Queues</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,342 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">System Design, Chapter 7: Queues</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-For previous chapter — System Design, Chapter 6: Proxies
-</section>
-<section data-field="body" class="e-content">
-<section name="305b" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="f2d2" id="f2d2" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 7: Queues</h3><p name="6457" id="6457" class="graf graf--p graf-after--h3">For previous chapter — <a href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------" data-href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">System Design, Chapter 6: Proxies</a></p><h3 name="9db9" id="9db9" class="graf graf--h3 graf-after--p">What is message queuing?</h3><p name="719a" id="719a" class="graf graf--p graf-after--h3">Let’s start by defining message queues; how you can use a message queue and the benefits achieved when using message queues.</p><p name="5caa" id="5caa" class="graf graf--p graf-after--p">A <strong class="markup--strong markup--p-strong">queue</strong> is a line of things waiting to be handled — in sequential order starting at the beginning of the line. A message queue is a queue of messages sent between applications. It includes a sequence of work objects that are waiting to be processed.</p><p name="3663" id="3663" class="graf graf--p graf-after--p">A <strong class="markup--strong markup--p-strong">message</strong> is the data transported between the sender and the receiver application; it’s essentially a byte array with some headers on top. An example of a message could be an event. One application tells another application to start processing a specific task via the queue.</p><p name="a2de" id="a2de" class="graf graf--p graf-after--p">The basic architecture of a <strong class="markup--strong markup--p-strong">message queue</strong> is simple; there are client applications called producers that create messages and deliver them to the message queue. Another application, called a consumer, connects to the queue and gets the messages to be processed. Messages placed onto the queue are stored until the consumer retrieves them.</p><p name="5282" id="5282" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">P</span>rocessing Queue — all incoming tasks are added to the queue, and as soon as any worker has the capacity to process, they can pick up a task from the queue</p><h3 name="5002" id="5002" class="graf graf--h3 graf-after--p">Usage</h3><ul class="postList"><li name="7138" id="7138" class="graf graf--li graf-after--h3">asynchronous communication protocol — client not required to wait for the results</li><li name="f75e" id="f75e" class="graf graf--li graf-after--li">fault tolerance — as they can provide some protection from service outages and failures</li></ul><p name="9318" id="9318" class="graf graf--p graf-after--li">Queues play a vital role in managing distributed communication between different parts of any large-scale distributed system.</p><h3 name="7826" id="7826" class="graf graf--h3 graf-after--p">Kafka as a Messaging System</h3><p name="eb29" id="eb29" class="graf graf--p graf-after--h3">Kafka is a piece of technology originally developed by the folks at Linkedin. In a nutshell, it’s sort of like a message queueing system with a few twists that enable it to support pub/sub, scaling out over many servers, and replaying of messages.</p><p name="0de4" id="0de4" class="graf graf--p graf-after--p">How does Kafka’s notion of streams compare to a traditional enterprise messaging system?</p><p name="6b96" id="6b96" class="graf graf--p graf-after--p">Messaging traditionally has two models: <a href="http://en.wikipedia.org/wiki/Message_queue" data-href="http://en.wikipedia.org/wiki/Message_queue" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">queuing</a> and <a href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern" data-href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">publish-subscribe</a>. In a queue, a pool of consumers may read from a server and each record goes to one of them; in publish-subscribe the record is broadcast to all consumers. Each of these two models has a strength and a weakness. The strength of queuing is that it allows you to divide up the processing of data over multiple consumer instances, which lets you scale your processing. Unfortunately, queues aren’t multi-subscriber — once one process reads the data it’s gone. Publish-subscribe allows you broadcast data to multiple processes, but has no way of scaling processing since every message goes to every subscriber.</p><p name="a052" id="a052" class="graf graf--p graf-after--p">The consumer group concept in Kafka generalizes these two concepts. As with a queue the consumer group allows you to divide up processing over a collection of processes (the members of the consumer group). As with publish-subscribe, Kafka allows you to broadcast messages to multiple consumer groups.</p><p name="60d9" id="60d9" class="graf graf--p graf-after--p">The advantage of Kafka’s model is that every topic has both these properties — it can scale processing and is also multi-subscriber — there is no need to choose one or the other.</p><p name="8358" id="8358" class="graf graf--p graf-after--p">Kafka has stronger ordering guarantees than a traditional messaging system, too.</p><p name="5616" id="5616" class="graf graf--p graf-after--p">A traditional queue retains records in-order on the server, and if multiple consumers consume from the queue then the server hands out records in the order they are stored. However, although the server hands out records in order, the records are delivered asynchronously to consumers, so they may arrive out of order on different consumers. This effectively means the ordering of the records is lost in the presence of parallel consumption. Messaging systems often work around this by having a notion of “exclusive consumer” that allows only one process to consume from a queue, but of course this means that there is no parallelism in processing.</p><p name="baa0" id="baa0" class="graf graf--p graf-after--p">Kafka does it better. By having a notion of parallelism — the partition — within the topics, Kafka is able to provide both ordering guarantees and load balancing over a pool of consumer processes. This is achieved by assigning the partitions in the topic to the consumers in the consumer group so that each partition is consumed by exactly one consumer in the group. By doing this we ensure that the consumer is the only reader of that partition and consumes the data in order. Since there are many partitions this still balances the load over many consumer instances. Note however that there cannot be more consumer instances in a consumer group than partitions.</p><p name="a564" id="a564" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"><span class="graf-dropCap">M</span>essage queuing fulfills this purpose by providing a means for services to push messages to a queue asynchronously and ensure that they get delivered to the correct destination. To implement a message queue between services, you need a <strong class="markup--strong markup--p-strong">message broker</strong>; think of it as a mailman, who takes mail from a sender and delivers it to the correct destination.</p><h3 name="03b0" id="03b0" class="graf graf--h3 graf-after--p">Message Broker — RabbitMQ</h3><p name="4e46" id="4e46" class="graf graf--p graf-after--h3">RabbitMQ is one of the most widely used message brokers, with over 35,000 production deployments worldwide and is considered one of the most reliable message brokers available. RabbitMQ acts as the message broker, “the mailman”, a microservice architecture needs.</p><p name="3286" id="3286" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">For more details: </strong><a href="https://www.rabbitmq.com/tutorials/tutorial-one-python.html" data-href="https://www.rabbitmq.com/tutorials/tutorial-one-python.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">RabbitMQ</strong></a></p><h3 name="d76a" id="d76a" class="graf graf--h3 graf-after--p">Examples: RabbitMQ vs Kafka</h3><ol class="postList"><li name="3a9c" id="3a9c" class="graf graf--li graf-after--h3"><em class="markup--em markup--li-em">Features</em></li></ol><p name="3455" id="3455" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Apache Kafka</strong> — It is distributed. The data is shared and replicated with assured durability and availability.<br><strong class="markup--strong markup--p-strong">RabbitMQ</strong> — It offers comparatively less support for these features.</p><p name="2e50" id="2e50" class="graf graf--p graf-after--p"><em class="markup--em markup--p-em">2. Performance rate<br></em><strong class="markup--strong markup--p-strong">Apache Kafka </strong>— Its performance rate is high, up to 100,000 messages/second.<br><strong class="markup--strong markup--p-strong">RabbitMQ </strong>— Whereas, the performance rate of RabbitMQ is around 20,000 messages/second.</p><p name="4d08" id="4d08" class="graf graf--p graf-after--p"><em class="markup--em markup--p-em">3. Processing<br></em><strong class="markup--strong markup--p-strong">Apache Kafka</strong> — It allows reliable log distributed processing. Also, there exist stream processing semantics built into the Kafka Streams.<br><strong class="markup--strong markup--p-strong">RabbitMQ </strong>— The consumer is just FIFO based, reading from the HEAD and processing sequentially.</p><p name="aa4b" id="aa4b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous chapter: </strong><a href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------" data-href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">System Design, Chapter 6: Proxies</strong></a></p><p name="945a" id="945a" class="graf graf--p graf-after--p">Hope this article is useful for people looking to understand queue &amp; message broker, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="aea1" id="aea1" class="graf graf--p graf-after--p">References:</p><ol class="postList"><li name="c8d6" id="c8d6" class="graf graf--li graf-after--p graf--trailing"><a href="https://kafka.apache.org/intro" data-href="https://kafka.apache.org/intro" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://kafka.apache.org</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/5f3f9bed81"><time class="dt-published" datetime="2019-12-29T11:56:13.628Z">December 29, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-7-queues-5f3f9bed81" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">System Design, Chapter 7: Queues</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        For previous chapter — System Design, Chapter 6: Proxies
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="305b"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="f2d2"
+                id="f2d2"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                System Design, Chapter 7: Queues
+              </h3>
+              <!-- <p name="6457" id="6457" class="graf graf--p graf-after--h3">
+                For previous chapter —
+                <a
+                  href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------"
+                  data-href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >System Design, Chapter 6: Proxies</a
+                >
+              </p> -->
+              <h3 name="9db9" id="9db9" class="graf graf--h3 graf-after--p">
+                What is message queuing?
+              </h3>
+              <p name="719a" id="719a" class="graf graf--p graf-after--h3">
+                Let’s start by defining message queues; how you can use a
+                message queue and the benefits achieved when using message
+                queues.
+              </p>
+              <p name="5caa" id="5caa" class="graf graf--p graf-after--p">
+                A
+                <strong class="markup--strong markup--p-strong">queue</strong>
+                is a line of things waiting to be handled — in sequential order
+                starting at the beginning of the line. A message queue is a
+                queue of messages sent between applications. It includes a
+                sequence of work objects that are waiting to be processed.
+              </p>
+              <p name="3663" id="3663" class="graf graf--p graf-after--p">
+                A
+                <strong class="markup--strong markup--p-strong">message</strong>
+                is the data transported between the sender and the receiver
+                application; it’s essentially a byte array with some headers on
+                top. An example of a message could be an event. One application
+                tells another application to start processing a specific task
+                via the queue.
+              </p>
+              <p name="a2de" id="a2de" class="graf graf--p graf-after--p">
+                The basic architecture of a
+                <strong class="markup--strong markup--p-strong"
+                  >message queue</strong
+                >
+                is simple; there are client applications called producers that
+                create messages and deliver them to the message queue. Another
+                application, called a consumer, connects to the queue and gets
+                the messages to be processed. Messages placed onto the queue are
+                stored until the consumer retrieves them.
+              </p>
+              <p
+                name="5282"
+                id="5282"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"
+              >
+                <span class="graf-dropCap">P</span>rocessing Queue — all
+                incoming tasks are added to the queue, and as soon as any worker
+                has the capacity to process, they can pick up a task from the
+                queue
+              </p>
+              <h3 name="5002" id="5002" class="graf graf--h3 graf-after--p">
+                Usage
+              </h3>
+              <ul class="postList">
+                <li name="7138" id="7138" class="graf graf--li graf-after--h3">
+                  asynchronous communication protocol — client not required to
+                  wait for the results
+                </li>
+                <li name="f75e" id="f75e" class="graf graf--li graf-after--li">
+                  fault tolerance — as they can provide some protection from
+                  service outages and failures
+                </li>
+              </ul>
+              <p name="9318" id="9318" class="graf graf--p graf-after--li">
+                Queues play a vital role in managing distributed communication
+                between different parts of any large-scale distributed system.
+              </p>
+              <h3 name="7826" id="7826" class="graf graf--h3 graf-after--p">
+                Kafka as a Messaging System
+              </h3>
+              <p name="eb29" id="eb29" class="graf graf--p graf-after--h3">
+                Kafka is a piece of technology originally developed by the folks
+                at Linkedin. In a nutshell, it’s sort of like a message queueing
+                system with a few twists that enable it to support pub/sub,
+                scaling out over many servers, and replaying of messages.
+              </p>
+              <p name="0de4" id="0de4" class="graf graf--p graf-after--p">
+                How does Kafka’s notion of streams compare to a traditional
+                enterprise messaging system?
+              </p>
+              <p name="6b96" id="6b96" class="graf graf--p graf-after--p">
+                Messaging traditionally has two models:
+                <a
+                  href="http://en.wikipedia.org/wiki/Message_queue"
+                  data-href="http://en.wikipedia.org/wiki/Message_queue"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >queuing</a
+                >
+                and
+                <a
+                  href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern"
+                  data-href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >publish-subscribe</a
+                >. In a queue, a pool of consumers may read from a server and
+                each record goes to one of them; in publish-subscribe the record
+                is broadcast to all consumers. Each of these two models has a
+                strength and a weakness. The strength of queuing is that it
+                allows you to divide up the processing of data over multiple
+                consumer instances, which lets you scale your processing.
+                Unfortunately, queues aren’t multi-subscriber — once one process
+                reads the data it’s gone. Publish-subscribe allows you broadcast
+                data to multiple processes, but has no way of scaling processing
+                since every message goes to every subscriber.
+              </p>
+              <p name="a052" id="a052" class="graf graf--p graf-after--p">
+                The consumer group concept in Kafka generalizes these two
+                concepts. As with a queue the consumer group allows you to
+                divide up processing over a collection of processes (the members
+                of the consumer group). As with publish-subscribe, Kafka allows
+                you to broadcast messages to multiple consumer groups.
+              </p>
+              <p name="60d9" id="60d9" class="graf graf--p graf-after--p">
+                The advantage of Kafka’s model is that every topic has both
+                these properties — it can scale processing and is also
+                multi-subscriber — there is no need to choose one or the other.
+              </p>
+              <p name="8358" id="8358" class="graf graf--p graf-after--p">
+                Kafka has stronger ordering guarantees than a traditional
+                messaging system, too.
+              </p>
+              <p name="5616" id="5616" class="graf graf--p graf-after--p">
+                A traditional queue retains records in-order on the server, and
+                if multiple consumers consume from the queue then the server
+                hands out records in the order they are stored. However,
+                although the server hands out records in order, the records are
+                delivered asynchronously to consumers, so they may arrive out of
+                order on different consumers. This effectively means the
+                ordering of the records is lost in the presence of parallel
+                consumption. Messaging systems often work around this by having
+                a notion of “exclusive consumer” that allows only one process to
+                consume from a queue, but of course this means that there is no
+                parallelism in processing.
+              </p>
+              <p name="baa0" id="baa0" class="graf graf--p graf-after--p">
+                Kafka does it better. By having a notion of parallelism — the
+                partition — within the topics, Kafka is able to provide both
+                ordering guarantees and load balancing over a pool of consumer
+                processes. This is achieved by assigning the partitions in the
+                topic to the consumers in the consumer group so that each
+                partition is consumed by exactly one consumer in the group. By
+                doing this we ensure that the consumer is the only reader of
+                that partition and consumes the data in order. Since there are
+                many partitions this still balances the load over many consumer
+                instances. Note however that there cannot be more consumer
+                instances in a consumer group than partitions.
+              </p>
+              <p
+                name="a564"
+                id="a564"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--p"
+              >
+                <span class="graf-dropCap">M</span>essage queuing fulfills this
+                purpose by providing a means for services to push messages to a
+                queue asynchronously and ensure that they get delivered to the
+                correct destination. To implement a message queue between
+                services, you need a
+                <strong class="markup--strong markup--p-strong"
+                  >message broker</strong
+                >; think of it as a mailman, who takes mail from a sender and
+                delivers it to the correct destination.
+              </p>
+              <h3 name="03b0" id="03b0" class="graf graf--h3 graf-after--p">
+                Message Broker — RabbitMQ
+              </h3>
+              <p name="4e46" id="4e46" class="graf graf--p graf-after--h3">
+                RabbitMQ is one of the most widely used message brokers, with
+                over 35,000 production deployments worldwide and is considered
+                one of the most reliable message brokers available. RabbitMQ
+                acts as the message broker, “the mailman”, a microservice
+                architecture needs.
+              </p>
+              <p name="3286" id="3286" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >For more details: </strong
+                ><a
+                  href="https://www.rabbitmq.com/tutorials/tutorial-one-python.html"
+                  data-href="https://www.rabbitmq.com/tutorials/tutorial-one-python.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >RabbitMQ</strong
+                  ></a
+                >
+              </p>
+              <h3 name="d76a" id="d76a" class="graf graf--h3 graf-after--p">
+                Examples: RabbitMQ vs Kafka
+              </h3>
+              <ol class="postList">
+                <li name="3a9c" id="3a9c" class="graf graf--li graf-after--h3">
+                  <em class="markup--em markup--li-em">Features</em>
+                </li>
+              </ol>
+              <p name="3455" id="3455" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Apache Kafka</strong
+                >
+                — It is distributed. The data is shared and replicated with
+                assured durability and availability.<br /><strong
+                  class="markup--strong markup--p-strong"
+                  >RabbitMQ</strong
+                >
+                — It offers comparatively less support for these features.
+              </p>
+              <p name="2e50" id="2e50" class="graf graf--p graf-after--p">
+                <em class="markup--em markup--p-em"
+                  >2. Performance rate<br /></em
+                ><strong class="markup--strong markup--p-strong"
+                  >Apache Kafka </strong
+                >— Its performance rate is high, up to 100,000
+                messages/second.<br /><strong
+                  class="markup--strong markup--p-strong"
+                  >RabbitMQ </strong
+                >— Whereas, the performance rate of RabbitMQ is around 20,000
+                messages/second.
+              </p>
+              <p name="4d08" id="4d08" class="graf graf--p graf-after--p">
+                <em class="markup--em markup--p-em">3. Processing<br /></em
+                ><strong class="markup--strong markup--p-strong"
+                  >Apache Kafka</strong
+                >
+                — It allows reliable log distributed processing. Also, there
+                exist stream processing semantics built into the Kafka
+                Streams.<br /><strong class="markup--strong markup--p-strong"
+                  >RabbitMQ </strong
+                >— The consumer is just FIFO based, reading from the HEAD and
+                processing sequentially.
+              </p>
+              <!-- <p name="aa4b" id="aa4b" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous chapter: </strong
+                ><a
+                  href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------"
+                  data-href="/system-designing-interviews/system-design-chapter-6-proxies-f77be8858023?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >System Design, Chapter 6: Proxies</strong
+                  ></a
+                >
+              </p> -->
+              <p name="945a" id="945a" class="graf graf--p graf-after--p">
+                Hope this article is useful for people looking to understand
+                queue &amp; message broker, Please ❤️ to recommend this post to
+                others 😊. Let me know your feedback. :)
+              </p>
+              <p name="aea1" id="aea1" class="graf graf--p graf-after--p">
+                References:
+              </p>
+              <ol class="postList">
+                <li
+                  name="c8d6"
+                  id="c8d6"
+                  class="graf graf--li graf-after--p graf--trailing"
+                >
+                  <a
+                    href="https://kafka.apache.org/intro"
+                    data-href="https://kafka.apache.org/intro"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://kafka.apache.org</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/5f3f9bed81"
+            ><time class="dt-published" datetime="2019-12-29T11:56:13.628Z"
+              >December 29, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/system-design-chapter-7-queues-5f3f9bed81"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

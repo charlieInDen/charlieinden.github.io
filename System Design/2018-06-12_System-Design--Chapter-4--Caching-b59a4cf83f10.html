@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>System Design, Chapter 4: Caching</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>System Design, Chapter 4: Caching</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,470 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">System Design, Chapter 4: Caching</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Cache, Memcached, Search engine caching, Global Caching and consistency
-</section>
-<section data-field="body" class="e-content">
-<section name="c38a" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0875" id="0875" class="graf graf--h3 graf--leading graf--title">System Design, Chapter 4: <strong class="markup--strong markup--h3-strong">Caching</strong></h3><p name="472e" id="472e" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Cache, Memcached, Search engine caching, Global Caching and consistency</strong></p><p name="6d64" id="6d64" class="graf graf--p graf-after--p">Its hard to remember everything but why can’t we make notes to recall it. This system design series in my publication contains all the basic and interesting facts about it.</p><p name="faac" id="faac" class="graf graf--p graf-after--p">In this blog, i will starting with some good terminology , remembering that will work for you during technical discussions. Let’s start with <strong class="markup--strong markup--p-strong">Why cache required?</strong></p><p name="6fb4" id="6fb4" class="graf graf--p graf-after--p">The primary use of a cache memory is to speed up computation by exploiting patterns present in query streams. Since access to primary memory (RAM) is orders of magnitude faster than access to secondary memory (disk), the average latency drops significantly with the use of a cache. A secondary, yet important, goal is reducing the workload to back-end servers. If the hit rate is <em class="markup--em markup--p-em">x</em>, then the back-end servers receive 1 − <em class="markup--em markup--p-em">x </em>of the original query traffic.</p><h3 name="1033" id="1033" class="graf graf--h3 graf-after--p">Eviction Policy</h3><p name="afeb" id="afeb" class="graf graf--p graf-after--h3">A cache’s <strong class="markup--strong markup--p-strong">eviction policy tries to predict which entries are most likely to be used again</strong>in the near future, thereby maximizing the hit ratio. The Least Recently Used (LRU) policy is perhaps the most popular due to its simplicity, good runtime performance, and a decent hit rate in common workloads. Its ability to predict the future is limited to the history of the entries residing in the cache, preferring to give the last access the highest priority by guessing that it is the most likely to be reused again soon.</p><p name="36ff" id="36ff" class="graf graf--p graf-after--p">Modern caches extend the usage history to include the recent past and give preference to entries based on recency and frequency. One approach for retaining history is to use a popularity sketch (a compact, probabilistic data structure) to identify the “heavy hitters” in a large stream of events.</p><p name="3a50" id="3a50" class="graf graf--p graf-after--p">I’ll briefly mention several approaches here:</p><ul class="postList"><li name="2e6c" id="2e6c" class="graf graf--li graf-after--p">Random Replacement (RR) — As the term suggests, we can just randomly delete an entry.</li><li name="1c6d" id="1c6d" class="graf graf--li graf-after--li">Least frequently used (LFU) — We keep the count of how frequent each item is requested and delete the one least frequently used.</li><li name="1ebd" id="1ebd" class="graf graf--li graf-after--li">W-TinyLFU — I’d also like to talk about this modern eviction policy. In a nutshell, the problem of LFU is that sometimes an item is only used frequently in the past, but LFU will still keep this item for a long while. W-TinyLFU solves this problem by calculating frequency within a time window. It also has various optimizations of storage.</li></ul><h3 name="f95d" id="f95d" class="graf graf--h3 graf-after--li">Distributed cache</h3><p name="ae67" id="ae67" class="graf graf--p graf-after--h3">When the system gets to certain scale, we need to distribute the cache to multiple machines.</p><p name="71a1" id="71a1" class="graf graf--p graf-after--p">The general strategy is to keep a hash table that maps each resource to the corresponding machine. Therefore, when requesting resource A, from this hash table we know that machine M is responsible for cache A and direct the request to M. At machine M, it works similar to local cache discussed above. Machine M may need to fetch and update the cache for A if it doesn’t exist in memory. After that, it returns the cache back to the original server.</p><p name="464b" id="464b" class="graf graf--p graf-after--p"><a href="http://memcached.org/" data-href="http://memcached.org/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Memcached</strong></a> is a simple in-memory key-value store, which primary use case is shared cache for several processes within the server, or for occasionally starting and dying processes (e. g. how PHP processes behind Apache server used to do).<br>What it Does</p><figure name="ab8c" id="ab8c" class="graf graf--figure graf--layoutOutsetLeft graf-after--p"><img class="graf-image" data-image-id="0*7htyNNVUsSWOvxuR.png" data-width="251" data-height="468" src="https://cdn-images-1.medium.com/max/600/0*7htyNNVUsSWOvxuR.png"></figure><p name="fb9f" id="fb9f" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">memcached</strong> allows you to take memory from parts of your system where you have more than you need and make it accessible to areas where you have less than you need.</p><p name="bfa0" id="bfa0" class="graf graf--p graf-after--p">memcached also allows you to make better use of your memory. If you consider the diagram to the right, you can see two deployment scenarios:</p><ol class="postList"><li name="4c79" id="4c79" class="graf graf--li graf-after--p">Each node is completely independent (top).</li><li name="5438" id="5438" class="graf graf--li graf-after--li">Each node can make use of memory from other nodes (bottom).</li></ol><p name="ecaf" id="ecaf" class="graf graf--p graf-after--li">The first scenario illustrates the classic deployment strategy, however you’ll find that it’s both wasteful in the sense that the total cache size is a fraction of the actual capacity of your web farm, but also in the amount of effort required to keep the cache consistent across all of those nodes.</p><p name="b731" id="b731" class="graf graf--p graf-after--p">With memcached, you can see that all of the servers are looking into the same virtual pool of memory. This means that a given item is always stored and always retrieved from the same location in your entire web cluster.</p><p name="6d09" id="6d09" class="graf graf--p graf-after--p">Also, as the demand for your application grows to the point where you need to have more servers, it generally also grows in terms of the data that must be regularly accessed. A deployment strategy where these two aspects of your system scale together just makes sense.</p><p name="fabe" id="fabe" class="graf graf--p graf-after--p">The illustration to the right only shows two web servers for simplicity, but the property remains the same as the number increases. If you had fifty web servers, you’d still have a usable cache size of 64MB in the first example, but in the second, you’d have 3.2GB of usable cache.</p><p name="d529" id="d529" class="graf graf--p graf-after--p">Of course, you aren’t required to use your web server’s memory for cache. Many memcached users have dedicated machines that are built to only be memcached servers.</p><h3 name="4036" id="4036" class="graf graf--h3 graf-after--p">Concurrency</h3><p name="5593" id="5593" class="graf graf--p graf-after--h3">Concurrent access to a cache is viewed as a difficult problem because in <strong class="markup--strong markup--p-strong">most policies every access is a write to some shared state</strong>. The traditional solution is to guard the cache with a single lock. This might then be improved through lock striping by splitting the cache into many smaller independent regions. Unfortunately that tends to have a limited benefit due to hot entries causing some locks to be more contented than others. When contention becomes a bottleneck the next classic step has been to <strong class="markup--strong markup--p-strong">update only per entry metadata</strong> and use either a random sampling or a FIFO-based eviction policy. Those techniques can have great read performance, poor write performance, and difficulty in choosing a good victim.</p><p name="646f" id="646f" class="graf graf--p graf-after--p">An alternative is to <strong class="markup--strong markup--p-strong">borrow an idea from database theory where writes are scaled by using a commit log</strong>. Instead of mutating the data structures immediately, the <strong class="markup--strong markup--p-strong">updates are written to a log and replayed in asynchronous batches</strong>. This same idea can be applied to a cache by performing the hash table operation, recording the operation to a buffer, and scheduling the replay activity against the policy when deemed necessary. The policy is still guarded by a lock, or a try lock to be more precise, but shifts contention onto appending to the log buffers instead.</p><h3 name="8faf" id="8faf" class="graf graf--h3 graf-after--p"><strong class="markup--strong markup--h3-strong">Search Engine Caching</strong></h3><p name="4218" id="4218" class="graf graf--p graf-after--h3">Search engines are essential services to find the content on the Web. Commercial search engines like Yahoo! have over a hundred billion documents indexed, which map to petabytes of data. Searching through such an enormous amount of data is not trivial, especially when serving a large num- ber of queries concurrently. Thus, search engines rely upon systems comprising large numbers of machines grouped in clusters by functionality, such as index servers, document servers, and caches.</p><p name="b3e3" id="b3e3" class="graf graf--p graf-after--p">In a typical search engine, there are five types of data items that are accessed or generated during the search process: query results, precomputed scores, posting lists, precomputed intersections of posting lists, and documents.</p><h3 name="581d" id="581d" class="graf graf--h3 graf-after--p">Query processing overview</h3><p name="7742" id="7742" class="graf graf--p graf-after--h3">Web search engines are composed of multiple replicas of large search clusters. Each query is assigned to an individual search cluster, based on the current workload of clusters or based on a hash of the query string. A search cluster is composed of many nodes over which the documents are partitioned. Each node builds and maintains an index over its local document collection. All nodes in the cluster contribute to processing of a query.</p><p name="b216" id="b216" class="graf graf--p graf-after--p">Query processing involves a number of steps: issuing the query to search nodes, computing a partial result ranking in all nodes, merging partial rankings to obtain a global top-<em class="markup--em markup--p-em">k</em> result set, computing snippets for the top-<em class="markup--em markup--p-em">k</em> documents, and generating the final result page.</p><figure name="e971" id="e971" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*6b7e7PGJ71z8_a0UaXtqYA.jpeg" data-width="444" data-height="281" src="https://cdn-images-1.medium.com/max/800/1*6b7e7PGJ71z8_a0UaXtqYA.jpeg"><figcaption class="imageCaption">Figure 1:Query Processing</figcaption></figure><h3 name="32bd" id="32bd" class="graf graf--h3 graf-after--figure">Five-level static caching</h3><p name="b459" id="b459" class="graf graf--p graf-after--h3">Herein, we describe a five-level cache architecture for static caching in search engines. Steps mentioned in value column refers to figure 1 for your reference.</p><figure name="0d46" id="0d46" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*fq3eMWMow6-S-05ejXHnvg.png" data-width="856" data-height="684" src="https://cdn-images-1.medium.com/max/800/1*fq3eMWMow6-S-05ejXHnvg.png"></figure><p name="3fbe" id="3fbe" class="graf graf--p graf-after--figure">Below figure illustrates the interaction between different cache components.</p><figure name="552a" id="552a" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*gmhfOUqQ15WRJZWU5QgGOQ.jpeg" data-width="534" data-height="572" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*gmhfOUqQ15WRJZWU5QgGOQ.jpeg"></figure><h3 name="c6d3" id="c6d3" class="graf graf--h3 graf-after--figure"><strong class="markup--strong markup--h3-strong">Bonus time:</strong></h3><h4 name="9f18" id="9f18" class="graf graf--h4 graf-after--h3">System Design: Global Caching and consistency</h4><p name="5942" id="5942" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Scenario</strong>: Lets take an example of Twitter. There is a huge cache which gets updated frequently. For example: if person Foo tweets and it has followers all across the globe. Ideally all the caches across all PoP needs to get updated. i.e. they should remain in sync.</p><p name="4c2d" id="4c2d" class="graf graf--p graf-after--p">How does replication across datacenter (PoP) work for realtime caches ? What tools/technologies are preferred ? What are potential issues here in this system design ?</p><p name="07f7" id="07f7" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>: I would tackle the problem from a slightly different angle: when a user posts something, that something goes in a distributed storage (not necessarily a cache) that is already redundant across multiple geographies.I would also presume that, in the interest of performance, these nodes are eventually consistent.</p><p name="3f0b" id="3f0b" class="graf graf--p graf-after--p">Now the caching. I would not design a system that takes care of synchronising all the caches each time someone does something. I would rather implement caching at the service level. Imagine a small service residing in a geographically distributed cluster. Each time a user tries to fetch data, the service checks its local cache — if it is a miss, it reads the tweets from the storage and puts a portion of them in a cache (subject to eviction policies). All subsequent accesses, if any, would be cached at a local level.</p><p name="f61e" id="f61e" class="graf graf--p graf-after--p">In terms of design precautions:</p><ul class="postList"><li name="2be7" id="2be7" class="graf graf--li graf-after--p">Carefully consider the AZ(Availability Zone) topology in order to ensure sufficient bandwidth and low latency</li><li name="e1d2" id="e1d2" class="graf graf--li graf-after--li">Cache at the local level in order to avoid useless network trips</li><li name="0983" id="0983" class="graf graf--li graf-after--li">Cache updates don’t happen from the centre to the periphery; cache is created when a cache miss happens</li><li name="a65e" id="a65e" class="graf graf--li graf-after--li">I am stating the obvious here, implement the right eviction policies in order to keep only the right objects in cache</li><li name="ea9b" id="ea9b" class="graf graf--li graf-after--li">The only message that should go from the centre to the periphery is a cache flush broadcast (tell all the nodes to get rid of their cache)</li></ul><p name="cd7d" id="cd7d" class="graf graf--p graf-after--li">Hopefully this is good food for thought considering time during technical discussion.</p><p name="1011" id="1011" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to understand caching at backend, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/b59a4cf83f10"><time class="dt-published" datetime="2018-06-12T03:12:17.145Z">June 12, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/system-design-chapter-4-caching-b59a4cf83f10" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">System Design, Chapter 4: Caching</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Cache, Memcached, Search engine caching, Global Caching and consistency
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="c38a"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="0875"
+                id="0875"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                System Design, Chapter 4:
+                <strong class="markup--strong markup--h3-strong"
+                  >Caching</strong
+                >
+              </h3>
+              <p name="472e" id="472e" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Cache, Memcached, Search engine caching, Global Caching and
+                  consistency</strong
+                >
+              </p>
+              <p name="6d64" id="6d64" class="graf graf--p graf-after--p">
+                Its hard to remember everything but why can’t we make notes to
+                recall it. This system design series in my publication contains
+                all the basic and interesting facts about it.
+              </p>
+              <p name="faac" id="faac" class="graf graf--p graf-after--p">
+                In this blog, i will starting with some good terminology ,
+                remembering that will work for you during technical discussions.
+                Let’s start with
+                <strong class="markup--strong markup--p-strong"
+                  >Why cache required?</strong
+                >
+              </p>
+              <p name="6fb4" id="6fb4" class="graf graf--p graf-after--p">
+                The primary use of a cache memory is to speed up computation by
+                exploiting patterns present in query streams. Since access to
+                primary memory (RAM) is orders of magnitude faster than access
+                to secondary memory (disk), the average latency drops
+                significantly with the use of a cache. A secondary, yet
+                important, goal is reducing the workload to back-end servers. If
+                the hit rate is <em class="markup--em markup--p-em">x</em>, then
+                the back-end servers receive 1 −
+                <em class="markup--em markup--p-em">x </em>of the original query
+                traffic.
+              </p>
+              <h3 name="1033" id="1033" class="graf graf--h3 graf-after--p">
+                Eviction Policy
+              </h3>
+              <p name="afeb" id="afeb" class="graf graf--p graf-after--h3">
+                A cache’s
+                <strong class="markup--strong markup--p-strong"
+                  >eviction policy tries to predict which entries are most
+                  likely to be used again</strong
+                >in the near future, thereby maximizing the hit ratio. The Least
+                Recently Used (LRU) policy is perhaps the most popular due to
+                its simplicity, good runtime performance, and a decent hit rate
+                in common workloads. Its ability to predict the future is
+                limited to the history of the entries residing in the cache,
+                preferring to give the last access the highest priority by
+                guessing that it is the most likely to be reused again soon.
+              </p>
+              <p name="36ff" id="36ff" class="graf graf--p graf-after--p">
+                Modern caches extend the usage history to include the recent
+                past and give preference to entries based on recency and
+                frequency. One approach for retaining history is to use a
+                popularity sketch (a compact, probabilistic data structure) to
+                identify the “heavy hitters” in a large stream of events.
+              </p>
+              <p name="3a50" id="3a50" class="graf graf--p graf-after--p">
+                I’ll briefly mention several approaches here:
+              </p>
+              <ul class="postList">
+                <li name="2e6c" id="2e6c" class="graf graf--li graf-after--p">
+                  Random Replacement (RR) — As the term suggests, we can just
+                  randomly delete an entry.
+                </li>
+                <li name="1c6d" id="1c6d" class="graf graf--li graf-after--li">
+                  Least frequently used (LFU) — We keep the count of how
+                  frequent each item is requested and delete the one least
+                  frequently used.
+                </li>
+                <li name="1ebd" id="1ebd" class="graf graf--li graf-after--li">
+                  W-TinyLFU — I’d also like to talk about this modern eviction
+                  policy. In a nutshell, the problem of LFU is that sometimes an
+                  item is only used frequently in the past, but LFU will still
+                  keep this item for a long while. W-TinyLFU solves this problem
+                  by calculating frequency within a time window. It also has
+                  various optimizations of storage.
+                </li>
+              </ul>
+              <h3 name="f95d" id="f95d" class="graf graf--h3 graf-after--li">
+                Distributed cache
+              </h3>
+              <p name="ae67" id="ae67" class="graf graf--p graf-after--h3">
+                When the system gets to certain scale, we need to distribute the
+                cache to multiple machines.
+              </p>
+              <p name="71a1" id="71a1" class="graf graf--p graf-after--p">
+                The general strategy is to keep a hash table that maps each
+                resource to the corresponding machine. Therefore, when
+                requesting resource A, from this hash table we know that machine
+                M is responsible for cache A and direct the request to M. At
+                machine M, it works similar to local cache discussed above.
+                Machine M may need to fetch and update the cache for A if it
+                doesn’t exist in memory. After that, it returns the cache back
+                to the original server.
+              </p>
+              <p name="464b" id="464b" class="graf graf--p graf-after--p">
+                <a
+                  href="http://memcached.org/"
+                  data-href="http://memcached.org/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Memcached</strong
+                  ></a
+                >
+                is a simple in-memory key-value store, which primary use case is
+                shared cache for several processes within the server, or for
+                occasionally starting and dying processes (e. g. how PHP
+                processes behind Apache server used to do).<br />What it Does
+              </p>
+              <figure
+                name="ab8c"
+                id="ab8c"
+                class="graf graf--figure graf--layoutOutsetLeft graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*7htyNNVUsSWOvxuR.png"
+                  data-width="251"
+                  data-height="468"
+                  src="https://cdn-images-1.medium.com/max/600/0*7htyNNVUsSWOvxuR.png"
+                />
+              </figure>
+              <p name="fb9f" id="fb9f" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >memcached</strong
+                >
+                allows you to take memory from parts of your system where you
+                have more than you need and make it accessible to areas where
+                you have less than you need.
+              </p>
+              <p name="bfa0" id="bfa0" class="graf graf--p graf-after--p">
+                memcached also allows you to make better use of your memory. If
+                you consider the diagram to the right, you can see two
+                deployment scenarios:
+              </p>
+              <ol class="postList">
+                <li name="4c79" id="4c79" class="graf graf--li graf-after--p">
+                  Each node is completely independent (top).
+                </li>
+                <li name="5438" id="5438" class="graf graf--li graf-after--li">
+                  Each node can make use of memory from other nodes (bottom).
+                </li>
+              </ol>
+              <p name="ecaf" id="ecaf" class="graf graf--p graf-after--li">
+                The first scenario illustrates the classic deployment strategy,
+                however you’ll find that it’s both wasteful in the sense that
+                the total cache size is a fraction of the actual capacity of
+                your web farm, but also in the amount of effort required to keep
+                the cache consistent across all of those nodes.
+              </p>
+              <p name="b731" id="b731" class="graf graf--p graf-after--p">
+                With memcached, you can see that all of the servers are looking
+                into the same virtual pool of memory. This means that a given
+                item is always stored and always retrieved from the same
+                location in your entire web cluster.
+              </p>
+              <p name="6d09" id="6d09" class="graf graf--p graf-after--p">
+                Also, as the demand for your application grows to the point
+                where you need to have more servers, it generally also grows in
+                terms of the data that must be regularly accessed. A deployment
+                strategy where these two aspects of your system scale together
+                just makes sense.
+              </p>
+              <p name="fabe" id="fabe" class="graf graf--p graf-after--p">
+                The illustration to the right only shows two web servers for
+                simplicity, but the property remains the same as the number
+                increases. If you had fifty web servers, you’d still have a
+                usable cache size of 64MB in the first example, but in the
+                second, you’d have 3.2GB of usable cache.
+              </p>
+              <p name="d529" id="d529" class="graf graf--p graf-after--p">
+                Of course, you aren’t required to use your web server’s memory
+                for cache. Many memcached users have dedicated machines that are
+                built to only be memcached servers.
+              </p>
+              <h3 name="4036" id="4036" class="graf graf--h3 graf-after--p">
+                Concurrency
+              </h3>
+              <p name="5593" id="5593" class="graf graf--p graf-after--h3">
+                Concurrent access to a cache is viewed as a difficult problem
+                because in
+                <strong class="markup--strong markup--p-strong"
+                  >most policies every access is a write to some shared
+                  state</strong
+                >. The traditional solution is to guard the cache with a single
+                lock. This might then be improved through lock striping by
+                splitting the cache into many smaller independent regions.
+                Unfortunately that tends to have a limited benefit due to hot
+                entries causing some locks to be more contented than others.
+                When contention becomes a bottleneck the next classic step has
+                been to
+                <strong class="markup--strong markup--p-strong"
+                  >update only per entry metadata</strong
+                >
+                and use either a random sampling or a FIFO-based eviction
+                policy. Those techniques can have great read performance, poor
+                write performance, and difficulty in choosing a good victim.
+              </p>
+              <p name="646f" id="646f" class="graf graf--p graf-after--p">
+                An alternative is to
+                <strong class="markup--strong markup--p-strong"
+                  >borrow an idea from database theory where writes are scaled
+                  by using a commit log</strong
+                >. Instead of mutating the data structures immediately, the
+                <strong class="markup--strong markup--p-strong"
+                  >updates are written to a log and replayed in asynchronous
+                  batches</strong
+                >. This same idea can be applied to a cache by performing the
+                hash table operation, recording the operation to a buffer, and
+                scheduling the replay activity against the policy when deemed
+                necessary. The policy is still guarded by a lock, or a try lock
+                to be more precise, but shifts contention onto appending to the
+                log buffers instead.
+              </p>
+              <h3 name="8faf" id="8faf" class="graf graf--h3 graf-after--p">
+                <strong class="markup--strong markup--h3-strong"
+                  >Search Engine Caching</strong
+                >
+              </h3>
+              <p name="4218" id="4218" class="graf graf--p graf-after--h3">
+                Search engines are essential services to find the content on the
+                Web. Commercial search engines like Yahoo! have over a hundred
+                billion documents indexed, which map to petabytes of data.
+                Searching through such an enormous amount of data is not
+                trivial, especially when serving a large num- ber of queries
+                concurrently. Thus, search engines rely upon systems comprising
+                large numbers of machines grouped in clusters by functionality,
+                such as index servers, document servers, and caches.
+              </p>
+              <p name="b3e3" id="b3e3" class="graf graf--p graf-after--p">
+                In a typical search engine, there are five types of data items
+                that are accessed or generated during the search process: query
+                results, precomputed scores, posting lists, precomputed
+                intersections of posting lists, and documents.
+              </p>
+              <h3 name="581d" id="581d" class="graf graf--h3 graf-after--p">
+                Query processing overview
+              </h3>
+              <p name="7742" id="7742" class="graf graf--p graf-after--h3">
+                Web search engines are composed of multiple replicas of large
+                search clusters. Each query is assigned to an individual search
+                cluster, based on the current workload of clusters or based on a
+                hash of the query string. A search cluster is composed of many
+                nodes over which the documents are partitioned. Each node builds
+                and maintains an index over its local document collection. All
+                nodes in the cluster contribute to processing of a query.
+              </p>
+              <p name="b216" id="b216" class="graf graf--p graf-after--p">
+                Query processing involves a number of steps: issuing the query
+                to search nodes, computing a partial result ranking in all
+                nodes, merging partial rankings to obtain a global top-<em
+                  class="markup--em markup--p-em"
+                  >k</em
+                >
+                result set, computing snippets for the top-<em
+                  class="markup--em markup--p-em"
+                  >k</em
+                >
+                documents, and generating the final result page.
+              </p>
+              <figure
+                name="e971"
+                id="e971"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*6b7e7PGJ71z8_a0UaXtqYA.jpeg"
+                  data-width="444"
+                  data-height="281"
+                  src="https://cdn-images-1.medium.com/max/800/1*6b7e7PGJ71z8_a0UaXtqYA.jpeg"
+                />
+                <figcaption class="imageCaption">
+                  Figure 1:Query Processing
+                </figcaption>
+              </figure>
+              <h3
+                name="32bd"
+                id="32bd"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Five-level static caching
+              </h3>
+              <p name="b459" id="b459" class="graf graf--p graf-after--h3">
+                Herein, we describe a five-level cache architecture for static
+                caching in search engines. Steps mentioned in value column
+                refers to figure 1 for your reference.
+              </p>
+              <figure
+                name="0d46"
+                id="0d46"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*fq3eMWMow6-S-05ejXHnvg.png"
+                  data-width="856"
+                  data-height="684"
+                  src="https://cdn-images-1.medium.com/max/800/1*fq3eMWMow6-S-05ejXHnvg.png"
+                />
+              </figure>
+              <p name="3fbe" id="3fbe" class="graf graf--p graf-after--figure">
+                Below figure illustrates the interaction between different cache
+                components.
+              </p>
+              <figure
+                name="552a"
+                id="552a"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*gmhfOUqQ15WRJZWU5QgGOQ.jpeg"
+                  data-width="534"
+                  data-height="572"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*gmhfOUqQ15WRJZWU5QgGOQ.jpeg"
+                />
+              </figure>
+              <h3
+                name="c6d3"
+                id="c6d3"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >Bonus time:</strong
+                >
+              </h3>
+              <h4 name="9f18" id="9f18" class="graf graf--h4 graf-after--h3">
+                System Design: Global Caching and consistency
+              </h4>
+              <p name="5942" id="5942" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong">Scenario</strong
+                >: Lets take an example of Twitter. There is a huge cache which
+                gets updated frequently. For example: if person Foo tweets and
+                it has followers all across the globe. Ideally all the caches
+                across all PoP needs to get updated. i.e. they should remain in
+                sync.
+              </p>
+              <p name="4c2d" id="4c2d" class="graf graf--p graf-after--p">
+                How does replication across datacenter (PoP) work for realtime
+                caches ? What tools/technologies are preferred ? What are
+                potential issues here in this system design ?
+              </p>
+              <p name="07f7" id="07f7" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >: I would tackle the problem from a slightly different angle:
+                when a user posts something, that something goes in a
+                distributed storage (not necessarily a cache) that is already
+                redundant across multiple geographies.I would also presume that,
+                in the interest of performance, these nodes are eventually
+                consistent.
+              </p>
+              <p name="3f0b" id="3f0b" class="graf graf--p graf-after--p">
+                Now the caching. I would not design a system that takes care of
+                synchronising all the caches each time someone does something. I
+                would rather implement caching at the service level. Imagine a
+                small service residing in a geographically distributed cluster.
+                Each time a user tries to fetch data, the service checks its
+                local cache — if it is a miss, it reads the tweets from the
+                storage and puts a portion of them in a cache (subject to
+                eviction policies). All subsequent accesses, if any, would be
+                cached at a local level.
+              </p>
+              <p name="f61e" id="f61e" class="graf graf--p graf-after--p">
+                In terms of design precautions:
+              </p>
+              <ul class="postList">
+                <li name="2be7" id="2be7" class="graf graf--li graf-after--p">
+                  Carefully consider the AZ(Availability Zone) topology in order
+                  to ensure sufficient bandwidth and low latency
+                </li>
+                <li name="e1d2" id="e1d2" class="graf graf--li graf-after--li">
+                  Cache at the local level in order to avoid useless network
+                  trips
+                </li>
+                <li name="0983" id="0983" class="graf graf--li graf-after--li">
+                  Cache updates don’t happen from the centre to the periphery;
+                  cache is created when a cache miss happens
+                </li>
+                <li name="a65e" id="a65e" class="graf graf--li graf-after--li">
+                  I am stating the obvious here, implement the right eviction
+                  policies in order to keep only the right objects in cache
+                </li>
+                <li name="ea9b" id="ea9b" class="graf graf--li graf-after--li">
+                  The only message that should go from the centre to the
+                  periphery is a cache flush broadcast (tell all the nodes to
+                  get rid of their cache)
+                </li>
+              </ul>
+              <p name="cd7d" id="cd7d" class="graf graf--p graf-after--li">
+                Hopefully this is good food for thought considering time during
+                technical discussion.
+              </p>
+              <p
+                name="1011"
+                id="1011"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people looking to understand
+                caching at backend, Please ❤️ to recommend this post to others
+                😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/b59a4cf83f10"
+            ><time class="dt-published" datetime="2018-06-12T03:12:17.145Z"
+              >June 12, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/system-design-chapter-4-caching-b59a4cf83f10"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

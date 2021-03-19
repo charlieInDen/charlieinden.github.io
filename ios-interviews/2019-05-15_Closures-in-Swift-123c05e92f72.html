@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Closures in Swift</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Closures in Swift</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,363 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Closures in Swift</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-In this article, you’ll learn what is a closure, syntax, types of closures in Swift with examples.
-</section>
-<section data-field="body" class="e-content">
-<section name="8695" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="f43d" id="f43d" class="graf graf--h3 graf--leading graf--title">Closures in Swift</h3><p name="8235" id="8235" class="graf graf--p graf-after--h3">In this article, you’ll learn what is a closure, syntax, types of closures in Swift with examples.</p><p name="0975" id="0975" class="graf graf--p graf-after--p">Closures are mainly used for two reasons:</p><ol class="postList"><li name="92e3" id="92e3" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Completion blocks</strong><br>Closures help you to be notified when some task has finished its execution. See Closure as a completion handler to learn more about it.</li><li name="883b" id="883b" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Higher order functions</strong><br>Closures can be passed as an input parameters for higher order functions. A higher order function is just a type of function that accepts function as an input and returns value of type function as output.<br>For this purpose it’s better to use closures in replacement of function because closure omits the func keyword and function name that makes the code more readable and short.</li></ol><p name="051b" id="051b" class="graf graf--p graf-after--li"><em class="markup--em markup--p-em">//As a </em><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">variable</em></strong><em class="markup--em markup--p-em">:</em></p><pre name="a557" id="a557" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">var</strong> closureName: (ParameterTypes) -&gt; ReturnType</pre><p name="0865" id="0865" class="graf graf--p graf-after--pre"><em class="markup--em markup--p-em">//As an </em><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">optional variable</em></strong><em class="markup--em markup--p-em">:</em></p><pre name="c3df" id="c3df" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">var</strong> closureName: ((ParameterTypes) -&gt; ReturnType)?</pre><p name="de73" id="de73" class="graf graf--p graf-after--pre"><em class="markup--em markup--p-em">//As a </em><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">type alias</em></strong><em class="markup--em markup--p-em">:</em></p><pre name="ef9b" id="ef9b" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">typealias</strong> ClosureType = (ParameterTypes) -&gt; ReturnType</pre><p name="b579" id="b579" class="graf graf--p graf-after--pre"><em class="markup--em markup--p-em">//As a </em><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">constant</em></strong><em class="markup--em markup--p-em">:</em></p><pre name="68e0" id="68e0" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">let</strong> closureName: ClosureType = { … }</pre><h3 name="55f8" id="55f8" class="graf graf--h3 graf-after--pre">How Do I Declare a Closure in Swift?</h3><p name="9c61" id="9c61" class="graf graf--p graf-after--h3">Let’s start with declaring alias for a closure which takes integer as argument and return integer.</p><p name="161e" id="161e" class="graf graf--p graf-after--p">In line 3, we are declaring a closure of type (Int)-&gt;Int using type alias declared above.</p><p name="2396" id="2396" class="graf graf--p graf-after--p">In line 5, we are defining the closure which will contain the logic.</p><p name="bf89" id="bf89" class="graf graf--p graf-after--p">In line 9 we are calling the closure with int as argument and output will be 25.</p><p name="ea73" id="ea73" class="graf graf--p graf-after--p">Notice the use of <code class="markup--code markup--p-code">in</code> keyword in the closure definition. The <code class="markup--code markup--p-code">in</code> keyword is used to separate the parameters and statements inside the closure. The closure accepts parameters and can return value. Lets learn to create your own closures with below examples:</p><figure name="bad0" id="bad0" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/51887aaa5580b6eee3955b2f9b2b9018.js.js"></script></figure><h3 name="0343" id="0343" class="graf graf--h3 graf-after--figure"><em class="markup--em markup--h3-em">Passing Closure as a function parameter and returning closure</em></h3><p name="dfec" id="dfec" class="graf graf--p graf-after--h3">In Swift, all closure parameters are no escaping by default. The concept of escaping and no escaping closure is for compiler optimization.</p><h4 name="0602" id="0602" class="graf graf--h4 graf-after--p">Escaping Closure</h4><p name="f3bc" id="f3bc" class="graf graf--p graf-after--h4">A closure is said to escape a function when the closure is passed as an argument to the function, but is called after the function returns or the closure is used outside of the body of the function.</p><p name="2c7a" id="2c7a" class="graf graf--p graf-after--p">In the below example, test function takes argument of type aliasClosure and returns closure of type aliasClosure. Utilizing argument closure to calculate some value and pass that value in return closure. Output for line 11 will be 60.</p><figure name="70ee" id="70ee" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/f256c1bde253286be271c09b26060cc6.js.js"></script></figure><h3 name="0d4d" id="0d4d" class="graf graf--h3 graf-after--figure">Passing Closure as a function parameter , No return value</h3><p name="bbaa" id="bbaa" class="graf graf--p graf-after--h3">test2 function takes closure as argument but doesn&#39;t return any value. Output will be -20</p><figure name="e36e" id="e36e" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/b467399eac1a3bdc40ff752f1bbd8a3d.js.js"></script></figure><h3 name="a9c4" id="a9c4" class="graf graf--h3 graf-after--figure"><em class="markup--em markup--h3-em">Closure that contains statements but no arguments but return type exists</em></h3><p name="1da8" id="1da8" class="graf graf--p graf-after--h3">Below method takes closure as argument which doesn’t take any parameter but return int. Output will be print statement — “testStatement called” and print closure return value which is 1.</p><figure name="5d44" id="5d44" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/94955ba5a3ed5fcbe217b66445ead53e.js.js"></script></figure><h3 name="bd96" id="bd96" class="graf graf--h3 graf-after--figure"><em class="markup--em markup--h3-em">Trailing closure</em></h3><p name="23a7" id="23a7" class="graf graf--p graf-after--h3">If a function accepts a closure as its last parameter, the closure can be passed similar to a function body between <code class="markup--code markup--p-code">{ }</code>. This type of closure written outside of function call parentheses is known as trailing closure.</p><figure name="3c11" id="3c11" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/68a8924f3826f79477924964aa01102f.js.js"></script></figure><h3 name="7a92" id="7a92" class="graf graf--h3 graf-after--figure">AutoClosure</h3><p name="9a9f" id="9a9f" class="graf graf--p graf-after--h3">A closure which is marked with <code class="markup--code markup--p-code">@autoclosure</code> keyword is known as autoclosure. <code class="markup--code markup--p-code">@autoclosure</code> keyword creates an automatic closure around the expression by adding a <code class="markup--code markup--p-code">{}</code>. Therefore, you can omit braces <code class="markup--code markup--p-code">{}</code> when passing closures to a function.</p><p name="019c" id="019c" class="graf graf--p graf-after--p">The main advantage of using autoclosure is that you don’t need to wrap the expression in curly braces <code class="markup--code markup--p-code">{}</code> when calling closures.</p><figure name="a4a1" id="a4a1" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/ba4dbd126850f376ad32599d4e4ac887.js.js"></script></figure><h3 name="48e2" id="48e2" class="graf graf--h3 graf-after--figure">Closure as a completion handler</h3><p name="aa65" id="aa65" class="graf graf--p graf-after--h3">Completion handler are callbacks/notifications that allows you to perform some action when a function completes its task.</p><p name="7c15" id="7c15" class="graf graf--p graf-after--p">Completion handler are mostly used in asynchronous operations so that the caller can know when the operation has completed to perform some action after the completion of the operation.</p><figure name="0f52" id="0f52" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/135490586770c2bc14445a60da5f4399.js.js"></script></figure><h3 name="7353" id="7353" class="graf graf--h3 graf-after--figure"><strong class="markup--strong markup--h3-strong">Higher order functions &amp; Closures</strong></h3><figure name="8483" id="8483" class="graf graf--figure graf--iframe graf-after--h3"><script src="https://gist.github.com/charlieInDen/ba2a8c6696fb4a0a31e13340f1ff93da.js.js"></script></figure><p name="72bb" id="72bb" class="graf graf--p graf-after--figure">Go to <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Top IOS Interview Questions and Answers for 2019</strong></a></p><p name="95bb" id="95bb" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people which are trying to understand basics of closures, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/123c05e92f72"><time class="dt-published" datetime="2019-05-15T08:06:19.374Z">May 15, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/closures-in-swift-123c05e92f72" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Closures in Swift</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        In this article, you’ll learn what is a closure, syntax, types of
+        closures in Swift with examples.
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="8695"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="f43d"
+                id="f43d"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Closures in Swift
+              </h3>
+              <p name="8235" id="8235" class="graf graf--p graf-after--h3">
+                In this article, you’ll learn what is a closure, syntax, types
+                of closures in Swift with examples.
+              </p>
+              <p name="0975" id="0975" class="graf graf--p graf-after--p">
+                Closures are mainly used for two reasons:
+              </p>
+              <ol class="postList">
+                <li name="92e3" id="92e3" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Completion blocks</strong
+                  ><br />Closures help you to be notified when some task has
+                  finished its execution. See Closure as a completion handler to
+                  learn more about it.
+                </li>
+                <li name="883b" id="883b" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Higher order functions</strong
+                  ><br />Closures can be passed as an input parameters for
+                  higher order functions. A higher order function is just a type
+                  of function that accepts function as an input and returns
+                  value of type function as output.<br />For this purpose it’s
+                  better to use closures in replacement of function because
+                  closure omits the func keyword and function name that makes
+                  the code more readable and short.
+                </li>
+              </ol>
+              <p name="051b" id="051b" class="graf graf--p graf-after--li">
+                <em class="markup--em markup--p-em">//As a </em
+                ><strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em">variable</em></strong
+                ><em class="markup--em markup--p-em">:</em>
+              </p>
+              <pre
+                name="a557"
+                id="a557"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">var</strong> closureName: (ParameterTypes) -&gt; ReturnType</pre>
+              <p name="0865" id="0865" class="graf graf--p graf-after--pre">
+                <em class="markup--em markup--p-em">//As an </em
+                ><strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >optional variable</em
+                  ></strong
+                ><em class="markup--em markup--p-em">:</em>
+              </p>
+              <pre
+                name="c3df"
+                id="c3df"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">var</strong> closureName: ((ParameterTypes) -&gt; ReturnType)?</pre>
+              <p name="de73" id="de73" class="graf graf--p graf-after--pre">
+                <em class="markup--em markup--p-em">//As a </em
+                ><strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em">type alias</em></strong
+                ><em class="markup--em markup--p-em">:</em>
+              </p>
+              <pre
+                name="ef9b"
+                id="ef9b"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">typealias</strong> ClosureType = (ParameterTypes) -&gt; ReturnType</pre>
+              <p name="b579" id="b579" class="graf graf--p graf-after--pre">
+                <em class="markup--em markup--p-em">//As a </em
+                ><strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em">constant</em></strong
+                ><em class="markup--em markup--p-em">:</em>
+              </p>
+              <pre
+                name="68e0"
+                id="68e0"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">let</strong> closureName: ClosureType = { … }</pre>
+              <h3 name="55f8" id="55f8" class="graf graf--h3 graf-after--pre">
+                How Do I Declare a Closure in Swift?
+              </h3>
+              <p name="9c61" id="9c61" class="graf graf--p graf-after--h3">
+                Let’s start with declaring alias for a closure which takes
+                integer as argument and return integer.
+              </p>
+              <p name="161e" id="161e" class="graf graf--p graf-after--p">
+                In line 3, we are declaring a closure of type (Int)-&gt;Int
+                using type alias declared above.
+              </p>
+              <p name="2396" id="2396" class="graf graf--p graf-after--p">
+                In line 5, we are defining the closure which will contain the
+                logic.
+              </p>
+              <p name="bf89" id="bf89" class="graf graf--p graf-after--p">
+                In line 9 we are calling the closure with int as argument and
+                output will be 25.
+              </p>
+              <p name="ea73" id="ea73" class="graf graf--p graf-after--p">
+                Notice the use of
+                <code class="markup--code markup--p-code">in</code> keyword in
+                the closure definition. The
+                <code class="markup--code markup--p-code">in</code> keyword is
+                used to separate the parameters and statements inside the
+                closure. The closure accepts parameters and can return value.
+                Lets learn to create your own closures with below examples:
+              </p>
+              <figure
+                name="bad0"
+                id="bad0"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/51887aaa5580b6eee3955b2f9b2b9018.js.js"></script>
+              </figure>
+              <h3
+                name="0343"
+                id="0343"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <em class="markup--em markup--h3-em"
+                  >Passing Closure as a function parameter and returning
+                  closure</em
+                >
+              </h3>
+              <p name="dfec" id="dfec" class="graf graf--p graf-after--h3">
+                In Swift, all closure parameters are no escaping by default. The
+                concept of escaping and no escaping closure is for compiler
+                optimization.
+              </p>
+              <h4 name="0602" id="0602" class="graf graf--h4 graf-after--p">
+                Escaping Closure
+              </h4>
+              <p name="f3bc" id="f3bc" class="graf graf--p graf-after--h4">
+                A closure is said to escape a function when the closure is
+                passed as an argument to the function, but is called after the
+                function returns or the closure is used outside of the body of
+                the function.
+              </p>
+              <p name="2c7a" id="2c7a" class="graf graf--p graf-after--p">
+                In the below example, test function takes argument of type
+                aliasClosure and returns closure of type aliasClosure. Utilizing
+                argument closure to calculate some value and pass that value in
+                return closure. Output for line 11 will be 60.
+              </p>
+              <figure
+                name="70ee"
+                id="70ee"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/f256c1bde253286be271c09b26060cc6.js.js"></script>
+              </figure>
+              <h3
+                name="0d4d"
+                id="0d4d"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Passing Closure as a function parameter , No return value
+              </h3>
+              <p name="bbaa" id="bbaa" class="graf graf--p graf-after--h3">
+                test2 function takes closure as argument but doesn&#39;t return
+                any value. Output will be -20
+              </p>
+              <figure
+                name="e36e"
+                id="e36e"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/b467399eac1a3bdc40ff752f1bbd8a3d.js.js"></script>
+              </figure>
+              <h3
+                name="a9c4"
+                id="a9c4"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <em class="markup--em markup--h3-em"
+                  >Closure that contains statements but no arguments but return
+                  type exists</em
+                >
+              </h3>
+              <p name="1da8" id="1da8" class="graf graf--p graf-after--h3">
+                Below method takes closure as argument which doesn’t take any
+                parameter but return int. Output will be print
+                statement — “testStatement called” and print closure return
+                value which is 1.
+              </p>
+              <figure
+                name="5d44"
+                id="5d44"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/94955ba5a3ed5fcbe217b66445ead53e.js.js"></script>
+              </figure>
+              <h3
+                name="bd96"
+                id="bd96"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <em class="markup--em markup--h3-em">Trailing closure</em>
+              </h3>
+              <p name="23a7" id="23a7" class="graf graf--p graf-after--h3">
+                If a function accepts a closure as its last parameter, the
+                closure can be passed similar to a function body between
+                <code class="markup--code markup--p-code">{ }</code>. This type
+                of closure written outside of function call parentheses is known
+                as trailing closure.
+              </p>
+              <figure
+                name="3c11"
+                id="3c11"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/68a8924f3826f79477924964aa01102f.js.js"></script>
+              </figure>
+              <h3
+                name="7a92"
+                id="7a92"
+                class="graf graf--h3 graf-after--figure"
+              >
+                AutoClosure
+              </h3>
+              <p name="9a9f" id="9a9f" class="graf graf--p graf-after--h3">
+                A closure which is marked with
+                <code class="markup--code markup--p-code">@autoclosure</code>
+                keyword is known as autoclosure.
+                <code class="markup--code markup--p-code">@autoclosure</code>
+                keyword creates an automatic closure around the expression by
+                adding a <code class="markup--code markup--p-code">{}</code>.
+                Therefore, you can omit braces
+                <code class="markup--code markup--p-code">{}</code> when passing
+                closures to a function.
+              </p>
+              <p name="019c" id="019c" class="graf graf--p graf-after--p">
+                The main advantage of using autoclosure is that you don’t need
+                to wrap the expression in curly braces
+                <code class="markup--code markup--p-code">{}</code> when calling
+                closures.
+              </p>
+              <figure
+                name="a4a1"
+                id="a4a1"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/ba4dbd126850f376ad32599d4e4ac887.js.js"></script>
+              </figure>
+              <h3
+                name="48e2"
+                id="48e2"
+                class="graf graf--h3 graf-after--figure"
+              >
+                Closure as a completion handler
+              </h3>
+              <p name="aa65" id="aa65" class="graf graf--p graf-after--h3">
+                Completion handler are callbacks/notifications that allows you
+                to perform some action when a function completes its task.
+              </p>
+              <p name="7c15" id="7c15" class="graf graf--p graf-after--p">
+                Completion handler are mostly used in asynchronous operations so
+                that the caller can know when the operation has completed to
+                perform some action after the completion of the operation.
+              </p>
+              <figure
+                name="0f52"
+                id="0f52"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/135490586770c2bc14445a60da5f4399.js.js"></script>
+              </figure>
+              <h3
+                name="7353"
+                id="7353"
+                class="graf graf--h3 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h3-strong"
+                  >Higher order functions &amp; Closures</strong
+                >
+              </h3>
+              <figure
+                name="8483"
+                id="8483"
+                class="graf graf--figure graf--iframe graf-after--h3"
+              >
+                <script src="https://gist.github.com/charlieInDen/ba2a8c6696fb4a0a31e13340f1ff93da.js.js"></script>
+              </figure>
+              <!-- <p name="72bb" id="72bb" class="graf graf--p graf-after--figure">
+                Go to
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-you-must-prepare-in-2018-e0d73be27adc"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Top IOS Interview Questions and Answers for 2019</strong
+                  ></a
+                >
+              </p> -->
+              <p
+                name="95bb"
+                id="95bb"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people which are trying to
+                understand basics of closures, Please ❤️ to recommend this post
+                to others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/123c05e92f72"
+            ><time class="dt-published" datetime="2019-05-15T08:06:19.374Z"
+              >May 15, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/closures-in-swift-123c05e92f72"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

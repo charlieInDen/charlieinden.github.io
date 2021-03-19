@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (Sept 2018) Part 4</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (Sept 2018) Part 4</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,523 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (Sept 2018) Part 4</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Q1. Array — allocate 10 element but os allocate memory space after that to other array, so how will next element insert ? At what location…
-</section>
-<section data-field="body" class="e-content">
-<section name="8960" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="bdda" id="bdda" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (Sept 2018) Part 4</h3><h4 name="3a9e" id="3a9e" class="graf graf--h4 graf-after--h3 graf--subtitle">Q1. Array — allocate 10 element but os allocate memory space after that to other array, so how will next element insert ? At what location? <br>How does Swift manage Arrays internally?</h4><p name="9129" id="9129" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: Arrays created in Swift hold their values in a contiguous region of memory. For this reason, you can efficiently pass a Swift array into a C API that requires that kind of structure.</p><p name="add4" id="add4" class="graf graf--p graf-after--p">As you mention, an array can grow as you append values to it, and at certain points that means that a fresh, larger, region of memory is allocated, and the previous values are copied into it. It is for this reason that its stated that operations like append <em class="markup--em markup--p-em">may</em> be <code class="markup--code markup--p-code">O(n)</code> – that is, the worst-case time to perform an append operation grows in proportion to the current size of the array (because of the time taken to copy the values over).</p><p name="8757" id="8757" class="graf graf--p graf-after--p">However, when the array has to grow its storage, the amount of new storage it allocates each time grows exponentially, which means that reallocations become rarer and rarer as you append, which means the “amortized” time to append over all calls approaches constant time.</p><p name="6e4d" id="6e4d" class="graf graf--p graf-after--p">Arrays also have a method, <code class="markup--code markup--p-code">reserveCapacity</code>, that allows you to preemptively avoid reallocations on calling append by requesting the array allocate itself some minimum amount of space up front. You can use this if you know ahead of time how many values you plan to hold in the array.</p><p name="b6f3" id="b6f3" class="graf graf--p graf-after--p">Inserting a new value into the middle of an array is also <code class="markup--code markup--p-code">O(n)</code>, because arrays are held in contiguous memory, so inserting a new value involves shuffling subsequent values along to the end. Unlike appending though, this does not improve over multiple calls. This is very different from, say, a linked list where you can insert in <code class="markup--code markup--p-code">O(1)</code> i.e. constant time. But bear in mind the big tradeoff is that arrays are also randomly accessible in constant time, unlike linked lists.</p><p name="eeda" id="eeda" class="graf graf--p graf-after--p">Changes to single values in the array in-place (i.e. assigning via a subscript) should be <code class="markup--code markup--p-code">O(1)</code>(<code class="markup--code markup--p-code">subscript</code> doesn&#39;t actually have a documenting comment but this is a pretty safe bet). This means if you create an array, populate it, and then don&#39;t append or insert into it, it should behave similarly to a Java array in terms of performance.</p><p name="eb1a" id="eb1a" class="graf graf--p graf-after--p">There’s one caveat to all this — arrays have “value” semantics. This means if you have an array variable <code class="markup--code markup--p-code">a</code>, and you assign it to another array variable <code class="markup--code markup--p-code">b</code>, this is essentially copying the array. Subsequent changes to the values in <code class="markup--code markup--p-code">a</code> will not affect <code class="markup--code markup--p-code">b</code>, and changing <code class="markup--code markup--p-code">b</code> will not affect <code class="markup--code markup--p-code">a</code>. This is unlike &quot;reference&quot; semantics where both <code class="markup--code markup--p-code">a</code> and <code class="markup--code markup--p-code">b</code> point to the same array and any changes made to it via <code class="markup--code markup--p-code">a</code> would be reflected to someone looking at it via <code class="markup--code markup--p-code">b</code>.</p><p name="d9c6" id="d9c6" class="graf graf--p graf-after--p">However, Swift arrays are actually “Copy-on-Write”. That is, when you assign <code class="markup--code markup--p-code">a</code> to <code class="markup--code markup--p-code">b</code> no copying actually takes place. It only happens when one of the two variables is changed (&quot;mutated&quot;). This brings a big performance benefit, but it does mean that if two arrays are referencing the same storage because neither has performed a write since the copy, a change like a subscript assign does have a one-off cost of duplicating the entire array at that point.</p><h4 name="6766" id="6766" class="graf graf--h4 graf-after--p">Q2. What are “mutable” and “immutable” objects?</h4><p name="ca06" id="ca06" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution: </strong>In a certain way, “mutable” and “immutable” only make sense when talking about reference types. If you try to extend it to value types, then all value types can be considered functionally equivalent to “immutable” reference types.</p><p name="3a22" id="3a22" class="graf graf--p graf-after--p">For example, consider a <code class="markup--code markup--p-code">var</code> of type <code class="markup--code markup--p-code">Int</code>. Is this mutable? Some of you might say, sure -- you can change its visible &quot;value&quot; by assigning (<code class="markup--code markup--p-code">=</code>) to it. However, the same can be said of a <code class="markup--code markup--p-code">var</code> of <code class="markup--code markup--p-code">NSNumber</code> and <code class="markup--code markup--p-code">NSString</code> -- you can change its visible value by assigning to it. But <code class="markup--code markup--p-code">NSNumber</code> and <code class="markup--code markup--p-code">NSString</code> are described as <em class="markup--em markup--p-em">immutable</em> classes.</p><p name="54e2" id="54e2" class="graf graf--p graf-after--p">What is really happening for reference types is that assigning to them causes the variable (a pointer) to point to a new object. Neither the old nor new object itself is “changed”, but since it points to a different object, you “see” a new value.</p><p name="ba65" id="ba65" class="graf graf--p graf-after--p">What we mean when we say a class is “mutable” is that it offers an API (method or reference) to actually change the contents of the object. But how do we know that the object has changed? (rather it being a new object?) It’s because we could have another reference to the same object, and changes to the object through one reference is visible through another reference. But these properties (pointing to different objects, having multiple pointers to the same object) inherently only apply to reference types. Value types, by definition, cannot have such “sharing” (unless part of the “value” is a reference type, like in <code class="markup--code markup--p-code">Array</code>), and thus, the consequence of &quot;mutability&quot; cannot happen for value types.</p><p name="d61b" id="d61b" class="graf graf--p graf-after--p">So if you make an immutable class that wraps an integer, it would be operationally equivalent to an <code class="markup--code markup--p-code">Int</code> -- in both cases, the only way to change a variable&#39;s value would be to assign (<code class="markup--code markup--p-code">=</code>) to it. So <code class="markup--code markup--p-code">Int</code> should also similarly be considered &quot;immutable&quot;.</p><h4 name="5d61" id="5d61" class="graf graf--h4 graf-after--p">Q3. What are the possible ways to communicate with classes?</h4><p name="28dc" id="28dc" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>:<br>– Protocols<br>– NSNotificationCenter<br>– Key-Value Observation (KVO)<br>– Delegates<br>– Blocks<br>– Target-Action</p><h4 name="9484" id="9484" class="graf graf--h4 graf-after--p">Q4. Why viewControllers required?</h4><p name="378a" id="378a" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: A view controller is not drawable to the screen directly, it manages a group of view objects. View controllers usually have a single view with many subviews. The view controller manages the state of these views. A view controller is smart, and has knowledge of your application’s inner workings. It tells the dumb view objects what to do and how to show themselves.</p><p name="9648" id="9648" class="graf graf--p graf-after--p">A view controller is the glue between your overall application and the screen. It controls the views that it owns according to the logic of your application.</p><p name="388e" id="388e" class="graf graf--p graf-after--p">In short its role is -</p><ol class="postList"><li name="8a9b" id="8a9b" class="graf graf--li graf-after--p">View Management</li><li name="bf7a" id="bf7a" class="graf graf--li graf-after--li">Data Marshaling</li><li name="b7ce" id="b7ce" class="graf graf--li graf-after--li">User Interactions</li><li name="66cd" id="66cd" class="graf graf--li graf-after--li">Resource Management</li><li name="2299" id="2299" class="graf graf--li graf-after--li">Adaptivity</li></ol><h4 name="58f4" id="58f4" class="graf graf--h4 graf-after--li">Q5. Suppose I have 10 cells in a table view — 6 are visible — How much memory it will take (assume x memory takes 1 cell), How tableview works?</h4><p name="de3a" id="de3a" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution: </strong><code class="markup--code markup--p-code">dequeueReusableCellWithIdentifier</code>. Instead of creating every single cell and then selectively displaying them, we only create a handful of cells, enough to fill the screen and a little more. As we scroll, we reuse the cells offscreen, leading to a much more memory efficient task.</p><p name="adb9" id="adb9" class="graf graf--p graf-after--p">Assuming half part of upper and half part of lower cell — it will contain 8 Cells to reuse , so it will take 8x.</p><h4 name="2414" id="2414" class="graf graf--h4 graf-after--p">Q6. I have a application which runs animation in it, which thread it will be using? How do you manage multiple animations in a single screen?</h4><p name="d3ef" id="d3ef" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution:</strong></p><ol class="postList"><li name="d7b4" id="d7b4" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Starting Animations Using the Block-Based Methods</strong></li></ol><ul class="postList"><li name="e6d0" id="e6d0" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622418-animate" data-href="https://developer.apple.com/documentation/uikit/uiview/1622418-animate" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">animateWithDuration:animations:</a></code></li><li name="6685" id="6685" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration" data-href="https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">animateWithDuration:animations:completion:</a></code></li><li name="4b77" id="4b77" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiview/1622451-animatewithduration" data-href="https://developer.apple.com/documentation/uikit/uiview/1622451-animatewithduration" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">animateWithDuration:delay:options:animations:completion:</a></code></li></ul><p name="77ed" id="77ed" class="graf graf--p graf-after--li">The specified animations are started immediately on another thread so as to avoid blocking the current thread or your application’s main thread.</p><p name="ad98" id="ad98" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">2. Starting Animations Using the Begin/Commit Methods</strong></p><p name="3da3" id="3da3" class="graf graf--p graf-after--p">Execution of the animations occurs on a secondary thread so as to avoid blocking the current thread or your application’s main thread.</p><h4 name="e7c9" id="e7c9" class="graf graf--h4 graf-after--p">Q7. Difference between NSCoding and Codable?</h4><p name="9e2c" id="9e2c" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Solution</strong>: To support encoding and decoding of instances in iOS, a class must adopt the <em class="markup--em markup--p-em">NSCoding</em> protocol and implement its methods:</p><ol class="postList"><li name="dfa8" id="dfa8" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong"><em class="markup--em markup--li-em">init(coder:) </em></strong>— Returns an object initialized from data in a given unarchiver.</li><li name="b220" id="b220" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong"><em class="markup--em markup--li-em">encode(with:) </em></strong>— Encodes the receiver using a given archiver.</li></ol><p name="b2b3" id="b2b3" class="graf graf--p graf-after--li"><em class="markup--em markup--p-em">init(coder:) </em>and<em class="markup--em markup--p-em"> encode(with:) </em>must contain the code for each property that needs to be encoded or decoded.</p><p name="ff60" id="ff60" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Codable : </strong>Make your data types encodable and decodable for compatibility with external representations such as JSON. It provides support for <em class="markup--em markup--p-em">class, struct and enum</em> as well.</p><pre name="ee5c" id="ee5c" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">typealias Codable = <a href="https://developer.apple.com/documentation/swift/decodable" data-href="https://developer.apple.com/documentation/swift/decodable" class="markup--anchor markup--pre-anchor" rel="noopener" target="_blank">Decodable</a> &amp; <a href="https://developer.apple.com/documentation/swift/encodable" data-href="https://developer.apple.com/documentation/swift/encodable" class="markup--anchor markup--pre-anchor" rel="noopener" target="_blank">Encodable</a></code></pre><p name="4342" id="4342" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Limitations</strong> 🚫</p><ol class="postList"><li name="4a73" id="4a73" class="graf graf--li graf-after--p">For now you cannot conform to <em class="markup--em markup--li-em">Codable</em> in an <em class="markup--em markup--li-em">extension</em></li><li name="306e" id="306e" class="graf graf--li graf-after--li">You must use a<strong class="markup--strong markup--li-strong"> concrete type</strong> to encode and decode.</li></ol><p name="c9de" id="c9de" class="graf graf--p graf-after--li">Hope these questions will help you.</p><p name="a772" id="a772" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References</strong>:</p><ol class="postList"><li name="401b" id="401b" class="graf graf--li graf-after--p"><a href="https://stackoverflow.com/questions/27943629/how-does-swift-manage-arrays-internally" data-href="https://stackoverflow.com/questions/27943629/how-does-swift-manage-arrays-internally" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://stackoverflow.com/questions/27943629/how-does-swift-manage-arrays-internally</a></li><li name="3afb" id="3afb" class="graf graf--li graf-after--li"><a href="https://stackoverflow.com/questions/24221786/are-swift-mutable-strings-really-mutable-or-are-they-just-like-java-strings" data-href="https://stackoverflow.com/questions/24221786/are-swift-mutable-strings-really-mutable-or-are-they-just-like-java-strings" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://stackoverflow.com/questions/24221786/are-swift-mutable-strings-really-mutable-or-are-they-just-like-java-strings</a></li><li name="0a74" id="0a74" class="graf graf--li graf-after--li"><a href="https://www.objc.io/issues/7-foundation/communication-patterns/" data-href="https://www.objc.io/issues/7-foundation/communication-patterns/" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://www.objc.io/issues/7-foundation/communication-patterns/</a></li><li name="9e85" id="9e85" class="graf graf--li graf-after--li"><a href="https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/" data-href="https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/</a></li><li name="131c" id="131c" class="graf graf--li graf-after--li"><a href="https://stackoverflow.com/questions/31814563/whats-the-difference-between-a-view-and-a-viewcontroller" data-href="https://stackoverflow.com/questions/31814563/whats-the-difference-between-a-view-and-a-viewcontroller" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://stackoverflow.com/questions/31814563/whats-the-difference-between-a-view-and-a-viewcontroller</a></li><li name="d9be" id="d9be" class="graf graf--li graf-after--li"><a href="https://developer.apple.com/library/archive/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html" data-href="https://developer.apple.com/library/archive/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener noopener" target="_blank">https://developer.apple.com/library/archive/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html</a></li><li name="5040" id="5040" class="graf graf--li graf-after--li"><a href="https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types" data-href="https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types</a></li><li name="4d2d" id="4d2d" class="graf graf--li graf-after--li graf--trailing"><a href="https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999" data-href="https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/44593de3804f"><time class="dt-published" datetime="2018-09-11T09:10:10.380Z">September 11, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-sept-2018-part-4-44593de3804f" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (Sept 2018) Part 4
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Q1. Array — allocate 10 element but os allocate memory space after that
+        to other array, so how will next element insert ? At what location…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="8960"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="bdda"
+                id="bdda"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (Sept 2018) Part 4
+              </h3>
+              <h4
+                name="3a9e"
+                id="3a9e"
+                class="graf graf--h4 graf-after--h3 graf--subtitle"
+              >
+                Q1. Array — allocate 10 element but os allocate memory space
+                after that to other array, so how will next element insert ? At
+                what location? <br />How does Swift manage Arrays internally?
+              </h4>
+              <p name="9129" id="9129" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >: Arrays created in Swift hold their values in a contiguous
+                region of memory. For this reason, you can efficiently pass a
+                Swift array into a C API that requires that kind of structure.
+              </p>
+              <p name="add4" id="add4" class="graf graf--p graf-after--p">
+                As you mention, an array can grow as you append values to it,
+                and at certain points that means that a fresh, larger, region of
+                memory is allocated, and the previous values are copied into it.
+                It is for this reason that its stated that operations like
+                append <em class="markup--em markup--p-em">may</em> be
+                <code class="markup--code markup--p-code">O(n)</code> – that is,
+                the worst-case time to perform an append operation grows in
+                proportion to the current size of the array (because of the time
+                taken to copy the values over).
+              </p>
+              <p name="8757" id="8757" class="graf graf--p graf-after--p">
+                However, when the array has to grow its storage, the amount of
+                new storage it allocates each time grows exponentially, which
+                means that reallocations become rarer and rarer as you append,
+                which means the “amortized” time to append over all calls
+                approaches constant time.
+              </p>
+              <p name="6e4d" id="6e4d" class="graf graf--p graf-after--p">
+                Arrays also have a method,
+                <code class="markup--code markup--p-code">reserveCapacity</code
+                >, that allows you to preemptively avoid reallocations on
+                calling append by requesting the array allocate itself some
+                minimum amount of space up front. You can use this if you know
+                ahead of time how many values you plan to hold in the array.
+              </p>
+              <p name="b6f3" id="b6f3" class="graf graf--p graf-after--p">
+                Inserting a new value into the middle of an array is also
+                <code class="markup--code markup--p-code">O(n)</code>, because
+                arrays are held in contiguous memory, so inserting a new value
+                involves shuffling subsequent values along to the end. Unlike
+                appending though, this does not improve over multiple calls.
+                This is very different from, say, a linked list where you can
+                insert in
+                <code class="markup--code markup--p-code">O(1)</code> i.e.
+                constant time. But bear in mind the big tradeoff is that arrays
+                are also randomly accessible in constant time, unlike linked
+                lists.
+              </p>
+              <p name="eeda" id="eeda" class="graf graf--p graf-after--p">
+                Changes to single values in the array in-place (i.e. assigning
+                via a subscript) should be
+                <code class="markup--code markup--p-code">O(1)</code>(<code
+                  class="markup--code markup--p-code"
+                  >subscript</code
+                >
+                doesn&#39;t actually have a documenting comment but this is a
+                pretty safe bet). This means if you create an array, populate
+                it, and then don&#39;t append or insert into it, it should
+                behave similarly to a Java array in terms of performance.
+              </p>
+              <p name="eb1a" id="eb1a" class="graf graf--p graf-after--p">
+                There’s one caveat to all this — arrays have “value” semantics.
+                This means if you have an array variable
+                <code class="markup--code markup--p-code">a</code>, and you
+                assign it to another array variable
+                <code class="markup--code markup--p-code">b</code>, this is
+                essentially copying the array. Subsequent changes to the values
+                in <code class="markup--code markup--p-code">a</code> will not
+                affect <code class="markup--code markup--p-code">b</code>, and
+                changing <code class="markup--code markup--p-code">b</code> will
+                not affect <code class="markup--code markup--p-code">a</code>.
+                This is unlike &quot;reference&quot; semantics where both
+                <code class="markup--code markup--p-code">a</code> and
+                <code class="markup--code markup--p-code">b</code> point to the
+                same array and any changes made to it via
+                <code class="markup--code markup--p-code">a</code> would be
+                reflected to someone looking at it via
+                <code class="markup--code markup--p-code">b</code>.
+              </p>
+              <p name="d9c6" id="d9c6" class="graf graf--p graf-after--p">
+                However, Swift arrays are actually “Copy-on-Write”. That is,
+                when you assign
+                <code class="markup--code markup--p-code">a</code> to
+                <code class="markup--code markup--p-code">b</code> no copying
+                actually takes place. It only happens when one of the two
+                variables is changed (&quot;mutated&quot;). This brings a big
+                performance benefit, but it does mean that if two arrays are
+                referencing the same storage because neither has performed a
+                write since the copy, a change like a subscript assign does have
+                a one-off cost of duplicating the entire array at that point.
+              </p>
+              <h4 name="6766" id="6766" class="graf graf--h4 graf-after--p">
+                Q2. What are “mutable” and “immutable” objects?
+              </h4>
+              <p name="ca06" id="ca06" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution: </strong
+                >In a certain way, “mutable” and “immutable” only make sense
+                when talking about reference types. If you try to extend it to
+                value types, then all value types can be considered functionally
+                equivalent to “immutable” reference types.
+              </p>
+              <p name="3a22" id="3a22" class="graf graf--p graf-after--p">
+                For example, consider a
+                <code class="markup--code markup--p-code">var</code> of type
+                <code class="markup--code markup--p-code">Int</code>. Is this
+                mutable? Some of you might say, sure -- you can change its
+                visible &quot;value&quot; by assigning (<code
+                  class="markup--code markup--p-code"
+                  >=</code
+                >) to it. However, the same can be said of a
+                <code class="markup--code markup--p-code">var</code> of
+                <code class="markup--code markup--p-code">NSNumber</code> and
+                <code class="markup--code markup--p-code">NSString</code> -- you
+                can change its visible value by assigning to it. But
+                <code class="markup--code markup--p-code">NSNumber</code> and
+                <code class="markup--code markup--p-code">NSString</code> are
+                described as
+                <em class="markup--em markup--p-em">immutable</em> classes.
+              </p>
+              <p name="54e2" id="54e2" class="graf graf--p graf-after--p">
+                What is really happening for reference types is that assigning
+                to them causes the variable (a pointer) to point to a new
+                object. Neither the old nor new object itself is “changed”, but
+                since it points to a different object, you “see” a new value.
+              </p>
+              <p name="ba65" id="ba65" class="graf graf--p graf-after--p">
+                What we mean when we say a class is “mutable” is that it offers
+                an API (method or reference) to actually change the contents of
+                the object. But how do we know that the object has changed?
+                (rather it being a new object?) It’s because we could have
+                another reference to the same object, and changes to the object
+                through one reference is visible through another reference. But
+                these properties (pointing to different objects, having multiple
+                pointers to the same object) inherently only apply to reference
+                types. Value types, by definition, cannot have such “sharing”
+                (unless part of the “value” is a reference type, like in
+                <code class="markup--code markup--p-code">Array</code>), and
+                thus, the consequence of &quot;mutability&quot; cannot happen
+                for value types.
+              </p>
+              <p name="d61b" id="d61b" class="graf graf--p graf-after--p">
+                So if you make an immutable class that wraps an integer, it
+                would be operationally equivalent to an
+                <code class="markup--code markup--p-code">Int</code> -- in both
+                cases, the only way to change a variable&#39;s value would be to
+                assign (<code class="markup--code markup--p-code">=</code>) to
+                it. So
+                <code class="markup--code markup--p-code">Int</code> should also
+                similarly be considered &quot;immutable&quot;.
+              </p>
+              <h4 name="5d61" id="5d61" class="graf graf--h4 graf-after--p">
+                Q3. What are the possible ways to communicate with classes?
+              </h4>
+              <p name="28dc" id="28dc" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >:<br />– Protocols<br />– NSNotificationCenter<br />– Key-Value
+                Observation (KVO)<br />– Delegates<br />– Blocks<br />–
+                Target-Action
+              </p>
+              <h4 name="9484" id="9484" class="graf graf--h4 graf-after--p">
+                Q4. Why viewControllers required?
+              </h4>
+              <p name="378a" id="378a" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >: A view controller is not drawable to the screen directly, it
+                manages a group of view objects. View controllers usually have a
+                single view with many subviews. The view controller manages the
+                state of these views. A view controller is smart, and has
+                knowledge of your application’s inner workings. It tells the
+                dumb view objects what to do and how to show themselves.
+              </p>
+              <p name="9648" id="9648" class="graf graf--p graf-after--p">
+                A view controller is the glue between your overall application
+                and the screen. It controls the views that it owns according to
+                the logic of your application.
+              </p>
+              <p name="388e" id="388e" class="graf graf--p graf-after--p">
+                In short its role is -
+              </p>
+              <ol class="postList">
+                <li name="8a9b" id="8a9b" class="graf graf--li graf-after--p">
+                  View Management
+                </li>
+                <li name="bf7a" id="bf7a" class="graf graf--li graf-after--li">
+                  Data Marshaling
+                </li>
+                <li name="b7ce" id="b7ce" class="graf graf--li graf-after--li">
+                  User Interactions
+                </li>
+                <li name="66cd" id="66cd" class="graf graf--li graf-after--li">
+                  Resource Management
+                </li>
+                <li name="2299" id="2299" class="graf graf--li graf-after--li">
+                  Adaptivity
+                </li>
+              </ol>
+              <h4 name="58f4" id="58f4" class="graf graf--h4 graf-after--li">
+                Q5. Suppose I have 10 cells in a table view — 6 are
+                visible — How much memory it will take (assume x memory takes 1
+                cell), How tableview works?
+              </h4>
+              <p name="de3a" id="de3a" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution: </strong
+                ><code class="markup--code markup--p-code"
+                  >dequeueReusableCellWithIdentifier</code
+                >. Instead of creating every single cell and then selectively
+                displaying them, we only create a handful of cells, enough to
+                fill the screen and a little more. As we scroll, we reuse the
+                cells offscreen, leading to a much more memory efficient task.
+              </p>
+              <p name="adb9" id="adb9" class="graf graf--p graf-after--p">
+                Assuming half part of upper and half part of lower cell — it
+                will contain 8 Cells to reuse , so it will take 8x.
+              </p>
+              <h4 name="2414" id="2414" class="graf graf--h4 graf-after--p">
+                Q6. I have a application which runs animation in it, which
+                thread it will be using? How do you manage multiple animations
+                in a single screen?
+              </h4>
+              <p name="d3ef" id="d3ef" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution:</strong
+                >
+              </p>
+              <ol class="postList">
+                <li name="d7b4" id="d7b4" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Starting Animations Using the Block-Based Methods</strong
+                  >
+                </li>
+              </ol>
+              <ul class="postList">
+                <li name="e6d0" id="e6d0" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/uikit/uiview/1622418-animate"
+                      data-href="https://developer.apple.com/documentation/uikit/uiview/1622418-animate"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >animateWithDuration:animations:</a
+                    ></code
+                  >
+                </li>
+                <li name="6685" id="6685" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration"
+                      data-href="https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >animateWithDuration:animations:completion:</a
+                    ></code
+                  >
+                </li>
+                <li name="4b77" id="4b77" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/uikit/uiview/1622451-animatewithduration"
+                      data-href="https://developer.apple.com/documentation/uikit/uiview/1622451-animatewithduration"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >animateWithDuration:delay:options:animations:completion:</a
+                    ></code
+                  >
+                </li>
+              </ul>
+              <p name="77ed" id="77ed" class="graf graf--p graf-after--li">
+                The specified animations are started immediately on another
+                thread so as to avoid blocking the current thread or your
+                application’s main thread.
+              </p>
+              <p name="ad98" id="ad98" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >2. Starting Animations Using the Begin/Commit Methods</strong
+                >
+              </p>
+              <p name="3da3" id="3da3" class="graf graf--p graf-after--p">
+                Execution of the animations occurs on a secondary thread so as
+                to avoid blocking the current thread or your application’s main
+                thread.
+              </p>
+              <h4 name="e7c9" id="e7c9" class="graf graf--h4 graf-after--p">
+                Q7. Difference between NSCoding and Codable?
+              </h4>
+              <p name="9e2c" id="9e2c" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >: To support encoding and decoding of instances in iOS, a class
+                must adopt the
+                <em class="markup--em markup--p-em">NSCoding</em> protocol and
+                implement its methods:
+              </p>
+              <ol class="postList">
+                <li name="dfa8" id="dfa8" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    ><em class="markup--em markup--li-em"
+                      >init(coder:)
+                    </em></strong
+                  >— Returns an object initialized from data in a given
+                  unarchiver.
+                </li>
+                <li name="b220" id="b220" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    ><em class="markup--em markup--li-em"
+                      >encode(with:)
+                    </em></strong
+                  >— Encodes the receiver using a given archiver.
+                </li>
+              </ol>
+              <p name="b2b3" id="b2b3" class="graf graf--p graf-after--li">
+                <em class="markup--em markup--p-em">init(coder:) </em>and<em
+                  class="markup--em markup--p-em"
+                >
+                  encode(with:) </em
+                >must contain the code for each property that needs to be
+                encoded or decoded.
+              </p>
+              <p name="ff60" id="ff60" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Codable : </strong
+                >Make your data types encodable and decodable for compatibility
+                with external representations such as JSON. It provides support
+                for
+                <em class="markup--em markup--p-em">class, struct and enum</em>
+                as well.
+              </p>
+              <pre
+                name="ee5c"
+                id="ee5c"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">typealias Codable = <a href="https://developer.apple.com/documentation/swift/decodable" data-href="https://developer.apple.com/documentation/swift/decodable" class="markup--anchor markup--pre-anchor" rel="noopener" target="_blank">Decodable</a> &amp; <a href="https://developer.apple.com/documentation/swift/encodable" data-href="https://developer.apple.com/documentation/swift/encodable" class="markup--anchor markup--pre-anchor" rel="noopener" target="_blank">Encodable</a></code></pre>
+              <p name="4342" id="4342" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Limitations</strong
+                >
+                🚫
+              </p>
+              <ol class="postList">
+                <li name="4a73" id="4a73" class="graf graf--li graf-after--p">
+                  For now you cannot conform to
+                  <em class="markup--em markup--li-em">Codable</em> in an
+                  <em class="markup--em markup--li-em">extension</em>
+                </li>
+                <li name="306e" id="306e" class="graf graf--li graf-after--li">
+                  You must use a<strong
+                    class="markup--strong markup--li-strong"
+                  >
+                    concrete type</strong
+                  >
+                  to encode and decode.
+                </li>
+              </ol>
+              <p name="c9de" id="c9de" class="graf graf--p graf-after--li">
+                Hope these questions will help you.
+              </p>
+              <p name="a772" id="a772" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >References</strong
+                >:
+              </p>
+              <ol class="postList">
+                <li name="401b" id="401b" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://stackoverflow.com/questions/27943629/how-does-swift-manage-arrays-internally"
+                    data-href="https://stackoverflow.com/questions/27943629/how-does-swift-manage-arrays-internally"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://stackoverflow.com/questions/27943629/how-does-swift-manage-arrays-internally</a
+                  >
+                </li>
+                <li name="3afb" id="3afb" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://stackoverflow.com/questions/24221786/are-swift-mutable-strings-really-mutable-or-are-they-just-like-java-strings"
+                    data-href="https://stackoverflow.com/questions/24221786/are-swift-mutable-strings-really-mutable-or-are-they-just-like-java-strings"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://stackoverflow.com/questions/24221786/are-swift-mutable-strings-really-mutable-or-are-they-just-like-java-strings</a
+                  >
+                </li>
+                <li name="0a74" id="0a74" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://www.objc.io/issues/7-foundation/communication-patterns/"
+                    data-href="https://www.objc.io/issues/7-foundation/communication-patterns/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://www.objc.io/issues/7-foundation/communication-patterns/</a
+                  >
+                </li>
+                <li name="9e85" id="9e85" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/"
+                    data-href="https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/</a
+                  >
+                </li>
+                <li name="131c" id="131c" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://stackoverflow.com/questions/31814563/whats-the-difference-between-a-view-and-a-viewcontroller"
+                    data-href="https://stackoverflow.com/questions/31814563/whats-the-difference-between-a-view-and-a-viewcontroller"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://stackoverflow.com/questions/31814563/whats-the-difference-between-a-view-and-a-viewcontroller</a
+                  >
+                </li>
+                <li name="d9be" id="d9be" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://developer.apple.com/library/archive/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html"
+                    data-href="https://developer.apple.com/library/archive/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener noopener"
+                    target="_blank"
+                    >https://developer.apple.com/library/archive/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html</a
+                  >
+                </li>
+                <li name="5040" id="5040" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types"
+                    data-href="https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types</a
+                  >
+                </li>
+                <li
+                  name="4d2d"
+                  id="4d2d"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  <a
+                    href="https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999"
+                    data-href="https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/44593de3804f"
+            ><time class="dt-published" datetime="2018-09-11T09:10:10.380Z"
+              >September 11, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-sept-2018-part-4-44593de3804f"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

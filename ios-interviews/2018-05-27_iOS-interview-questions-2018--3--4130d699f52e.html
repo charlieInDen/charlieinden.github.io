@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>iOS interview questions 2018 (3)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iOS interview questions 2018 (3)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,21 +61,402 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">iOS interview questions 2018 (3)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Messaging, iOS interview questions 2018, latest iOS interview questions, iOS objective c interview questions
-</section>
-<section data-field="description" class="p-summary">
-This post explores messaging within Objective-C. Messaging is the terminology for invoking methods on an object. The format for a message expression is as follows (the brackets are required): [object…
-</section>
-<section data-field="body" class="e-content">
-<section name="2e6d" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="5a9c" id="5a9c" class="graf graf--h3 graf--leading graf--title">iOS 2018 Series:<a href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-2-a9d7688004b7" data-href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-2-a9d7688004b7" class="markup--anchor markup--h3-anchor" target="_blank">Cracking iOS interview or Become iOS expert (3)</a></h3><p name="ba23" id="ba23" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Chapter 3: Messaging</strong></p><p name="3d36" id="3d36" class="graf graf--p graf-after--p">This post explores messaging within Objective-C. Messaging is the terminology for invoking methods on an object. The format for a message expression is as follows (the brackets are required):</p><p name="2b90" id="2b90" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">[object method] </em></strong><em class="markup--em markup--p-em"><br></em>or in Objective-C parlance<br><em class="markup--em markup--p-em">[receiver message]<br></em>Here’s a simple example:<br><em class="markup--em markup--p-em">// Create an instance of SomeClass object<br></em>SomeClass *ptr = [[SomeClass alloc] init];<br><em class="markup--em markup--p-em">// Send the message ‘printInstanceVars’ to the ‘ptr’ receiver<br></em>[ptr printInstanceVars];</p><p name="4be9" id="4be9" class="graf graf--p graf-after--p">Every Objective-C object has a class, and every Objective-C class has a list of methods. Each method has a selector, a function pointer to the implementation, and some metadata. The job of <code class="markup--code markup--p-code">objc_msgSend</code> is to take the object and selector that&#39;s passed in, look up the corresponding method&#39;s function pointer, and then jump to that function pointer.</p><p name="a8b5" id="a8b5" class="graf graf--p graf-after--p">Looking up a method can be extremely complicated. If a method isn’t found on a class, then it needs to continue searching in the superclasses. If no method is found at all, then it needs to call into the runtime’s message forwarding code. If this is the very first message being sent to a particular class, then it has to call that class’s <code class="markup--code markup--p-code">+initialize</code> method.</p><p name="b201" id="b201" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">How lookup process works</strong></p><p name="e9b8" id="e9b8" class="graf graf--p graf-after--p">Each class has a cache which stores methods as pairs of selectors and function pointers, known in Objective-C as <code class="markup--code markup--p-code">IMP</code>s. They&#39;re organized as a hash table so lookups are fast. When looking up a method, the runtime first consults the cache. If the method isn&#39;t in the cache, it follows the slow, complicated procedure, and then places the result into the cache so that the next time can be fast.</p><p name="613b" id="613b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">What objc_msgSend method does?</strong></p><ol class="postList"><li name="3684" id="3684" class="graf graf--li graf-after--p">Get the class of the object passed in.</li><li name="b938" id="b938" class="graf graf--li graf-after--li">Get the method cache of that class.</li><li name="899c" id="899c" class="graf graf--li graf-after--li">Use the selector passed in to look up the method in the cache.</li><li name="9b7c" id="9b7c" class="graf graf--li graf-after--li">If it’s not in the cache, call into the C code.</li><li name="3903" id="3903" class="graf graf--li graf-after--li">Jump to the <code class="markup--code markup--li-code">IMP</code> for the method.</li></ol><p name="4c08" id="4c08" class="graf graf--p graf-after--li">When a new object is created, memory for it is allocated, and its instance variables are initialized. First among the object’s variables is a pointer to its class structure. This pointer, called <code class="markup--code markup--p-code">isa</code>, gives the object access to its class and, through the class, to all the classes it inherits from.</p><figure name="7b7e" id="7b7e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*DOdRDG3snjwUE32ig1sdrA.gif" data-width="332" data-height="544" src="https://cdn-images-1.medium.com/max/800/1*DOdRDG3snjwUE32ig1sdrA.gif"><figcaption class="imageCaption">Messaging Framework</figcaption></figure><p name="a56b" id="a56b" class="graf graf--p graf-after--figure">When a message is sent to an object, the messaging function follows the object’s <code class="markup--code markup--p-code">isa</code> pointer to the class structure where it looks up the method selector in the dispatch table. If it can’t find the selector there, <code class="markup--code markup--p-code">objc_msgSend</code> follows the pointer to the superclass and tries to find the selector in its dispatch table. Successive failures cause <code class="markup--code markup--p-code">objc_msgSend</code> to climb the class hierarchy until it reaches the <code class="markup--code markup--p-code">NSObject</code> class. Once it locates the selector, the function calls the method entered in the table and passes it the receiving object’s data structure.</p><p name="b1fa" id="b1fa" class="graf graf--p graf-after--p">This is the way that method implementations are chosen at runtime — or, in the jargon of object-oriented programming, that methods are dynamically bound to messages.</p><h3 name="ccfd" id="ccfd" class="graf graf--h3 graf-after--p">Message Forwarding</h3><p name="94f3" id="94f3" class="graf graf--p graf-after--h3">What is message forwarding?</p><p name="6f06" id="6f06" class="graf graf--p graf-after--p">Simply speaking, it allows unknown messages to be trapped and reacted to. In other words, any time an unknown message is sent, it gets delivered to your code in a nice package, at which point you can do whatever you like with it.</p><p name="7058" id="7058" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">What Happens?</strong></p><p name="edf1" id="edf1" class="graf graf--p graf-after--p">What happens when you do <code class="markup--code markup--p-code">[customeDate tommorowDate]</code> and <code class="markup--code markup--p-code">customeDate</code>doesn&#39;t implement a <code class="markup--code markup--p-code">tommorowDate</code>method? When it <em class="markup--em markup--p-em">does</em> implement such a method, it&#39;s pretty straightforward: it looks up the appropriate method, then jumps to it. When no such method can be found, a complicated sequence of events ensues:</p><ol class="postList"><li name="cf6b" id="cf6b" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Lazy method resolution.</strong> This is done by sending <code class="markup--code markup--li-code">resolveInstanceMethod:</code> (<code class="markup--code markup--li-code">resolveClassMethod:</code>for class methods) to the class in question. If that method returns YES, the message send is restarted under the assumption that the appropriate method has now been added.</li><li name="37fc" id="37fc" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Fast forwarding path.</strong> This is done by sending <code class="markup--code markup--li-code">forwardingTargetForSelector:</code> to the target, if it implements it. If it implements this method and it returns something other than <code class="markup--code markup--li-code">nil</code> or <code class="markup--code markup--li-code">self</code>, the whole message sending process is restarted with that return value as the new target.</li><li name="8f1a" id="8f1a" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Normal forwarding path.</strong> First the runtime will send <code class="markup--code markup--li-code">methodSignatureForSelector:</code> to see what kind of argument and return types are present. If a method signature is returned, the runtime creates an <code class="markup--code markup--li-code">NSInvocation</code> describing the message being sent and then sends <code class="markup--code markup--li-code">forwardInvocation:</code> to the object. If no method signature is found, the runtime sends <code class="markup--code markup--li-code">doesNotRecognizeSelector:</code>.</li></ol><p name="4821" id="4821" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Lazy Resolution</strong></p><p name="2f87" id="2f87" class="graf graf--p graf-after--p">Doing this allows for really fast “forwarding”, because after the method is resolved, it gets invoked as part of the normal message sending process. This kind of thing is great for stuff like @dynamic properties. Plug it in to the class using <code class="markup--code markup--p-code">+resolveInstanceMethod:</code> and off you go.</p><p name="7f4b" id="7f4b" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Fast Forwarding</strong></p><p name="ec08" id="ec08" class="graf graf--p graf-after--p">This technique is great for faking multiple inheritence. You can write a little override like this:</p><pre name="cea6" id="cea6" class="graf graf--pre graf-after--p">- (id)forwardingTargetForSelector:(SEL)sel { return _otherObject; }</pre><p name="ae47" id="ae47" class="graf graf--p graf-after--pre">This will cause any unknown message to be sent to <code class="markup--code markup--p-code">_otherObject</code>, which will make your object appear from the outside as though it combined your object with this other object in one.</p><p name="b646" id="b646" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Normal Forwarding</strong></p><p name="986f" id="986f" class="graf graf--p graf-after--p">The first two are basically just optimizations that allow forwarding to go faster. If you don’t take advantage of them, the full forwarding mechanism goes into action. This creates an <code class="markup--code markup--p-code">NSInvocation</code> object which fully encapsulates the message being sent. It holds the target, the selector, and all of the arguments. It also allows full control over the return value.</p><p name="f586" id="f586" class="graf graf--p graf-after--p">Before the runtime can build the <code class="markup--code markup--p-code">NSInvocation</code> it needs an <code class="markup--code markup--p-code">NSMethodSignature</code>, so it requests one using <code class="markup--code markup--p-code">-methodSignatureForSelector:</code>. This is required due to Objective-C&#39;s C heritage. In order to bundle the arguments up in the <code class="markup--code markup--p-code">NSInvocation</code>, the runtime needs to know what kind of arguments there are, and how many of them there are. This information isn&#39;t normally provided in a C runtime environment, so it has to do an end run around the C &quot;bag of bytes&quot; view of the world and get that type information in another way.</p><p name="af80" id="af80" class="graf graf--p graf-after--p">Once the invocation is constructed, the runtime then invokes your <code class="markup--code markup--p-code">forwardInvocation:</code> method. From there you can do whatever you want with the invocation it hands you. The possibilities are endless.</p><h3 name="295f" id="295f" class="graf graf--h3 graf-after--p"><strong class="markup--strong markup--h3-strong">Conclusion</strong></h3><p name="3c58" id="3c58" class="graf graf--p graf-after--h3">It’s always interesting to dive into framework internals. <code class="markup--code markup--p-code">objc_msgSend</code> in particular is a work of art. Message forwarding is a powerful technique that greatly multiplies the expressiveness of Objective-C. Cocoa uses it for things like <code class="markup--code markup--p-code">NSUndoManager</code> and distributed objects, and it can let you do a lot of nifty things in your own code.</p><p name="8a6e" id="8a6e" class="graf graf--p graf-after--p">Goto next chapter: <a href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-4-ff2edd8a7074" data-href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-4-ff2edd8a7074" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Swift (Closures)</strong></a><strong class="markup--strong markup--p-strong">.</strong></p><p name="50d4" id="50d4" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to gain knowledge as well as clear interview, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/4130d699f52e"><time class="dt-published" datetime="2018-05-27T02:01:33.083Z">May 27, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/cracking-ios-interview-or-become-ios-expert-3-4130d699f52e" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">iOS interview questions 2018 (3)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Messaging, iOS interview questions 2018, latest iOS interview questions,
+        iOS objective c interview questions
+      </section>
+      <section data-field="description" class="p-summary">
+        This post explores messaging within Objective-C. Messaging is the
+        terminology for invoking methods on an object. The format for a message
+        expression is as follows (the brackets are required): [object…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="2e6d"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <!-- <h3
+                name="5a9c"
+                id="5a9c"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                iOS 2018 Series:<a
+                  href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-2-a9d7688004b7"
+                  data-href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-2-a9d7688004b7"
+                  class="markup--anchor markup--h3-anchor"
+                  target="_blank"
+                  >Cracking iOS interview or Become iOS expert (3)</a
+                >
+              </h3> -->
+              <p name="ba23" id="ba23" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Chapter 3: Messaging</strong
+                >
+              </p>
+              <p name="3d36" id="3d36" class="graf graf--p graf-after--p">
+                This post explores messaging within Objective-C. Messaging is
+                the terminology for invoking methods on an object. The format
+                for a message expression is as follows (the brackets are
+                required):
+              </p>
+              <p name="2b90" id="2b90" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >[object method]
+                  </em></strong
+                ><em class="markup--em markup--p-em"><br /></em>or in
+                Objective-C parlance<br /><em class="markup--em markup--p-em"
+                  >[receiver message]<br /></em
+                >Here’s a simple example:<br /><em
+                  class="markup--em markup--p-em"
+                  >// Create an instance of SomeClass object<br /></em
+                >SomeClass *ptr = [[SomeClass alloc] init];<br /><em
+                  class="markup--em markup--p-em"
+                  >// Send the message ‘printInstanceVars’ to the ‘ptr’
+                  receiver<br /></em
+                >[ptr printInstanceVars];
+              </p>
+              <p name="4be9" id="4be9" class="graf graf--p graf-after--p">
+                Every Objective-C object has a class, and every Objective-C
+                class has a list of methods. Each method has a selector, a
+                function pointer to the implementation, and some metadata. The
+                job of
+                <code class="markup--code markup--p-code">objc_msgSend</code> is
+                to take the object and selector that&#39;s passed in, look up
+                the corresponding method&#39;s function pointer, and then jump
+                to that function pointer.
+              </p>
+              <p name="a8b5" id="a8b5" class="graf graf--p graf-after--p">
+                Looking up a method can be extremely complicated. If a method
+                isn’t found on a class, then it needs to continue searching in
+                the superclasses. If no method is found at all, then it needs to
+                call into the runtime’s message forwarding code. If this is the
+                very first message being sent to a particular class, then it has
+                to call that class’s
+                <code class="markup--code markup--p-code">+initialize</code>
+                method.
+              </p>
+              <p name="b201" id="b201" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >How lookup process works</strong
+                >
+              </p>
+              <p name="e9b8" id="e9b8" class="graf graf--p graf-after--p">
+                Each class has a cache which stores methods as pairs of
+                selectors and function pointers, known in Objective-C as
+                <code class="markup--code markup--p-code">IMP</code>s.
+                They&#39;re organized as a hash table so lookups are fast. When
+                looking up a method, the runtime first consults the cache. If
+                the method isn&#39;t in the cache, it follows the slow,
+                complicated procedure, and then places the result into the cache
+                so that the next time can be fast.
+              </p>
+              <p name="613b" id="613b" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >What objc_msgSend method does?</strong
+                >
+              </p>
+              <ol class="postList">
+                <li name="3684" id="3684" class="graf graf--li graf-after--p">
+                  Get the class of the object passed in.
+                </li>
+                <li name="b938" id="b938" class="graf graf--li graf-after--li">
+                  Get the method cache of that class.
+                </li>
+                <li name="899c" id="899c" class="graf graf--li graf-after--li">
+                  Use the selector passed in to look up the method in the cache.
+                </li>
+                <li name="9b7c" id="9b7c" class="graf graf--li graf-after--li">
+                  If it’s not in the cache, call into the C code.
+                </li>
+                <li name="3903" id="3903" class="graf graf--li graf-after--li">
+                  Jump to the
+                  <code class="markup--code markup--li-code">IMP</code> for the
+                  method.
+                </li>
+              </ol>
+              <p name="4c08" id="4c08" class="graf graf--p graf-after--li">
+                When a new object is created, memory for it is allocated, and
+                its instance variables are initialized. First among the object’s
+                variables is a pointer to its class structure. This pointer,
+                called <code class="markup--code markup--p-code">isa</code>,
+                gives the object access to its class and, through the class, to
+                all the classes it inherits from.
+              </p>
+              <figure
+                name="7b7e"
+                id="7b7e"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*DOdRDG3snjwUE32ig1sdrA.gif"
+                  data-width="332"
+                  data-height="544"
+                  src="https://cdn-images-1.medium.com/max/800/1*DOdRDG3snjwUE32ig1sdrA.gif"
+                />
+                <figcaption class="imageCaption">
+                  Messaging Framework
+                </figcaption>
+              </figure>
+              <p name="a56b" id="a56b" class="graf graf--p graf-after--figure">
+                When a message is sent to an object, the messaging function
+                follows the object’s
+                <code class="markup--code markup--p-code">isa</code> pointer to
+                the class structure where it looks up the method selector in the
+                dispatch table. If it can’t find the selector there,
+                <code class="markup--code markup--p-code">objc_msgSend</code>
+                follows the pointer to the superclass and tries to find the
+                selector in its dispatch table. Successive failures cause
+                <code class="markup--code markup--p-code">objc_msgSend</code> to
+                climb the class hierarchy until it reaches the
+                <code class="markup--code markup--p-code">NSObject</code> class.
+                Once it locates the selector, the function calls the method
+                entered in the table and passes it the receiving object’s data
+                structure.
+              </p>
+              <p name="b1fa" id="b1fa" class="graf graf--p graf-after--p">
+                This is the way that method implementations are chosen at
+                runtime — or, in the jargon of object-oriented programming, that
+                methods are dynamically bound to messages.
+              </p>
+              <h3 name="ccfd" id="ccfd" class="graf graf--h3 graf-after--p">
+                Message Forwarding
+              </h3>
+              <p name="94f3" id="94f3" class="graf graf--p graf-after--h3">
+                What is message forwarding?
+              </p>
+              <p name="6f06" id="6f06" class="graf graf--p graf-after--p">
+                Simply speaking, it allows unknown messages to be trapped and
+                reacted to. In other words, any time an unknown message is sent,
+                it gets delivered to your code in a nice package, at which point
+                you can do whatever you like with it.
+              </p>
+              <p name="7058" id="7058" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >What Happens?</strong
+                >
+              </p>
+              <p name="edf1" id="edf1" class="graf graf--p graf-after--p">
+                What happens when you do
+                <code class="markup--code markup--p-code"
+                  >[customeDate tommorowDate]</code
+                >
+                and
+                <code class="markup--code markup--p-code">customeDate</code
+                >doesn&#39;t implement a
+                <code class="markup--code markup--p-code">tommorowDate</code
+                >method? When it
+                <em class="markup--em markup--p-em">does</em> implement such a
+                method, it&#39;s pretty straightforward: it looks up the
+                appropriate method, then jumps to it. When no such method can be
+                found, a complicated sequence of events ensues:
+              </p>
+              <ol class="postList">
+                <li name="cf6b" id="cf6b" class="graf graf--li graf-after--p">
+                  <strong class="markup--strong markup--li-strong"
+                    >Lazy method resolution.</strong
+                  >
+                  This is done by sending
+                  <code class="markup--code markup--li-code"
+                    >resolveInstanceMethod:</code
+                  >
+                  (<code class="markup--code markup--li-code"
+                    >resolveClassMethod:</code
+                  >for class methods) to the class in question. If that method
+                  returns YES, the message send is restarted under the
+                  assumption that the appropriate method has now been added.
+                </li>
+                <li name="37fc" id="37fc" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Fast forwarding path.</strong
+                  >
+                  This is done by sending
+                  <code class="markup--code markup--li-code"
+                    >forwardingTargetForSelector:</code
+                  >
+                  to the target, if it implements it. If it implements this
+                  method and it returns something other than
+                  <code class="markup--code markup--li-code">nil</code> or
+                  <code class="markup--code markup--li-code">self</code>, the
+                  whole message sending process is restarted with that return
+                  value as the new target.
+                </li>
+                <li name="8f1a" id="8f1a" class="graf graf--li graf-after--li">
+                  <strong class="markup--strong markup--li-strong"
+                    >Normal forwarding path.</strong
+                  >
+                  First the runtime will send
+                  <code class="markup--code markup--li-code"
+                    >methodSignatureForSelector:</code
+                  >
+                  to see what kind of argument and return types are present. If
+                  a method signature is returned, the runtime creates an
+                  <code class="markup--code markup--li-code">NSInvocation</code>
+                  describing the message being sent and then sends
+                  <code class="markup--code markup--li-code"
+                    >forwardInvocation:</code
+                  >
+                  to the object. If no method signature is found, the runtime
+                  sends
+                  <code class="markup--code markup--li-code"
+                    >doesNotRecognizeSelector:</code
+                  >.
+                </li>
+              </ol>
+              <p name="4821" id="4821" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Lazy Resolution</strong
+                >
+              </p>
+              <p name="2f87" id="2f87" class="graf graf--p graf-after--p">
+                Doing this allows for really fast “forwarding”, because after
+                the method is resolved, it gets invoked as part of the normal
+                message sending process. This kind of thing is great for stuff
+                like @dynamic properties. Plug it in to the class using
+                <code class="markup--code markup--p-code"
+                  >+resolveInstanceMethod:</code
+                >
+                and off you go.
+              </p>
+              <p name="7f4b" id="7f4b" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Fast Forwarding</strong
+                >
+              </p>
+              <p name="ec08" id="ec08" class="graf graf--p graf-after--p">
+                This technique is great for faking multiple inheritence. You can
+                write a little override like this:
+              </p>
+              <pre name="cea6" id="cea6" class="graf graf--pre graf-after--p">
+- (id)forwardingTargetForSelector:(SEL)sel { return _otherObject; }</pre
+              >
+              <p name="ae47" id="ae47" class="graf graf--p graf-after--pre">
+                This will cause any unknown message to be sent to
+                <code class="markup--code markup--p-code">_otherObject</code>,
+                which will make your object appear from the outside as though it
+                combined your object with this other object in one.
+              </p>
+              <p name="b646" id="b646" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Normal Forwarding</strong
+                >
+              </p>
+              <p name="986f" id="986f" class="graf graf--p graf-after--p">
+                The first two are basically just optimizations that allow
+                forwarding to go faster. If you don’t take advantage of them,
+                the full forwarding mechanism goes into action. This creates an
+                <code class="markup--code markup--p-code">NSInvocation</code>
+                object which fully encapsulates the message being sent. It holds
+                the target, the selector, and all of the arguments. It also
+                allows full control over the return value.
+              </p>
+              <p name="f586" id="f586" class="graf graf--p graf-after--p">
+                Before the runtime can build the
+                <code class="markup--code markup--p-code">NSInvocation</code> it
+                needs an
+                <code class="markup--code markup--p-code"
+                  >NSMethodSignature</code
+                >, so it requests one using
+                <code class="markup--code markup--p-code"
+                  >-methodSignatureForSelector:</code
+                >. This is required due to Objective-C&#39;s C heritage. In
+                order to bundle the arguments up in the
+                <code class="markup--code markup--p-code">NSInvocation</code>,
+                the runtime needs to know what kind of arguments there are, and
+                how many of them there are. This information isn&#39;t normally
+                provided in a C runtime environment, so it has to do an end run
+                around the C &quot;bag of bytes&quot; view of the world and get
+                that type information in another way.
+              </p>
+              <p name="af80" id="af80" class="graf graf--p graf-after--p">
+                Once the invocation is constructed, the runtime then invokes
+                your
+                <code class="markup--code markup--p-code"
+                  >forwardInvocation:</code
+                >
+                method. From there you can do whatever you want with the
+                invocation it hands you. The possibilities are endless.
+              </p>
+              <h3 name="295f" id="295f" class="graf graf--h3 graf-after--p">
+                <strong class="markup--strong markup--h3-strong"
+                  >Conclusion</strong
+                >
+              </h3>
+              <p name="3c58" id="3c58" class="graf graf--p graf-after--h3">
+                It’s always interesting to dive into framework internals.
+                <code class="markup--code markup--p-code">objc_msgSend</code> in
+                particular is a work of art. Message forwarding is a powerful
+                technique that greatly multiplies the expressiveness of
+                Objective-C. Cocoa uses it for things like
+                <code class="markup--code markup--p-code">NSUndoManager</code>
+                and distributed objects, and it can let you do a lot of nifty
+                things in your own code.
+              </p>
+              <!-- <p name="8a6e" id="8a6e" class="graf graf--p graf-after--p">
+                Goto next chapter:
+                <a
+                  href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-4-ff2edd8a7074"
+                  data-href="https://medium.com/@nishantsamsung09/ios-2018-series-cracking-ios-interview-or-become-ios-expert-4-ff2edd8a7074"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Swift (Closures)</strong
+                  ></a
+                ><strong class="markup--strong markup--p-strong">.</strong>
+              </p> -->
+              <p
+                name="50d4"
+                id="50d4"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people looking to gain knowledge
+                as well as clear interview, Please ❤️ to recommend this post to
+                others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/4130d699f52e"
+            ><time class="dt-published" datetime="2018-05-27T02:01:33.083Z"
+              >May 27, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/cracking-ios-interview-or-become-ios-expert-3-4130d699f52e"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Top IOS Interview Questions and Answers (August 2018)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Top IOS Interview Questions and Answers (August 2018)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,786 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Top IOS Interview Questions and Answers (August 2018)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-August 2018 iOS latest interview questions
-</section>
-<section data-field="body" class="e-content">
-<section name="53c8" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="a9f3" id="a9f3" class="graf graf--h3 graf--leading graf--title">Top IOS Interview Questions and Answers (August 2018)</h3><p name="c8a1" id="c8a1" class="graf graf--p graf-after--h3">August 2018 iOS latest interview questions</p><p name="08b0" id="08b0" class="graf graf--p graf-after--p">In this article, I am going to cover some of the questions asked to iOS engineer in recents interview(August 2018). Those who are preparing , it will surely help them.</p><h4 name="ba3a" id="ba3a" class="graf graf--h4 graf-after--p">Q1. What is the difference between swift and objective C?</h4><figure name="7f66" id="7f66" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*GQWwkwI4Mxre5Pxjt7SFiA.png" data-width="610" data-height="266" src="https://cdn-images-1.medium.com/max/800/1*GQWwkwI4Mxre5Pxjt7SFiA.png"></figure><h4 name="9db8" id="9db8" class="graf graf--h4 graf-after--figure">Q2. What is manual retain cycle?</h4><figure name="8a8a" id="8a8a" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*5O2cl9Ary43OytCOS9HSyg.png" data-width="1000" data-height="569" src="https://cdn-images-1.medium.com/max/800/1*5O2cl9Ary43OytCOS9HSyg.png"></figure><h4 name="23f5" id="23f5" class="graf graf--h4 graf-after--figure">Q3. How does memory management work in Swift?</h4><p name="92c4" id="92c4" class="graf graf--p graf-after--h4">We start by looking at the basics of memory management in Swift. ARC (automatic reference counting) does most of the memory management work for you, which is very good news. The principle is very simple: By default, each reference, that points to an instance of a class, is a so-called strong reference. As long as there is at least one strong reference pointing to an instance, this instance will not be deallocated. When there’s no strong reference pointing to that instance left, the instance will be deallocated. Let’s take a look at the following example:</p><pre name="cfa2" id="cfa2" class="graf graf--pre graf-after--p">class TestClass {</pre><pre name="8cf9" id="8cf9" class="graf graf--pre graf-after--pre">init() {</pre><pre name="dd9d" id="dd9d" class="graf graf--pre graf-after--pre">print(“init”)</pre><pre name="00bf" id="00bf" class="graf graf--pre graf-after--pre">}</pre><pre name="fa26" id="fa26" class="graf graf--pre graf-after--pre">deinit {</pre><pre name="d294" id="d294" class="graf graf--pre graf-after--pre">print(“deinit”)</pre><pre name="30d2" id="30d2" class="graf graf--pre graf-after--pre">}</pre><pre name="8dc7" id="8dc7" class="graf graf--pre graf-after--pre">}</pre><pre name="c080" id="c080" class="graf graf--pre graf-after--pre">var testClass: TestClass? = TestClass()</pre><pre name="e846" id="e846" class="graf graf--pre graf-after--pre">testClass = nil</pre><p name="5d2e" id="5d2e" class="graf graf--p graf-after--pre">After creating the instance, the situation looks as follows:</p><figure name="bfbc" id="bfbc" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*Ji-VHFGit52QPud5.png" data-width="617" data-height="210" src="https://cdn-images-1.medium.com/max/800/0*Ji-VHFGit52QPud5.png"></figure><p name="c722" id="c722" class="graf graf--p graf-after--figure">testClass has a strong reference to an instance of TestClass. If we now set this reference to nil, the strong reference is gone and since there is no strong reference left, the instance of TestClass gets deallocated:</p><figure name="9a52" id="9a52" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*KyLmcf5Vudk8MiLr.png" data-width="629" data-height="185" src="https://cdn-images-1.medium.com/max/800/0*KyLmcf5Vudk8MiLr.png"></figure><p name="dd2b" id="dd2b" class="graf graf--p graf-after--figure">By the way, if you take a look at the console, you can see that everything is working fine because the deinit method will only be called by the system when the instance gets deallocated:</p><figure name="7e8b" id="7e8b" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*sFWuWjYGYy5baNpL.png" data-width="53" data-height="39" src="https://cdn-images-1.medium.com/max/800/0*sFWuWjYGYy5baNpL.png"></figure><p name="8773" id="8773" class="graf graf--p graf-after--figure">If the instance of TestClass was not deallocated, there wouldn’t be the message “deinit”. As we will discuss later, placing a log message inside of deinit is a very good way to observe the deallocation of an object.</p><h4 name="7ce4" id="7ce4" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Q4. What methods are used to claim ownership(Increase retain count by 1)?</strong></h4><p name="5b95" id="5b95" class="graf graf--p graf-after--h4">alloc/init — Create an object and claim ownership of it</p><p name="86eb" id="86eb" class="graf graf--p graf-after--p">retain — Used to claim ownership of that object</p><p name="69ad" id="69ad" class="graf graf--p graf-after--p">copy — Copy an object and claim ownership of it</p><h4 name="2f20" id="2f20" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Q5. What methods are used to declaim ownership(Decrease retain count by 1)?</strong></h4><p name="f56e" id="f56e" class="graf graf--p graf-after--h4">release — Declaim ownership of an object.</p><p name="e072" id="e072" class="graf graf--p graf-after--p">autorelease — Declaim ownership of an object.</p><h4 name="ed96" id="ed96" class="graf graf--h4 graf-after--p">Q6. What is <a href="https://developer.apple.com/videos/play/wwdc2015/408/" data-href="https://developer.apple.com/videos/play/wwdc2015/408/" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">protocol oriented programming</a> and what its benefit?</h4><p name="0418" id="0418" class="graf graf--p graf-after--h4">At the heart of Swift’s design are two incredibly powerful ideas: protocol-oriented programming and first class value semantics. Each of these concepts benefit predictability, performance, and productivity, but together they can change the way we think about programming. Find out how you can apply these ideas to improve the code you write.</p><p name="9d25" id="9d25" class="graf graf--p graf-after--p"><a href="https://developer.apple.com/videos/play/wwdc2015/408/" data-href="https://developer.apple.com/videos/play/wwdc2015/408/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">protocol oriented programming in swift</a></p><h4 name="25f4" id="25f4" class="graf graf--h4 graf-after--p">Q7. How will you check optional method of a protocol is implemented in inherited class?</h4><p name="cd77" id="cd77" class="graf graf--p graf-after--h4">You can use the <code class="markup--code markup--p-code">is</code> and <code class="markup--code markup--p-code">as</code> operators described in<strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em"> </em></strong><a href="https://medium.com/@abhimuralidharan/typecastinginswift-1bafacd39c99" data-href="https://medium.com/@abhimuralidharan/typecastinginswift-1bafacd39c99" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Type Casting</em></strong></a> to check for protocol conformance, and to cast to a specific protocol. Checking for and casting to a protocol follows exactly the same syntax as checking for and casting to a type:</p><ul class="postList"><li name="906e" id="906e" class="graf graf--li graf-after--p">The <code class="markup--code markup--li-code">is</code> operator returns <code class="markup--code markup--li-code">true</code> if an instance conforms to a protocol and returns <code class="markup--code markup--li-code">false</code> if it does not.</li><li name="31f8" id="31f8" class="graf graf--li graf-after--li">The <code class="markup--code markup--li-code">as?</code> version of the downcast operator returns an optional value of the protocol’s type, and this value is <code class="markup--code markup--li-code">nil</code> if the instance does not conform to that protocol.</li><li name="39e5" id="39e5" class="graf graf--li graf-after--li">The <code class="markup--code markup--li-code">as!</code> version of the downcast operator forces the downcast to the protocol type and triggers a runtime error if the downcast does not succeed.</li></ul><h4 name="eaf9" id="eaf9" class="graf graf--h4 graf-after--li">Q8. How will you find out the 5 parallel thread executed it’s task?</h4><p name="a76c" id="a76c" class="graf graf--p graf-after--h4">Refer <a href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-6-a3e5a77c2405" data-href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-6-a3e5a77c2405" class="markup--anchor markup--p-anchor" target="_blank">source code and explanation</a></p><h4 name="2403" id="2403" class="graf graf--h4 graf-after--p">Q9. Structure has default parameterized init function, I want to have both parameterized and empty constructor, how is it possible?</h4><figure name="7552" id="7552" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*l7-SvRFQQj3UOsYxDUsGDQ.png" data-width="517" data-height="335" src="https://cdn-images-1.medium.com/max/800/1*l7-SvRFQQj3UOsYxDUsGDQ.png"></figure><h4 name="f789" id="f789" class="graf graf--h4 graf-after--figure">Q10. What is the difference in struct and classes and where will you use structure?</h4><p name="e8b2" id="e8b2" class="graf graf--p graf-after--h4">Classes have additional capabilities that structures don’t have:</p><ul class="postList"><li name="ed5c" id="ed5c" class="graf graf--li graf-after--p">Inheritance enables one class to inherit the characteristics of another.</li><li name="6452" id="6452" class="graf graf--li graf-after--li">Type casting enables you to check and interpret the type of a class instance at runtime.</li><li name="ce66" id="ce66" class="graf graf--li graf-after--li">Deinitializers enable an instance of a class to free up any resources it has assigned.</li><li name="7c75" id="7c75" class="graf graf--li graf-after--li">Reference counting allows more than one reference to a class instance.</li></ul><figure name="26a1" id="26a1" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="1*EQafFtdBRNJiDxi9MbC1LA.png" data-width="514" data-height="279" src="https://cdn-images-1.medium.com/max/800/1*EQafFtdBRNJiDxi9MbC1LA.png"></figure><h4 name="fe6c" id="fe6c" class="graf graf--h4 graf-after--figure">Q11. I have a structure of 1000 var in it, I want to pass structure from one class to another class, as it’s value type, how will you do it?</h4><h4 name="02d2" id="02d2" class="graf graf--h4 graf-after--h4">Structures and Enumerations Are Value Types</h4><p name="9e39" id="9e39" class="graf graf--p graf-after--h4">A <em class="markup--em markup--p-em">value type</em> is a type whose value is <em class="markup--em markup--p-em">copied</em> when it’s assigned to a variable or constant, or when it’s passed to a function <strong class="markup--strong markup--p-strong">BUT</strong></p><p name="d23d" id="d23d" class="graf graf--p graf-after--p">Collections defined by the standard library like arrays, dictionaries, and strings use an optimization to reduce the performance cost of copying. Instead of making a copy immediately, these collections share the memory where the elements are stored between the original instance and any copies. If one of the copies of the collection is modified, the elements are copied just before the modification. The behavior you see in your code is always as if a copy took place immediately.</p><h4 name="181c" id="181c" class="graf graf--h4 graf-after--p">Q12. What is MVVM and how it’s different from MVC?</h4><figure name="0661" id="0661" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*7lPLIgqXGojpW2KkhV73ow.jpeg" data-width="1559" data-height="1023" src="https://cdn-images-1.medium.com/max/800/1*7lPLIgqXGojpW2KkhV73ow.jpeg"></figure><h4 name="95f4" id="95f4" class="graf graf--h4 graf-after--figure">Q13. Write a code for creating strong reference cycle?</h4><p name="be5b" id="be5b" class="graf graf--p graf-after--h4">The strong reference cycle prevents the <code class="markup--code markup--p-code">Person</code> and <code class="markup--code markup--p-code">Apartment</code> instances from ever being deallocated, causing a memory leak in your app.</p><p name="0e20" id="0e20" class="graf graf--p graf-after--p">Example 1:</p><figure name="0b98" id="0b98" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*7JiYCWQQqhuszBcWNukyzg.png" data-width="568" data-height="318" src="https://cdn-images-1.medium.com/max/800/1*7JiYCWQQqhuszBcWNukyzg.png"></figure><figure name="b785" id="b785" class="graf graf--figure graf-after--figure"><img class="graf-image" data-image-id="1*Q9oHpzEnif_7a6KAP9AN9g.png" data-width="1253" data-height="400" src="https://cdn-images-1.medium.com/max/800/1*Q9oHpzEnif_7a6KAP9AN9g.png"></figure><p name="24a9" id="24a9" class="graf graf--p graf-after--figure">Example 2:</p><p name="4a70" id="4a70" class="graf graf--p graf-after--p">The example below shows how you can create a strong reference cycle when using a closure that references <code class="markup--code markup--p-code">self</code>. This example defines a class called <code class="markup--code markup--p-code">HTMLElement</code>, which provides a simple model for an individual element within an HTML document:</p><figure name="3f24" id="3f24" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*UoCwjJ6xEuYQdPpLKELxGQ.png" data-width="539" data-height="540" src="https://cdn-images-1.medium.com/max/800/1*UoCwjJ6xEuYQdPpLKELxGQ.png"></figure><figure name="5226" id="5226" class="graf graf--figure graf-after--figure"><img class="graf-image" data-image-id="1*Qng9s0a4S_ur-JHGOxcxKQ.png" data-width="1253" data-height="437" src="https://cdn-images-1.medium.com/max/800/1*Qng9s0a4S_ur-JHGOxcxKQ.png"></figure><h4 name="2999" id="2999" class="graf graf--h4 graf-after--figure">Q14. Using operation and Operation queue — how will you run 5 parallel thread and once all thread completes..How will you notify that all tasks completed?</h4><p name="ea6d" id="ea6d" class="graf graf--p graf-after--h4">Sol1: create extra operation and have all other operation as dependency to it, once all 5 completed, it will be executed.</p><p name="8f29" id="8f29" class="graf graf--p graf-after--p">Sol2: have operation count, once its reduced to 0, perform complete operation.</p><h4 name="2788" id="2788" class="graf graf--h4 graf-after--p">Q15. What is core data stack and how parent child context works?</h4><p name="7731" id="7731" class="graf graf--p graf-after--h4">Refer my post: <a href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4" data-href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Core Data &amp; Concurrency</strong></a></p><h4 name="fa95" id="fa95" class="graf graf--h4 graf-after--p">Q16. What is the difference between NSArray and Array?</h4><p name="9107" id="9107" class="graf graf--p graf-after--h4"><code class="markup--code markup--p-code">Array</code> is a <strong class="markup--strong markup--p-strong">struct</strong>, therefore it is a <strong class="markup--strong markup--p-strong">value type</strong> in Swift. <code class="markup--code markup--p-code">NSArray</code> is an immutable Objective C <strong class="markup--strong markup--p-strong">class</strong>, therefore it is a <strong class="markup--strong markup--p-strong">reference type</strong> in Swift and it is bridged to <code class="markup--code markup--p-code">Array&lt;AnyObject&gt;</code>. <code class="markup--code markup--p-code">NSMutableArray</code> is the mutable subclass of <code class="markup--code markup--p-code">NSArray</code>.</p><h4 name="15c6" id="15c6" class="graf graf--h4 graf-after--p">Q17. How collections are implemented in swift?</h4><p name="d67e" id="d67e" class="graf graf--p graf-after--h4">Swift provides three primary <em class="markup--em markup--p-em">collection types</em>, known as arrays, sets, and dictionaries, for storing collections of values. Arrays are ordered collections of values. Sets are unordered collections of unique values. Dictionaries are unordered collections of key-value associations.</p><p name="198e" id="198e" class="graf graf--p graf-after--p">Swift’s array, set, and dictionary types are implemented as <em class="markup--em markup--p-em">generic collections</em>. For more about generic types and collections</p><p name="87ac" id="87ac" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">NOTE</strong></p><ol class="postList"><li name="0dbe" id="0dbe" class="graf graf--li graf-after--p">Swift’s <code class="markup--code markup--li-code">Array</code> type is bridged to Foundation’s <code class="markup--code markup--li-code">NSArray</code> class.</li></ol><p name="7096" id="7096" class="graf graf--p graf-after--li">2. Swift’s <code class="markup--code markup--p-code">Set</code> type is bridged to Foundation’s <code class="markup--code markup--p-code">NSSet</code> class.</p><p name="11ed" id="11ed" class="graf graf--p graf-after--p">3. Swift’s <code class="markup--code markup--p-code">Dictionary</code> type is bridged to Foundation’s <code class="markup--code markup--p-code">NSDictionary</code> class.</p><h4 name="51ae" id="51ae" class="graf graf--h4 graf-after--p">Q18. How will you store custom objects in userdefault?</h4><p name="7e0d" id="7e0d" class="graf graf--p graf-after--h4">If you have tried to save custom object into UserDefaults before, you might get an error like this:<br><code class="markup--code markup--p-code">&#39;NSInvalidArgumentException&#39;, reason: &#39;Attempt to insert non-property list object</code></p><p name="6933" id="6933" class="graf graf--p graf-after--p">According to Apple’s <a href="https://developer.apple.com/documentation/foundation/userdefaults#1664798" data-href="https://developer.apple.com/documentation/foundation/userdefaults#1664798" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">documentation on UserDefaults</a>,</p><blockquote name="5978" id="5978" class="graf graf--blockquote graf-after--p"><em class="markup--em markup--blockquote-em">A default object must be a property list — that is, an instance of (or for collections, a combination of instances of) NSData, NSString, NSNumber, NSDate, NSArray, or NSDictionary.</em></blockquote><p name="bdd3" id="bdd3" class="graf graf--p graf-after--blockquote">Many of you will be starting your journey of Swift data serialization with some incredibly powerful and easy-to-use tools. I, of course, am referring to the <code class="markup--code markup--p-code">Codable</code> protocol which was introduced in Swift 4 to save developers from the agony that is de/serializing <code class="markup--code markup--p-code">Data</code>.</p><figure name="cfff" id="cfff" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*6o75w9dBWmBW-tr10s2txw.png" data-width="678" data-height="794" src="https://cdn-images-1.medium.com/max/800/1*6o75w9dBWmBW-tr10s2txw.png"></figure><h4 name="e13a" id="e13a" class="graf graf--h4 graf-after--figure">Q19. What is the use of plist?</h4><p name="aadd" id="aadd" class="graf graf--p graf-after--h4">In the context of iPhone development, <a href="http://developer.apple.com/iPhone/library/documentation/General/Conceptual/DevPedia-CocoaCore/PropertyList.html" data-href="http://developer.apple.com/iPhone/library/documentation/General/Conceptual/DevPedia-CocoaCore/PropertyList.html" class="markup--anchor markup--p-anchor" rel="noreferrer noopener" target="_blank">Property Lists</a> are a key-value store that your application can use to <a href="http://developer.apple.com/iphone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/FilesandNetworking/FilesandNetworking.html#//apple_ref/doc/uid/TP40007072-CH21-SW17" data-href="http://developer.apple.com/iphone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/FilesandNetworking/FilesandNetworking.html#//apple_ref/doc/uid/TP40007072-CH21-SW17" class="markup--anchor markup--p-anchor" rel="noreferrer noopener" target="_blank">save and retrieve persistent data</a>.</p><h4 name="a722" id="a722" class="graf graf--h4 graf-after--p"><strong class="markup--strong markup--h4-strong">Q20. Closure and its closure types with examples</strong></h4><p name="1b6c" id="1b6c" class="graf graf--p graf-after--h4">Read this for more detail <a href="https://docs.swift.org/swift-book/LanguageGuide/Closures.html" data-href="https://docs.swift.org/swift-book/LanguageGuide/Closures.html" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Closures</a></p><ul class="postList"><li name="9d2e" id="9d2e" class="graf graf--li graf-after--p">Simple closure</li><li name="a989" id="a989" class="graf graf--li graf-after--li">Closure that contains statements</li><li name="4d09" id="4d09" class="graf graf--li graf-after--li">Closure that accepts parameter</li><li name="278b" id="278b" class="graf graf--li graf-after--li">Closure that returns value</li><li name="e38d" id="e38d" class="graf graf--li graf-after--li">Passing closures as a function parameter</li><li name="ca06" id="ca06" class="graf graf--li graf-after--li">Trailing closure</li><li name="2a65" id="2a65" class="graf graf--li graf-after--li">Autoclosure</li><li name="6d8c" id="6d8c" class="graf graf--li graf-after--li">Auto-closure with arguments and return value</li><li name="aec1" id="aec1" class="graf graf--li graf-after--li">Escaping vs No escaping closures</li><li name="8d5b" id="8d5b" class="graf graf--li graf-after--li">No escaping closure</li><li name="b0f4" id="b0f4" class="graf graf--li graf-after--li">Escaping closure</li></ul><p name="b25d" id="b25d" class="graf graf--p graf-after--li">Go to <a href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-august-2018-part-2-9aa313dd04f2" data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-august-2018-part-2-9aa313dd04f2" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">Part 2 — Interview Questions asked in August 2018</strong></a></p><p name="83c9" id="83c9" class="graf graf--p graf-after--p graf--trailing">Hope you like this article &amp; is useful for people looking to find out the recently asked iOS interview questions, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/5cc89eb67160"><time class="dt-published" datetime="2018-08-09T09:18:40.110Z">August 9, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-august-2018-5cc89eb67160" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Top IOS Interview Questions and Answers (August 2018)
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        August 2018 iOS latest interview questions
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="53c8"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="a9f3"
+                id="a9f3"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Top IOS Interview Questions and Answers (August 2018)
+              </h3>
+              <p name="c8a1" id="c8a1" class="graf graf--p graf-after--h3">
+                August 2018 iOS latest interview questions
+              </p>
+              <p name="08b0" id="08b0" class="graf graf--p graf-after--p">
+                In this article, I am going to cover some of the questions asked
+                to iOS engineer in recents interview(August 2018). Those who are
+                preparing , it will surely help them.
+              </p>
+              <h4 name="ba3a" id="ba3a" class="graf graf--h4 graf-after--p">
+                Q1. What is the difference between swift and objective C?
+              </h4>
+              <figure
+                name="7f66"
+                id="7f66"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*GQWwkwI4Mxre5Pxjt7SFiA.png"
+                  data-width="610"
+                  data-height="266"
+                  src="https://cdn-images-1.medium.com/max/800/1*GQWwkwI4Mxre5Pxjt7SFiA.png"
+                />
+              </figure>
+              <h4
+                name="9db8"
+                id="9db8"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q2. What is manual retain cycle?
+              </h4>
+              <figure
+                name="8a8a"
+                id="8a8a"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*5O2cl9Ary43OytCOS9HSyg.png"
+                  data-width="1000"
+                  data-height="569"
+                  src="https://cdn-images-1.medium.com/max/800/1*5O2cl9Ary43OytCOS9HSyg.png"
+                />
+              </figure>
+              <h4
+                name="23f5"
+                id="23f5"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q3. How does memory management work in Swift?
+              </h4>
+              <p name="92c4" id="92c4" class="graf graf--p graf-after--h4">
+                We start by looking at the basics of memory management in Swift.
+                ARC (automatic reference counting) does most of the memory
+                management work for you, which is very good news. The principle
+                is very simple: By default, each reference, that points to an
+                instance of a class, is a so-called strong reference. As long as
+                there is at least one strong reference pointing to an instance,
+                this instance will not be deallocated. When there’s no strong
+                reference pointing to that instance left, the instance will be
+                deallocated. Let’s take a look at the following example:
+              </p>
+              <pre name="cfa2" id="cfa2" class="graf graf--pre graf-after--p">
+class TestClass {</pre
+              >
+              <pre name="8cf9" id="8cf9" class="graf graf--pre graf-after--pre">
+init() {</pre
+              >
+              <pre name="dd9d" id="dd9d" class="graf graf--pre graf-after--pre">
+print(“init”)</pre
+              >
+              <pre name="00bf" id="00bf" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <pre name="fa26" id="fa26" class="graf graf--pre graf-after--pre">
+deinit {</pre
+              >
+              <pre name="d294" id="d294" class="graf graf--pre graf-after--pre">
+print(“deinit”)</pre
+              >
+              <pre name="30d2" id="30d2" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <pre name="8dc7" id="8dc7" class="graf graf--pre graf-after--pre">
+}</pre
+              >
+              <pre name="c080" id="c080" class="graf graf--pre graf-after--pre">
+var testClass: TestClass? = TestClass()</pre
+              >
+              <pre name="e846" id="e846" class="graf graf--pre graf-after--pre">
+testClass = nil</pre
+              >
+              <p name="5d2e" id="5d2e" class="graf graf--p graf-after--pre">
+                After creating the instance, the situation looks as follows:
+              </p>
+              <figure
+                name="bfbc"
+                id="bfbc"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*Ji-VHFGit52QPud5.png"
+                  data-width="617"
+                  data-height="210"
+                  src="https://cdn-images-1.medium.com/max/800/0*Ji-VHFGit52QPud5.png"
+                />
+              </figure>
+              <p name="c722" id="c722" class="graf graf--p graf-after--figure">
+                testClass has a strong reference to an instance of TestClass. If
+                we now set this reference to nil, the strong reference is gone
+                and since there is no strong reference left, the instance of
+                TestClass gets deallocated:
+              </p>
+              <figure
+                name="9a52"
+                id="9a52"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*KyLmcf5Vudk8MiLr.png"
+                  data-width="629"
+                  data-height="185"
+                  src="https://cdn-images-1.medium.com/max/800/0*KyLmcf5Vudk8MiLr.png"
+                />
+              </figure>
+              <p name="dd2b" id="dd2b" class="graf graf--p graf-after--figure">
+                By the way, if you take a look at the console, you can see that
+                everything is working fine because the deinit method will only
+                be called by the system when the instance gets deallocated:
+              </p>
+              <figure
+                name="7e8b"
+                id="7e8b"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*sFWuWjYGYy5baNpL.png"
+                  data-width="53"
+                  data-height="39"
+                  src="https://cdn-images-1.medium.com/max/800/0*sFWuWjYGYy5baNpL.png"
+                />
+              </figure>
+              <p name="8773" id="8773" class="graf graf--p graf-after--figure">
+                If the instance of TestClass was not deallocated, there wouldn’t
+                be the message “deinit”. As we will discuss later, placing a log
+                message inside of deinit is a very good way to observe the
+                deallocation of an object.
+              </p>
+              <h4 name="7ce4" id="7ce4" class="graf graf--h4 graf-after--p">
+                <strong class="markup--strong markup--h4-strong"
+                  >Q4. What methods are used to claim ownership(Increase retain
+                  count by 1)?</strong
+                >
+              </h4>
+              <p name="5b95" id="5b95" class="graf graf--p graf-after--h4">
+                alloc/init — Create an object and claim ownership of it
+              </p>
+              <p name="86eb" id="86eb" class="graf graf--p graf-after--p">
+                retain — Used to claim ownership of that object
+              </p>
+              <p name="69ad" id="69ad" class="graf graf--p graf-after--p">
+                copy — Copy an object and claim ownership of it
+              </p>
+              <h4 name="2f20" id="2f20" class="graf graf--h4 graf-after--p">
+                <strong class="markup--strong markup--h4-strong"
+                  >Q5. What methods are used to declaim ownership(Decrease
+                  retain count by 1)?</strong
+                >
+              </h4>
+              <p name="f56e" id="f56e" class="graf graf--p graf-after--h4">
+                release — Declaim ownership of an object.
+              </p>
+              <p name="e072" id="e072" class="graf graf--p graf-after--p">
+                autorelease — Declaim ownership of an object.
+              </p>
+              <h4 name="ed96" id="ed96" class="graf graf--h4 graf-after--p">
+                Q6. What is
+                <a
+                  href="https://developer.apple.com/videos/play/wwdc2015/408/"
+                  data-href="https://developer.apple.com/videos/play/wwdc2015/408/"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >protocol oriented programming</a
+                >
+                and what its benefit?
+              </h4>
+              <p name="0418" id="0418" class="graf graf--p graf-after--h4">
+                At the heart of Swift’s design are two incredibly powerful
+                ideas: protocol-oriented programming and first class value
+                semantics. Each of these concepts benefit predictability,
+                performance, and productivity, but together they can change the
+                way we think about programming. Find out how you can apply these
+                ideas to improve the code you write.
+              </p>
+              <p name="9d25" id="9d25" class="graf graf--p graf-after--p">
+                <a
+                  href="https://developer.apple.com/videos/play/wwdc2015/408/"
+                  data-href="https://developer.apple.com/videos/play/wwdc2015/408/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >protocol oriented programming in swift</a
+                >
+              </p>
+              <h4 name="25f4" id="25f4" class="graf graf--h4 graf-after--p">
+                Q7. How will you check optional method of a protocol is
+                implemented in inherited class?
+              </h4>
+              <p name="cd77" id="cd77" class="graf graf--p graf-after--h4">
+                You can use the
+                <code class="markup--code markup--p-code">is</code> and
+                <code class="markup--code markup--p-code">as</code> operators
+                described in<strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"> </em></strong
+                ><a
+                  href="https://medium.com/@abhimuralidharan/typecastinginswift-1bafacd39c99"
+                  data-href="https://medium.com/@abhimuralidharan/typecastinginswift-1bafacd39c99"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    ><em class="markup--em markup--p-em"
+                      >Type Casting</em
+                    ></strong
+                  ></a
+                >
+                to check for protocol conformance, and to cast to a specific
+                protocol. Checking for and casting to a protocol follows exactly
+                the same syntax as checking for and casting to a type:
+              </p>
+              <ul class="postList">
+                <li name="906e" id="906e" class="graf graf--li graf-after--p">
+                  The
+                  <code class="markup--code markup--li-code">is</code> operator
+                  returns
+                  <code class="markup--code markup--li-code">true</code> if an
+                  instance conforms to a protocol and returns
+                  <code class="markup--code markup--li-code">false</code> if it
+                  does not.
+                </li>
+                <li name="31f8" id="31f8" class="graf graf--li graf-after--li">
+                  The
+                  <code class="markup--code markup--li-code">as?</code> version
+                  of the downcast operator returns an optional value of the
+                  protocol’s type, and this value is
+                  <code class="markup--code markup--li-code">nil</code> if the
+                  instance does not conform to that protocol.
+                </li>
+                <li name="39e5" id="39e5" class="graf graf--li graf-after--li">
+                  The
+                  <code class="markup--code markup--li-code">as!</code> version
+                  of the downcast operator forces the downcast to the protocol
+                  type and triggers a runtime error if the downcast does not
+                  succeed.
+                </li>
+              </ul>
+              <!-- <h4 name="eaf9" id="eaf9" class="graf graf--h4 graf-after--li">
+                Q8. How will you find out the 5 parallel thread executed
+                it’s task?
+              </h4>
+              <p name="a76c" id="a76c" class="graf graf--p graf-after--h4">
+                Refer
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-6-a3e5a77c2405"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-6-a3e5a77c2405"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  >source code and explanation</a
+                >
+              </p> -->
+              <h4 name="2403" id="2403" class="graf graf--h4 graf-after--p">
+                Q9. Structure has default parameterized init function, I want to
+                have both parameterized and empty constructor, how is it
+                possible?
+              </h4>
+              <figure
+                name="7552"
+                id="7552"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*l7-SvRFQQj3UOsYxDUsGDQ.png"
+                  data-width="517"
+                  data-height="335"
+                  src="https://cdn-images-1.medium.com/max/800/1*l7-SvRFQQj3UOsYxDUsGDQ.png"
+                />
+              </figure>
+              <h4
+                name="f789"
+                id="f789"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q10. What is the difference in struct and classes and where will
+                you use structure?
+              </h4>
+              <p name="e8b2" id="e8b2" class="graf graf--p graf-after--h4">
+                Classes have additional capabilities that structures don’t have:
+              </p>
+              <ul class="postList">
+                <li name="ed5c" id="ed5c" class="graf graf--li graf-after--p">
+                  Inheritance enables one class to inherit the characteristics
+                  of another.
+                </li>
+                <li name="6452" id="6452" class="graf graf--li graf-after--li">
+                  Type casting enables you to check and interpret the type of a
+                  class instance at runtime.
+                </li>
+                <li name="ce66" id="ce66" class="graf graf--li graf-after--li">
+                  Deinitializers enable an instance of a class to free up any
+                  resources it has assigned.
+                </li>
+                <li name="7c75" id="7c75" class="graf graf--li graf-after--li">
+                  Reference counting allows more than one reference to a class
+                  instance.
+                </li>
+              </ul>
+              <figure
+                name="26a1"
+                id="26a1"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*EQafFtdBRNJiDxi9MbC1LA.png"
+                  data-width="514"
+                  data-height="279"
+                  src="https://cdn-images-1.medium.com/max/800/1*EQafFtdBRNJiDxi9MbC1LA.png"
+                />
+              </figure>
+              <h4
+                name="fe6c"
+                id="fe6c"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q11. I have a structure of 1000 var in it, I want to pass
+                structure from one class to another class, as it’s value type,
+                how will you do it?
+              </h4>
+              <h4 name="02d2" id="02d2" class="graf graf--h4 graf-after--h4">
+                Structures and Enumerations Are Value Types
+              </h4>
+              <p name="9e39" id="9e39" class="graf graf--p graf-after--h4">
+                A <em class="markup--em markup--p-em">value type</em> is a type
+                whose value is
+                <em class="markup--em markup--p-em">copied</em> when it’s
+                assigned to a variable or constant, or when it’s passed to a
+                function
+                <strong class="markup--strong markup--p-strong">BUT</strong>
+              </p>
+              <p name="d23d" id="d23d" class="graf graf--p graf-after--p">
+                Collections defined by the standard library like arrays,
+                dictionaries, and strings use an optimization to reduce the
+                performance cost of copying. Instead of making a copy
+                immediately, these collections share the memory where the
+                elements are stored between the original instance and any
+                copies. If one of the copies of the collection is modified, the
+                elements are copied just before the modification. The behavior
+                you see in your code is always as if a copy took place
+                immediately.
+              </p>
+              <h4 name="181c" id="181c" class="graf graf--h4 graf-after--p">
+                Q12. What is MVVM and how it’s different from MVC?
+              </h4>
+              <figure
+                name="0661"
+                id="0661"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*7lPLIgqXGojpW2KkhV73ow.jpeg"
+                  data-width="1559"
+                  data-height="1023"
+                  src="https://cdn-images-1.medium.com/max/800/1*7lPLIgqXGojpW2KkhV73ow.jpeg"
+                />
+              </figure>
+              <h4
+                name="95f4"
+                id="95f4"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q13. Write a code for creating strong reference cycle?
+              </h4>
+              <p name="be5b" id="be5b" class="graf graf--p graf-after--h4">
+                The strong reference cycle prevents the
+                <code class="markup--code markup--p-code">Person</code> and
+                <code class="markup--code markup--p-code">Apartment</code>
+                instances from ever being deallocated, causing a memory leak in
+                your app.
+              </p>
+              <p name="0e20" id="0e20" class="graf graf--p graf-after--p">
+                Example 1:
+              </p>
+              <figure
+                name="0b98"
+                id="0b98"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*7JiYCWQQqhuszBcWNukyzg.png"
+                  data-width="568"
+                  data-height="318"
+                  src="https://cdn-images-1.medium.com/max/800/1*7JiYCWQQqhuszBcWNukyzg.png"
+                />
+              </figure>
+              <figure
+                name="b785"
+                id="b785"
+                class="graf graf--figure graf-after--figure"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Q9oHpzEnif_7a6KAP9AN9g.png"
+                  data-width="1253"
+                  data-height="400"
+                  src="https://cdn-images-1.medium.com/max/800/1*Q9oHpzEnif_7a6KAP9AN9g.png"
+                />
+              </figure>
+              <p name="24a9" id="24a9" class="graf graf--p graf-after--figure">
+                Example 2:
+              </p>
+              <p name="4a70" id="4a70" class="graf graf--p graf-after--p">
+                The example below shows how you can create a strong reference
+                cycle when using a closure that references
+                <code class="markup--code markup--p-code">self</code>. This
+                example defines a class called
+                <code class="markup--code markup--p-code">HTMLElement</code>,
+                which provides a simple model for an individual element within
+                an HTML document:
+              </p>
+              <figure
+                name="3f24"
+                id="3f24"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*UoCwjJ6xEuYQdPpLKELxGQ.png"
+                  data-width="539"
+                  data-height="540"
+                  src="https://cdn-images-1.medium.com/max/800/1*UoCwjJ6xEuYQdPpLKELxGQ.png"
+                />
+              </figure>
+              <figure
+                name="5226"
+                id="5226"
+                class="graf graf--figure graf-after--figure"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Qng9s0a4S_ur-JHGOxcxKQ.png"
+                  data-width="1253"
+                  data-height="437"
+                  src="https://cdn-images-1.medium.com/max/800/1*Qng9s0a4S_ur-JHGOxcxKQ.png"
+                />
+              </figure>
+              <h4
+                name="2999"
+                id="2999"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q14. Using operation and Operation queue — how will you run 5
+                parallel thread and once all thread completes..How will you
+                notify that all tasks completed?
+              </h4>
+              <p name="ea6d" id="ea6d" class="graf graf--p graf-after--h4">
+                Sol1: create extra operation and have all other operation as
+                dependency to it, once all 5 completed, it will be executed.
+              </p>
+              <p name="8f29" id="8f29" class="graf graf--p graf-after--p">
+                Sol2: have operation count, once its reduced to 0, perform
+                complete operation.
+              </p>
+              <h4 name="2788" id="2788" class="graf graf--h4 graf-after--p">
+                Q15. What is core data stack and how parent child context works?
+              </h4>
+              <!-- <p name="7731" id="7731" class="graf graf--p graf-after--h4">
+                Refer my post:
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/ios-2018-series-cracking-ios-interview-or-become-ios-expert-7-cd272ab610d4"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Core Data &amp; Concurrency</strong
+                  ></a
+                >
+              </p> -->
+              <h4 name="fa95" id="fa95" class="graf graf--h4 graf-after--p">
+                Q16. What is the difference between NSArray and Array?
+              </h4>
+              <p name="9107" id="9107" class="graf graf--p graf-after--h4">
+                <code class="markup--code markup--p-code">Array</code> is a
+                <strong class="markup--strong markup--p-strong">struct</strong>,
+                therefore it is a
+                <strong class="markup--strong markup--p-strong"
+                  >value type</strong
+                >
+                in Swift.
+                <code class="markup--code markup--p-code">NSArray</code> is an
+                immutable Objective C
+                <strong class="markup--strong markup--p-strong">class</strong>,
+                therefore it is a
+                <strong class="markup--strong markup--p-strong"
+                  >reference type</strong
+                >
+                in Swift and it is bridged to
+                <code class="markup--code markup--p-code"
+                  >Array&lt;AnyObject&gt;</code
+                >.
+                <code class="markup--code markup--p-code">NSMutableArray</code>
+                is the mutable subclass of
+                <code class="markup--code markup--p-code">NSArray</code>.
+              </p>
+              <h4 name="15c6" id="15c6" class="graf graf--h4 graf-after--p">
+                Q17. How collections are implemented in swift?
+              </h4>
+              <p name="d67e" id="d67e" class="graf graf--p graf-after--h4">
+                Swift provides three primary
+                <em class="markup--em markup--p-em">collection types</em>, known
+                as arrays, sets, and dictionaries, for storing collections of
+                values. Arrays are ordered collections of values. Sets are
+                unordered collections of unique values. Dictionaries are
+                unordered collections of key-value associations.
+              </p>
+              <p name="198e" id="198e" class="graf graf--p graf-after--p">
+                Swift’s array, set, and dictionary types are implemented as
+                <em class="markup--em markup--p-em">generic collections</em>.
+                For more about generic types and collections
+              </p>
+              <p name="87ac" id="87ac" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">NOTE</strong>
+              </p>
+              <ol class="postList">
+                <li name="0dbe" id="0dbe" class="graf graf--li graf-after--p">
+                  Swift’s
+                  <code class="markup--code markup--li-code">Array</code> type
+                  is bridged to Foundation’s
+                  <code class="markup--code markup--li-code">NSArray</code>
+                  class.
+                </li>
+              </ol>
+              <p name="7096" id="7096" class="graf graf--p graf-after--li">
+                2. Swift’s
+                <code class="markup--code markup--p-code">Set</code> type is
+                bridged to Foundation’s
+                <code class="markup--code markup--p-code">NSSet</code> class.
+              </p>
+              <p name="11ed" id="11ed" class="graf graf--p graf-after--p">
+                3. Swift’s
+                <code class="markup--code markup--p-code">Dictionary</code> type
+                is bridged to Foundation’s
+                <code class="markup--code markup--p-code">NSDictionary</code>
+                class.
+              </p>
+              <h4 name="51ae" id="51ae" class="graf graf--h4 graf-after--p">
+                Q18. How will you store custom objects in userdefault?
+              </h4>
+              <p name="7e0d" id="7e0d" class="graf graf--p graf-after--h4">
+                If you have tried to save custom object into UserDefaults
+                before, you might get an error like this:<br /><code
+                  class="markup--code markup--p-code"
+                  >&#39;NSInvalidArgumentException&#39;, reason: &#39;Attempt to
+                  insert non-property list object</code
+                >
+              </p>
+              <p name="6933" id="6933" class="graf graf--p graf-after--p">
+                According to Apple’s
+                <a
+                  href="https://developer.apple.com/documentation/foundation/userdefaults#1664798"
+                  data-href="https://developer.apple.com/documentation/foundation/userdefaults#1664798"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >documentation on UserDefaults</a
+                >,
+              </p>
+              <blockquote
+                name="5978"
+                id="5978"
+                class="graf graf--blockquote graf-after--p"
+              >
+                <em class="markup--em markup--blockquote-em"
+                  >A default object must be a property list — that is, an
+                  instance of (or for collections, a combination of instances
+                  of) NSData, NSString, NSNumber, NSDate, NSArray, or
+                  NSDictionary.</em
+                >
+              </blockquote>
+              <p
+                name="bdd3"
+                id="bdd3"
+                class="graf graf--p graf-after--blockquote"
+              >
+                Many of you will be starting your journey of Swift data
+                serialization with some incredibly powerful and easy-to-use
+                tools. I, of course, am referring to the
+                <code class="markup--code markup--p-code">Codable</code>
+                protocol which was introduced in Swift 4 to save developers from
+                the agony that is de/serializing
+                <code class="markup--code markup--p-code">Data</code>.
+              </p>
+              <figure
+                name="cfff"
+                id="cfff"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*6o75w9dBWmBW-tr10s2txw.png"
+                  data-width="678"
+                  data-height="794"
+                  src="https://cdn-images-1.medium.com/max/800/1*6o75w9dBWmBW-tr10s2txw.png"
+                />
+              </figure>
+              <h4
+                name="e13a"
+                id="e13a"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Q19. What is the use of plist?
+              </h4>
+              <p name="aadd" id="aadd" class="graf graf--p graf-after--h4">
+                In the context of iPhone development,
+                <a
+                  href="http://developer.apple.com/iPhone/library/documentation/General/Conceptual/DevPedia-CocoaCore/PropertyList.html"
+                  data-href="http://developer.apple.com/iPhone/library/documentation/General/Conceptual/DevPedia-CocoaCore/PropertyList.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  >Property Lists</a
+                >
+                are a key-value store that your application can use to
+                <a
+                  href="http://developer.apple.com/iphone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/FilesandNetworking/FilesandNetworking.html#//apple_ref/doc/uid/TP40007072-CH21-SW17"
+                  data-href="http://developer.apple.com/iphone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/FilesandNetworking/FilesandNetworking.html#//apple_ref/doc/uid/TP40007072-CH21-SW17"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noreferrer noopener"
+                  target="_blank"
+                  >save and retrieve persistent data</a
+                >.
+              </p>
+              <h4 name="a722" id="a722" class="graf graf--h4 graf-after--p">
+                <strong class="markup--strong markup--h4-strong"
+                  >Q20. Closure and its closure types with examples</strong
+                >
+              </h4>
+              <p name="1b6c" id="1b6c" class="graf graf--p graf-after--h4">
+                Read this for more detail
+                <a
+                  href="https://docs.swift.org/swift-book/LanguageGuide/Closures.html"
+                  data-href="https://docs.swift.org/swift-book/LanguageGuide/Closures.html"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Closures</a
+                >
+              </p>
+              <ul class="postList">
+                <li name="9d2e" id="9d2e" class="graf graf--li graf-after--p">
+                  Simple closure
+                </li>
+                <li name="a989" id="a989" class="graf graf--li graf-after--li">
+                  Closure that contains statements
+                </li>
+                <li name="4d09" id="4d09" class="graf graf--li graf-after--li">
+                  Closure that accepts parameter
+                </li>
+                <li name="278b" id="278b" class="graf graf--li graf-after--li">
+                  Closure that returns value
+                </li>
+                <li name="e38d" id="e38d" class="graf graf--li graf-after--li">
+                  Passing closures as a function parameter
+                </li>
+                <li name="ca06" id="ca06" class="graf graf--li graf-after--li">
+                  Trailing closure
+                </li>
+                <li name="2a65" id="2a65" class="graf graf--li graf-after--li">
+                  Autoclosure
+                </li>
+                <li name="6d8c" id="6d8c" class="graf graf--li graf-after--li">
+                  Auto-closure with arguments and return value
+                </li>
+                <li name="aec1" id="aec1" class="graf graf--li graf-after--li">
+                  Escaping vs No escaping closures
+                </li>
+                <li name="8d5b" id="8d5b" class="graf graf--li graf-after--li">
+                  No escaping closure
+                </li>
+                <li name="b0f4" id="b0f4" class="graf graf--li graf-after--li">
+                  Escaping closure
+                </li>
+              </ul>
+              <!-- <p name="b25d" id="b25d" class="graf graf--p graf-after--li">
+                Go to
+                <a
+                  href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-august-2018-part-2-9aa313dd04f2"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/top-ios-interview-questions-and-answers-august-2018-part-2-9aa313dd04f2"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Part 2 — Interview Questions asked in August 2018</strong
+                  ></a
+                >
+              </p> -->
+              <p
+                name="83c9"
+                id="83c9"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope you like this article &amp; is useful for people looking to
+                find out the recently asked iOS interview questions, Please ❤️
+                to recommend this post to others 😊. Let me know your
+                feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/5cc89eb67160"
+            ><time class="dt-published" datetime="2018-08-09T09:18:40.110Z"
+              >August 9, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/top-ios-interview-questions-and-answers-august-2018-5cc89eb67160"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

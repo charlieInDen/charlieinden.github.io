@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Property Wrappers (Part II)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Property Wrappers (Part II)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,581 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Property Wrappers (Part II)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-@Binding,@Environment,@EnvironmentObject,@State,@Published,@ObservedObject
-</section>
-<section data-field="body" class="e-content">
-<section name="eaa6" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="10f7" id="10f7" class="graf graf--h3 graf--leading graf--title">Property Wrappers (Part II)</h3><h4 name="4cf3" id="4cf3" class="graf graf--h4 graf-after--h3 graf--subtitle">@Binding,@Environment,@EnvironmentObject,@State,@Published,@ObservedObject</h4><figure name="dcf6" id="dcf6" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*SzVbBROzs_4ra_Rr82cBmA.png" data-width="850" data-height="376" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*SzVbBROzs_4ra_Rr82cBmA.png"></figure><h4 name="d1ab" id="d1ab" class="graf graf--h4 graf-after--figure">Previous: <a href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Property Wrappers (Part I)</a></h4><h3 name="32e9" id="32e9" class="graf graf--h3 graf-after--h4"><strong class="markup--strong markup--h3-strong">Integrating Combine</strong></h3><ul class="postList"><li name="fe8d" id="fe8d" class="graf graf--li graf-after--h3">Confirm to ObservableObject protocol for your custom object so that your data can be bound to a view.</li><li name="0f54" id="0f54" class="graf graf--li graf-after--li">By adding @Binding — Use a binding to create a two-way connection between a view and its underlying model.</li><li name="c758" id="c758" class="graf graf--li graf-after--li">By adding @Environment(property wrapper) we canpass custom objects into the <em class="markup--em markup--li-em">Environment</em> of a <em class="markup--em markup--li-em">View</em> hierarchy inside <em class="markup--em markup--li-em">SwiftUI.</em></li><li name="7dba" id="7dba" class="graf graf--li graf-after--li">By adding <code class="markup--code markup--li-code">@EnvironmentObject </code>A dynamic view property that uses a bindable object supplied by an ancestor view to invalidate the current view whenever the bindable object changes.</li><li name="96c7" id="96c7" class="graf graf--li graf-after--li">By adding <code class="markup--code markup--li-code">@Published</code> (property wrapper) we can add a Publisher to any property, for example: <code class="markup--code markup--li-code">@Published var password: String = &quot;&quot;</code></li><li name="1797" id="1797" class="graf graf--li graf-after--li">Using <code class="markup--code markup--li-code">targetAction</code> you can assign new values to the <code class="markup--code markup--li-code">@Published</code> value: <code class="markup--code markup--li-code">password = sender.text ?? &quot;&quot;</code></li><li name="a8f0" id="a8f0" class="graf graf--li graf-after--li">CombineLatest — combines the most recently emitted values</li><li name="7820" id="7820" class="graf graf--li graf-after--li">using <code class="markup--code markup--li-code">map</code> you can modify received values and change Publisher&#39;s type</li><li name="ef99" id="ef99" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">eraseToAnyPublisher()</code> - returns an AnyPublisher of the given type and error</li><li name="eedc" id="eedc" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">debounce(for:scheduler:)</code> - lets you specify a window by which you’d like to receive values and not receive them faster than that. It is useful to reduce number of requests when filtering data using text fields</li><li name="ac86" id="ac86" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">removeDuplicates()</code> - Publishes only elements that don’t match the previous element</li></ul><h4 name="f9ee" id="f9ee" class="graf graf--h4 graf-after--li">ObservableObject</h4><pre name="f402" id="f402" class="graf graf--pre graf-after--h4"><code class="markup--code markup--pre-code">protocol ObservableObject : AnyObject</code></pre><p name="09b9" id="09b9" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">ObservableObject</strong> is a protocol that’s part of the <strong class="markup--strong markup--p-strong">Combine</strong> framework. A observable object is a custom object for your data that can be bound to a view from storage in SwiftUI’s environment. SwiftUI watches for any changes to observable objects that could affect a view, and displays the correct version of the view after a change.</p><p name="bb5d" id="bb5d" class="graf graf--p graf-after--p">Declare a new model type that conforms to the <code class="markup--code markup--p-code">ObservableObject</code> protocol from the Combine framework. SwiftUI subscribes to your observable object, and updates any views that need refreshing when the data changes.</p><p name="a3c8" id="a3c8" class="graf graf--p graf-after--p">Assume we have a <strong class="markup--strong markup--p-strong">UserData</strong> class which conforms to ObservableObject Protocol, it has name &amp; age variable. We have added the <code class="markup--code markup--p-code">@Published</code> attribute to these property in the model. An observable object needs to publish any changes to its data, so that its subscribers can pick up the change.</p><pre name="9341" id="9341" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">class </code><strong class="markup--strong markup--pre-strong">UserData</strong><code class="markup--code markup--pre-code">: ObservableObject {<br>    @Published var name: String<br>    @Published var age: Int<br><br>    init(name: String, age: Int) {<br>        self.name = name<br>        self.age = age<br>    }<br><br>    func haveBirthday() -&gt; Int {<br>        age += 1<br>        return age<br>    }<br>}</code></pre><p name="42d1" id="42d1" class="graf graf--p graf-after--pre">Now we need to adopt the Person Object in our views.</p><pre name="718d" id="718d" class="graf graf--pre graf-after--p">@EnvironmentObject <strong class="markup--strong markup--pre-strong">var</strong> user: <strong class="markup--strong markup--pre-strong">UserData</strong></pre><p name="5990" id="5990" class="graf graf--p graf-after--pre">This <code class="markup--code markup--p-code">user</code> property gets its value automatically, as long as the <code class="markup--code markup--p-code">environmentObject(_:)</code> modifier has been applied to a parent.</p><h4 name="aca8" id="aca8" class="graf graf--h4 graf-after--p">@EnvironmentObject :-</h4><p name="0c68" id="0c68" class="graf graf--p graf-after--h4">Instead of passing <em class="markup--em markup--p-em">ObservableObject</em> via init method of our View we can implicitly inject it into <em class="markup--em markup--p-em">Environment</em> of our <em class="markup--em markup--p-em">View</em> hierarchy. By doing this, we create the opportunity for all child <em class="markup--em markup--p-em">Views</em> of current <em class="markup--em markup--p-em">Environment</em> access this <em class="markup--em markup--p-em">ObservableObject</em>.</p><figure name="6bc7" id="6bc7" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*M4AIFTw17_jSTvWGqfsw7w.png" data-width="900" data-height="340" src="https://cdn-images-1.medium.com/max/800/1*M4AIFTw17_jSTvWGqfsw7w.png"></figure><p name="21f9" id="21f9" class="graf graf--p graf-after--figure">As you can see, we have to pass <em class="markup--em markup--p-em">UserData</em> object via <em class="markup--em markup--p-em">environmentObject </em>modifier of our <em class="markup--em markup--p-em">View</em>. By doing this, we can easily access <em class="markup--em markup--p-em">UserData</em> by defining it with <em class="markup--em markup--p-em">@</em><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">EnvironmentObject</em></strong><em class="markup--em markup--p-em"> Property Wrapper</em>. @<em class="markup--em markup--p-em">EnvironmentObject </em>uses dynamic member lookup feature to find <em class="markup--em markup--p-em">UserData</em> class instance in the <em class="markup--em markup--p-em">Environment</em>, that’s why you don’t need to pass it via init method of <em class="markup--em markup--p-em">View Class</em>. The <em class="markup--em markup--p-em">Environment</em> is the right way of <em class="markup--em markup--p-em">Dependency Injection in SwiftUI</em>. It works like magic.</p><h4 name="c8bb" id="c8bb" class="graf graf--h4 graf-after--p">@Published :-</h4><p name="fe01" id="fe01" class="graf graf--p graf-after--h4"><em class="markup--em markup--p-em">SwiftUI</em> tracks the changes on <em class="markup--em markup--p-em">ObservableObject</em> with the help of <em class="markup--em markup--p-em">@Published</em> property wrapper, and as soon as a property marked as <em class="markup--em markup--p-em">@Published</em> changes <em class="markup--em markup--p-em">SwiftUI</em> rebuild all <em class="markup--em markup--p-em">Views</em> bound to that <em class="markup--em markup--p-em">UserData Object</em>.</p><p name="a036" id="a036" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">@propertyWrapper struct Published&lt;Value&gt;</code></p><p name="fcf9" id="fcf9" class="graf graf--p graf-after--p">Publishing a property with the <code class="markup--code markup--p-code">@Published</code> attribute creates a publisher of this type. You access the publisher with the <code class="markup--code markup--p-code">$</code> operator. @Published allows us to transform this property into a stream of its successive values.</p><p name="beee" id="beee" class="graf graf--p graf-after--p">Suppose we have a ViewController, we listen for UITextField updates, in the callback method we are updating a string variable named “username”. We set the value of a String property named “username” annotated with @Published. The @Published property wrapper makes <strong class="markup--strong markup--p-strong">$username</strong> be a Publisher that we can subscribe to.</p><p name="6193" id="6193" class="graf graf--p graf-after--p">Assume we have a label which need to update as user enters text in UITextField, we can use $username to bind with label, so that it can be updated as the username strings update.This first thing you might notice is the dollar sign in front of <strong class="markup--strong markup--p-strong">username</strong>. It allows you to access the wrapped <code class="markup--code markup--p-code">Publisher</code> value.</p><p name="3a59" id="3a59" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Important: </strong>The <code class="markup--code markup--p-code">@Published</code> attribute is class-constrained. Use it with properties of classes, not with non-class types like structures.</p><h4 name="a034" id="a034" class="graf graf--h4 graf-after--p">@State,@Binding :-</h4><p name="077c" id="077c" class="graf graf--p graf-after--h4"><em class="markup--em markup--p-em">@State</em> is a <em class="markup--em markup--p-em">Property Wrapper</em> which we can use to mark <em class="markup--em markup--p-em">View</em>’s state. <em class="markup--em markup--p-em">SwiftUI</em> will store it in special internal memory outside of <em class="markup--em markup--p-em">View</em> struct. Only the related <em class="markup--em markup--p-em">View </em>can access it. As soon as the value of @<em class="markup--em markup--p-em">State</em> property changes <em class="markup--em markup--p-em">SwiftUI</em> rebuilds <em class="markup--em markup--p-em">View</em> to respect state changes.</p><p name="eee0" id="eee0" class="graf graf--p graf-after--p">@<em class="markup--em markup--p-em">Binding</em> provides reference like access for a value type. Sometimes we need to make the state of our <em class="markup--em markup--p-em">View</em> accessible for its children. But we can’t simply pass that value because it is a value type and <em class="markup--em markup--p-em">Swift</em> will pass the copy of that value. And this is where we can use <em class="markup--em markup--p-em">@Binding Property Wrapper</em>.</p><pre name="89f8" id="89f8" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">FavouriteView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">@Binding</strong> <strong class="markup--strong markup--pre-strong">var</strong> showFavorited: <strong class="markup--strong markup--pre-strong">Bool</strong></code></pre><pre name="614f" id="614f" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">    <strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">Toggle</strong>(isOn: $showFavorited) {<br>            <strong class="markup--strong markup--pre-strong">Text</strong>(&quot;Change favourite&quot;)<br>        }<br>    }<br>}</code></pre><pre name="652a" id="652a" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">UserView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">let</strong> users: [<strong class="markup--strong markup--pre-strong">User</strong>]</code></pre><pre name="e599" id="e599" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">    <strong class="markup--strong markup--pre-strong">@State</strong> <strong class="markup--strong markup--pre-strong">private</strong> <strong class="markup--strong markup--pre-strong">var</strong> showFavorited: <strong class="markup--strong markup--pre-strong">Bool</strong> <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">false</strong></code></pre><pre name="1590" id="1590" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">List</strong> {<br>            <strong class="markup--strong markup--pre-strong">FavouriteView</strong>(showFavorited: $showFavorited)</code></pre><pre name="59ea" id="59ea" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">            <strong class="markup--strong markup--pre-strong">ForEach</strong>(users) { user <strong class="markup--strong markup--pre-strong">in</strong><br>                <strong class="markup--strong markup--pre-strong">if</strong> <strong class="markup--strong markup--pre-strong">!self.</strong>showFavorited <strong class="markup--strong markup--pre-strong">||</strong> user<strong class="markup--strong markup--pre-strong">.</strong>isFavorited {<br>                    <strong class="markup--strong markup--pre-strong">Text</strong>(user<strong class="markup--strong markup--pre-strong">.</strong>title)<br>                }<br>            }<br>        }<br>    }<br>}</code></pre><p name="ee1b" id="ee1b" class="graf graf--p graf-after--pre">We use @<em class="markup--em markup--p-em">Binding</em> to mark <em class="markup--em markup--p-em">showFavorited</em> property inside the <code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">FavouriteView</strong></code>. We also use <em class="markup--em markup--p-em">$</em> to pass a binding reference, because without <em class="markup--em markup--p-em">$</em> <em class="markup--em markup--p-em">Swift</em> will pass a copy of the value instead of passing bindable reference. <code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">FavouriteView</strong></code> can read and write the value of <em class="markup--em markup--p-em">UserView</em>’s <em class="markup--em markup--p-em">showFavorited</em> property, but it can’t observe the changes using this binding. As soon as <code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">FavouriteView</strong></code> changes value of <em class="markup--em markup--p-em">showFavorited</em> property, <em class="markup--em markup--p-em">SwiftUI</em> will recreate the <em class="markup--em markup--p-em">UserView</em> and <em class="markup--em markup--p-em">FavouriteView</em> as its child.</p><h4 name="4f17" id="4f17" class="graf graf--h4 graf-after--p">@ObservedObject</h4><p name="f3a8" id="f3a8" class="graf graf--p graf-after--h4">@<em class="markup--em markup--p-em">ObservedObject</em> work very similarly to @<em class="markup--em markup--p-em">State</em> <em class="markup--em markup--p-em">Property Wrapper</em>, but the main difference is that we can share it between multiple independent <em class="markup--em markup--p-em">Views</em> which can subscribe and observe changes on that object, and as soon as changes appear <em class="markup--em markup--p-em">SwiftUI</em> rebuilds all <em class="markup--em markup--p-em">Views</em> bound to this object. Let’s take a look at an example.</p><pre name="c553" id="c553" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">import</strong> <strong class="markup--strong markup--pre-strong">Combine</strong><br><br><strong class="markup--strong markup--pre-strong">final</strong> <strong class="markup--strong markup--pre-strong">class</strong> <strong class="markup--strong markup--pre-strong">MusicPlayer</strong>: <strong class="markup--strong markup--pre-strong">ObservableObject</strong> {<br>    <strong class="markup--strong markup--pre-strong">@Published</strong> <strong class="markup--strong markup--pre-strong">private(set)</strong> <strong class="markup--strong markup--pre-strong">var</strong> isPlaying: <strong class="markup--strong markup--pre-strong">Bool</strong> <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">false</strong><br><br>    <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">play</strong>() {<br>        isPlaying <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">true</strong><br>    }<br><br>    <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">pause</strong>() {<br>        isPlaying <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">false</strong><br>    }<br>}</code></pre><p name="472c" id="472c" class="graf graf--p graf-after--pre">Here we have <em class="markup--em markup--p-em">MusicPlayer</em> class which we share between the screens of our app. Every screen has to show floating pause button in the case when the app is playing a TV series episode. <em class="markup--em markup--p-em">SwiftUI</em> tracks the changes on <em class="markup--em markup--p-em">ObservableObject</em> with the help of <em class="markup--em markup--p-em">@Published</em> property wrapper, and as soon as a property marked as <em class="markup--em markup--p-em">@Published</em> changes <em class="markup--em markup--p-em">SwiftUI</em> rebuild all <em class="markup--em markup--p-em">Views</em> bound to that <em class="markup--em markup--p-em">MusicPlayer </em>object. Here we use <em class="markup--em markup--p-em">@ObservedObject Property Wrapper</em> to bind our <em class="markup--em markup--p-em">TVSeriesView</em> to <em class="markup--em markup--p-em">MusicPlayer</em> class</p><pre name="fd49" id="fd49" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">TVSeriesView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">@ObservedObject</strong> <strong class="markup--strong markup--pre-strong">var</strong> player: <strong class="markup--strong markup--pre-strong">MusicPlayer</strong><br>    <strong class="markup--strong markup--pre-strong">let</strong> episodes: [<strong class="markup--strong markup--pre-strong">Episode</strong>]<br><br>    <strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">List</strong> {<br>            <strong class="markup--strong markup--pre-strong">Button</strong>(<br>                action: {<br>                    <strong class="markup--strong markup--pre-strong">if</strong> <strong class="markup--strong markup--pre-strong">self.</strong>player<strong class="markup--strong markup--pre-strong">.</strong>isPlaying {<br>                        <strong class="markup--strong markup--pre-strong">self.</strong>player<strong class="markup--strong markup--pre-strong">.pause</strong>()<br>                    } <strong class="markup--strong markup--pre-strong">else</strong> {<br>                        <strong class="markup--strong markup--pre-strong">self.</strong>player<strong class="markup--strong markup--pre-strong">.play</strong>()<br>                    }<br>            }, label: {<br>                    <strong class="markup--strong markup--pre-strong">Text</strong>(player<strong class="markup--strong markup--pre-strong">.</strong>isPlaying ? &quot;Pause&quot;: &quot;Play&quot;)<br>                }<br>            )<br>            <strong class="markup--strong markup--pre-strong">ForEach</strong>(episodes) { episode <strong class="markup--strong markup--pre-strong">in</strong><br>                <strong class="markup--strong markup--pre-strong">Text</strong>(episode<strong class="markup--strong markup--pre-strong">.</strong>title)<br>            }<br>        }<br>    }<br>}</code></pre><h4 name="f0de" id="f0de" class="graf graf--h4 graf-after--pre">@Environment</h4><p name="e7ef" id="e7ef" class="graf graf--p graf-after--h4">We can pass custom objects into the <em class="markup--em markup--p-em">Environment</em> of a <em class="markup--em markup--p-em">View</em> hierarchy inside <em class="markup--em markup--p-em">SwiftUI</em>. But <em class="markup--em markup--p-em">SwiftUI</em> already has an <em class="markup--em markup--p-em">Environment</em> populated with system-wide settings. We can easily access them with <em class="markup--em markup--p-em">@Environment Property Wrapper</em>.</p><pre name="5a44" id="5a44" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">MyCalendarView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">@Environment</strong>(\<strong class="markup--strong markup--pre-strong">.</strong>calendar) <strong class="markup--strong markup--pre-strong">var</strong> calendar: <strong class="markup--strong markup--pre-strong">Calendar</strong><br>    <strong class="markup--strong markup--pre-strong">@Environment</strong>(\<strong class="markup--strong markup--pre-strong">.</strong>locale) <strong class="markup--strong markup--pre-strong">var</strong> locale: <strong class="markup--strong markup--pre-strong">Locale</strong><br>    <strong class="markup--strong markup--pre-strong">@Environment</strong>(\<strong class="markup--strong markup--pre-strong">.</strong>colorScheme) <strong class="markup--strong markup--pre-strong">var</strong> colorScheme: <strong class="markup--strong markup--pre-strong">ColorScheme</strong></code></pre><pre name="3d24" id="3d24" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">return</strong> <strong class="markup--strong markup--pre-strong">Text</strong>(locale<strong class="markup--strong markup--pre-strong">.</strong>identifier)<br>    }<br>}</code></pre><p name="3d47" id="3d47" class="graf graf--p graf-after--pre">By marking our properties with <em class="markup--em markup--p-em">@Environment Property Wrapper</em>, we access and subscribe to changes of system-wide settings. As soon as <em class="markup--em markup--p-em">Locale</em>, <em class="markup--em markup--p-em">Calendar</em> or <em class="markup--em markup--p-em">ColorScheme</em> of the system change, <em class="markup--em markup--p-em">SwiftUI</em> recreates our My<em class="markup--em markup--p-em">CalendarView</em>.</p><h4 name="111e" id="111e" class="graf graf--h4 graf-after--p">Previous: <a href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Property Wrappers (Part I)</a></h4><p name="9659" id="9659" class="graf graf--p graf-after--h4">Hope this article is useful for iOS developers, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p><p name="2a0d" id="2a0d" class="graf graf--p graf-after--p">Reference:</p><ol class="postList"><li name="4dc6" id="4dc6" class="graf graf--li graf-after--p"><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md" data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md</a></li><li name="39ef" id="39ef" class="graf graf--li graf-after--li graf--trailing"><a href="https://developer.apple.com/documentation/swiftui/environmentobject" data-href="https://developer.apple.com/documentation/swiftui/environmentobject" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://developer.apple.com/documentation/swiftui</a></li></ol></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/523eee07693b"><time class="dt-published" datetime="2019-10-13T02:49:40.561Z">October 13, 2019</time></a>.</p><p><a href="https://medium.com/@nishantnitb/property-wrappers-part-ii-523eee07693b" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Property Wrappers (Part II)</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        @Binding,@Environment,@EnvironmentObject,@State,@Published,@ObservedObject
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="eaa6"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="10f7"
+                id="10f7"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Property Wrappers (Part II)
+              </h3>
+              <h4
+                name="4cf3"
+                id="4cf3"
+                class="graf graf--h4 graf-after--h3 graf--subtitle"
+              >
+                @Binding,@Environment,@EnvironmentObject,@State,@Published,@ObservedObject
+              </h4>
+              <figure
+                name="dcf6"
+                id="dcf6"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*SzVbBROzs_4ra_Rr82cBmA.png"
+                  data-width="850"
+                  data-height="376"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*SzVbBROzs_4ra_Rr82cBmA.png"
+                />
+              </figure>
+              <!-- <h4
+                name="d1ab"
+                id="d1ab"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Previous:
+                <a
+                  href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------"
+                  data-href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Property Wrappers (Part I)</a
+                >
+              </h4> -->
+              <h3 name="32e9" id="32e9" class="graf graf--h3 graf-after--h4">
+                <strong class="markup--strong markup--h3-strong"
+                  >Integrating Combine</strong
+                >
+              </h3>
+              <ul class="postList">
+                <li name="fe8d" id="fe8d" class="graf graf--li graf-after--h3">
+                  Confirm to ObservableObject protocol for your custom object so
+                  that your data can be bound to a view.
+                </li>
+                <li name="0f54" id="0f54" class="graf graf--li graf-after--li">
+                  By adding @Binding — Use a binding to create a two-way
+                  connection between a view and its underlying model.
+                </li>
+                <li name="c758" id="c758" class="graf graf--li graf-after--li">
+                  By adding @Environment(property wrapper) we canpass custom
+                  objects into the
+                  <em class="markup--em markup--li-em">Environment</em> of a
+                  <em class="markup--em markup--li-em">View</em> hierarchy
+                  inside <em class="markup--em markup--li-em">SwiftUI.</em>
+                </li>
+                <li name="7dba" id="7dba" class="graf graf--li graf-after--li">
+                  By adding
+                  <code class="markup--code markup--li-code"
+                    >@EnvironmentObject </code
+                  >A dynamic view property that uses a bindable object supplied
+                  by an ancestor view to invalidate the current view whenever
+                  the bindable object changes.
+                </li>
+                <li name="96c7" id="96c7" class="graf graf--li graf-after--li">
+                  By adding
+                  <code class="markup--code markup--li-code">@Published</code>
+                  (property wrapper) we can add a Publisher to any property, for
+                  example:
+                  <code class="markup--code markup--li-code"
+                    >@Published var password: String = &quot;&quot;</code
+                  >
+                </li>
+                <li name="1797" id="1797" class="graf graf--li graf-after--li">
+                  Using
+                  <code class="markup--code markup--li-code">targetAction</code>
+                  you can assign new values to the
+                  <code class="markup--code markup--li-code">@Published</code>
+                  value:
+                  <code class="markup--code markup--li-code"
+                    >password = sender.text ?? &quot;&quot;</code
+                  >
+                </li>
+                <li name="a8f0" id="a8f0" class="graf graf--li graf-after--li">
+                  CombineLatest — combines the most recently emitted values
+                </li>
+                <li name="7820" id="7820" class="graf graf--li graf-after--li">
+                  using
+                  <code class="markup--code markup--li-code">map</code> you can
+                  modify received values and change Publisher&#39;s type
+                </li>
+                <li name="ef99" id="ef99" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >eraseToAnyPublisher()</code
+                  >
+                  - returns an AnyPublisher of the given type and error
+                </li>
+                <li name="eedc" id="eedc" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >debounce(for:scheduler:)</code
+                  >
+                  - lets you specify a window by which you’d like to receive
+                  values and not receive them faster than that. It is useful to
+                  reduce number of requests when filtering data using text
+                  fields
+                </li>
+                <li name="ac86" id="ac86" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code"
+                    >removeDuplicates()</code
+                  >
+                  - Publishes only elements that don’t match the previous
+                  element
+                </li>
+              </ul>
+              <h4 name="f9ee" id="f9ee" class="graf graf--h4 graf-after--li">
+                ObservableObject
+              </h4>
+              <pre
+                name="f402"
+                id="f402"
+                class="graf graf--pre graf-after--h4"
+              ><code class="markup--code markup--pre-code">protocol ObservableObject : AnyObject</code></pre>
+              <p name="09b9" id="09b9" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >ObservableObject</strong
+                >
+                is a protocol that’s part of the
+                <strong class="markup--strong markup--p-strong">Combine</strong>
+                framework. A observable object is a custom object for your data
+                that can be bound to a view from storage in SwiftUI’s
+                environment. SwiftUI watches for any changes to observable
+                objects that could affect a view, and displays the correct
+                version of the view after a change.
+              </p>
+              <p name="bb5d" id="bb5d" class="graf graf--p graf-after--p">
+                Declare a new model type that conforms to the
+                <code class="markup--code markup--p-code"
+                  >ObservableObject</code
+                >
+                protocol from the Combine framework. SwiftUI subscribes to your
+                observable object, and updates any views that need refreshing
+                when the data changes.
+              </p>
+              <p name="a3c8" id="a3c8" class="graf graf--p graf-after--p">
+                Assume we have a
+                <strong class="markup--strong markup--p-strong"
+                  >UserData</strong
+                >
+                class which conforms to ObservableObject Protocol, it has name
+                &amp; age variable. We have added the
+                <code class="markup--code markup--p-code">@Published</code>
+                attribute to these property in the model. An observable object
+                needs to publish any changes to its data, so that its
+                subscribers can pick up the change.
+              </p>
+              <pre
+                name="9341"
+                id="9341"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">class </code><strong class="markup--strong markup--pre-strong">UserData</strong><code class="markup--code markup--pre-code">: ObservableObject {<br>    @Published var name: String<br>    @Published var age: Int<br><br>    init(name: String, age: Int) {<br>        self.name = name<br>        self.age = age<br>    }<br><br>    func haveBirthday() -&gt; Int {<br>        age += 1<br>        return age<br>    }<br>}</code></pre>
+              <p name="42d1" id="42d1" class="graf graf--p graf-after--pre">
+                Now we need to adopt the Person Object in our views.
+              </p>
+              <pre
+                name="718d"
+                id="718d"
+                class="graf graf--pre graf-after--p"
+              >@EnvironmentObject <strong class="markup--strong markup--pre-strong">var</strong> user: <strong class="markup--strong markup--pre-strong">UserData</strong></pre>
+              <p name="5990" id="5990" class="graf graf--p graf-after--pre">
+                This
+                <code class="markup--code markup--p-code">user</code> property
+                gets its value automatically, as long as the
+                <code class="markup--code markup--p-code"
+                  >environmentObject(_:)</code
+                >
+                modifier has been applied to a parent.
+              </p>
+              <h4 name="aca8" id="aca8" class="graf graf--h4 graf-after--p">
+                @EnvironmentObject :-
+              </h4>
+              <p name="0c68" id="0c68" class="graf graf--p graf-after--h4">
+                Instead of passing
+                <em class="markup--em markup--p-em">ObservableObject</em> via
+                init method of our View we can implicitly inject it into
+                <em class="markup--em markup--p-em">Environment</em> of our
+                <em class="markup--em markup--p-em">View</em> hierarchy. By
+                doing this, we create the opportunity for all child
+                <em class="markup--em markup--p-em">Views</em> of current
+                <em class="markup--em markup--p-em">Environment</em> access this
+                <em class="markup--em markup--p-em">ObservableObject</em>.
+              </p>
+              <figure
+                name="6bc7"
+                id="6bc7"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*M4AIFTw17_jSTvWGqfsw7w.png"
+                  data-width="900"
+                  data-height="340"
+                  src="https://cdn-images-1.medium.com/max/800/1*M4AIFTw17_jSTvWGqfsw7w.png"
+                />
+              </figure>
+              <p name="21f9" id="21f9" class="graf graf--p graf-after--figure">
+                As you can see, we have to pass
+                <em class="markup--em markup--p-em">UserData</em> object via
+                <em class="markup--em markup--p-em">environmentObject </em
+                >modifier of our <em class="markup--em markup--p-em">View</em>.
+                By doing this, we can easily access
+                <em class="markup--em markup--p-em">UserData</em> by defining it
+                with <em class="markup--em markup--p-em">@</em
+                ><strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >EnvironmentObject</em
+                  ></strong
+                ><em class="markup--em markup--p-em"> Property Wrapper</em>.
+                @<em class="markup--em markup--p-em">EnvironmentObject </em>uses
+                dynamic member lookup feature to find
+                <em class="markup--em markup--p-em">UserData</em> class instance
+                in the <em class="markup--em markup--p-em">Environment</em>,
+                that’s why you don’t need to pass it via init method of
+                <em class="markup--em markup--p-em">View Class</em>. The
+                <em class="markup--em markup--p-em">Environment</em> is the
+                right way of
+                <em class="markup--em markup--p-em"
+                  >Dependency Injection in SwiftUI</em
+                >. It works like magic.
+              </p>
+              <h4 name="c8bb" id="c8bb" class="graf graf--h4 graf-after--p">
+                @Published :-
+              </h4>
+              <p name="fe01" id="fe01" class="graf graf--p graf-after--h4">
+                <em class="markup--em markup--p-em">SwiftUI</em> tracks the
+                changes on
+                <em class="markup--em markup--p-em">ObservableObject</em> with
+                the help of
+                <em class="markup--em markup--p-em">@Published</em> property
+                wrapper, and as soon as a property marked as
+                <em class="markup--em markup--p-em">@Published</em> changes
+                <em class="markup--em markup--p-em">SwiftUI</em> rebuild all
+                <em class="markup--em markup--p-em">Views</em> bound to that
+                <em class="markup--em markup--p-em">UserData Object</em>.
+              </p>
+              <p name="a036" id="a036" class="graf graf--p graf-after--p">
+                <code class="markup--code markup--p-code"
+                  >@propertyWrapper struct Published&lt;Value&gt;</code
+                >
+              </p>
+              <p name="fcf9" id="fcf9" class="graf graf--p graf-after--p">
+                Publishing a property with the
+                <code class="markup--code markup--p-code">@Published</code>
+                attribute creates a publisher of this type. You access the
+                publisher with the
+                <code class="markup--code markup--p-code">$</code> operator.
+                @Published allows us to transform this property into a stream of
+                its successive values.
+              </p>
+              <p name="beee" id="beee" class="graf graf--p graf-after--p">
+                Suppose we have a ViewController, we listen for UITextField
+                updates, in the callback method we are updating a string
+                variable named “username”. We set the value of a String property
+                named “username” annotated with @Published. The @Published
+                property wrapper makes
+                <strong class="markup--strong markup--p-strong"
+                  >$username</strong
+                >
+                be a Publisher that we can subscribe to.
+              </p>
+              <p name="6193" id="6193" class="graf graf--p graf-after--p">
+                Assume we have a label which need to update as user enters text
+                in UITextField, we can use $username to bind with label, so that
+                it can be updated as the username strings update.This first
+                thing you might notice is the dollar sign in front of
+                <strong class="markup--strong markup--p-strong">username</strong
+                >. It allows you to access the wrapped
+                <code class="markup--code markup--p-code">Publisher</code>
+                value.
+              </p>
+              <p name="3a59" id="3a59" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Important: </strong
+                >The
+                <code class="markup--code markup--p-code">@Published</code>
+                attribute is class-constrained. Use it with properties of
+                classes, not with non-class types like structures.
+              </p>
+              <h4 name="a034" id="a034" class="graf graf--h4 graf-after--p">
+                @State,@Binding :-
+              </h4>
+              <p name="077c" id="077c" class="graf graf--p graf-after--h4">
+                <em class="markup--em markup--p-em">@State</em> is a
+                <em class="markup--em markup--p-em">Property Wrapper</em> which
+                we can use to mark
+                <em class="markup--em markup--p-em">View</em>’s state.
+                <em class="markup--em markup--p-em">SwiftUI</em> will store it
+                in special internal memory outside of
+                <em class="markup--em markup--p-em">View</em> struct. Only the
+                related <em class="markup--em markup--p-em">View </em>can access
+                it. As soon as the value of @<em class="markup--em markup--p-em"
+                  >State</em
+                >
+                property changes
+                <em class="markup--em markup--p-em">SwiftUI</em> rebuilds
+                <em class="markup--em markup--p-em">View</em> to respect state
+                changes.
+              </p>
+              <p name="eee0" id="eee0" class="graf graf--p graf-after--p">
+                @<em class="markup--em markup--p-em">Binding</em> provides
+                reference like access for a value type. Sometimes we need to
+                make the state of our
+                <em class="markup--em markup--p-em">View</em> accessible for its
+                children. But we can’t simply pass that value because it is a
+                value type and
+                <em class="markup--em markup--p-em">Swift</em> will pass the
+                copy of that value. And this is where we can use
+                <em class="markup--em markup--p-em"
+                  >@Binding Property Wrapper</em
+                >.
+              </p>
+              <pre
+                name="89f8"
+                id="89f8"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">FavouriteView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">@Binding</strong> <strong class="markup--strong markup--pre-strong">var</strong> showFavorited: <strong class="markup--strong markup--pre-strong">Bool</strong></code></pre>
+              <pre
+                name="614f"
+                id="614f"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">    <strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">Toggle</strong>(isOn: $showFavorited) {<br>            <strong class="markup--strong markup--pre-strong">Text</strong>(&quot;Change favourite&quot;)<br>        }<br>    }<br>}</code></pre>
+              <pre
+                name="652a"
+                id="652a"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">UserView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">let</strong> users: [<strong class="markup--strong markup--pre-strong">User</strong>]</code></pre>
+              <pre
+                name="e599"
+                id="e599"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">    <strong class="markup--strong markup--pre-strong">@State</strong> <strong class="markup--strong markup--pre-strong">private</strong> <strong class="markup--strong markup--pre-strong">var</strong> showFavorited: <strong class="markup--strong markup--pre-strong">Bool</strong> <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">false</strong></code></pre>
+              <pre
+                name="1590"
+                id="1590"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">List</strong> {<br>            <strong class="markup--strong markup--pre-strong">FavouriteView</strong>(showFavorited: $showFavorited)</code></pre>
+              <pre
+                name="59ea"
+                id="59ea"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">            <strong class="markup--strong markup--pre-strong">ForEach</strong>(users) { user <strong class="markup--strong markup--pre-strong">in</strong><br>                <strong class="markup--strong markup--pre-strong">if</strong> <strong class="markup--strong markup--pre-strong">!self.</strong>showFavorited <strong class="markup--strong markup--pre-strong">||</strong> user<strong class="markup--strong markup--pre-strong">.</strong>isFavorited {<br>                    <strong class="markup--strong markup--pre-strong">Text</strong>(user<strong class="markup--strong markup--pre-strong">.</strong>title)<br>                }<br>            }<br>        }<br>    }<br>}</code></pre>
+              <p name="ee1b" id="ee1b" class="graf graf--p graf-after--pre">
+                We use @<em class="markup--em markup--p-em">Binding</em> to mark
+                <em class="markup--em markup--p-em">showFavorited</em> property
+                inside the
+                <code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >FavouriteView</strong
+                  ></code
+                >. We also use <em class="markup--em markup--p-em">$</em> to
+                pass a binding reference, because without
+                <em class="markup--em markup--p-em">$</em>
+                <em class="markup--em markup--p-em">Swift</em> will pass a copy
+                of the value instead of passing bindable reference.
+                <code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >FavouriteView</strong
+                  ></code
+                >
+                can read and write the value of
+                <em class="markup--em markup--p-em">UserView</em>’s
+                <em class="markup--em markup--p-em">showFavorited</em> property,
+                but it can’t observe the changes using this binding. As soon as
+                <code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >FavouriteView</strong
+                  ></code
+                >
+                changes value of
+                <em class="markup--em markup--p-em">showFavorited</em> property,
+                <em class="markup--em markup--p-em">SwiftUI</em> will recreate
+                the <em class="markup--em markup--p-em">UserView</em> and
+                <em class="markup--em markup--p-em">FavouriteView</em> as its
+                child.
+              </p>
+              <h4 name="4f17" id="4f17" class="graf graf--h4 graf-after--p">
+                @ObservedObject
+              </h4>
+              <p name="f3a8" id="f3a8" class="graf graf--p graf-after--h4">
+                @<em class="markup--em markup--p-em">ObservedObject</em> work
+                very similarly to @<em class="markup--em markup--p-em"
+                  >State</em
+                >
+                <em class="markup--em markup--p-em">Property Wrapper</em>, but
+                the main difference is that we can share it between multiple
+                independent <em class="markup--em markup--p-em">Views</em> which
+                can subscribe and observe changes on that object, and as soon as
+                changes appear
+                <em class="markup--em markup--p-em">SwiftUI</em> rebuilds all
+                <em class="markup--em markup--p-em">Views</em> bound to this
+                object. Let’s take a look at an example.
+              </p>
+              <pre
+                name="c553"
+                id="c553"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">import</strong> <strong class="markup--strong markup--pre-strong">Combine</strong><br><br><strong class="markup--strong markup--pre-strong">final</strong> <strong class="markup--strong markup--pre-strong">class</strong> <strong class="markup--strong markup--pre-strong">MusicPlayer</strong>: <strong class="markup--strong markup--pre-strong">ObservableObject</strong> {<br>    <strong class="markup--strong markup--pre-strong">@Published</strong> <strong class="markup--strong markup--pre-strong">private(set)</strong> <strong class="markup--strong markup--pre-strong">var</strong> isPlaying: <strong class="markup--strong markup--pre-strong">Bool</strong> <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">false</strong><br><br>    <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">play</strong>() {<br>        isPlaying <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">true</strong><br>    }<br><br>    <strong class="markup--strong markup--pre-strong">func</strong> <strong class="markup--strong markup--pre-strong">pause</strong>() {<br>        isPlaying <strong class="markup--strong markup--pre-strong">=</strong> <strong class="markup--strong markup--pre-strong">false</strong><br>    }<br>}</code></pre>
+              <p name="472c" id="472c" class="graf graf--p graf-after--pre">
+                Here we have
+                <em class="markup--em markup--p-em">MusicPlayer</em> class which
+                we share between the screens of our app. Every screen has to
+                show floating pause button in the case when the app is playing a
+                TV series episode.
+                <em class="markup--em markup--p-em">SwiftUI</em> tracks the
+                changes on
+                <em class="markup--em markup--p-em">ObservableObject</em> with
+                the help of
+                <em class="markup--em markup--p-em">@Published</em> property
+                wrapper, and as soon as a property marked as
+                <em class="markup--em markup--p-em">@Published</em> changes
+                <em class="markup--em markup--p-em">SwiftUI</em> rebuild all
+                <em class="markup--em markup--p-em">Views</em> bound to that
+                <em class="markup--em markup--p-em">MusicPlayer </em>object.
+                Here we use
+                <em class="markup--em markup--p-em"
+                  >@ObservedObject Property Wrapper</em
+                >
+                to bind our
+                <em class="markup--em markup--p-em">TVSeriesView</em> to
+                <em class="markup--em markup--p-em">MusicPlayer</em> class
+              </p>
+              <pre
+                name="fd49"
+                id="fd49"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">TVSeriesView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">@ObservedObject</strong> <strong class="markup--strong markup--pre-strong">var</strong> player: <strong class="markup--strong markup--pre-strong">MusicPlayer</strong><br>    <strong class="markup--strong markup--pre-strong">let</strong> episodes: [<strong class="markup--strong markup--pre-strong">Episode</strong>]<br><br>    <strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">List</strong> {<br>            <strong class="markup--strong markup--pre-strong">Button</strong>(<br>                action: {<br>                    <strong class="markup--strong markup--pre-strong">if</strong> <strong class="markup--strong markup--pre-strong">self.</strong>player<strong class="markup--strong markup--pre-strong">.</strong>isPlaying {<br>                        <strong class="markup--strong markup--pre-strong">self.</strong>player<strong class="markup--strong markup--pre-strong">.pause</strong>()<br>                    } <strong class="markup--strong markup--pre-strong">else</strong> {<br>                        <strong class="markup--strong markup--pre-strong">self.</strong>player<strong class="markup--strong markup--pre-strong">.play</strong>()<br>                    }<br>            }, label: {<br>                    <strong class="markup--strong markup--pre-strong">Text</strong>(player<strong class="markup--strong markup--pre-strong">.</strong>isPlaying ? &quot;Pause&quot;: &quot;Play&quot;)<br>                }<br>            )<br>            <strong class="markup--strong markup--pre-strong">ForEach</strong>(episodes) { episode <strong class="markup--strong markup--pre-strong">in</strong><br>                <strong class="markup--strong markup--pre-strong">Text</strong>(episode<strong class="markup--strong markup--pre-strong">.</strong>title)<br>            }<br>        }<br>    }<br>}</code></pre>
+              <h4 name="f0de" id="f0de" class="graf graf--h4 graf-after--pre">
+                @Environment
+              </h4>
+              <p name="e7ef" id="e7ef" class="graf graf--p graf-after--h4">
+                We can pass custom objects into the
+                <em class="markup--em markup--p-em">Environment</em> of a
+                <em class="markup--em markup--p-em">View</em> hierarchy inside
+                <em class="markup--em markup--p-em">SwiftUI</em>. But
+                <em class="markup--em markup--p-em">SwiftUI</em> already has an
+                <em class="markup--em markup--p-em">Environment</em> populated
+                with system-wide settings. We can easily access them with
+                <em class="markup--em markup--p-em"
+                  >@Environment Property Wrapper</em
+                >.
+              </p>
+              <pre
+                name="5a44"
+                id="5a44"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">struct</strong> <strong class="markup--strong markup--pre-strong">MyCalendarView</strong>: <strong class="markup--strong markup--pre-strong">View</strong> {<br>    <strong class="markup--strong markup--pre-strong">@Environment</strong>(\<strong class="markup--strong markup--pre-strong">.</strong>calendar) <strong class="markup--strong markup--pre-strong">var</strong> calendar: <strong class="markup--strong markup--pre-strong">Calendar</strong><br>    <strong class="markup--strong markup--pre-strong">@Environment</strong>(\<strong class="markup--strong markup--pre-strong">.</strong>locale) <strong class="markup--strong markup--pre-strong">var</strong> locale: <strong class="markup--strong markup--pre-strong">Locale</strong><br>    <strong class="markup--strong markup--pre-strong">@Environment</strong>(\<strong class="markup--strong markup--pre-strong">.</strong>colorScheme) <strong class="markup--strong markup--pre-strong">var</strong> colorScheme: <strong class="markup--strong markup--pre-strong">ColorScheme</strong></code></pre>
+              <pre
+                name="3d24"
+                id="3d24"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">var</strong> body: some <strong class="markup--strong markup--pre-strong">View</strong> {<br>        <strong class="markup--strong markup--pre-strong">return</strong> <strong class="markup--strong markup--pre-strong">Text</strong>(locale<strong class="markup--strong markup--pre-strong">.</strong>identifier)<br>    }<br>}</code></pre>
+              <p name="3d47" id="3d47" class="graf graf--p graf-after--pre">
+                By marking our properties with
+                <em class="markup--em markup--p-em"
+                  >@Environment Property Wrapper</em
+                >, we access and subscribe to changes of system-wide settings.
+                As soon as <em class="markup--em markup--p-em">Locale</em>,
+                <em class="markup--em markup--p-em">Calendar</em> or
+                <em class="markup--em markup--p-em">ColorScheme</em> of the
+                system change,
+                <em class="markup--em markup--p-em">SwiftUI</em> recreates our
+                My<em class="markup--em markup--p-em">CalendarView</em>.
+              </p>
+              <!-- <h4 name="111e" id="111e" class="graf graf--h4 graf-after--p">
+                Previous:
+                <a
+                  href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------"
+                  data-href="/ios-expert-series-or-interview-series/property-wrappers-part-i-e18cd71b55ae?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Property Wrappers (Part I)</a
+                >
+              </h4> -->
+              <p name="9659" id="9659" class="graf graf--p graf-after--h4">
+                Hope this article is useful for iOS developers, Please ❤️ to
+                recommend this post to others 😊. Let me know your feedback. :)
+              </p>
+              <p name="2a0d" id="2a0d" class="graf graf--p graf-after--p">
+                Reference:
+              </p>
+              <ol class="postList">
+                <li name="4dc6" id="4dc6" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md"
+                    data-href="https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md</a
+                  >
+                </li>
+                <li
+                  name="39ef"
+                  id="39ef"
+                  class="graf graf--li graf-after--li graf--trailing"
+                >
+                  <a
+                    href="https://developer.apple.com/documentation/swiftui/environmentobject"
+                    data-href="https://developer.apple.com/documentation/swiftui/environmentobject"
+                    class="markup--anchor markup--li-anchor"
+                    rel="nofollow noopener"
+                    target="_blank"
+                    >https://developer.apple.com/documentation/swiftui</a
+                  >
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/523eee07693b"
+            ><time class="dt-published" datetime="2019-10-13T02:49:40.561Z"
+              >October 13, 2019</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/property-wrappers-part-ii-523eee07693b"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

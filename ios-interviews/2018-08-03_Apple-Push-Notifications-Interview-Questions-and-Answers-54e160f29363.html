@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Apple Push Notifications Interview Questions and Answers</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Apple Push Notifications Interview Questions and Answers</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,341 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Apple Push Notifications Interview Questions and Answers</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Apple Push Notification service
-</section>
-<section data-field="body" class="e-content">
-<section name="623a" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="672e" id="672e" class="graf graf--h3 graf--leading graf--title">Apple Push Notifications Interview Questions and Answers</h3><p name="cf03" id="cf03" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Apple Push Notification</strong> service</p><p name="19f4" id="19f4" class="graf graf--p graf-after--p">In this article, I am going to cover about push notifications like:</p><ol class="postList"><li name="0162" id="0162" class="graf graf--li graf-after--p">What is push payload size in iOS 11 ?</li><li name="17a0" id="17a0" class="graf graf--li graf-after--li">What APNs provides?</li><li name="4818" id="4818" class="graf graf--li graf-after--li">What is push notification?How it works?</li><li name="3399" id="3399" class="graf graf--li graf-after--li"><a href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-user-notifications-a844897c7a7" data-href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-user-notifications-a844897c7a7" class="markup--anchor markup--li-anchor" target="_blank"><strong class="markup--strong markup--li-strong">What is the biggest changes in UserNotifications(Click &amp; See)</strong></a></li></ol><h3 name="e4db" id="e4db" class="graf graf--h3 graf-after--li">Push Payload Size</h3><p name="7c91" id="7c91" class="graf graf--p graf-after--h3">When using the HTTP/2 based APNS provider API, the maximum size for your JSON dictionary is 4KB. For legacy APIs, the payload size is smaller.</p><ul class="postList"><li name="e94e" id="e94e" class="graf graf--li graf-after--p">For regular remote notifications, the maximum size is <strong class="markup--strong markup--li-strong">4KB</strong> (4096 bytes)</li><li name="704d" id="704d" class="graf graf--li graf-after--li">For Voice over Internet Protocol (VoIP) notifications, the maximum size is <strong class="markup--strong markup--li-strong">5KB</strong> (5120 bytes)</li></ul><p name="768c" id="768c" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">NOTE</strong></p><p name="ddeb" id="ddeb" class="graf graf--p graf-after--p">If you are using the legacy APNs binary interface to send notifications instead of an HTTP/2 request, the maximum payload size is 2KB (2048 bytes)</p><p name="c99b" id="c99b" class="graf graf--p graf-after--p">APNs refuses notifications whose payload exceeds the maximum allowed size.</p><h3 name="a864" id="a864" class="graf graf--h3 graf-after--p">What APNs Provides</h3><p name="6626" id="6626" class="graf graf--p graf-after--h3">APNs makes every effort to deliver your notifications, and to deliver them with the best user experience:</p><ul class="postList"><li name="a04b" id="a04b" class="graf graf--li graf-after--p">APNs manages an accredited, encrypted, and persistent IP connection to the user’s device.</li><li name="8676" id="8676" class="graf graf--li graf-after--li">APNs can store and forward notifications for a device that is currently offline.</li><li name="b18c" id="b18c" class="graf graf--li graf-after--li">APNs coalesces notifications with the same identifier.</li></ul><h3 name="6ce6" id="6ce6" class="graf graf--h3 graf-after--li">What is push notification?How it works?</h3><p name="2b91" id="2b91" class="graf graf--p graf-after--h3">Assuming your app is push enabled and certificate has been shared to provider.</p><figure name="ea80" id="ea80" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*yMVjbwG_0fmiMKCXwK9fEA.jpeg" data-width="602" data-height="643" src="https://cdn-images-1.medium.com/max/800/1*yMVjbwG_0fmiMKCXwK9fEA.jpeg"></figure><h4 name="c96b" id="c96b" class="graf graf--h4 graf-after--figure">1. Registering Your App with APNs</h4><p name="5498" id="5498" class="graf graf--p graf-after--h4">Communicate with APNs and receive a unique device token that identifies your app.</p><p name="8cdb" id="8cdb" class="graf graf--p graf-after--p">You register your app and receive your device token each time your app launches using Apple-provided APIs. The registration process is similar across platforms:</p><ul class="postList"><li name="28e5" id="28e5" class="graf graf--li graf-after--p">In iOS and tvOS, call the <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiapplication/1623078-registerforremotenotifications" data-href="https://developer.apple.com/documentation/uikit/uiapplication/1623078-registerforremotenotifications" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">registerForRemoteNotifications()</a></code> method of <code class="markup--code markup--li-code">UIApplication</code> to request the device token. Upon successful registration, you receive the token in your app delegate’s <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622958-application" data-href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622958-application" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</a></code> method.</li><li name="95e2" id="95e2" class="graf graf--li graf-after--li">In macOS, call the <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/appkit/nsapplication/1428476-registerforremotenotifications" data-href="https://developer.apple.com/documentation/appkit/nsapplication/1428476-registerforremotenotifications" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">registerForRemoteNotifications(matching:)</a></code> method of <code class="markup--code markup--li-code">NSApplication</code> to request the device token. Upon successful registration, you receive the token in your app delegate’s <code class="markup--code markup--li-code"><a href="https://developer.apple.com/documentation/appkit/nsapplicationdelegate/1428766-application" data-href="https://developer.apple.com/documentation/appkit/nsapplicationdelegate/1428766-application" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</a></code> method.</li></ul><h4 name="9d33" id="9d33" class="graf graf--h4 graf-after--li">2. Forward Tokens to Your Provider Server</h4><p name="379f" id="379f" class="graf graf--p graf-after--h4">Upon receiving a device token, open a network connection from your app to your provider server. Securely forward the device token and any other information you need to identify the specific user to your server.</p><h4 name="b8fa" id="b8fa" class="graf graf--h4 graf-after--p">3. Request Authorization at Launch Time</h4><pre name="f77a" id="f77a" class="graf graf--pre graf-after--h4"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">let center = UNUserNotificationCenter.current()<br><strong class="markup--strong markup--pre-strong">// Request permission to display alerts and play sounds.</strong><br>center.requestAuthorization(options: [.alert, .sound]) <br>   { (granted, error) in<br>      // Enable or disable features based on authorization.<br>   }</code></pre><h4 name="73b1" id="73b1" class="graf graf--h4 graf-after--pre">4. Configure Notification Support Based on Authorized Interactions</h4><pre name="75b8" id="75b8" class="graf graf--pre graf-after--h4"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">let notificationCenter = UNUserNotificationCenter.current()<br>        <br>notificationCenter.getNotificationSettings { (settings) in<br>   <strong class="markup--strong markup--pre-strong">// Do not schedule notifications if not authorized.</strong><br>   guard settings.authorizationStatus == .authorized else {return}</code></pre><pre name="a3f0" id="a3f0" class="graf graf--pre graf-after--pre"><code class="markup--code markup--pre-code">   if settings.alertSetting == .enabled {         <br>      // Schedule an notification.<br>   }<br>   else {<br>      // Schedule a notification with a badge and sound.<br>   }<br>}</code></pre><h4 name="8af8" id="8af8" class="graf graf--h4 graf-after--pre">5. Declaring Your Actionable Notification Types</h4><p name="2c6c" id="2c6c" class="graf graf--p graf-after--h4">Differentiate your notifications and add action buttons to the notification interface.</p><figure name="43d2" id="43d2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*Sj-nSvNMaBQPQuQZug6E2w.png" data-width="742" data-height="462" src="https://cdn-images-1.medium.com/max/800/1*Sj-nSvNMaBQPQuQZug6E2w.png"></figure><figure name="5255" id="5255" class="graf graf--figure graf-after--figure"><img class="graf-image" data-image-id="1*Ds9Eqvt60d2NiqHDIBZIbA.png" data-width="406" data-height="800" src="https://cdn-images-1.medium.com/max/800/1*Ds9Eqvt60d2NiqHDIBZIbA.png"></figure><pre name="6624" id="6624" class="graf graf--pre graf-after--figure"><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">//HANDLE ACTION EVENT</strong><br>func userNotificationCenter(_ center: UNUserNotificationCenter,<br>       didReceive response: UNNotificationResponse,<br>       withCompletionHandler completionHandler: <br>         @escaping () -&gt; Void) {<br>}</code></pre><h4 name="3d7c" id="3d7c" class="graf graf--h4 graf-after--pre">6. Modifying Content in Newly Delivered Notifications</h4><p name="4043" id="4043" class="graf graf--p graf-after--h4">Modify the payload of a remote notification before it’s displayed on the user’s iOS device.</p><p name="3906" id="3906" class="graf graf--p graf-after--p">Notification service app extensions only operate on remote notifications that are configured to display an alert to the user. If alerts are disabled for your app, or if the payload specifies only the playing of a sound or the badging of an icon, the extension is not employed.</p><p name="bdf0" id="bdf0" class="graf graf--p graf-after--p graf--trailing">Hope you like this article , Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/54e160f29363"><time class="dt-published" datetime="2018-08-03T18:56:47.996Z">August 3, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/apple-push-notifications-interview-questions-and-answers-54e160f29363" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Apple Push Notifications Interview Questions and Answers
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Apple Push Notification service
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="623a"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="672e"
+                id="672e"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Apple Push Notifications Interview Questions and Answers
+              </h3>
+              <p name="cf03" id="cf03" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Apple Push Notification</strong
+                >
+                service
+              </p>
+              <p name="19f4" id="19f4" class="graf graf--p graf-after--p">
+                In this article, I am going to cover about push notifications
+                like:
+              </p>
+              <ol class="postList">
+                <li name="0162" id="0162" class="graf graf--li graf-after--p">
+                  What is push payload size in iOS 11 ?
+                </li>
+                <li name="17a0" id="17a0" class="graf graf--li graf-after--li">
+                  What APNs provides?
+                </li>
+                <li name="4818" id="4818" class="graf graf--li graf-after--li">
+                  What is push notification?How it works?
+                </li>
+                <!-- <li name="3399" id="3399" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-user-notifications-a844897c7a7"
+                    data-href="https://medium.com/ios-expert-series-or-interview-series/whats-new-in-user-notifications-a844897c7a7"
+                    class="markup--anchor markup--li-anchor"
+                    target="_blank"
+                    ><strong class="markup--strong markup--li-strong"
+                      >What is the biggest changes in UserNotifications(Click
+                      &amp; See)</strong
+                    ></a
+                  >
+                </li> -->
+              </ol>
+              <h3 name="e4db" id="e4db" class="graf graf--h3 graf-after--li">
+                Push Payload Size
+              </h3>
+              <p name="7c91" id="7c91" class="graf graf--p graf-after--h3">
+                When using the HTTP/2 based APNS provider API, the maximum size
+                for your JSON dictionary is 4KB. For legacy APIs, the payload
+                size is smaller.
+              </p>
+              <ul class="postList">
+                <li name="e94e" id="e94e" class="graf graf--li graf-after--p">
+                  For regular remote notifications, the maximum size is
+                  <strong class="markup--strong markup--li-strong">4KB</strong>
+                  (4096 bytes)
+                </li>
+                <li name="704d" id="704d" class="graf graf--li graf-after--li">
+                  For Voice over Internet Protocol (VoIP) notifications, the
+                  maximum size is
+                  <strong class="markup--strong markup--li-strong">5KB</strong>
+                  (5120 bytes)
+                </li>
+              </ul>
+              <p name="768c" id="768c" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong">NOTE</strong>
+              </p>
+              <p name="ddeb" id="ddeb" class="graf graf--p graf-after--p">
+                If you are using the legacy APNs binary interface to send
+                notifications instead of an HTTP/2 request, the maximum payload
+                size is 2KB (2048 bytes)
+              </p>
+              <p name="c99b" id="c99b" class="graf graf--p graf-after--p">
+                APNs refuses notifications whose payload exceeds the maximum
+                allowed size.
+              </p>
+              <h3 name="a864" id="a864" class="graf graf--h3 graf-after--p">
+                What APNs Provides
+              </h3>
+              <p name="6626" id="6626" class="graf graf--p graf-after--h3">
+                APNs makes every effort to deliver your notifications, and to
+                deliver them with the best user experience:
+              </p>
+              <ul class="postList">
+                <li name="a04b" id="a04b" class="graf graf--li graf-after--p">
+                  APNs manages an accredited, encrypted, and persistent IP
+                  connection to the user’s device.
+                </li>
+                <li name="8676" id="8676" class="graf graf--li graf-after--li">
+                  APNs can store and forward notifications for a device that is
+                  currently offline.
+                </li>
+                <li name="b18c" id="b18c" class="graf graf--li graf-after--li">
+                  APNs coalesces notifications with the same identifier.
+                </li>
+              </ul>
+              <h3 name="6ce6" id="6ce6" class="graf graf--h3 graf-after--li">
+                What is push notification?How it works?
+              </h3>
+              <p name="2b91" id="2b91" class="graf graf--p graf-after--h3">
+                Assuming your app is push enabled and certificate has been
+                shared to provider.
+              </p>
+              <figure
+                name="ea80"
+                id="ea80"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*yMVjbwG_0fmiMKCXwK9fEA.jpeg"
+                  data-width="602"
+                  data-height="643"
+                  src="https://cdn-images-1.medium.com/max/800/1*yMVjbwG_0fmiMKCXwK9fEA.jpeg"
+                />
+              </figure>
+              <h4
+                name="c96b"
+                id="c96b"
+                class="graf graf--h4 graf-after--figure"
+              >
+                1. Registering Your App with APNs
+              </h4>
+              <p name="5498" id="5498" class="graf graf--p graf-after--h4">
+                Communicate with APNs and receive a unique device token that
+                identifies your app.
+              </p>
+              <p name="8cdb" id="8cdb" class="graf graf--p graf-after--p">
+                You register your app and receive your device token each time
+                your app launches using Apple-provided APIs. The registration
+                process is similar across platforms:
+              </p>
+              <ul class="postList">
+                <li name="28e5" id="28e5" class="graf graf--li graf-after--p">
+                  In iOS and tvOS, call the
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/uikit/uiapplication/1623078-registerforremotenotifications"
+                      data-href="https://developer.apple.com/documentation/uikit/uiapplication/1623078-registerforremotenotifications"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >registerForRemoteNotifications()</a
+                    ></code
+                  >
+                  method of
+                  <code class="markup--code markup--li-code"
+                    >UIApplication</code
+                  >
+                  to request the device token. Upon successful registration, you
+                  receive the token in your app delegate’s
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622958-application"
+                      data-href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622958-application"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</a
+                    ></code
+                  >
+                  method.
+                </li>
+                <li name="95e2" id="95e2" class="graf graf--li graf-after--li">
+                  In macOS, call the
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/appkit/nsapplication/1428476-registerforremotenotifications"
+                      data-href="https://developer.apple.com/documentation/appkit/nsapplication/1428476-registerforremotenotifications"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >registerForRemoteNotifications(matching:)</a
+                    ></code
+                  >
+                  method of
+                  <code class="markup--code markup--li-code"
+                    >NSApplication</code
+                  >
+                  to request the device token. Upon successful registration, you
+                  receive the token in your app delegate’s
+                  <code class="markup--code markup--li-code"
+                    ><a
+                      href="https://developer.apple.com/documentation/appkit/nsapplicationdelegate/1428766-application"
+                      data-href="https://developer.apple.com/documentation/appkit/nsapplicationdelegate/1428766-application"
+                      class="markup--anchor markup--li-anchor"
+                      rel="noopener"
+                      target="_blank"
+                      >application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</a
+                    ></code
+                  >
+                  method.
+                </li>
+              </ul>
+              <h4 name="9d33" id="9d33" class="graf graf--h4 graf-after--li">
+                2. Forward Tokens to Your Provider Server
+              </h4>
+              <p name="379f" id="379f" class="graf graf--p graf-after--h4">
+                Upon receiving a device token, open a network connection from
+                your app to your provider server. Securely forward the device
+                token and any other information you need to identify the
+                specific user to your server.
+              </p>
+              <h4 name="b8fa" id="b8fa" class="graf graf--h4 graf-after--p">
+                3. Request Authorization at Launch Time
+              </h4>
+              <pre
+                name="f77a"
+                id="f77a"
+                class="graf graf--pre graf-after--h4"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">let center = UNUserNotificationCenter.current()<br><strong class="markup--strong markup--pre-strong">// Request permission to display alerts and play sounds.</strong><br>center.requestAuthorization(options: [.alert, .sound]) <br>   { (granted, error) in<br>      // Enable or disable features based on authorization.<br>   }</code></pre>
+              <h4 name="73b1" id="73b1" class="graf graf--h4 graf-after--pre">
+                4. Configure Notification Support Based on Authorized
+                Interactions
+              </h4>
+              <pre
+                name="75b8"
+                id="75b8"
+                class="graf graf--pre graf-after--h4"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0">let notificationCenter = UNUserNotificationCenter.current()<br>        <br>notificationCenter.getNotificationSettings { (settings) in<br>   <strong class="markup--strong markup--pre-strong">// Do not schedule notifications if not authorized.</strong><br>   guard settings.authorizationStatus == .authorized else {return}</code></pre>
+              <pre
+                name="a3f0"
+                id="a3f0"
+                class="graf graf--pre graf-after--pre"
+              ><code class="markup--code markup--pre-code">   if settings.alertSetting == .enabled {         <br>      // Schedule an notification.<br>   }<br>   else {<br>      // Schedule a notification with a badge and sound.<br>   }<br>}</code></pre>
+              <h4 name="8af8" id="8af8" class="graf graf--h4 graf-after--pre">
+                5. Declaring Your Actionable Notification Types
+              </h4>
+              <p name="2c6c" id="2c6c" class="graf graf--p graf-after--h4">
+                Differentiate your notifications and add action buttons to the
+                notification interface.
+              </p>
+              <figure
+                name="43d2"
+                id="43d2"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Sj-nSvNMaBQPQuQZug6E2w.png"
+                  data-width="742"
+                  data-height="462"
+                  src="https://cdn-images-1.medium.com/max/800/1*Sj-nSvNMaBQPQuQZug6E2w.png"
+                />
+              </figure>
+              <figure
+                name="5255"
+                id="5255"
+                class="graf graf--figure graf-after--figure"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Ds9Eqvt60d2NiqHDIBZIbA.png"
+                  data-width="406"
+                  data-height="800"
+                  src="https://cdn-images-1.medium.com/max/800/1*Ds9Eqvt60d2NiqHDIBZIbA.png"
+                />
+              </figure>
+              <pre
+                name="6624"
+                id="6624"
+                class="graf graf--pre graf-after--figure"
+              ><code class="markup--code markup--pre-code u-paddingRight0 u-marginRight0"><strong class="markup--strong markup--pre-strong">//HANDLE ACTION EVENT</strong><br>func userNotificationCenter(_ center: UNUserNotificationCenter,<br>       didReceive response: UNNotificationResponse,<br>       withCompletionHandler completionHandler: <br>         @escaping () -&gt; Void) {<br>}</code></pre>
+              <h4 name="3d7c" id="3d7c" class="graf graf--h4 graf-after--pre">
+                6. Modifying Content in Newly Delivered Notifications
+              </h4>
+              <p name="4043" id="4043" class="graf graf--p graf-after--h4">
+                Modify the payload of a remote notification before it’s
+                displayed on the user’s iOS device.
+              </p>
+              <p name="3906" id="3906" class="graf graf--p graf-after--p">
+                Notification service app extensions only operate on remote
+                notifications that are configured to display an alert to the
+                user. If alerts are disabled for your app, or if the payload
+                specifies only the playing of a sound or the badging of an icon,
+                the extension is not employed.
+              </p>
+              <p
+                name="bdf0"
+                id="bdf0"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope you like this article , Please ❤️ to recommend this post to
+                others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/54e160f29363"
+            ><time class="dt-published" datetime="2018-08-03T18:56:47.996Z"
+              >August 3, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/apple-push-notifications-interview-questions-and-answers-54e160f29363"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

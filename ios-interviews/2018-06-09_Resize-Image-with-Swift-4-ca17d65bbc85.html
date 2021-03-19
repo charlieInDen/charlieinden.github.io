@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Resize Image with Swift 4</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Resize Image with Swift 4</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,258 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Resize Image with Swift 4</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-How do you resize an image in iOS?
-</section>
-<section data-field="body" class="e-content">
-<section name="47bc" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="7dbe" id="7dbe" class="graf graf--h3 graf--leading graf--title">Resize Image with Swift 4</h3><p name="a347" id="a347" class="graf graf--p graf-after--h3">How do you resize an image in iOS?</p><p name="0e10" id="0e10" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Resizing a photo to a new UIImage:</strong> Why to read this new blog ?</p><p name="12d4" id="12d4" class="graf graf--p graf-after--p">As lots of blog exists with lots of sample code using UIKit, CoreGraphics and CoreImage frameworks. Most of the iOS developer has seen that code and may be used that code in their project but only some of the developers are able to pick that <strong class="markup--strong markup--p-strong">image quality varies with all these frameworks</strong>.</p><p name="8527" id="8527" class="graf graf--p graf-after--p">Let’s explore a new way to resize image with better picture quality, Are you ready?</p><p name="9a72" id="9a72" class="graf graf--p graf-after--p">Let’s use <strong class="markup--strong markup--p-strong">Accelerate framework.</strong></p><h4 name="0350" id="0350" class="graf graf--h4 graf-after--p"><a href="https://developer.apple.com/documentation/accelerate/vimage?language=objc" data-href="https://developer.apple.com/documentation/accelerate/vimage?language=objc" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--h4-strong">vImage</strong></a></h4><p name="a9f1" id="a9f1" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong"><em class="markup--em markup--p-em">Manipulate large images using the CPU’s vector processor.</em></strong> A wide range of image-processing functions, including Core Graphics and Core Video interoperation, format conversion, and image manipulation.</p><pre name="ebad" id="ebad" class="graf graf--pre graf-after--p">import Accelerate<br>extension UIImage{</pre><pre name="a70d" id="a70d" class="graf graf--pre graf-after--pre">    func resizeImageUsingVImage(size:CGSize) -&gt; UIImage? {<br>         let cgImage = self.cgImage!<br>         var format = vImage_CGImageFormat(bitsPerComponent: 8, bitsPerPixel: 32, colorSpace: nil, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue), version: 0, decode: nil, renderingIntent: CGColorRenderingIntent.defaultIntent)<br>         var sourceBuffer = vImage_Buffer()<br>         defer {<br>              free(sourceBuffer.data)<br>         }<br>        var error = vImageBuffer_InitWithCGImage(&amp;sourceBuffer, &amp;format, nil, cgImage, numericCast(kvImageNoFlags))<br>         guard error == kvImageNoError else { return nil }</pre><pre name="5344" id="5344" class="graf graf--pre graf-after--pre">       // create a destination buffer<br>       let scale = self.scale<br>       let destWidth = Int(size.width)<br>       let destHeight = Int(size.height)<br>       let bytesPerPixel = self.cgImage!.bitsPerPixel/8<br>       let destBytesPerRow = destWidth * bytesPerPixel<br>       let destData = UnsafeMutablePointer&lt;UInt8&gt;.allocate(capacity: destHeight * destBytesPerRow)<br>       defer {<br>             destData.deallocate(capacity: destHeight * destBytesPerRow)<br>       }<br>      var destBuffer = vImage_Buffer(data: destData, height: vImagePixelCount(destHeight), width: vImagePixelCount(destWidth), rowBytes: destBytesPerRow)</pre><pre name="ff89" id="ff89" class="graf graf--pre graf-after--pre">    // scale the image<br>     error = vImageScale_ARGB8888(&amp;sourceBuffer, &amp;destBuffer, nil, numericCast(kvImageHighQualityResampling))</pre><pre name="e7f5" id="e7f5" class="graf graf--pre graf-after--pre">     guard error == kvImageNoError else { return nil }</pre><pre name="1eff" id="1eff" class="graf graf--pre graf-after--pre">     // create a CGImage from vImage_Buffer<br>     var destCGImage = vImageCreateCGImageFromBuffer(&amp;destBuffer, &amp;format, nil, nil, numericCast(kvImageNoFlags), &amp;error)?.takeRetainedValue()</pre><pre name="1753" id="1753" class="graf graf--pre graf-after--pre">    guard error == kvImageNoError else { return nil }</pre><pre name="d5c5" id="d5c5" class="graf graf--pre graf-after--pre">    // create a UIImage</pre><pre name="5842" id="5842" class="graf graf--pre graf-after--pre">     let resizedImage = destCGImage.flatMap { UIImage(cgImage: $0, scale: 0.0, orientation: self.imageOrientation) }</pre><pre name="c58d" id="c58d" class="graf graf--pre graf-after--pre">     destCGImage = nil</pre><pre name="4409" id="4409" class="graf graf--pre graf-after--pre">    return resizedImage</pre><pre name="bfe3" id="bfe3" class="graf graf--pre graf-after--pre">    }<br>}</pre><p name="3446" id="3446" class="graf graf--p graf-after--pre">This unpopular or poorly documented little framework packs a very strong punch. The results are astonishing. This produces the best results with perfectly crisp and balanced image. Less blurring compared to CG. Sharper than CG. Not as unnaturally sharp as CI. <br>Don’t believe, Please try with your existing code and make sure you are taking large image and making a thumbnail..you will surely see the difference!!</p><p name="a71b" id="a71b" class="graf graf--p graf-after--p">Here is a quote from the official apple documentation</p><blockquote name="2ebb" id="2ebb" class="graf graf--blockquote graf-after--p">The Lanczos resampling method usually produces better-looking results than simpler approaches such as linear interpolation. However, the Lanczos method can produce ringing effects near regions of high frequency signals (such as line art).</blockquote><p name="95ee" id="95ee" class="graf graf--p graf-after--blockquote"><strong class="markup--strong markup--p-strong">You may be using similar kind of code mentioned below in your project </strong>which can be directly replaced by this method and check the performance, quality of image.</p><p name="4f75" id="4f75" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Core Image:</strong></p><figure name="f00e" id="f00e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*Yb4WC3HGIeZ6sWJTixkl8A.png" data-width="1150" data-height="176" src="https://cdn-images-1.medium.com/max/800/1*Yb4WC3HGIeZ6sWJTixkl8A.png"></figure><p name="f3de" id="f3de" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">UIKit</strong></p><figure name="d9ac" id="d9ac" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*rE8vC_RhsMyCZleehl2b6A.png" data-width="966" data-height="230" src="https://cdn-images-1.medium.com/max/800/1*rE8vC_RhsMyCZleehl2b6A.png"></figure><p name="8029" id="8029" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Core Image</strong></p><figure name="57e2" id="57e2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*KnS7PxmqIr1GLVcDrvgSuQ.png" data-width="1224" data-height="484" src="https://cdn-images-1.medium.com/max/800/1*KnS7PxmqIr1GLVcDrvgSuQ.png"></figure><p name="cd94" id="cd94" class="graf graf--p graf-after--figure">Its time to explore a new technique for image resizing.</p><p name="0bf1" id="0bf1" class="graf graf--p graf-after--p graf--trailing">Hope you like it.</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/ca17d65bbc85"><time class="dt-published" datetime="2018-06-09T02:12:28.645Z">June 9, 2018</time></a>.</p><p><a href="https://medium.com/@nishantnitb/resize-image-with-swift-4-ca17d65bbc85" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Resize Image with Swift 4</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        How do you resize an image in iOS?
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="47bc"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="7dbe"
+                id="7dbe"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Resize Image with Swift 4
+              </h3>
+              <p name="a347" id="a347" class="graf graf--p graf-after--h3">
+                How do you resize an image in iOS?
+              </p>
+              <p name="0e10" id="0e10" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Resizing a photo to a new UIImage:</strong
+                >
+                Why to read this new blog ?
+              </p>
+              <p name="12d4" id="12d4" class="graf graf--p graf-after--p">
+                As lots of blog exists with lots of sample code using UIKit,
+                CoreGraphics and CoreImage frameworks. Most of the iOS developer
+                has seen that code and may be used that code in their project
+                but only some of the developers are able to pick that
+                <strong class="markup--strong markup--p-strong"
+                  >image quality varies with all these frameworks</strong
+                >.
+              </p>
+              <p name="8527" id="8527" class="graf graf--p graf-after--p">
+                Let’s explore a new way to resize image with better picture
+                quality, Are you ready?
+              </p>
+              <p name="9a72" id="9a72" class="graf graf--p graf-after--p">
+                Let’s use
+                <strong class="markup--strong markup--p-strong"
+                  >Accelerate framework.</strong
+                >
+              </p>
+              <h4 name="0350" id="0350" class="graf graf--h4 graf-after--p">
+                <a
+                  href="https://developer.apple.com/documentation/accelerate/vimage?language=objc"
+                  data-href="https://developer.apple.com/documentation/accelerate/vimage?language=objc"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--h4-strong"
+                    >vImage</strong
+                  ></a
+                >
+              </h4>
+              <p name="a9f1" id="a9f1" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong"
+                  ><em class="markup--em markup--p-em"
+                    >Manipulate large images using the CPU’s vector
+                    processor.</em
+                  ></strong
+                >
+                A wide range of image-processing functions, including Core
+                Graphics and Core Video interoperation, format conversion, and
+                image manipulation.
+              </p>
+              <pre
+                name="ebad"
+                id="ebad"
+                class="graf graf--pre graf-after--p"
+              >import Accelerate<br>extension UIImage{</pre>
+              <pre
+                name="a70d"
+                id="a70d"
+                class="graf graf--pre graf-after--pre"
+              >    func resizeImageUsingVImage(size:CGSize) -&gt; UIImage? {<br>         let cgImage = self.cgImage!<br>         var format = vImage_CGImageFormat(bitsPerComponent: 8, bitsPerPixel: 32, colorSpace: nil, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue), version: 0, decode: nil, renderingIntent: CGColorRenderingIntent.defaultIntent)<br>         var sourceBuffer = vImage_Buffer()<br>         defer {<br>              free(sourceBuffer.data)<br>         }<br>        var error = vImageBuffer_InitWithCGImage(&amp;sourceBuffer, &amp;format, nil, cgImage, numericCast(kvImageNoFlags))<br>         guard error == kvImageNoError else { return nil }</pre>
+              <pre
+                name="5344"
+                id="5344"
+                class="graf graf--pre graf-after--pre"
+              >       // create a destination buffer<br>       let scale = self.scale<br>       let destWidth = Int(size.width)<br>       let destHeight = Int(size.height)<br>       let bytesPerPixel = self.cgImage!.bitsPerPixel/8<br>       let destBytesPerRow = destWidth * bytesPerPixel<br>       let destData = UnsafeMutablePointer&lt;UInt8&gt;.allocate(capacity: destHeight * destBytesPerRow)<br>       defer {<br>             destData.deallocate(capacity: destHeight * destBytesPerRow)<br>       }<br>      var destBuffer = vImage_Buffer(data: destData, height: vImagePixelCount(destHeight), width: vImagePixelCount(destWidth), rowBytes: destBytesPerRow)</pre>
+              <pre
+                name="ff89"
+                id="ff89"
+                class="graf graf--pre graf-after--pre"
+              >    // scale the image<br>     error = vImageScale_ARGB8888(&amp;sourceBuffer, &amp;destBuffer, nil, numericCast(kvImageHighQualityResampling))</pre>
+              <pre name="e7f5" id="e7f5" class="graf graf--pre graf-after--pre">
+     guard error == kvImageNoError else { return nil }</pre
+              >
+              <pre
+                name="1eff"
+                id="1eff"
+                class="graf graf--pre graf-after--pre"
+              >     // create a CGImage from vImage_Buffer<br>     var destCGImage = vImageCreateCGImageFromBuffer(&amp;destBuffer, &amp;format, nil, nil, numericCast(kvImageNoFlags), &amp;error)?.takeRetainedValue()</pre>
+              <pre name="1753" id="1753" class="graf graf--pre graf-after--pre">
+    guard error == kvImageNoError else { return nil }</pre
+              >
+              <pre name="d5c5" id="d5c5" class="graf graf--pre graf-after--pre">
+    // create a UIImage</pre
+              >
+              <pre name="5842" id="5842" class="graf graf--pre graf-after--pre">
+     let resizedImage = destCGImage.flatMap { UIImage(cgImage: $0, scale: 0.0, orientation: self.imageOrientation) }</pre
+              >
+              <pre name="c58d" id="c58d" class="graf graf--pre graf-after--pre">
+     destCGImage = nil</pre
+              >
+              <pre name="4409" id="4409" class="graf graf--pre graf-after--pre">
+    return resizedImage</pre
+              >
+              <pre
+                name="bfe3"
+                id="bfe3"
+                class="graf graf--pre graf-after--pre"
+              >    }<br>}</pre>
+              <p name="3446" id="3446" class="graf graf--p graf-after--pre">
+                This unpopular or poorly documented little framework packs a
+                very strong punch. The results are astonishing. This produces
+                the best results with perfectly crisp and balanced image. Less
+                blurring compared to CG. Sharper than CG. Not as unnaturally
+                sharp as CI. <br />Don’t believe, Please try with your existing
+                code and make sure you are taking large image and making a
+                thumbnail..you will surely see the difference!!
+              </p>
+              <p name="a71b" id="a71b" class="graf graf--p graf-after--p">
+                Here is a quote from the official apple documentation
+              </p>
+              <blockquote
+                name="2ebb"
+                id="2ebb"
+                class="graf graf--blockquote graf-after--p"
+              >
+                The Lanczos resampling method usually produces better-looking
+                results than simpler approaches such as linear interpolation.
+                However, the Lanczos method can produce ringing effects near
+                regions of high frequency signals (such as line art).
+              </blockquote>
+              <p
+                name="95ee"
+                id="95ee"
+                class="graf graf--p graf-after--blockquote"
+              >
+                <strong class="markup--strong markup--p-strong"
+                  >You may be using similar kind of code mentioned below in your
+                  project </strong
+                >which can be directly replaced by this method and check the
+                performance, quality of image.
+              </p>
+              <p name="4f75" id="4f75" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Core Image:</strong
+                >
+              </p>
+              <figure
+                name="f00e"
+                id="f00e"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Yb4WC3HGIeZ6sWJTixkl8A.png"
+                  data-width="1150"
+                  data-height="176"
+                  src="https://cdn-images-1.medium.com/max/800/1*Yb4WC3HGIeZ6sWJTixkl8A.png"
+                />
+              </figure>
+              <p name="f3de" id="f3de" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong">UIKit</strong>
+              </p>
+              <figure
+                name="d9ac"
+                id="d9ac"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*rE8vC_RhsMyCZleehl2b6A.png"
+                  data-width="966"
+                  data-height="230"
+                  src="https://cdn-images-1.medium.com/max/800/1*rE8vC_RhsMyCZleehl2b6A.png"
+                />
+              </figure>
+              <p name="8029" id="8029" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Core Image</strong
+                >
+              </p>
+              <figure
+                name="57e2"
+                id="57e2"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*KnS7PxmqIr1GLVcDrvgSuQ.png"
+                  data-width="1224"
+                  data-height="484"
+                  src="https://cdn-images-1.medium.com/max/800/1*KnS7PxmqIr1GLVcDrvgSuQ.png"
+                />
+              </figure>
+              <p name="cd94" id="cd94" class="graf graf--p graf-after--figure">
+                Its time to explore a new technique for image resizing.
+              </p>
+              <p
+                name="0bf1"
+                id="0bf1"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope you like it.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/ca17d65bbc85"
+            ><time class="dt-published" datetime="2018-06-09T02:12:28.645Z"
+              >June 9, 2018</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/resize-image-with-swift-4-ca17d65bbc85"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>
