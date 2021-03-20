@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>5. Maximum size rectangle binary sub-matrix [Google]</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>5. Maximum size rectangle binary sub-matrix [Google]</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,263 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">5. Maximum size rectangle binary sub-matrix [Google]</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Previous Question: 4. Largest Rectangle in Histogram [Facebook]
-</section>
-<section data-field="body" class="e-content">
-<section name="4aa6" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="ca42" id="ca42" class="graf graf--h3 graf--leading graf--title">5. Maximum size rectangle binary sub-matrix [Google]</h3><p name="9c79" id="9c79" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Previous Question</strong>: <a href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6" data-href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">4. Largest Rectangle in Histogram [Facebook]</strong></a></p><p name="697e" id="697e" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next Question: </strong><a href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------" data-href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">6. Min Edit Distance [VMWare]</strong></a></p><p name="acbf" id="acbf" class="graf graf--p graf-after--p">Given a 2D binary matrix filled with <code class="markup--code markup--p-code">0</code>’s and <code class="markup--code markup--p-code">1</code>’s, find the largest rectangle containing <strong class="markup--strong markup--p-strong">all ones</strong> and return its area.</p><figure name="71a8" id="71a8" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*FsvnUCCjltJ5aDh0XlScGg.png" data-width="417" data-height="155" src="https://cdn-images-1.medium.com/max/800/1*FsvnUCCjltJ5aDh0XlScGg.png"><figcaption class="imageCaption">Reference: geeksforgeeks.com</figcaption></figure><p name="f618" id="f618" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Example :</strong></p><pre name="a9e9" id="a9e9" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input</strong> : [[1, 1, 1], [0, 1, 1], [1, 0, 0]]<br><strong class="markup--strong markup--pre-strong">Return</strong>  : 4 </pre><pre name="0202" id="0202" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">Input:</strong><br>[<br>  [1, 0, 1, 0, 0],<br>  [1, 0, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>],<br>  [1, 1, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>],<br>  [1, 0, 0, 1, 0]<br>]<br><strong class="markup--strong markup--pre-strong">Return:</strong> 6</pre><p name="bbca" id="bbca" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">To solve this problem, developers need to understand few concepts:</strong></p><ol class="postList"><li name="86d2" id="86d2" class="graf graf--li graf-after--p">The bruteforce approach is to look at all pairs of (i,j) to (k,l) and check if its filled with 1s. This approach however is O(N<em class="markup--em markup--li-em">N</em>N<em class="markup--em markup--li-em">N</em>N²) = O(N⁶). [ N⁴ ways to choose i,j,k,l and then N² elements in the square ].</li></ol><p name="f037" id="f037" class="graf graf--p graf-after--li">Can you optimize this approach if you had additional space to store results for your previous calculations ? <br>Maybe if you knew the result for (i, j) to (k, l — 1) or (i, j) to (k — 1, l) or both ?</p><p name="0f9e" id="0f9e" class="graf graf--p graf-after--p">We can improve from N⁶ by storing in dp[i][j][k][l] if (i,j) to (k,l) is all filled with 1. <br>dp[i][j[k][l] = 1 iff dp[i][j][k][l-1] = 1 &amp;&amp; dp[i][j][k-1][l] = 1 and matrix[k][l] = 1.</p><p name="d7c5" id="d7c5" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Now we can improve this further</strong>. What if with every (i,j) we stored the length of 1s in the same row i starting from (i,j). <br>Can we move down in the column j from row i and determine the largest rectangle without having to visit all cells ?<br>2. If you notice, laying out max_x[i][j] helps you make histograms in every row. Then the problem becomes of finding the maximum area in histograms ( which we can solve using Stacks and Queues ) in O(n). This would lead to an O(N²) solution. We strongly suggest you to explore the O(N²) solution as well.</p><h4 name="8ac5" id="8ac5" class="graf graf--h4 graf-after--p">Problem: <a href="https://www.interviewbit.com/problems/max-rectangle-in-binary-matrix/" data-href="https://www.interviewbit.com/problems/max-rectangle-in-binary-matrix/" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank">Maximum size rectangle binary sub-matrix with all 1s</a></h4><p name="af30" id="af30" class="graf graf--p graf-after--h4">How to Approach this problem?</p><ul class="postList"><li name="db0e" id="db0e" class="graf graf--li graf-after--p">Brute force solution</li><li name="be5c" id="be5c" class="graf graf--li graf-after--li">Using <a href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6" data-href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6" class="markup--anchor markup--li-anchor" target="_blank">Histogram solution</a></li></ul><figure name="d877" id="d877" class="graf graf--figure graf--iframe graf-after--li"><script src="https://gist.github.com/charlieInDen/fb1ade47b7d4925381bfd1151452e4c4.js.js"></script></figure><p name="c967" id="c967" class="graf graf--p graf-after--figure">Congratulations! You just solved a problem that was asked in interviews at Microsoft , Facebook &amp; Google.</p><p name="21bd" id="21bd" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Previous Question</strong>: <a href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6" data-href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">4. Largest Rectangle in Histogram [Facebook]</strong></a></p><p name="c4e3" id="c4e3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next Question: </strong><a href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------" data-href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">6. Min Edit Distance [VMWare]</strong></a></p><p name="76e0" id="76e0" class="graf graf--p graf-after--p">Thanks for reading this article, keep learning &amp; growing.</p><p name="49f4" id="49f4" class="graf graf--p graf-after--p graf--trailing">Github: <a href="https://github.com/charlieInDen/InterviewQuestions-Swift/" data-href="https://github.com/charlieInDen/InterviewQuestions-Swift/" class="markup--anchor markup--p-anchor" rel="noopener nofollow noopener" target="_blank">https://github.com/charlieInDen/InterviewQuestions-Swift/</a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/819935d32d17"><time class="dt-published" datetime="2020-05-25T06:20:19.163Z">May 25, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/5-maximum-size-rectangle-binary-sub-matrix-google-819935d32d17" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          5. Maximum size rectangle binary sub-matrix [Google]
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Previous Question: 4. Largest Rectangle in Histogram [Facebook]
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="4aa6"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="ca42"
+                id="ca42"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                5. Maximum size rectangle binary sub-matrix [Google]
+              </h3>
+              <!-- <p name="9c79" id="9c79" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous Question</strong
+                >:
+                <a
+                  href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6"
+                  data-href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >4. Largest Rectangle in Histogram [Facebook]</strong
+                  ></a
+                >
+              </p> -->
+              <!-- <p name="697e" id="697e" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Next Question: </strong
+                ><a
+                  href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------"
+                  data-href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >6. Min Edit Distance [VMWare]</strong
+                  ></a
+                >
+              </p> -->
+              <p name="acbf" id="acbf" class="graf graf--p graf-after--p">
+                Given a 2D binary matrix filled with
+                <code class="markup--code markup--p-code">0</code>’s and
+                <code class="markup--code markup--p-code">1</code>’s, find the
+                largest rectangle containing
+                <strong class="markup--strong markup--p-strong"
+                  >all ones</strong
+                >
+                and return its area.
+              </p>
+              <figure
+                name="71a8"
+                id="71a8"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*FsvnUCCjltJ5aDh0XlScGg.png"
+                  data-width="417"
+                  data-height="155"
+                  src="https://cdn-images-1.medium.com/max/800/1*FsvnUCCjltJ5aDh0XlScGg.png"
+                />
+                <figcaption class="imageCaption">
+                  Reference: geeksforgeeks.com
+                </figcaption>
+              </figure>
+              <p name="f618" id="f618" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Example :</strong
+                >
+              </p>
+              <pre
+                name="a9e9"
+                id="a9e9"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input</strong> : [[1, 1, 1], [0, 1, 1], [1, 0, 0]]<br><strong class="markup--strong markup--pre-strong">Return</strong>  : 4 </pre>
+              <pre
+                name="0202"
+                id="0202"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>[<br>  [1, 0, 1, 0, 0],<br>  [1, 0, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>],<br>  [1, 1, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>, <strong class="markup--strong markup--pre-strong">1</strong>],<br>  [1, 0, 0, 1, 0]<br>]<br><strong class="markup--strong markup--pre-strong">Return:</strong> 6</pre>
+              <p name="bbca" id="bbca" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >To solve this problem, developers need to understand few
+                  concepts:</strong
+                >
+              </p>
+              <ol class="postList">
+                <li name="86d2" id="86d2" class="graf graf--li graf-after--p">
+                  The bruteforce approach is to look at all pairs of (i,j) to
+                  (k,l) and check if its filled with 1s. This approach however
+                  is O(N<em class="markup--em markup--li-em">N</em>N<em
+                    class="markup--em markup--li-em"
+                    >N</em
+                  >N²) = O(N⁶). [ N⁴ ways to choose i,j,k,l and then N² elements
+                  in the square ].
+                </li>
+              </ol>
+              <p name="f037" id="f037" class="graf graf--p graf-after--li">
+                Can you optimize this approach if you had additional space to
+                store results for your previous calculations ? <br />Maybe if
+                you knew the result for (i, j) to (k, l — 1) or (i, j) to
+                (k — 1, l) or both ?
+              </p>
+              <p name="0f9e" id="0f9e" class="graf graf--p graf-after--p">
+                We can improve from N⁶ by storing in dp[i][j][k][l] if (i,j) to
+                (k,l) is all filled with 1. <br />dp[i][j[k][l] = 1 iff
+                dp[i][j][k][l-1] = 1 &amp;&amp; dp[i][j][k-1][l] = 1 and
+                matrix[k][l] = 1.
+              </p>
+              <p name="d7c5" id="d7c5" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Now we can improve this further</strong
+                >. What if with every (i,j) we stored the length of 1s in the
+                same row i starting from (i,j). <br />Can we move down in the
+                column j from row i and determine the largest rectangle without
+                having to visit all cells ?<br />2. If you notice, laying out
+                max_x[i][j] helps you make histograms in every row. Then the
+                problem becomes of finding the maximum area in histograms (
+                which we can solve using Stacks and Queues ) in O(n). This would
+                lead to an O(N²) solution. We strongly suggest you to explore
+                the O(N²) solution as well.
+              </p>
+              <h4 name="8ac5" id="8ac5" class="graf graf--h4 graf-after--p">
+                Problem:
+                <a
+                  href="https://www.interviewbit.com/problems/max-rectangle-in-binary-matrix/"
+                  data-href="https://www.interviewbit.com/problems/max-rectangle-in-binary-matrix/"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Maximum size rectangle binary sub-matrix with all 1s</a
+                >
+              </h4>
+              <p name="af30" id="af30" class="graf graf--p graf-after--h4">
+                How to Approach this problem?
+              </p>
+              <!-- <ul class="postList">
+                <li name="db0e" id="db0e" class="graf graf--li graf-after--p">
+                  Brute force solution
+                </li>
+                <li name="be5c" id="be5c" class="graf graf--li graf-after--li">
+                  Using
+                  <a
+                    href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6"
+                    data-href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6"
+                    class="markup--anchor markup--li-anchor"
+                    target="_blank"
+                    >Histogram solution</a
+                  >
+                </li>
+              </ul> -->
+              <figure
+                name="d877"
+                id="d877"
+                class="graf graf--figure graf--iframe graf-after--li"
+              >
+                <script src="https://gist.github.com/charlieInDen/fb1ade47b7d4925381bfd1151452e4c4.js.js"></script>
+              </figure>
+              <p name="c967" id="c967" class="graf graf--p graf-after--figure">
+                Congratulations! You just solved a problem that was asked in
+                interviews at Microsoft , Facebook &amp; Google.
+              </p>
+              <!-- <p name="21bd" id="21bd" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous Question</strong
+                >:
+                <a
+                  href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6"
+                  data-href="https://medium.com/swiftinterview/4-largest-rectangle-in-histogram-facebook-2bcbfff6bfe6"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >4. Largest Rectangle in Histogram [Facebook]</strong
+                  ></a
+                >
+              </p> -->
+              <!-- <p name="c4e3" id="c4e3" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Next Question: </strong
+                ><a
+                  href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------"
+                  data-href="/swiftinterview/6-min-edit-distance-vmware-68171573fdd8?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >6. Min Edit Distance [VMWare]</strong
+                  ></a
+                >
+              </p> -->
+              <p name="76e0" id="76e0" class="graf graf--p graf-after--p">
+                Thanks for reading this article, keep learning &amp; growing.
+              </p>
+              <p
+                name="49f4"
+                id="49f4"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Github:
+                <a
+                  href="https://github.com/charlieInDen/InterviewQuestions-Swift/"
+                  data-href="https://github.com/charlieInDen/InterviewQuestions-Swift/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener nofollow noopener"
+                  target="_blank"
+                  >https://github.com/charlieInDen/InterviewQuestions-Swift/</a
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/819935d32d17"
+            ><time class="dt-published" datetime="2020-05-25T06:20:19.163Z"
+              >May 25, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/5-maximum-size-rectangle-binary-sub-matrix-google-819935d32d17"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

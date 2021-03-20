@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Data Structure: Interview Experience Part 2</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Data Structure: Interview Experience Part 2</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,298 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Data Structure: Interview Experience Part 2</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Previous: Data Structure: Interview Experience Part 1
-</section>
-<section data-field="body" class="e-content">
-<section name="ab79" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="be4e" id="be4e" class="graf graf--h3 graf--leading graf--title">Data Structure: Interview Experience Part 2</h3><p name="9dda" id="9dda" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Previous:</strong> <a href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Data Structure: Interview Experience Part 1</a></p><p name="c991" id="c991" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-3-microsoft-e4b42154f0a5?source=your_stories_page---------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-3-microsoft-e4b42154f0a5?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Data Structure: Interview Experience Part 3 (Microsoft)</strong></a></p><ol class="postList"><li name="da51" id="da51" class="graf graf--li graf-after--p">Write a program to find the <code class="markup--code markup--li-code">n</code>-th ugly number. Ugly numbers are<strong class="markup--strong markup--li-strong"> positive numbers</strong> whose prime factors only include <code class="markup--code markup--li-code">2, 3, 5</code>.<br><strong class="markup--strong markup--li-strong">Example:</strong></li></ol><pre name="2f4d" id="2f4d" class="graf graf--pre graf-after--li"><strong class="markup--strong markup--pre-strong">Input:</strong> n = 10<br><strong class="markup--strong markup--pre-strong">Output:</strong> 12<br><strong class="markup--strong markup--pre-strong">Explanation: </strong><code class="markup--code markup--pre-code">1, 2, 3, 4, 5, 6, 8, 9, 10, 12</code> is the sequence of the first <code class="markup--code markup--pre-code">10</code> ugly numbers.</pre><p name="37a0" id="37a0" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Note:</strong></p><ol class="postList"><li name="cafe" id="cafe" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">1</code> is typically treated as an ugly number.</li><li name="e2a5" id="e2a5" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">n</code> <strong class="markup--strong markup--li-strong">does not exceed 1690</strong>.</li></ol><figure name="815c" id="815c" class="graf graf--figure graf--iframe graf-after--li"><script src="https://gist.github.com/charlieInDen/e2823fdb7bbd7479b1c8de4e4e0b4738.js.js"></script></figure><p name="c8a8" id="c8a8" class="graf graf--p graf-after--figure">2. You have a total of <em class="markup--em markup--p-em">n</em> coins that you want to form in a staircase shape, where every <em class="markup--em markup--p-em">k</em>-th row must have exactly <em class="markup--em markup--p-em">k</em> coins.</p><p name="9bec" id="9bec" class="graf graf--p graf-after--p">Given <em class="markup--em markup--p-em">n</em>, find the total number of <strong class="markup--strong markup--p-strong">full</strong> staircase rows that can be formed.</p><p name="68e6" id="68e6" class="graf graf--p graf-after--p"><em class="markup--em markup--p-em">n</em> is a non-negative integer and fits within the range of a 32-bit signed integer.</p><p name="3e1c" id="3e1c" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example 1:</strong></p><pre name="9b39" id="9b39" class="graf graf--pre graf-after--p">n = 5</pre><pre name="d83c" id="d83c" class="graf graf--pre graf-after--pre">The coins can form the following rows:<br>¤<br>¤ ¤<br>¤ ¤</pre><pre name="d7a8" id="d7a8" class="graf graf--pre graf-after--pre">Because the 3rd row is incomplete, we return 2.</pre><p name="35ea" id="35ea" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 2:</strong></p><pre name="7d10" id="7d10" class="graf graf--pre graf-after--p">n = 8</pre><pre name="1aea" id="1aea" class="graf graf--pre graf-after--pre">The coins can form the following rows:<br>¤<br>¤ ¤<br>¤ ¤ ¤<br>¤ ¤</pre><pre name="aed2" id="aed2" class="graf graf--pre graf-after--pre">Because the 4th row is incomplete, we return 3.</pre><figure name="c4c0" id="c4c0" class="graf graf--figure graf--iframe graf-after--pre"><script src="https://gist.github.com/charlieInDen/23dab150240b9137a194ee11f1d23d32.js.js"></script></figure><p name="c396" id="c396" class="graf graf--p graf-after--figure">3. Given a binary tree, return the <em class="markup--em markup--p-em">bottom-up level order</em> traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root).</p><p name="eb85" id="eb85" class="graf graf--p graf-after--p">For example:<br>Given binary tree <code class="markup--code markup--p-code">[3,9,20,null,null,15,7]</code>,</p><pre name="f350" id="f350" class="graf graf--pre graf-after--p">3<br>   / \<br>  9  20<br>    /  \<br>   15   7</pre><p name="c081" id="c081" class="graf graf--p graf-after--pre">return its bottom-up level order traversal as:</p><pre name="846c" id="846c" class="graf graf--pre graf-after--p">[<br>  [15,7],<br>  [9,20],<br>  [3]<br>]</pre><figure name="f6de" id="f6de" class="graf graf--figure graf--iframe graf-after--pre"><script src="https://gist.github.com/charlieInDen/7d4522731ba0dc0e481c476ed33320b5.js.js"></script></figure><p name="4a2c" id="4a2c" class="graf graf--p graf-after--figure">4. The <a href="https://en.wikipedia.org/wiki/Hamming_distance" data-href="https://en.wikipedia.org/wiki/Hamming_distance" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.</p><p name="13e3" id="13e3" class="graf graf--p graf-after--p">Given two integers <code class="markup--code markup--p-code">x</code> and <code class="markup--code markup--p-code">y</code>, calculate the Hamming distance.</p><p name="74c3" id="74c3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note:</strong><br>0 ≤ <code class="markup--code markup--p-code">x</code>, <code class="markup--code markup--p-code">y</code> &lt; 231.</p><p name="e024" id="e024" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="46a6" id="46a6" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong> x = 1, y = 4</pre><pre name="1412" id="1412" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">Output:</strong> 2</pre><pre name="ef12" id="ef12" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">Explanation:</strong><br>1   (0 0 0 1)<br>4   (0 1 0 0)<br>       ↑   ↑</pre><pre name="f1fd" id="f1fd" class="graf graf--pre graf-after--pre">The above arrows point to positions where the corresponding bits are different.</pre><figure name="6276" id="6276" class="graf graf--figure graf--iframe graf-after--pre"><script src="https://gist.github.com/charlieInDen/6e6b3c21a314f6ab210b53361deeb21f.js.js"></script></figure><p name="ae84" id="ae84" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Previous:</strong> <a href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">Data Structure: Interview Experience Part 1</a></p><p name="9101" id="9101" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to learn and practice Data structure &amp; Algorithm in swift, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/f8252f0d18b5"><time class="dt-published" datetime="2020-07-18T10:02:38.040Z">July 18, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-2-f8252f0d18b5" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Data Structure: Interview Experience Part 2</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Previous: Data Structure: Interview Experience Part 1
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="ab79"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="be4e"
+                id="be4e"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Data Structure: Interview Experience Part 2
+              </h3>
+              <!-- <p name="9dda" id="9dda" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous:</strong
+                >
+                <a
+                  href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------"
+                  data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Data Structure: Interview Experience Part 1</a
+                >
+              </p> -->
+              <!-- <p name="c991" id="c991" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Next: </strong
+                ><a
+                  href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-3-microsoft-e4b42154f0a5?source=your_stories_page---------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-3-microsoft-e4b42154f0a5?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Data Structure: Interview Experience Part 3
+                    (Microsoft)</strong
+                  ></a
+                >
+              </p> -->
+              <ol class="postList">
+                <li name="da51" id="da51" class="graf graf--li graf-after--p">
+                  Write a program to find the
+                  <code class="markup--code markup--li-code">n</code>-th ugly
+                  number. Ugly numbers are<strong
+                    class="markup--strong markup--li-strong"
+                  >
+                    positive numbers</strong
+                  >
+                  whose prime factors only include
+                  <code class="markup--code markup--li-code">2, 3, 5</code
+                  >.<br /><strong class="markup--strong markup--li-strong"
+                    >Example:</strong
+                  >
+                </li>
+              </ol>
+              <pre
+                name="2f4d"
+                id="2f4d"
+                class="graf graf--pre graf-after--li"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> n = 10<br><strong class="markup--strong markup--pre-strong">Output:</strong> 12<br><strong class="markup--strong markup--pre-strong">Explanation: </strong><code class="markup--code markup--pre-code">1, 2, 3, 4, 5, 6, 8, 9, 10, 12</code> is the sequence of the first <code class="markup--code markup--pre-code">10</code> ugly numbers.</pre>
+              <p name="37a0" id="37a0" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong">Note:</strong>
+              </p>
+              <ol class="postList">
+                <li name="cafe" id="cafe" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code">1</code> is
+                  typically treated as an ugly number.
+                </li>
+                <li name="e2a5" id="e2a5" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">n</code>
+                  <strong class="markup--strong markup--li-strong"
+                    >does not exceed 1690</strong
+                  >.
+                </li>
+              </ol>
+              <figure
+                name="815c"
+                id="815c"
+                class="graf graf--figure graf--iframe graf-after--li"
+              >
+                <script src="https://gist.github.com/charlieInDen/e2823fdb7bbd7479b1c8de4e4e0b4738.js.js"></script>
+              </figure>
+              <p name="c8a8" id="c8a8" class="graf graf--p graf-after--figure">
+                2. You have a total of
+                <em class="markup--em markup--p-em">n</em> coins that you want
+                to form in a staircase shape, where every
+                <em class="markup--em markup--p-em">k</em>-th row must have
+                exactly <em class="markup--em markup--p-em">k</em> coins.
+              </p>
+              <p name="9bec" id="9bec" class="graf graf--p graf-after--p">
+                Given <em class="markup--em markup--p-em">n</em>, find the total
+                number of
+                <strong class="markup--strong markup--p-strong">full</strong>
+                staircase rows that can be formed.
+              </p>
+              <p name="68e6" id="68e6" class="graf graf--p graf-after--p">
+                <em class="markup--em markup--p-em">n</em> is a non-negative
+                integer and fits within the range of a 32-bit signed integer.
+              </p>
+              <p name="3e1c" id="3e1c" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 1:</strong
+                >
+              </p>
+              <pre name="9b39" id="9b39" class="graf graf--pre graf-after--p">
+n = 5</pre
+              >
+              <pre
+                name="d83c"
+                id="d83c"
+                class="graf graf--pre graf-after--pre"
+              >The coins can form the following rows:<br>¤<br>¤ ¤<br>¤ ¤</pre>
+              <pre name="d7a8" id="d7a8" class="graf graf--pre graf-after--pre">
+Because the 3rd row is incomplete, we return 2.</pre
+              >
+              <p name="35ea" id="35ea" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 2:</strong
+                >
+              </p>
+              <pre name="7d10" id="7d10" class="graf graf--pre graf-after--p">
+n = 8</pre
+              >
+              <pre
+                name="1aea"
+                id="1aea"
+                class="graf graf--pre graf-after--pre"
+              >The coins can form the following rows:<br>¤<br>¤ ¤<br>¤ ¤ ¤<br>¤ ¤</pre>
+              <pre name="aed2" id="aed2" class="graf graf--pre graf-after--pre">
+Because the 4th row is incomplete, we return 3.</pre
+              >
+              <figure
+                name="c4c0"
+                id="c4c0"
+                class="graf graf--figure graf--iframe graf-after--pre"
+              >
+                <script src="https://gist.github.com/charlieInDen/23dab150240b9137a194ee11f1d23d32.js.js"></script>
+              </figure>
+              <p name="c396" id="c396" class="graf graf--p graf-after--figure">
+                3. Given a binary tree, return the
+                <em class="markup--em markup--p-em">bottom-up level order</em>
+                traversal of its nodes’ values. (ie, from left to right, level
+                by level from leaf to root).
+              </p>
+              <p name="eb85" id="eb85" class="graf graf--p graf-after--p">
+                For example:<br />Given binary tree
+                <code class="markup--code markup--p-code"
+                  >[3,9,20,null,null,15,7]</code
+                >,
+              </p>
+              <pre
+                name="f350"
+                id="f350"
+                class="graf graf--pre graf-after--p"
+              >3<br>   / \<br>  9  20<br>    /  \<br>   15   7</pre>
+              <p name="c081" id="c081" class="graf graf--p graf-after--pre">
+                return its bottom-up level order traversal as:
+              </p>
+              <pre
+                name="846c"
+                id="846c"
+                class="graf graf--pre graf-after--p"
+              >[<br>  [15,7],<br>  [9,20],<br>  [3]<br>]</pre>
+              <figure
+                name="f6de"
+                id="f6de"
+                class="graf graf--figure graf--iframe graf-after--pre"
+              >
+                <script src="https://gist.github.com/charlieInDen/7d4522731ba0dc0e481c476ed33320b5.js.js"></script>
+              </figure>
+              <p name="4a2c" id="4a2c" class="graf graf--p graf-after--figure">
+                4. The
+                <a
+                  href="https://en.wikipedia.org/wiki/Hamming_distance"
+                  data-href="https://en.wikipedia.org/wiki/Hamming_distance"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Hamming distance</a
+                >
+                between two integers is the number of positions at which the
+                corresponding bits are different.
+              </p>
+              <p name="13e3" id="13e3" class="graf graf--p graf-after--p">
+                Given two integers
+                <code class="markup--code markup--p-code">x</code> and
+                <code class="markup--code markup--p-code">y</code>, calculate
+                the Hamming distance.
+              </p>
+              <p name="74c3" id="74c3" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note:</strong
+                ><br />0 ≤ <code class="markup--code markup--p-code">x</code>,
+                <code class="markup--code markup--p-code">y</code> &lt; 231.
+              </p>
+              <p name="e024" id="e024" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="46a6"
+                id="46a6"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> x = 1, y = 4</pre>
+              <pre
+                name="1412"
+                id="1412"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong">Output:</strong> 2</pre>
+              <pre
+                name="ef12"
+                id="ef12"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong">Explanation:</strong><br>1   (0 0 0 1)<br>4   (0 1 0 0)<br>       ↑   ↑</pre>
+              <pre name="f1fd" id="f1fd" class="graf graf--pre graf-after--pre">
+The above arrows point to positions where the corresponding bits are different.</pre
+              >
+              <figure
+                name="6276"
+                id="6276"
+                class="graf graf--figure graf--iframe graf-after--pre"
+              >
+                <script src="https://gist.github.com/charlieInDen/6e6b3c21a314f6ab210b53361deeb21f.js.js"></script>
+              </figure>
+              <!-- <p name="ae84" id="ae84" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous:</strong
+                >
+                <a
+                  href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------"
+                  data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-1-d3c87eba01d7?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  >Data Structure: Interview Experience Part 1</a
+                >
+              </p> -->
+              <p
+                name="9101"
+                id="9101"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people looking to learn and
+                practice Data structure &amp; Algorithm in swift, Please ❤️ to
+                recommend this post to others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/f8252f0d18b5"
+            ><time class="dt-published" datetime="2020-07-18T10:02:38.040Z"
+              >July 18, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-2-f8252f0d18b5"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

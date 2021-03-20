@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>2. Count Visible Nodes in Binary Tree[Microsoft]</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>2. Count Visible Nodes in Binary Tree[Microsoft]</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,247 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">2. Count Visible Nodes in Binary Tree[Microsoft]</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Previous Question: All Nodes Distance K in Binary Tree[Microsoft]
-</section>
-<section data-field="body" class="e-content">
-<section name="69c4" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="66af" id="66af" class="graf graf--h3 graf--leading graf--title">2. Count Visible Nodes in Binary Tree[Microsoft]</h3><p name="84df" id="84df" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Previous Question: </strong><a href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c" data-href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">All Nodes Distance K in Binary Tree[Microsoft]</strong></a></p><p name="3879" id="3879" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Next Question: </strong><a href="/swiftinterview/3-majority-element-amazon-749073a3a5b9?source=your_stories_page---------------------------" data-href="/swiftinterview/3-majority-element-amazon-749073a3a5b9?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">3. Majority Element[Amazon]</strong></a></p><p name="76f6" id="76f6" class="graf graf--p graf-after--p">In a binary tree, if in the path from root to the node <code class="markup--code markup--p-code">A</code>, there is no node with greater value than <code class="markup--code markup--p-code">A</code>’s, this node <code class="markup--code markup--p-code">A</code> is visible. We need to count the number of visible nodes in a binary tree.</p><figure name="6cb8" id="6cb8" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*CJFHVyawkegrFnwXPbDb8A.png" data-width="1020" data-height="982" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*CJFHVyawkegrFnwXPbDb8A.png"></figure><p name="cc88" id="cc88" class="graf graf--p graf-after--figure">To solve this problem, developers need to understand few concepts:</p><ul class="postList"><li name="31b9" id="31b9" class="graf graf--li graf-after--p"><a href="https://en.wikipedia.org/wiki/Binary_tree" data-href="https://en.wikipedia.org/wiki/Binary_tree" class="markup--anchor markup--li-anchor" rel="noopener nofollow noopener" target="_blank">Binary Tree</a></li><li name="5bb0" id="5bb0" class="graf graf--li graf-after--li"><a href="https://en.wikipedia.org/wiki/Depth-first_search" data-href="https://en.wikipedia.org/wiki/Depth-first_search" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">DFS</a></li><li name="9790" id="9790" class="graf graf--li graf-after--li"><a href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29" data-href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)" class="markup--anchor markup--li-anchor" rel="noopener nofollow noopener" target="_blank">Stack</a></li></ul><p name="2ba8" id="2ba8" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">How to Approach this problem?</strong></p><ul class="postList"><li name="627b" id="627b" class="graf graf--li graf-after--p">Recursive solution</li><li name="ab0e" id="ab0e" class="graf graf--li graf-after--li">Iterative solution</li></ul><p name="ba81" id="ba81" class="graf graf--p graf-after--li">We will see the iterative solution in this article, as making it into recursion will be easy once iterative solution is clear.</p><p name="041e" id="041e" class="graf graf--p graf-after--p">While traversing the tree, we need to keep the track of the maximum value of the node that we have seen so far. If the current node is greater or equal to the max value, then increment the count of the visible node and update the max value with the current node value.</p><ol class="postList"><li name="8350" id="8350" class="graf graf--li graf-after--p">Assume you have given a tree node</li></ol><figure name="1933" id="1933" class="graf graf--figure graf--iframe graf-after--li"><script src="https://gist.github.com/charlieInDen/f4d3102c74f723e415dd0bc3fce29466.js.js"></script></figure><p name="6785" id="6785" class="graf graf--p graf-after--figure">2. Create a method with responsibility to iterate in DFS and keep max value in stack for DFS.</p><figure name="38d0" id="38d0" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/6e926e115add15ebef8724ff585fa036.js.js"></script></figure><p name="d383" id="d383" class="graf graf--p graf-after--figure">3. Find Visible nodes</p><figure name="9738" id="9738" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/5b16f3fbaf38a004d94bc00dc6402f44.js.js"></script></figure><p name="e5cc" id="e5cc" class="graf graf--p graf-after--figure">4. Testing code</p><figure name="b24c" id="b24c" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/e73cda74abdc191b2d18602fba5ced9d.js.js"></script></figure><p name="a77b" id="a77b" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Previous Question: </strong><a href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c" data-href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c" class="markup--anchor markup--p-anchor" target="_blank"><strong class="markup--strong markup--p-strong">All Nodes Distance K in Binary Tree[Microsoft]</strong></a></p><p name="146c" id="146c" class="graf graf--p graf-after--p">Thanks for reading this article, keep learning &amp; growing.</p><p name="6e27" id="6e27" class="graf graf--p graf-after--p graf--trailing">Github: <a href="https://github.com/charlieInDen/InterviewQuestions-Swift/" data-href="https://github.com/charlieInDen/InterviewQuestions-Swift/" class="markup--anchor markup--p-anchor" rel="noopener nofollow noopener" target="_blank">https://github.com/charlieInDen/InterviewQuestions-Swift/</a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/8a06d627595e"><time class="dt-published" datetime="2020-05-20T06:20:35.974Z">May 20, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/2-count-visible-nodes-in-binary-tree-microsoft-8a06d627595e" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">2. Count Visible Nodes in Binary Tree[Microsoft]</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Previous Question: All Nodes Distance K in Binary Tree[Microsoft]
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="69c4"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="66af"
+                id="66af"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                2. Count Visible Nodes in Binary Tree[Microsoft]
+              </h3>
+              <!-- <p name="84df" id="84df" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous Question: </strong
+                ><a
+                  href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c"
+                  data-href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >All Nodes Distance K in Binary Tree[Microsoft]</strong
+                  ></a
+                >
+              </p> -->
+              <p name="3879" id="3879" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Next Question: </strong
+                ><a
+                  href="/swiftinterview/3-majority-element-amazon-749073a3a5b9?source=your_stories_page---------------------------"
+                  data-href="/swiftinterview/3-majority-element-amazon-749073a3a5b9?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >3. Majority Element[Amazon]</strong
+                  ></a
+                >
+              </p>
+              <p name="76f6" id="76f6" class="graf graf--p graf-after--p">
+                In a binary tree, if in the path from root to the node
+                <code class="markup--code markup--p-code">A</code>, there is no
+                node with greater value than
+                <code class="markup--code markup--p-code">A</code>’s, this node
+                <code class="markup--code markup--p-code">A</code> is visible.
+                We need to count the number of visible nodes in a binary tree.
+              </p>
+              <figure
+                name="6cb8"
+                id="6cb8"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*CJFHVyawkegrFnwXPbDb8A.png"
+                  data-width="1020"
+                  data-height="982"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*CJFHVyawkegrFnwXPbDb8A.png"
+                />
+              </figure>
+              <p name="cc88" id="cc88" class="graf graf--p graf-after--figure">
+                To solve this problem, developers need to understand few
+                concepts:
+              </p>
+              <ul class="postList">
+                <li name="31b9" id="31b9" class="graf graf--li graf-after--p">
+                  <a
+                    href="https://en.wikipedia.org/wiki/Binary_tree"
+                    data-href="https://en.wikipedia.org/wiki/Binary_tree"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener nofollow noopener"
+                    target="_blank"
+                    >Binary Tree</a
+                  >
+                </li>
+                <li name="5bb0" id="5bb0" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://en.wikipedia.org/wiki/Depth-first_search"
+                    data-href="https://en.wikipedia.org/wiki/Depth-first_search"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener"
+                    target="_blank"
+                    >DFS</a
+                  >
+                </li>
+                <li name="9790" id="9790" class="graf graf--li graf-after--li">
+                  <a
+                    href="https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29"
+                    data-href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"
+                    class="markup--anchor markup--li-anchor"
+                    rel="noopener nofollow noopener"
+                    target="_blank"
+                    >Stack</a
+                  >
+                </li>
+              </ul>
+              <p name="2ba8" id="2ba8" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >How to Approach this problem?</strong
+                >
+              </p>
+              <ul class="postList">
+                <li name="627b" id="627b" class="graf graf--li graf-after--p">
+                  Recursive solution
+                </li>
+                <li name="ab0e" id="ab0e" class="graf graf--li graf-after--li">
+                  Iterative solution
+                </li>
+              </ul>
+              <p name="ba81" id="ba81" class="graf graf--p graf-after--li">
+                We will see the iterative solution in this article, as making it
+                into recursion will be easy once iterative solution is clear.
+              </p>
+              <p name="041e" id="041e" class="graf graf--p graf-after--p">
+                While traversing the tree, we need to keep the track of the
+                maximum value of the node that we have seen so far. If the
+                current node is greater or equal to the max value, then
+                increment the count of the visible node and update the max value
+                with the current node value.
+              </p>
+              <ol class="postList">
+                <li name="8350" id="8350" class="graf graf--li graf-after--p">
+                  Assume you have given a tree node
+                </li>
+              </ol>
+              <figure
+                name="1933"
+                id="1933"
+                class="graf graf--figure graf--iframe graf-after--li"
+              >
+                <script src="https://gist.github.com/charlieInDen/f4d3102c74f723e415dd0bc3fce29466.js.js"></script>
+              </figure>
+              <p name="6785" id="6785" class="graf graf--p graf-after--figure">
+                2. Create a method with responsibility to iterate in DFS and
+                keep max value in stack for DFS.
+              </p>
+              <figure
+                name="38d0"
+                id="38d0"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/6e926e115add15ebef8724ff585fa036.js.js"></script>
+              </figure>
+              <p name="d383" id="d383" class="graf graf--p graf-after--figure">
+                3. Find Visible nodes
+              </p>
+              <figure
+                name="9738"
+                id="9738"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/5b16f3fbaf38a004d94bc00dc6402f44.js.js"></script>
+              </figure>
+              <p name="e5cc" id="e5cc" class="graf graf--p graf-after--figure">
+                4. Testing code
+              </p>
+              <figure
+                name="b24c"
+                id="b24c"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/e73cda74abdc191b2d18602fba5ced9d.js.js"></script>
+              </figure>
+              <!-- <p name="a77b" id="a77b" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous Question: </strong
+                ><a
+                  href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c"
+                  data-href="https://medium.com/swiftinterview/1-all-nodes-distance-k-in-binary-tree-f0e4c956779c"
+                  class="markup--anchor markup--p-anchor"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >All Nodes Distance K in Binary Tree[Microsoft]</strong
+                  ></a
+                >
+              </p> -->
+              <p name="146c" id="146c" class="graf graf--p graf-after--p">
+                Thanks for reading this article, keep learning &amp; growing.
+              </p>
+              <p
+                name="6e27"
+                id="6e27"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Github:
+                <a
+                  href="https://github.com/charlieInDen/InterviewQuestions-Swift/"
+                  data-href="https://github.com/charlieInDen/InterviewQuestions-Swift/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener nofollow noopener"
+                  target="_blank"
+                  >https://github.com/charlieInDen/InterviewQuestions-Swift/</a
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/8a06d627595e"
+            ><time class="dt-published" datetime="2020-05-20T06:20:35.974Z"
+              >May 20, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/2-count-visible-nodes-in-binary-tree-microsoft-8a06d627595e"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

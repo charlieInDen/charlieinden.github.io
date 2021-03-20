@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Data Structure: Interview Experience Part 1</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Data Structure: Interview Experience Part 1</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,24 +61,189 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Data Structure: Interview Experience Part 1</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Given a collection of distinct integers, return all possible permutations. 
-Example:
-Input: [1,2,3]
-Output:
-[[1,2,3],
-[1,3,2],
-[2,1,3]…
-</section>
-<section data-field="body" class="e-content">
-<section name="497a" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="20c4" id="20c4" class="graf graf--h3 graf--leading graf--title">Data Structure: Interview Experience Part 1</h3><figure name="03a0" id="03a0" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="1*Gm2nVC1IJj5y25nqp22x7g.jpeg" data-width="1280" data-height="720" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*Gm2nVC1IJj5y25nqp22x7g.jpeg"></figure><p name="61c5" id="61c5" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Next: </strong><a href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Data Structure: Interview Experience Part 2</strong></a></p><ol class="postList"><li name="205e" id="205e" class="graf graf--li graf-after--p">Given a collection of distinct integers, return all possible permutations. <strong class="markup--strong markup--li-strong"><br></strong>Example:<br><strong class="markup--strong markup--li-strong">Input</strong>: [1,2,3]<br><strong class="markup--strong markup--li-strong">Output</strong>:<br>[[1,2,3],<br>[1,3,2],<br>[2,1,3],<br>[2,3,1],<br>[3,1,2],<br>[3,2,1]]</li></ol><p name="887d" id="887d" class="graf graf--p graf-after--li">Note: <strong class="markup--strong markup--p-strong">Write a generic method for it</strong></p><p name="8551" id="8551" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution:</strong></p><pre name="bded" id="bded" class="graf graf--pre graf-after--p">extension Array {<br>    func decompose() -&gt; (Iterator.Element, [Iterator.Element])? {<br>        guard let x = first else { return nil }<br>        return (x, Array(self[1..&lt;count]))<br>    }<br>}</pre><pre name="f887" id="f887" class="graf graf--pre graf-after--pre">func between&lt;T&gt;(x: T, _ ys: [T]) -&gt; [[T]] {<br>    guard let (head, tail) = ys.decompose() else { return [[x]] }<br>    return [[x] + ys] + between(x: x, tail).map { [head] + $0 }<br>}</pre><pre name="eafb" id="eafb" class="graf graf--pre graf-after--pre">func permutations&lt;T&gt;(xs: [T]) -&gt; [[T]] {<br>    guard let (head, tail) = xs.decompose() else { return [[]] }<br>    return permutations(xs: tail).flatMap { between(x: head, $0) }<br>}</pre><p name="cd6c" id="cd6c" class="graf graf--p graf-after--pre">2. Given a collection of distinct sorted integers, search a item and return its index. If not found, return nil</p><p name="7de9" id="7de9" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Input</strong>: [1,2,3] , 3<br><strong class="markup--strong markup--p-strong">Output</strong>: 2</p><p name="3830" id="3830" class="graf graf--p graf-after--p">Note: <strong class="markup--strong markup--p-strong">Write a binary search generic function.</strong></p><p name="5b29" id="5b29" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Solution</strong>:</p><pre name="6770" id="6770" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">func binarySearch&lt;T:Comparable&gt;(_ inputArr:Array&lt;T&gt;, _ searchItem: T) -&gt; Int? {<br>    var lowerIndex = 0<br>    var upperIndex = inputArr.count - 1<br><br>    while lowerIndex &lt;= upperIndex {<br>        let currentIndex = (lowerIndex + upperIndex)/2<br>        if(inputArr[currentIndex] == searchItem) {<br>            return currentIndex<br>        } else {<br>            if (inputArr[currentIndex] &gt; searchItem) {<br>                upperIndex = currentIndex - 1<br>            } else {<br>                lowerIndex = currentIndex + 1<br>            }<br>        }<br>    }<br>    return nil<br>}</code></pre><p name="9f89" id="9f89" class="graf graf--p graf-after--pre">3. Implement a trie.</p><p name="d21b" id="d21b" class="graf graf--p graf-after--p">Solution:</p><figure name="d4cb" id="d4cb" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/25dbe5611e898e0f314f63cf3bf9e34c.js.js"></script></figure><p name="cf6c" id="cf6c" class="graf graf--p graf-after--figure graf--trailing"><strong class="markup--strong markup--p-strong">Next: </strong><a href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------" data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Data Structure: Interview Experience Part 2</strong></a></p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/d3c87eba01d7"><time class="dt-published" datetime="2020-07-14T09:49:31.666Z">July 14, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-1-d3c87eba01d7" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">Data Structure: Interview Experience Part 1</h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Given a collection of distinct integers, return all possible
+        permutations.  Example: Input: [1,2,3] Output: [[1,2,3], [1,3,2],
+        [2,1,3]…
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="497a"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="20c4"
+                id="20c4"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Data Structure: Interview Experience Part 1
+              </h3>
+              <figure
+                name="03a0"
+                id="03a0"
+                class="graf graf--figure graf-after--h3"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*Gm2nVC1IJj5y25nqp22x7g.jpeg"
+                  data-width="1280"
+                  data-height="720"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*Gm2nVC1IJj5y25nqp22x7g.jpeg"
+                />
+              </figure>
+              <!-- <p name="61c5" id="61c5" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong">Next: </strong
+                ><a
+                  href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------"
+                  data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Data Structure: Interview Experience Part 2</strong
+                  ></a
+                >
+              </p> -->
+              <ol class="postList">
+                <li name="205e" id="205e" class="graf graf--li graf-after--p">
+                  Given a collection of distinct integers, return all possible
+                  permutations.
+                  <strong class="markup--strong markup--li-strong"
+                    ><br /></strong
+                  >Example:<br /><strong
+                    class="markup--strong markup--li-strong"
+                    >Input</strong
+                  >: [1,2,3]<br /><strong
+                    class="markup--strong markup--li-strong"
+                    >Output</strong
+                  >:<br />[[1,2,3],<br />[1,3,2],<br />[2,1,3],<br />[2,3,1],<br />[3,1,2],<br />[3,2,1]]
+                </li>
+              </ol>
+              <p name="887d" id="887d" class="graf graf--p graf-after--li">
+                Note:
+                <strong class="markup--strong markup--p-strong"
+                  >Write a generic method for it</strong
+                >
+              </p>
+              <p name="8551" id="8551" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Solution:</strong
+                >
+              </p>
+              <pre
+                name="bded"
+                id="bded"
+                class="graf graf--pre graf-after--p"
+              >extension Array {<br>    func decompose() -&gt; (Iterator.Element, [Iterator.Element])? {<br>        guard let x = first else { return nil }<br>        return (x, Array(self[1..&lt;count]))<br>    }<br>}</pre>
+              <pre
+                name="f887"
+                id="f887"
+                class="graf graf--pre graf-after--pre"
+              >func between&lt;T&gt;(x: T, _ ys: [T]) -&gt; [[T]] {<br>    guard let (head, tail) = ys.decompose() else { return [[x]] }<br>    return [[x] + ys] + between(x: x, tail).map { [head] + $0 }<br>}</pre>
+              <pre
+                name="eafb"
+                id="eafb"
+                class="graf graf--pre graf-after--pre"
+              >func permutations&lt;T&gt;(xs: [T]) -&gt; [[T]] {<br>    guard let (head, tail) = xs.decompose() else { return [[]] }<br>    return permutations(xs: tail).flatMap { between(x: head, $0) }<br>}</pre>
+              <p name="cd6c" id="cd6c" class="graf graf--p graf-after--pre">
+                2. Given a collection of distinct sorted integers, search a item
+                and return its index. If not found, return nil
+              </p>
+              <p name="7de9" id="7de9" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Input</strong>:
+                [1,2,3] , 3<br /><strong class="markup--strong markup--p-strong"
+                  >Output</strong
+                >: 2
+              </p>
+              <p name="3830" id="3830" class="graf graf--p graf-after--p">
+                Note:
+                <strong class="markup--strong markup--p-strong"
+                  >Write a binary search generic function.</strong
+                >
+              </p>
+              <p name="5b29" id="5b29" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Solution</strong
+                >:
+              </p>
+              <pre
+                name="6770"
+                id="6770"
+                class="graf graf--pre graf-after--p"
+              ><code class="markup--code markup--pre-code">func binarySearch&lt;T:Comparable&gt;(_ inputArr:Array&lt;T&gt;, _ searchItem: T) -&gt; Int? {<br>    var lowerIndex = 0<br>    var upperIndex = inputArr.count - 1<br><br>    while lowerIndex &lt;= upperIndex {<br>        let currentIndex = (lowerIndex + upperIndex)/2<br>        if(inputArr[currentIndex] == searchItem) {<br>            return currentIndex<br>        } else {<br>            if (inputArr[currentIndex] &gt; searchItem) {<br>                upperIndex = currentIndex - 1<br>            } else {<br>                lowerIndex = currentIndex + 1<br>            }<br>        }<br>    }<br>    return nil<br>}</code></pre>
+              <p name="9f89" id="9f89" class="graf graf--p graf-after--pre">
+                3. Implement a trie.
+              </p>
+              <p name="d21b" id="d21b" class="graf graf--p graf-after--p">
+                Solution:
+              </p>
+              <figure
+                name="d4cb"
+                id="d4cb"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/25dbe5611e898e0f314f63cf3bf9e34c.js.js"></script>
+              </figure>
+              <!-- <p
+                name="cf6c"
+                id="cf6c"
+                class="graf graf--p graf-after--figure graf--trailing"
+              >
+                <strong class="markup--strong markup--p-strong">Next: </strong
+                ><a
+                  href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------"
+                  data-href="/ios-expert-series-or-interview-series/data-structure-interview-experience-part-2-f8252f0d18b5?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Data Structure: Interview Experience Part 2</strong
+                  ></a
+                >
+              </p> -->
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/d3c87eba01d7"
+            ><time class="dt-published" datetime="2020-07-14T09:49:31.666Z"
+              >July 14, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-1-d3c87eba01d7"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

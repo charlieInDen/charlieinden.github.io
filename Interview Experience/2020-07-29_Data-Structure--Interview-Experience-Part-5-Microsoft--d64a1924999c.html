@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Data Structure: Interview Experience Part 5(Microsoft)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Data Structure: Interview Experience Part 5(Microsoft)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,501 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Data Structure: Interview Experience Part 5(Microsoft)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-Backtracking
-</section>
-<section data-field="body" class="e-content">
-<section name="a238" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="8db2" id="8db2" class="graf graf--h3 graf--leading graf--title">Data Structure: Interview Experience Part 5(Microsoft)</h3><h4 name="7125" id="7125" class="graf graf--h4 graf-after--h3 graf--subtitle">Backtracking</h4><figure name="d34b" id="d34b" class="graf graf--figure graf-after--h4"><img class="graf-image" data-image-id="1*f4oaCHN4Bgcq13AE6O95_w.png" data-width="858" data-height="352" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/1*f4oaCHN4Bgcq13AE6O95_w.png"></figure><p name="f7df" id="f7df" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Previous: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-4-microsoft-a0d59c202d38?source=your_stories_page---------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-4-microsoft-a0d59c202d38?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Data Structure: Interview Experience Part 4(Microsoft)</strong></a></p><ol class="postList"><li name="8d71" id="8d71" class="graf graf--li graf-after--p">Given a string containing digits from <code class="markup--code markup--li-code">2-9</code> inclusive, return all possible letter combinations that the number could represent. <br>A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.</li></ol><figure name="3604" id="3604" class="graf graf--figure graf-after--li"><img class="graf-image" data-image-id="0*X-z-IuBq7YD-48O_.png" data-width="200" data-height="162" src="https://cdn-images-1.medium.com/max/800/0*X-z-IuBq7YD-48O_.png"></figure><p name="be32" id="be32" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="554e" id="554e" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input: </strong>&quot;23&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> [&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].</pre><p name="7af2" id="7af2" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Note:</strong></p><p name="471d" id="471d" class="graf graf--p graf-after--p">Although the above answer is in lexicographical order, your answer could be in any order you want.</p><p name="2871" id="2871" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/" data-href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/letter-combinations-of-a-phone-number/</strong></a></p><figure name="f94e" id="f94e" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/6594e1ec0d05bfd3f9e3fc6b78f701b2.js.js"></script></figure><p name="abf1" id="abf1" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">2.</span> <strong class="markup--strong markup--p-strong">Wildcard Matching</strong></p><p name="1f59" id="1f59" class="graf graf--p graf-after--p">Given an input string (<code class="markup--code markup--p-code">s</code>) and a pattern (<code class="markup--code markup--p-code">p</code>), implement wildcard pattern matching with support for <code class="markup--code markup--p-code">&#39;?&#39;</code> and <code class="markup--code markup--p-code">&#39;*&#39;</code>.</p><pre name="a580" id="a580" class="graf graf--pre graf-after--p">&#39;?&#39; Matches any single character.<br>&#39;*&#39; Matches any sequence of characters (including the empty sequence).</pre><p name="dc5f" id="dc5f" class="graf graf--p graf-after--pre">The matching should cover the <strong class="markup--strong markup--p-strong">entire</strong> input string (not partial).</p><p name="ff95" id="ff95" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note:</strong></p><ul class="postList"><li name="2fd2" id="2fd2" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">s</code> could be empty and contains only lowercase letters <code class="markup--code markup--li-code">a-z</code>.</li><li name="4dee" id="4dee" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">p</code> could be empty and contains only lowercase letters <code class="markup--code markup--li-code">a-z</code>, and characters like <code class="markup--code markup--li-code">?</code> or <code class="markup--code markup--li-code">*</code>.</li></ul><p name="8ba0" id="8ba0" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Example 1:</strong></p><pre name="520d" id="520d" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;a&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &quot;a&quot; does not match the entire string &quot;aa&quot;.</pre><p name="6f9a" id="6f9a" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 2:</strong></p><pre name="1a1e" id="1a1e" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;*&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &#39;*&#39; matches any sequence.</pre><p name="9f98" id="9f98" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 3:</strong></p><pre name="48f2" id="48f2" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;cb&quot;<br>p = &quot;?a&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &#39;?&#39; matches &#39;c&#39;, but the second letter is &#39;a&#39;, which does not match &#39;b&#39;.</pre><p name="cce0" id="cce0" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 4:</strong></p><pre name="cc83" id="cc83" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;adceb&quot;<br>p = &quot;*a*b&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> The first &#39;*&#39; matches the empty sequence, while the second &#39;*&#39; matches the substring &quot;dce&quot;.</pre><p name="3fb3" id="3fb3" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 5:</strong></p><pre name="b8e7" id="b8e7" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;acdcb&quot;<br>p = &quot;a*c?b&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false</pre><p name="81de" id="81de" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/wildcard-matching/" data-href="https://leetcode.com/problems/wildcard-matching/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/wildcard-matching/</strong></a></p><figure name="3e10" id="3e10" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/b1271c51e8e45a4221decc640b401f8d.js.js"></script></figure><p name="7571" id="7571" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">3.</span> <strong class="markup--strong markup--p-strong">Given a 2D board and a list of words from the dictionary, find all words in the board.</strong></p><p name="ebb4" id="ebb4" class="graf graf--p graf-after--p">Each word must be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.</p><p name="9f0d" id="9f0d" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="acd2" id="acd2" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong> <br><strong class="markup--strong markup--pre-strong">board </strong>= [<br>  [&#39;o&#39;,&#39;a&#39;,&#39;a&#39;,&#39;n&#39;],<br>  [&#39;e&#39;,&#39;t&#39;,&#39;a&#39;,&#39;e&#39;],<br>  [&#39;i&#39;,&#39;h&#39;,&#39;k&#39;,&#39;r&#39;],<br>  [&#39;i&#39;,&#39;f&#39;,&#39;l&#39;,&#39;v&#39;]<br>]<br><strong class="markup--strong markup--pre-strong">words</strong> = <code class="markup--code markup--pre-code">[&quot;oath&quot;,&quot;pea&quot;,&quot;eat&quot;,&quot;rain&quot;]</code></pre><pre name="85b6" id="85b6" class="graf graf--pre graf-after--pre"><strong class="markup--strong markup--pre-strong">Output: </strong><code class="markup--code markup--pre-code">[&quot;eat&quot;,&quot;oath&quot;]</code></pre><p name="cd79" id="cd79" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Note:</strong></p><ol class="postList"><li name="ddad" id="ddad" class="graf graf--li graf-after--p">All inputs are consist of lowercase letters <code class="markup--code markup--li-code">a-z</code>.</li><li name="edce" id="edce" class="graf graf--li graf-after--li">The values of <code class="markup--code markup--li-code">words</code> are distinct.</li></ol><p name="f43f" id="f43f" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/word-search-ii/" data-href="https://leetcode.com/problems/word-search-ii/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/word-search-ii/</strong></a></p><figure name="8ff2" id="8ff2" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/f10a00818cde87f029c36eb7a5a2facd.js.js"></script></figure><p name="4aff" id="4aff" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">4.</span> <strong class="markup--strong markup--p-strong">Given an input string (</strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">s</strong></code><strong class="markup--strong markup--p-strong">) and a pattern (</strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">p</strong></code><strong class="markup--strong markup--p-strong">), implement regular expression matching with support for </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">&#39;.&#39;</strong></code><strong class="markup--strong markup--p-strong"> and </strong><code class="markup--code markup--p-code"><strong class="markup--strong markup--p-strong">&#39;*&#39;</strong></code><strong class="markup--strong markup--p-strong">.</strong></p><pre name="66bb" id="66bb" class="graf graf--pre graf-after--p">&#39;.&#39; Matches any single character.<br>&#39;*&#39; Matches zero or more of the preceding element.</pre><p name="d2c0" id="d2c0" class="graf graf--p graf-after--pre">The matching should cover the <strong class="markup--strong markup--p-strong">entire</strong> input string (not partial).</p><p name="5dfe" id="5dfe" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note:</strong></p><ul class="postList"><li name="d489" id="d489" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">s</code> could be empty and contains only lowercase letters <code class="markup--code markup--li-code">a-z</code>.</li><li name="43be" id="43be" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">p</code> could be empty and contains only lowercase letters <code class="markup--code markup--li-code">a-z</code>, and characters like <code class="markup--code markup--li-code">.</code> or <code class="markup--code markup--li-code">*</code>.</li></ul><p name="4991" id="4991" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Example 1:</strong></p><pre name="6c11" id="6c11" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;a&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &quot;a&quot; does not match the entire string &quot;aa&quot;.</pre><p name="6e37" id="6e37" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 2:</strong></p><pre name="4d7b" id="4d7b" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;a*&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &#39;*&#39; means zero or more of the preceding element, &#39;a&#39;. Therefore, by repeating &#39;a&#39; once, it becomes &quot;aa&quot;.</pre><p name="eda6" id="eda6" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 3:</strong></p><pre name="4606" id="4606" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;ab&quot;<br>p = &quot;.*&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &quot;.*&quot; means &quot;zero or more (*) of any character (.)&quot;.</pre><p name="0be2" id="0be2" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 4:</strong></p><pre name="a661" id="a661" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aab&quot;<br>p = &quot;c*a*b&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches &quot;aab&quot;.</pre><p name="31f4" id="31f4" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Example 5:</strong></p><pre name="8dca" id="8dca" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;mississippi&quot;<br>p = &quot;mis*is*p*.&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false</pre><p name="b766" id="b766" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/regular-expression-matching/" data-href="https://leetcode.com/problems/regular-expression-matching/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/regular-expression-matching/</strong></a></p><figure name="17f3" id="17f3" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/93e811f7c7438a24133b6c958a7f2070.js.js"></script></figure><p name="6a00" id="6a00" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Next: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d6b3111b9528?source=your_stories_page---------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d6b3111b9528?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Data Structure: Interview Experience Part 6(Microsoft)</strong></a></p><p name="13ee" id="13ee" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to learn and practice Data structure &amp; Algorithm in swift, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/d64a1924999c"><time class="dt-published" datetime="2020-07-29T10:47:27.752Z">July 29, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-5-microsoft-d64a1924999c" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Data Structure: Interview Experience Part 5(Microsoft)
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        Backtracking
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="a238"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="8db2"
+                id="8db2"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Data Structure: Interview Experience Part 5(Microsoft)
+              </h3>
+              <h4
+                name="7125"
+                id="7125"
+                class="graf graf--h4 graf-after--h3 graf--subtitle"
+              >
+                Backtracking
+              </h4>
+              <figure
+                name="d34b"
+                id="d34b"
+                class="graf graf--figure graf-after--h4"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="1*f4oaCHN4Bgcq13AE6O95_w.png"
+                  data-width="858"
+                  data-height="352"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/1*f4oaCHN4Bgcq13AE6O95_w.png"
+                />
+              </figure>
+              <!-- <p name="f7df" id="f7df" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous: </strong
+                ><a
+                  href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-4-microsoft-a0d59c202d38?source=your_stories_page---------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-4-microsoft-a0d59c202d38?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Data Structure: Interview Experience Part
+                    4(Microsoft)</strong
+                  ></a
+                >
+              </p> -->
+              <ol class="postList">
+                <li name="8d71" id="8d71" class="graf graf--li graf-after--p">
+                  Given a string containing digits from
+                  <code class="markup--code markup--li-code">2-9</code>
+                  inclusive, return all possible letter combinations that the
+                  number could represent. <br />A mapping of digit to letters
+                  (just like on the telephone buttons) is given below. Note that
+                  1 does not map to any letters.
+                </li>
+              </ol>
+              <figure
+                name="3604"
+                id="3604"
+                class="graf graf--figure graf-after--li"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*X-z-IuBq7YD-48O_.png"
+                  data-width="200"
+                  data-height="162"
+                  src="https://cdn-images-1.medium.com/max/800/0*X-z-IuBq7YD-48O_.png"
+                />
+              </figure>
+              <p name="be32" id="be32" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="554e"
+                id="554e"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input: </strong>&quot;23&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> [&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].</pre>
+              <p name="7af2" id="7af2" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong">Note:</strong>
+              </p>
+              <p name="471d" id="471d" class="graf graf--p graf-after--p">
+                Although the above answer is in lexicographical order, your
+                answer could be in any order you want.
+              </p>
+              <p name="2871" id="2871" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+                  data-href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/letter-combinations-of-a-phone-number/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="f94e"
+                id="f94e"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/6594e1ec0d05bfd3f9e3fc6b78f701b2.js.js"></script>
+              </figure>
+              <p
+                name="abf1"
+                id="abf1"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">2.</span>
+                <strong class="markup--strong markup--p-strong"
+                  >Wildcard Matching</strong
+                >
+              </p>
+              <p name="1f59" id="1f59" class="graf graf--p graf-after--p">
+                Given an input string (<code class="markup--code markup--p-code"
+                  >s</code
+                >) and a pattern (<code class="markup--code markup--p-code"
+                  >p</code
+                >), implement wildcard pattern matching with support for
+                <code class="markup--code markup--p-code">&#39;?&#39;</code> and
+                <code class="markup--code markup--p-code">&#39;*&#39;</code>.
+              </p>
+              <pre
+                name="a580"
+                id="a580"
+                class="graf graf--pre graf-after--p"
+              >&#39;?&#39; Matches any single character.<br>&#39;*&#39; Matches any sequence of characters (including the empty sequence).</pre>
+              <p name="dc5f" id="dc5f" class="graf graf--p graf-after--pre">
+                The matching should cover the
+                <strong class="markup--strong markup--p-strong">entire</strong>
+                input string (not partial).
+              </p>
+              <p name="ff95" id="ff95" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note:</strong>
+              </p>
+              <ul class="postList">
+                <li name="2fd2" id="2fd2" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code">s</code> could be
+                  empty and contains only lowercase letters
+                  <code class="markup--code markup--li-code">a-z</code>.
+                </li>
+                <li name="4dee" id="4dee" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">p</code> could be
+                  empty and contains only lowercase letters
+                  <code class="markup--code markup--li-code">a-z</code>, and
+                  characters like
+                  <code class="markup--code markup--li-code">?</code> or
+                  <code class="markup--code markup--li-code">*</code>.
+                </li>
+              </ul>
+              <p name="8ba0" id="8ba0" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 1:</strong
+                >
+              </p>
+              <pre
+                name="520d"
+                id="520d"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;a&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &quot;a&quot; does not match the entire string &quot;aa&quot;.</pre>
+              <p name="6f9a" id="6f9a" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 2:</strong
+                >
+              </p>
+              <pre
+                name="1a1e"
+                id="1a1e"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;*&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &#39;*&#39; matches any sequence.</pre>
+              <p name="9f98" id="9f98" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 3:</strong
+                >
+              </p>
+              <pre
+                name="48f2"
+                id="48f2"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;cb&quot;<br>p = &quot;?a&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &#39;?&#39; matches &#39;c&#39;, but the second letter is &#39;a&#39;, which does not match &#39;b&#39;.</pre>
+              <p name="cce0" id="cce0" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 4:</strong
+                >
+              </p>
+              <pre
+                name="cc83"
+                id="cc83"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;adceb&quot;<br>p = &quot;*a*b&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> The first &#39;*&#39; matches the empty sequence, while the second &#39;*&#39; matches the substring &quot;dce&quot;.</pre>
+              <p name="3fb3" id="3fb3" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 5:</strong
+                >
+              </p>
+              <pre
+                name="b8e7"
+                id="b8e7"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;acdcb&quot;<br>p = &quot;a*c?b&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false</pre>
+              <p name="81de" id="81de" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/wildcard-matching/"
+                  data-href="https://leetcode.com/problems/wildcard-matching/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/wildcard-matching/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="3e10"
+                id="3e10"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/b1271c51e8e45a4221decc640b401f8d.js.js"></script>
+              </figure>
+              <p
+                name="7571"
+                id="7571"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">3.</span>
+                <strong class="markup--strong markup--p-strong"
+                  >Given a 2D board and a list of words from the dictionary,
+                  find all words in the board.</strong
+                >
+              </p>
+              <p name="ebb4" id="ebb4" class="graf graf--p graf-after--p">
+                Each word must be constructed from letters of sequentially
+                adjacent cell, where “adjacent” cells are those horizontally or
+                vertically neighboring. The same letter cell may not be used
+                more than once in a word.
+              </p>
+              <p name="9f0d" id="9f0d" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="acd2"
+                id="acd2"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> <br><strong class="markup--strong markup--pre-strong">board </strong>= [<br>  [&#39;o&#39;,&#39;a&#39;,&#39;a&#39;,&#39;n&#39;],<br>  [&#39;e&#39;,&#39;t&#39;,&#39;a&#39;,&#39;e&#39;],<br>  [&#39;i&#39;,&#39;h&#39;,&#39;k&#39;,&#39;r&#39;],<br>  [&#39;i&#39;,&#39;f&#39;,&#39;l&#39;,&#39;v&#39;]<br>]<br><strong class="markup--strong markup--pre-strong">words</strong> = <code class="markup--code markup--pre-code">[&quot;oath&quot;,&quot;pea&quot;,&quot;eat&quot;,&quot;rain&quot;]</code></pre>
+              <pre
+                name="85b6"
+                id="85b6"
+                class="graf graf--pre graf-after--pre"
+              ><strong class="markup--strong markup--pre-strong">Output: </strong><code class="markup--code markup--pre-code">[&quot;eat&quot;,&quot;oath&quot;]</code></pre>
+              <p name="cd79" id="cd79" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong">Note:</strong>
+              </p>
+              <ol class="postList">
+                <li name="ddad" id="ddad" class="graf graf--li graf-after--p">
+                  All inputs are consist of lowercase letters
+                  <code class="markup--code markup--li-code">a-z</code>.
+                </li>
+                <li name="edce" id="edce" class="graf graf--li graf-after--li">
+                  The values of
+                  <code class="markup--code markup--li-code">words</code> are
+                  distinct.
+                </li>
+              </ol>
+              <p name="f43f" id="f43f" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/word-search-ii/"
+                  data-href="https://leetcode.com/problems/word-search-ii/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/word-search-ii/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="8ff2"
+                id="8ff2"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/f10a00818cde87f029c36eb7a5a2facd.js.js"></script>
+              </figure>
+              <p
+                name="4aff"
+                id="4aff"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">4.</span>
+                <strong class="markup--strong markup--p-strong"
+                  >Given an input string (</strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >s</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong"
+                  >) and a pattern (</strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >p</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong"
+                  >), implement regular expression matching with support for </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >&#39;.&#39;</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong"> and </strong
+                ><code class="markup--code markup--p-code"
+                  ><strong class="markup--strong markup--p-strong"
+                    >&#39;*&#39;</strong
+                  ></code
+                ><strong class="markup--strong markup--p-strong">.</strong>
+              </p>
+              <pre
+                name="66bb"
+                id="66bb"
+                class="graf graf--pre graf-after--p"
+              >&#39;.&#39; Matches any single character.<br>&#39;*&#39; Matches zero or more of the preceding element.</pre>
+              <p name="d2c0" id="d2c0" class="graf graf--p graf-after--pre">
+                The matching should cover the
+                <strong class="markup--strong markup--p-strong">entire</strong>
+                input string (not partial).
+              </p>
+              <p name="5dfe" id="5dfe" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong">Note:</strong>
+              </p>
+              <ul class="postList">
+                <li name="d489" id="d489" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code">s</code> could be
+                  empty and contains only lowercase letters
+                  <code class="markup--code markup--li-code">a-z</code>.
+                </li>
+                <li name="43be" id="43be" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">p</code> could be
+                  empty and contains only lowercase letters
+                  <code class="markup--code markup--li-code">a-z</code>, and
+                  characters like
+                  <code class="markup--code markup--li-code">.</code> or
+                  <code class="markup--code markup--li-code">*</code>.
+                </li>
+              </ul>
+              <p name="4991" id="4991" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 1:</strong
+                >
+              </p>
+              <pre
+                name="6c11"
+                id="6c11"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;a&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &quot;a&quot; does not match the entire string &quot;aa&quot;.</pre>
+              <p name="6e37" id="6e37" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 2:</strong
+                >
+              </p>
+              <pre
+                name="4d7b"
+                id="4d7b"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aa&quot;<br>p = &quot;a*&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &#39;*&#39; means zero or more of the preceding element, &#39;a&#39;. Therefore, by repeating &#39;a&#39; once, it becomes &quot;aa&quot;.</pre>
+              <p name="eda6" id="eda6" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 3:</strong
+                >
+              </p>
+              <pre
+                name="4606"
+                id="4606"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;ab&quot;<br>p = &quot;.*&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> &quot;.*&quot; means &quot;zero or more (*) of any character (.)&quot;.</pre>
+              <p name="0be2" id="0be2" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 4:</strong
+                >
+              </p>
+              <pre
+                name="a661"
+                id="a661"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;aab&quot;<br>p = &quot;c*a*b&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches &quot;aab&quot;.</pre>
+              <p name="31f4" id="31f4" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 5:</strong
+                >
+              </p>
+              <pre
+                name="8dca"
+                id="8dca"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>s = &quot;mississippi&quot;<br>p = &quot;mis*is*p*.&quot;<br><strong class="markup--strong markup--pre-strong">Output:</strong> false</pre>
+              <p name="b766" id="b766" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/regular-expression-matching/"
+                  data-href="https://leetcode.com/problems/regular-expression-matching/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/regular-expression-matching/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="17f3"
+                id="17f3"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/93e811f7c7438a24133b6c958a7f2070.js.js"></script>
+              </figure>
+              <!-- <p name="6a00" id="6a00" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong">Next: </strong
+                ><a
+                  href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d6b3111b9528?source=your_stories_page---------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d6b3111b9528?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Data Structure: Interview Experience Part
+                    6(Microsoft)</strong
+                  ></a
+                >
+              </p> -->
+              <p
+                name="13ee"
+                id="13ee"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people looking to learn and
+                practice Data structure &amp; Algorithm in swift, Please ❤️ to
+                recommend this post to others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/d64a1924999c"
+            ><time class="dt-published" datetime="2020-07-29T10:47:27.752Z"
+              >July 29, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-5-microsoft-d64a1924999c"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>

@@ -1,8 +1,14 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Data Structure: Interview Experience Part 6(Microsoft)</title><style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Data Structure: Interview Experience Part 6(Microsoft)</title>
+    <style>
       * {
-        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
       }
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
       }
@@ -55,18 +61,637 @@
         padding-bottom: 0 !important;
       }
       header,
-      section[data-field=subtitle],
-      section[data-field=description] {
+      section[data-field='subtitle'],
+      section[data-field='description'] {
         display: none;
       }
-      </style></head><body><article class="h-entry">
-<header>
-<h1 class="p-name">Data Structure: Interview Experience Part 6(Microsoft)</h1>
-</header>
-<section data-field="subtitle" class="p-summary">
-LinkLists
-</section>
-<section data-field="body" class="e-content">
-<section name="25c1" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="69f9" id="69f9" class="graf graf--h3 graf--leading graf--title">Data Structure: Interview Experience Part 6(Microsoft)</h3><h4 name="d324" id="d324" class="graf graf--h4 graf-after--h3 graf--subtitle">LinkLists</h4><h3 name="c564" id="c564" class="graf graf--h3 graf-after--h4">1. Reverse a singly linked list.</h3><p name="e943" id="e943" class="graf graf--p graf-after--h3"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="e8dd" id="e8dd" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong> 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br><strong class="markup--strong markup--pre-strong">Output:</strong> 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</pre><p name="ca2d" id="ca2d" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Follow up:</strong></p><p name="36e9" id="36e9" class="graf graf--p graf-after--p">A linked list can be reversed either iteratively or recursively. Could you implement both?</p><p name="e6c8" id="e6c8" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/reverse-linked-list/" data-href="https://leetcode.com/problems/reverse-linked-list/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/reverse-linked-list/</strong></a></p><h4 name="34af" id="34af" class="graf graf--h4 graf-after--p">Iterative Solution:</h4><figure name="a32a" id="a32a" class="graf graf--figure graf--iframe graf-after--h4"><script src="https://gist.github.com/charlieInDen/ef8b58291f335b8d03d311133fcd383f.js.js"></script></figure><h4 name="7640" id="7640" class="graf graf--h4 graf-after--figure">Recursive Solution:</h4><figure name="480b" id="480b" class="graf graf--figure graf--iframe graf-after--h4"><script src="https://gist.github.com/charlieInDen/62011d136aed89afd26065a9b216f42f.js.js"></script></figure><p name="d261" id="d261" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">2.</span> <strong class="markup--strong markup--p-strong">Given a linked list, determine if it has a cycle in it.</strong></p><p name="143f" id="143f" class="graf graf--p graf-after--p">To represent a cycle in the given linked list, we use an integer <code class="markup--code markup--p-code">pos</code> which represents the position (0-indexed) in the linked list where tail connects to. If <code class="markup--code markup--p-code">pos</code> is <code class="markup--code markup--p-code">-1</code>, then there is no cycle in the linked list.</p><p name="a6e8" id="a6e8" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example 1:</strong></p><pre name="5fc1" id="5fc1" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input: </strong>head = [3,2,0,-4], pos = 1<br><strong class="markup--strong markup--pre-strong">Output: </strong>true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> There is a cycle in the linked list, where tail connects to the second node.</pre><figure name="8c1b" id="8c1b" class="graf graf--figure graf-after--pre"><img class="graf-image" data-image-id="0*MYkAz7ZB5nC6JUu8.png" data-width="531" data-height="171" src="https://cdn-images-1.medium.com/max/800/0*MYkAz7ZB5nC6JUu8.png"></figure><p name="01a1" id="01a1" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/linked-list-cycle/" data-href="https://leetcode.com/problems/linked-list-cycle/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/linked-list-cycle/</strong></a></p><figure name="2ba2" id="2ba2" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/6e315a3427684f61676ae50c41b65ee3.js.js"></script></figure><p name="be40" id="be40" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">3.</span><strong class="markup--strong markup--p-strong"> Add Two Numbers<br></strong>You are given two <strong class="markup--strong markup--p-strong">non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong class="markup--strong markup--p-strong">reverse order</strong> and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p><p name="ce33" id="ce33" class="graf graf--p graf-after--p">You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p><p name="feeb" id="feeb" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="3144" id="3144" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong> (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong class="markup--strong markup--pre-strong">Output:</strong> 7 -&gt; 0 -&gt; 8<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> 342 + 465 = 807.</pre><p name="db9b" id="db9b" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/add-two-numbers/" data-href="https://leetcode.com/problems/add-two-numbers/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/add-two-numbers/</strong></a></p><figure name="a3c9" id="a3c9" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/5fe60b5257bb5e36e31b6c546f7e0b1e.js.js"></script></figure><p name="0f10" id="0f10" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">4.</span><strong class="markup--strong markup--p-strong"> Add Two Numbers II<br></strong>You are given two <strong class="markup--strong markup--p-strong">non-empty</strong> linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p><p name="650c" id="650c" class="graf graf--p graf-after--p">You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p><p name="81cc" id="81cc" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Follow up:</strong><br>What if you cannot modify the input lists? In other words, reversing the lists is not allowed.</p><p name="4bd8" id="4bd8" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="0d47" id="0d47" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong> (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong class="markup--strong markup--pre-strong">Output:</strong> 7 -&gt; 8 -&gt; 0 -&gt; 7</pre><p name="fba4" id="fba4" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/add-two-numbers-ii/" data-href="https://leetcode.com/problems/add-two-numbers-ii/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/add-two-numbers-ii/</strong></a></p><figure name="7747" id="7747" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/f65eb358d44277c5b557b948f7447d7b.js.js"></script></figure><p name="145c" id="145c" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">5.</span> <strong class="markup--strong markup--p-strong">Merge Two Sorted Lists<br></strong>Merge two sorted linked lists and return it as a new <strong class="markup--strong markup--p-strong">sorted</strong> list. The new list should be made by splicing together the nodes of the first two lists.</p><p name="64db" id="64db" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="1a23" id="1a23" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong> 1-&gt;2-&gt;4, 1-&gt;3-&gt;4<br><strong class="markup--strong markup--pre-strong">Output:</strong> 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</pre><p name="9ca6" id="9ca6" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/merge-two-sorted-lists/" data-href="https://leetcode.com/problems/merge-two-sorted-lists/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/merge-two-sorted-lists/</strong></a></p><figure name="10c4" id="10c4" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/43ea34fc4367bfbea7c8b1667ef28793.js.js"></script></figure><p name="7584" id="7584" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">6.</span><strong class="markup--strong markup--p-strong"> Merge k Sorted Lists</strong></p><p name="24b0" id="24b0" class="graf graf--p graf-after--p">Merge <em class="markup--em markup--p-em">k</em> sorted linked lists and return it as one sorted list. Analyze and describe its complexity.</p><p name="30d3" id="30d3" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example:</strong></p><pre name="ae76" id="ae76" class="graf graf--pre graf-after--p"><strong class="markup--strong markup--pre-strong">Input:</strong><br>[<br>  1-&gt;4-&gt;5,<br>  1-&gt;3-&gt;4,<br>  2-&gt;6<br>]<br><strong class="markup--strong markup--pre-strong">Output:</strong> 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</pre><p name="1c2a" id="1c2a" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/merge-k-sorted-lists/" data-href="https://leetcode.com/problems/merge-k-sorted-lists/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/merge-k-sorted-lists/</strong></a></p><figure name="3312" id="3312" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/03faba07f5fd4fc7ad24e4b33974e116.js.js"></script></figure><p name="48f2" id="48f2" class="graf graf--p graf-after--figure"><strong class="markup--strong markup--p-strong">Complexity Analysis</strong></p><ul class="postList"><li name="c10e" id="c10e" class="graf graf--li graf-after--p">Time complexity : O(Nlog⁡k) where k is the number of linked lists.</li><li name="3de6" id="3de6" class="graf graf--li graf-after--li">We can merge two sorted linked list in O(n) time where n is the total number of nodes in two lists. Sum up the merge process and we can get: O(∑i=1log2kN)=O(Nlog⁡k)</li><li name="7d27" id="7d27" class="graf graf--li graf-after--li">Space complexity : O(1)</li></ul><p name="4d73" id="4d73" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--li"><span class="graf-dropCap">7.</span><strong class="markup--strong markup--p-strong"> Intersection of Two Linked Lists</strong></p><p name="d264" id="d264" class="graf graf--p graf-after--p">Write a program to find the node at which the intersection of two singly linked lists begins.</p><p name="64fa" id="64fa" class="graf graf--p graf-after--p">For example, the following two linked lists:</p><figure name="ce98" id="ce98" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*56eAWC_EnMR0bJPr.png" data-width="742" data-height="241" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/0*56eAWC_EnMR0bJPr.png"></figure><p name="d3a5" id="d3a5" class="graf graf--p graf-after--figure">begin to intersect at node c1.</p><p name="8911" id="8911" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Example 1:</strong></p><figure name="a21d" id="a21d" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*VNmuZCPzsQ_3HWaf.png" data-width="742" data-height="241" src="https://cdn-images-1.medium.com/max/800/0*VNmuZCPzsQ_3HWaf.png"></figure><pre name="e15f" id="e15f" class="graf graf--pre graf-after--figure"><strong class="markup--strong markup--pre-strong">Input: </strong>intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3<br><strong class="markup--strong markup--pre-strong">Output:</strong> Reference of the node with value = 8<br><strong class="markup--strong markup--pre-strong">Input Explanation:</strong> The intersected node&#39;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,6,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</pre><p name="15bc" id="15bc" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" data-href="https://leetcode.com/problems/intersection-of-two-linked-lists/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/intersection-of-two-linked-lists/</strong></a></p><figure name="a4c9" id="a4c9" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/cbf91ac5a0ad9efaa5b83c1dd98fccc2.js.js"></script></figure><p name="0a75" id="0a75" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">8.</span><strong class="markup--strong markup--p-strong"> Copy List with Random Pointer</strong></p><p name="2d7d" id="2d7d" class="graf graf--p graf-after--p">A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p><p name="84e9" id="84e9" class="graf graf--p graf-after--p">Return a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" data-href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">deep copy</strong></a> of the list.</p><p name="df5a" id="df5a" class="graf graf--p graf-after--p">The Linked List is represented in the input/output as a list of <code class="markup--code markup--p-code">n</code> nodes. Each node is represented as a pair of <code class="markup--code markup--p-code">[val, random_index]</code> where:</p><ul class="postList"><li name="64df" id="64df" class="graf graf--li graf-after--p"><code class="markup--code markup--li-code">val</code>: an integer representing <code class="markup--code markup--li-code">Node.val</code></li><li name="1229" id="1229" class="graf graf--li graf-after--li"><code class="markup--code markup--li-code">random_index</code>: the index of the node (range from <code class="markup--code markup--li-code">0</code> to <code class="markup--code markup--li-code">n-1</code>) where random pointer points to, or <code class="markup--code markup--li-code">null</code> if it does not point to any node.</li></ul><p name="a8df" id="a8df" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Example 1:</strong></p><figure name="e6fe" id="e6fe" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="0*TSnjL2DqHqnI3x9R.png" data-width="1670" data-height="272" src="https://cdn-images-1.medium.com/max/800/0*TSnjL2DqHqnI3x9R.png"></figure><pre name="8b41" id="8b41" class="graf graf--pre graf-after--figure"><strong class="markup--strong markup--pre-strong">Input:</strong> head = [[1,1],[2,1]]<br><strong class="markup--strong markup--pre-strong">Output:</strong> [[1,1],[2,1]]</pre><p name="9c8a" id="9c8a" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Practise: </strong><a href="https://leetcode.com/problems/copy-list-with-random-pointer/" data-href="https://leetcode.com/problems/copy-list-with-random-pointer/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">https://leetcode.com/problems/copy-list-with-random-pointer/</strong></a></p><figure name="d20d" id="d20d" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/charlieInDen/35ada555af80f71d3a528e40814e0a27.js.js"></script></figure><h4 name="4c5e" id="4c5e" class="graf graf--h4 graf-after--figure"><strong class="markup--strong markup--h4-strong">Next: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-7-microsoft-c733150f951b?source=your_stories_page---------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-7-microsoft-c733150f951b?source=your_stories_page---------------------------" class="markup--anchor markup--h4-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--h4-strong">Data Structure: Interview Experience Part 7(Microsoft)</strong></a></h4><p name="54f3" id="54f3" class="graf graf--p graf-after--h4"><strong class="markup--strong markup--p-strong">Previous: </strong><a href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d64a1924999c?source=your_stories_page---------------------------" data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d64a1924999c?source=your_stories_page---------------------------" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank"><strong class="markup--strong markup--p-strong">Data Structure: Interview Experience Part 5(Microsoft)</strong></a></p><p name="19b1" id="19b1" class="graf graf--p graf-after--p graf--trailing">Hope this article is useful for people looking to learn and practice Data structure &amp; Algorithm in swift, Please ❤️ to recommend this post to others 😊. Let me know your feedback. :)</p></div></div></section>
-</section>
-<footer><p>By <a href="https://medium.com/@nishantnitb" class="p-author h-card">Nishant Sharma</a> on <a href="https://medium.com/p/d6b3111b9528"><time class="dt-published" datetime="2020-07-30T14:03:10.575Z">July 30, 2020</time></a>.</p><p><a href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-5-microsoft-d6b3111b9528" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on February 11, 2021.</p></footer></article></body></html>
+    </style>
+  </head>
+  <body>
+    <article class="h-entry">
+      <header>
+        <h1 class="p-name">
+          Data Structure: Interview Experience Part 6(Microsoft)
+        </h1>
+      </header>
+      <section data-field="subtitle" class="p-summary">
+        LinkLists
+      </section>
+      <section data-field="body" class="e-content">
+        <section
+          name="25c1"
+          class="section section--body section--first section--last"
+        >
+          <div class="section-divider"><hr class="section-divider" /></div>
+          <div class="section-content">
+            <div class="section-inner sectionLayout--insetColumn">
+              <h3
+                name="69f9"
+                id="69f9"
+                class="graf graf--h3 graf--leading graf--title"
+              >
+                Data Structure: Interview Experience Part 6(Microsoft)
+              </h3>
+              <h4
+                name="d324"
+                id="d324"
+                class="graf graf--h4 graf-after--h3 graf--subtitle"
+              >
+                LinkLists
+              </h4>
+              <h3 name="c564" id="c564" class="graf graf--h3 graf-after--h4">
+                1. Reverse a singly linked list.
+              </h3>
+              <p name="e943" id="e943" class="graf graf--p graf-after--h3">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="e8dd"
+                id="e8dd"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br><strong class="markup--strong markup--pre-strong">Output:</strong> 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</pre>
+              <p name="ca2d" id="ca2d" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Follow up:</strong
+                >
+              </p>
+              <p name="36e9" id="36e9" class="graf graf--p graf-after--p">
+                A linked list can be reversed either iteratively or recursively.
+                Could you implement both?
+              </p>
+              <p name="e6c8" id="e6c8" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/reverse-linked-list/"
+                  data-href="https://leetcode.com/problems/reverse-linked-list/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/reverse-linked-list/</strong
+                  ></a
+                >
+              </p>
+              <h4 name="34af" id="34af" class="graf graf--h4 graf-after--p">
+                Iterative Solution:
+              </h4>
+              <figure
+                name="a32a"
+                id="a32a"
+                class="graf graf--figure graf--iframe graf-after--h4"
+              >
+                <script src="https://gist.github.com/charlieInDen/ef8b58291f335b8d03d311133fcd383f.js.js"></script>
+              </figure>
+              <h4
+                name="7640"
+                id="7640"
+                class="graf graf--h4 graf-after--figure"
+              >
+                Recursive Solution:
+              </h4>
+              <figure
+                name="480b"
+                id="480b"
+                class="graf graf--figure graf--iframe graf-after--h4"
+              >
+                <script src="https://gist.github.com/charlieInDen/62011d136aed89afd26065a9b216f42f.js.js"></script>
+              </figure>
+              <p
+                name="d261"
+                id="d261"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">2.</span>
+                <strong class="markup--strong markup--p-strong"
+                  >Given a linked list, determine if it has a cycle in
+                  it.</strong
+                >
+              </p>
+              <p name="143f" id="143f" class="graf graf--p graf-after--p">
+                To represent a cycle in the given linked list, we use an integer
+                <code class="markup--code markup--p-code">pos</code> which
+                represents the position (0-indexed) in the linked list where
+                tail connects to. If
+                <code class="markup--code markup--p-code">pos</code> is
+                <code class="markup--code markup--p-code">-1</code>, then there
+                is no cycle in the linked list.
+              </p>
+              <p name="a6e8" id="a6e8" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 1:</strong
+                >
+              </p>
+              <pre
+                name="5fc1"
+                id="5fc1"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input: </strong>head = [3,2,0,-4], pos = 1<br><strong class="markup--strong markup--pre-strong">Output: </strong>true<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> There is a cycle in the linked list, where tail connects to the second node.</pre>
+              <figure
+                name="8c1b"
+                id="8c1b"
+                class="graf graf--figure graf-after--pre"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*MYkAz7ZB5nC6JUu8.png"
+                  data-width="531"
+                  data-height="171"
+                  src="https://cdn-images-1.medium.com/max/800/0*MYkAz7ZB5nC6JUu8.png"
+                />
+              </figure>
+              <p name="01a1" id="01a1" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/linked-list-cycle/"
+                  data-href="https://leetcode.com/problems/linked-list-cycle/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/linked-list-cycle/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="2ba2"
+                id="2ba2"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/6e315a3427684f61676ae50c41b65ee3.js.js"></script>
+              </figure>
+              <p
+                name="be40"
+                id="be40"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">3.</span
+                ><strong class="markup--strong markup--p-strong">
+                  Add Two Numbers<br /></strong
+                >You are given two
+                <strong class="markup--strong markup--p-strong"
+                  >non-empty</strong
+                >
+                linked lists representing two non-negative integers. The digits
+                are stored in
+                <strong class="markup--strong markup--p-strong"
+                  >reverse order</strong
+                >
+                and each of their nodes contain a single digit. Add the two
+                numbers and return it as a linked list.
+              </p>
+              <p name="ce33" id="ce33" class="graf graf--p graf-after--p">
+                You may assume the two numbers do not contain any leading zero,
+                except the number 0 itself.
+              </p>
+              <p name="feeb" id="feeb" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="3144"
+                id="3144"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong class="markup--strong markup--pre-strong">Output:</strong> 7 -&gt; 0 -&gt; 8<br><strong class="markup--strong markup--pre-strong">Explanation:</strong> 342 + 465 = 807.</pre>
+              <p name="db9b" id="db9b" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/add-two-numbers/"
+                  data-href="https://leetcode.com/problems/add-two-numbers/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/add-two-numbers/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="a3c9"
+                id="a3c9"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/5fe60b5257bb5e36e31b6c546f7e0b1e.js.js"></script>
+              </figure>
+              <p
+                name="0f10"
+                id="0f10"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">4.</span
+                ><strong class="markup--strong markup--p-strong">
+                  Add Two Numbers II<br /></strong
+                >You are given two
+                <strong class="markup--strong markup--p-strong"
+                  >non-empty</strong
+                >
+                linked lists representing two non-negative integers. The most
+                significant digit comes first and each of their nodes contain a
+                single digit. Add the two numbers and return it as a linked
+                list.
+              </p>
+              <p name="650c" id="650c" class="graf graf--p graf-after--p">
+                You may assume the two numbers do not contain any leading zero,
+                except the number 0 itself.
+              </p>
+              <p name="81cc" id="81cc" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Follow up:</strong
+                ><br />What if you cannot modify the input lists? In other
+                words, reversing the lists is not allowed.
+              </p>
+              <p name="4bd8" id="4bd8" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="0d47"
+                id="0d47"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong class="markup--strong markup--pre-strong">Output:</strong> 7 -&gt; 8 -&gt; 0 -&gt; 7</pre>
+              <p name="fba4" id="fba4" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/add-two-numbers-ii/"
+                  data-href="https://leetcode.com/problems/add-two-numbers-ii/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/add-two-numbers-ii/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="7747"
+                id="7747"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/f65eb358d44277c5b557b948f7447d7b.js.js"></script>
+              </figure>
+              <p
+                name="145c"
+                id="145c"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">5.</span>
+                <strong class="markup--strong markup--p-strong"
+                  >Merge Two Sorted Lists<br /></strong
+                >Merge two sorted linked lists and return it as a new
+                <strong class="markup--strong markup--p-strong">sorted</strong>
+                list. The new list should be made by splicing together the nodes
+                of the first two lists.
+              </p>
+              <p name="64db" id="64db" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="1a23"
+                id="1a23"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> 1-&gt;2-&gt;4, 1-&gt;3-&gt;4<br><strong class="markup--strong markup--pre-strong">Output:</strong> 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</pre>
+              <p name="9ca6" id="9ca6" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/merge-two-sorted-lists/"
+                  data-href="https://leetcode.com/problems/merge-two-sorted-lists/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/merge-two-sorted-lists/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="10c4"
+                id="10c4"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/43ea34fc4367bfbea7c8b1667ef28793.js.js"></script>
+              </figure>
+              <p
+                name="7584"
+                id="7584"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">6.</span
+                ><strong class="markup--strong markup--p-strong">
+                  Merge k Sorted Lists</strong
+                >
+              </p>
+              <p name="24b0" id="24b0" class="graf graf--p graf-after--p">
+                Merge <em class="markup--em markup--p-em">k</em> sorted linked
+                lists and return it as one sorted list. Analyze and describe its
+                complexity.
+              </p>
+              <p name="30d3" id="30d3" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example:</strong
+                >
+              </p>
+              <pre
+                name="ae76"
+                id="ae76"
+                class="graf graf--pre graf-after--p"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong><br>[<br>  1-&gt;4-&gt;5,<br>  1-&gt;3-&gt;4,<br>  2-&gt;6<br>]<br><strong class="markup--strong markup--pre-strong">Output:</strong> 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</pre>
+              <p name="1c2a" id="1c2a" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/merge-k-sorted-lists/"
+                  data-href="https://leetcode.com/problems/merge-k-sorted-lists/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/merge-k-sorted-lists/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="3312"
+                id="3312"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/03faba07f5fd4fc7ad24e4b33974e116.js.js"></script>
+              </figure>
+              <p name="48f2" id="48f2" class="graf graf--p graf-after--figure">
+                <strong class="markup--strong markup--p-strong"
+                  >Complexity Analysis</strong
+                >
+              </p>
+              <ul class="postList">
+                <li name="c10e" id="c10e" class="graf graf--li graf-after--p">
+                  Time complexity : O(Nlog⁡k) where k is the number of linked
+                  lists.
+                </li>
+                <li name="3de6" id="3de6" class="graf graf--li graf-after--li">
+                  We can merge two sorted linked list in O(n) time where n is
+                  the total number of nodes in two lists. Sum up the merge
+                  process and we can get: O(∑i=1log2kN)=O(Nlog⁡k)
+                </li>
+                <li name="7d27" id="7d27" class="graf graf--li graf-after--li">
+                  Space complexity : O(1)
+                </li>
+              </ul>
+              <p
+                name="4d73"
+                id="4d73"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--li"
+              >
+                <span class="graf-dropCap">7.</span
+                ><strong class="markup--strong markup--p-strong">
+                  Intersection of Two Linked Lists</strong
+                >
+              </p>
+              <p name="d264" id="d264" class="graf graf--p graf-after--p">
+                Write a program to find the node at which the intersection of
+                two singly linked lists begins.
+              </p>
+              <p name="64fa" id="64fa" class="graf graf--p graf-after--p">
+                For example, the following two linked lists:
+              </p>
+              <figure
+                name="ce98"
+                id="ce98"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*56eAWC_EnMR0bJPr.png"
+                  data-width="742"
+                  data-height="241"
+                  data-is-featured="true"
+                  src="https://cdn-images-1.medium.com/max/800/0*56eAWC_EnMR0bJPr.png"
+                />
+              </figure>
+              <p name="d3a5" id="d3a5" class="graf graf--p graf-after--figure">
+                begin to intersect at node c1.
+              </p>
+              <p name="8911" id="8911" class="graf graf--p graf-after--p">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 1:</strong
+                >
+              </p>
+              <figure
+                name="a21d"
+                id="a21d"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*VNmuZCPzsQ_3HWaf.png"
+                  data-width="742"
+                  data-height="241"
+                  src="https://cdn-images-1.medium.com/max/800/0*VNmuZCPzsQ_3HWaf.png"
+                />
+              </figure>
+              <pre
+                name="e15f"
+                id="e15f"
+                class="graf graf--pre graf-after--figure"
+              ><strong class="markup--strong markup--pre-strong">Input: </strong>intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3<br><strong class="markup--strong markup--pre-strong">Output:</strong> Reference of the node with value = 8<br><strong class="markup--strong markup--pre-strong">Input Explanation:</strong> The intersected node&#39;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,6,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</pre>
+              <p name="15bc" id="15bc" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/intersection-of-two-linked-lists/"
+                  data-href="https://leetcode.com/problems/intersection-of-two-linked-lists/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/intersection-of-two-linked-lists/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="a4c9"
+                id="a4c9"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/cbf91ac5a0ad9efaa5b83c1dd98fccc2.js.js"></script>
+              </figure>
+              <p
+                name="0a75"
+                id="0a75"
+                class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"
+              >
+                <span class="graf-dropCap">8.</span
+                ><strong class="markup--strong markup--p-strong">
+                  Copy List with Random Pointer</strong
+                >
+              </p>
+              <p name="2d7d" id="2d7d" class="graf graf--p graf-after--p">
+                A linked list is given such that each node contains an
+                additional random pointer which could point to any node in the
+                list or null.
+              </p>
+              <p name="84e9" id="84e9" class="graf graf--p graf-after--p">
+                Return a
+                <a
+                  href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy"
+                  data-href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >deep copy</strong
+                  ></a
+                >
+                of the list.
+              </p>
+              <p name="df5a" id="df5a" class="graf graf--p graf-after--p">
+                The Linked List is represented in the input/output as a list of
+                <code class="markup--code markup--p-code">n</code> nodes. Each
+                node is represented as a pair of
+                <code class="markup--code markup--p-code"
+                  >[val, random_index]</code
+                >
+                where:
+              </p>
+              <ul class="postList">
+                <li name="64df" id="64df" class="graf graf--li graf-after--p">
+                  <code class="markup--code markup--li-code">val</code>: an
+                  integer representing
+                  <code class="markup--code markup--li-code">Node.val</code>
+                </li>
+                <li name="1229" id="1229" class="graf graf--li graf-after--li">
+                  <code class="markup--code markup--li-code">random_index</code
+                  >: the index of the node (range from
+                  <code class="markup--code markup--li-code">0</code> to
+                  <code class="markup--code markup--li-code">n-1</code>) where
+                  random pointer points to, or
+                  <code class="markup--code markup--li-code">null</code> if it
+                  does not point to any node.
+                </li>
+              </ul>
+              <p name="a8df" id="a8df" class="graf graf--p graf-after--li">
+                <strong class="markup--strong markup--p-strong"
+                  >Example 1:</strong
+                >
+              </p>
+              <figure
+                name="e6fe"
+                id="e6fe"
+                class="graf graf--figure graf-after--p"
+              >
+                <img
+                  class="graf-image"
+                  data-image-id="0*TSnjL2DqHqnI3x9R.png"
+                  data-width="1670"
+                  data-height="272"
+                  src="https://cdn-images-1.medium.com/max/800/0*TSnjL2DqHqnI3x9R.png"
+                />
+              </figure>
+              <pre
+                name="8b41"
+                id="8b41"
+                class="graf graf--pre graf-after--figure"
+              ><strong class="markup--strong markup--pre-strong">Input:</strong> head = [[1,1],[2,1]]<br><strong class="markup--strong markup--pre-strong">Output:</strong> [[1,1],[2,1]]</pre>
+              <p name="9c8a" id="9c8a" class="graf graf--p graf-after--pre">
+                <strong class="markup--strong markup--p-strong"
+                  >Practise: </strong
+                ><a
+                  href="https://leetcode.com/problems/copy-list-with-random-pointer/"
+                  data-href="https://leetcode.com/problems/copy-list-with-random-pointer/"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >https://leetcode.com/problems/copy-list-with-random-pointer/</strong
+                  ></a
+                >
+              </p>
+              <figure
+                name="d20d"
+                id="d20d"
+                class="graf graf--figure graf--iframe graf-after--p"
+              >
+                <script src="https://gist.github.com/charlieInDen/35ada555af80f71d3a528e40814e0a27.js.js"></script>
+              </figure>
+              <!-- <h4
+                name="4c5e"
+                id="4c5e"
+                class="graf graf--h4 graf-after--figure"
+              >
+                <strong class="markup--strong markup--h4-strong">Next: </strong
+                ><a
+                  href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-7-microsoft-c733150f951b?source=your_stories_page---------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-7-microsoft-c733150f951b?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--h4-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--h4-strong"
+                    >Data Structure: Interview Experience Part
+                    7(Microsoft)</strong
+                  ></a
+                >
+              </h4> -->
+              <!-- <p name="54f3" id="54f3" class="graf graf--p graf-after--h4">
+                <strong class="markup--strong markup--p-strong"
+                  >Previous: </strong
+                ><a
+                  href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d64a1924999c?source=your_stories_page---------------------------"
+                  data-href="https://medium.com/ios-expert-series-or-interview-series/data-structure-interview-experience-part-5-microsoft-d64a1924999c?source=your_stories_page---------------------------"
+                  class="markup--anchor markup--p-anchor"
+                  rel="noopener"
+                  target="_blank"
+                  ><strong class="markup--strong markup--p-strong"
+                    >Data Structure: Interview Experience Part
+                    5(Microsoft)</strong
+                  ></a
+                >
+              </p> -->
+              <p
+                name="19b1"
+                id="19b1"
+                class="graf graf--p graf-after--p graf--trailing"
+              >
+                Hope this article is useful for people looking to learn and
+                practice Data structure &amp; Algorithm in swift, Please ❤️ to
+                recommend this post to others 😊. Let me know your feedback. :)
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- <footer>
+        <p>
+          By
+          <a href="https://medium.com/@nishantnitb" class="p-author h-card"
+            >Nishant Sharma</a
+          >
+          on
+          <a href="https://medium.com/p/d6b3111b9528"
+            ><time class="dt-published" datetime="2020-07-30T14:03:10.575Z"
+              >July 30, 2020</time
+            ></a
+          >.
+        </p>
+        <p>
+          <a
+            href="https://medium.com/@nishantnitb/data-structure-interview-experience-part-5-microsoft-d6b3111b9528"
+            class="p-canonical"
+            >Canonical link</a
+          >
+        </p>
+        <p>
+          Exported from <a href="https://medium.com">Medium</a> on February 11,
+          2021.
+        </p>
+      </footer> -->
+    </article>
+  </body>
+</html>
