@@ -65,47 +65,251 @@
       section[data-field='description'] {
         display: none;
       }
+      ul li {
+        margin-bottom: 10px;
+      }
+      h2 {
+        background-color: rgb(177, 175, 175);
+        box-shadow: 3px 5px 8px #8888AF;
+      }
     </style>
   </head>
   <body>
+    <script>
+      let displayInterviewList = false;
+      function interviewExperience () {
+        console.log('click')
+        if(displayInterviewList === true){
+          document.getElementById("interview-experience-list").style.display = "block";
+          document.getElementById("interview-experience").innerHTML = "[-] Interview Experience"
+          displayInterviewList = false;  
+        }
+        else {
+         document.getElementById("interview-experience-list").style.display = "none";
+         document.getElementById("interview-experience").innerHTML = "[+] Interview Experience"
+         displayInterviewList = true;
+        }
+      }
+    </script>
     <article class="h-entry">
-      <h2>Interview Experience</h2>
-      <ul>
-        <li><a href="Interview-Experience/2019-06-11_Data-structure-interview-questions--Swift--I-f5613f537ec9.html" target = '_blank'>Data-structure-interview-questions--Swift--I</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">Visit W3Schools.com!</a></li>
-        
+      <h2 id="interview-experience" onclick="interviewExperience()">
+        [-] Interview Experience
+      </h2>
+      <ul id="interview-experience-list">
+        <li>
+          <a
+            href="Interview-Experience/2019-06-11_Data-structure-interview-questions--Swift--I-f5613f537ec9.html"
+            target="_blank"
+            >Data structure interview questions (Swift) I</a
+          >
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2019-06-13_Data-structure-interview-questions--Swift--Part-II-58a9e32a4f27.html"
+            target="_blank"
+            >Data structure interview questions (Swift) Part-II</a
+          >
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2019-12-18_Design-a-Chess-Game-dddd7ba11bc0.html"
+            target="_blank"
+          >
+            Design a Chess Game</a
+          >
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-03-02_Microsoft-Interview-Experience---Part-1--Solution-in-Swift--a0b4f74ff202.html"
+            target="_blank"
+            >Microsoft Interview Experience — Part 1 (Solution in Swift)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-03-14_Microsoft-Interview-Experience---Part-2--Solution-in-Swift--3533466ef0de.html"
+            target="_blank"
+            >Microsoft Interview Experience — Part 2 (Solution in Swift)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-03-22_Microsoft-Interview-Experience---Part-3-Solution-in-Swift--6cd0688bb50c.html"
+            target="_blank"
+          >
+            Microsoft Interview Experience — Part 3(Solution in Swift)</a
+          >
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-05-17_1--All-Nodes-Distance-K-in-Binary-Tree-f0e4c956779c.html"
+            target="_blank"
+          >
+            1. All Nodes Distance K in Binary Tree</a
+          >
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-05-20_2--Count-Visible-Nodes-in-Binary-Tree-Microsoft--8a06d627595e.html"
+            target="_blank"
+            >2. Count Visible Nodes in Binary Tree[Microsoft]
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-05-23_3--Majority-Element-Amazon--749073a3a5b9.html"
+            target="_blank"
+            >3. Majority Element[Amazon]
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-05-25_4--Largest-Rectangle-in-Histogram--Facebook--2bcbfff6bfe6.html"
+            target="_blank"
+            >4. Largest Rectangle in Histogram [Facebook]
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-05-25_5--Maximum-size-rectangle-binary-sub-matrix--Google--819935d32d17.html"
+            target="_blank"
+            >5. Maximum size rectangle binary sub-matrix [Google]
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-05-25_6--Min-Edit-Distance--VMWare--68171573fdd8.html"
+            target="_blank"
+          >
+            6. Min Edit Distance [VMWare]
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-14_Data-Structure--Interview-Experience-Part-1-d3c87eba01d7.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 1
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-18_Data-Structure--Interview-Experience-Part-2-f8252f0d18b5.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 2
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-23_Data-Structure--Interview-Experience-Part-3--Microsoft--e4b42154f0a5.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 3 (Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-26_Data-Structure--Interview-Experience-Part-4-Microsoft--a0d59c202d38.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 4(Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-29_Data-Structure--Interview-Experience-Part-5-Microsoft--d64a1924999c.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 5(Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-30_Data-Structure--Interview-Experience-Part-6-Microsoft--d6b3111b9528.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 6(Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-07-31_Data-Structure--Interview-Experience-Part-7-Microsoft--c733150f951b.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 7(Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-08-01_Data-Structure--Interview-Experience-Part-8-Microsoft--5930dc3e894a.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 8(Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-08-02_Data-Structure--Interview-Experience-Part-9-Microsoft--bf3f5254c29f.html"
+            target="_blank"
+            >Data Structure: Interview Experience Part 9(Microsoft)
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2020-12-18_Walmart-Interview-Experience-f91cc89e6baf.html"
+            target="_blank"
+            >Walmart Interview Experience
+          </a>
+        </li>
+        <li>
+          <a
+            href="Interview-Experience/2021-01-20_Microsoft-Interview-Experience-SE--Hyderabad--af764cd6d1dd.html"
+            target="_blank"
+            >Microsoft Interview Experience[SE, Hyderabad]
+          </a>
+        </li>
       </ul>
       <h2>IOS Interviews</h2>
+      <ul>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+        <li>
+          <a href="Interview-Experience/.html" target="_blank"> </a>
+        </li>
+      </ul>
+      <h2>System Design</h2>
 
       <h2>Machine Learning + Python</h2>
-
-      <h2>System Design</h2>
     </article>
   </body>
 </html>
