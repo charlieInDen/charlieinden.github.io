@@ -2,121 +2,160 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <title>Microsoft Interview Experience [Jan 2021]</title>
     <style>
-      * {
-        font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
-      }
+            * {
+              font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+            }
 
-      html,
-      body {
-        margin: 20px;
-        padding: 0;
-      }
-      h1 {
-        font-size: 50px;
-        margin-bottom: 17px;
-        color: #333;
-      }
-      h2 {
-        font-size: 24px;
-        line-height: 1.6;
-        margin: 30px 0 0 0;
-        margin-bottom: 18px;
-        margin-top: 33px;
-        color: #333;
-      }
-      h3 {
-        font-size: 30px;
-        margin: 10px 0 20px 0;
-        color: #333;
-      }
-      header {
-        width: 640px;
-        margin: auto;
-      }
-      section {
-        width: 640px;
-        margin: auto;
-      }
-      section p {
-        margin-bottom: 27px;
-        font-size: 20px;
-        line-height: 1.6;
-        color: #333;
-      }
-      section img {
-        max-width: 640px;
-      }
-      /* footer {
-        padding: 0 20px;
-        margin: 50px 0;
-        text-align: center;
-        font-size: 12px;
-      } */
-      .aspectRatioPlaceholder {
-        max-width: auto !important;
-        max-height: auto !important;
-      }
-      .aspectRatioPlaceholder-fill {
-        padding-bottom: 0 !important;
-      }
-      header,
-      section[data-field='subtitle'],
-      section[data-field='description'] {
-        display: none;
-      }
-      ul li {
-        margin-bottom: 10px;
-      }
-      ul {
-        display: none;
-      }
-      h2 {
-        background-color: rgb(177, 175, 175);
-        box-shadow: 3px 5px 8px #8888af;
-      }
+            html,
+            body {
+              margin: 20px;
+              padding: 0;
+            }
+            h1 {
+              font-size: 50px;
+              margin-bottom: 17px;
+              color: #333;
+            }
+            h2 {
+              font-size: 24px;
+              line-height: 1.6;
+              margin: 30px 0 0 0;
+              margin-bottom: 18px;
+              margin-top: 33px;
+              color: #333;
+            }
+            h3 {
+              font-size: 30px;
+              margin: 10px 0 20px 0;
+              color: #333;
+            }
+            header {
+              width: 640px;
+              margin: auto;
+            }
+            section {
+              width: 640px;
+              margin: auto;
+            }
+            section p {
+              margin-bottom: 27px;
+              font-size: 20px;
+              line-height: 1.6;
+              color: #333;
+            }
+            section img {
+              max-width: 640px;
+            }
+            /* footer {
+              padding: 0 20px;
+              margin: 50px 0;
+              text-align: center;
+              font-size: 12px;
+            } */
+            .aspectRatioPlaceholder {
+              max-width: auto !important;
+              max-height: auto !important;
+            }
+            .aspectRatioPlaceholder-fill {
+              padding-bottom: 0 !important;
+            }
+            header,
+            section[data-field='subtitle'],
+            section[data-field='description'] {
+              display: none;
+            }
+            ul li {
+              margin-bottom: 10px;
+            }
+            ul {
+              display: none;
+            }
+            h2 {
+              background-color: rgb(177, 175, 175);
+              box-shadow: 3px 5px 8px #8888af;
+            }
+      /*
+            .card {
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+              max-width: 50%;
+              margin: auto;
+              text-align: center;
+              font-family: arial;
+            } */
 
-      .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 300px;
-        margin: auto;
-        text-align: center;
-        font-family: arial;
-      }
+            @media only screen and (max-width: 1024px)
+            , screen and (max-width: 1440px){
+              .card {
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+              max-width: 25%;
+              margin: auto;
+              text-align: center;
+              font-family: arial;
+            }
 
-      /* .title {
-        color: grey;
-        font-size: 18px;
-      } */
+            @media only screen and (max-width: 768px){
+              .card {
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+              max-width: 50%;
+              margin: auto;
+              text-align: center;
+              font-family: arial;
+            }
 
-      button {
-        border: none;
-        outline: 0;
-        display: inline-block;
-        padding: 8px;
-        color: white;
-        background-color: #000;
-        text-align: center;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
-      }
+            @media only screen and (max-width: 375px), screen and (max-width: 320px){
+              .card {
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+              max-width: 80%;
+              margin: auto;
+              text-align: center;
+              font-family: arial;
+            }
+             /* @media  screen and (max-width: 320px){
+              .card {
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+              max-width: 80%;
+              margin: auto;
+              text-align: center;
+              font-family: arial;
+            } */
 
-      a {
-        text-decoration: none;
-        font-size: 22px;
-        color: black;
-      }
+            }
 
-      button:hover,
-      a:hover {
-        opacity: 0.7;
-      }
+            /* .title {
+              color: grey;
+              font-size: 18px;
+            } */
+
+            button {
+              border: none;
+              outline: 0;
+              display: inline-block;
+              padding: 8px;
+              color: white;
+              background-color: #000;
+              text-align: center;
+              cursor: pointer;
+              width: 100%;
+              font-size: 18px;
+            }
+
+            /* a {
+              text-decoration: none;
+              font-size: 22px;
+              color: black;
+            } */
+
+            button:hover,
+            a:hover {
+              opacity: 0.7;
+            }
     </style>
   </head>
   <body>
@@ -1214,14 +1253,28 @@
       </ul>
       <footer>
         <div class="card">
-          
-          <img src="nishant-sharma.jpeg" alt="Nishant Sharma" style="width:100%" />
+          <img
+            src="nishant-sharma.jpeg"
+            alt="Nishant Sharma"
+            style="width:100%"
+          />
           <h3>Nishant Sharma</h3>
-          <p style="font-size: medium;"><strong> Chapter Lead@OLX Group</strong>, working with lots of crazy engineers :)</p>
-          <div style="margin: 24px 0;">
-            <a href="https://www.linkedin.com/in/nishant-sharma-221bb911a/" target="_blank"><i class="fa fa-linkedin"></i></a>
-            <a href="https://github.com/charlieInDen" target="_blank"><i class="fa fa-github"></i> </a>
-            <a href="mailto:nishantsamsung09@gmail.com"><i class="fa fa-envelope-square"></i></a>
+          <p style="font-size: medium; margin-right: 10px; margin-left: 10px;">
+            <strong> Chapter Lead@OLX Group</strong>, working with lots of crazy
+            engineers :)
+          </p>
+          <div style="margin: 24px 0px;">
+            <a
+              href="https://www.linkedin.com/in/nishant-sharma-221bb911a/"
+              target="_blank"
+              ><i class="fa fa-linkedin"></i
+            ></a>
+            <a href="https://github.com/charlieInDen" target="_blank"
+              ><i class="fa fa-github"></i>
+            </a>
+            <a href="mailto:nishantsamsung09@gmail.com"
+              ><i class="fa fa-envelope-square"></i
+            ></a>
           </div>
           <p style="padding-bottom: 10px">
             Mob No. +91-9873265401
