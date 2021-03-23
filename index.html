@@ -68,32 +68,86 @@
       ul li {
         margin-bottom: 10px;
       }
+      ul {
+        display: none;
+      }
       h2 {
         background-color: rgb(177, 175, 175);
-        box-shadow: 3px 5px 8px #8888AF;
+        box-shadow: 3px 5px 8px #8888af;
       }
     </style>
   </head>
   <body>
     <script>
-      let displayInterviewList = false;
-      function interviewExperience () {
-        console.log('click')
-        if(displayInterviewList === true){
-          document.getElementById("interview-experience-list").style.display = "block";
-          document.getElementById("interview-experience").innerHTML = "[-] Interview Experience"
-          displayInterviewList = false;  
-        }
-        else {
-         document.getElementById("interview-experience-list").style.display = "none";
-         document.getElementById("interview-experience").innerHTML = "[+] Interview Experience"
-         displayInterviewList = true;
+      // let displayInterviewList = false
+      // function interviewExperience () {
+      //   if (displayInterviewList === true) {
+      //     document.getElementById('interview-experience-list').style.display =
+      //       'block'
+      //     document.getElementById('interview-experience').innerHTML =
+      //       '[-] Interview Experience'
+      //     displayInterviewList = false
+      //   } else {
+      //     document.getElementById('interview-experience-list').style.display =
+      //       'none'
+      //     document.getElementById('interview-experience').innerHTML =
+      //       '[+] Interview Experience'
+      //     displayInterviewList = true
+      //   }
+      // }
+
+      // let displayIosList = false
+      // function iosInterviews () {
+      //   if (displayIosList === true) {
+      //     document.getElementById('ios-interview-list').style.display = 'block'
+      //     document.getElementById('ios-interview').innerHTML =
+      //       '[-] IOS Interviews'
+      //     displayIosList = false
+      //   } else {
+      //     document.getElementById('ios-interview-list').style.display = 'none'
+      //     document.getElementById('ios-interview').innerHTML =
+      //       '[+] IOS Interviews'
+      //     displayIosList = true
+      //   }
+      // }
+
+      // let displaySystemDesignList = false
+      // function systemDesign () {
+      //   if (displaySystemDesignList === true) {
+      //     document.getElementById('system-design-list').style.display = 'block'
+      //     document.getElementById('system-design').innerHTML =
+      //       '[-] System Design'
+      //     displaySystemDesignList = false
+      //   } else {
+      //     document.getElementById('system-design-list').style.display = 'none'
+      //     document.getElementById('system-design').innerHTML =
+      //       '[+] System Design'
+      //     displaySystemDesignList = true
+      //   }
+      // }
+      let toggleArr = []
+      for (let i = 0; i < 4; i++) {
+        toggleArr[i] = true
+      }
+      function toggleCustom (h2Id, ulId, name, elIndex) {
+        if (toggleArr[elIndex] === true) {
+          document.getElementById(ulId).style.display = 'block'
+          document.getElementById(h2Id).innerHTML = '[-] ' + name
+          toggleArr[elIndex] = false
+        } else {
+          document.getElementById(ulId).style.display = 'none'
+          document.getElementById(h2Id).innerHTML = '[+] ' + name
+          toggleArr[elIndex] = true
         }
       }
     </script>
-    <article class="h-entry">
-      <h2 id="interview-experience" onclick="interviewExperience()">
-        [-] Interview Experience
+    <article>
+      <h1 style="text-align: center;">Welcome Geeks</h1>
+      <h2
+        id="interview-experience"
+        onclick="toggleCustom('interview-experience','interview-experience-list','Interview Experience', 0)"
+      >
+        [+] Interview Experience
       </h2>
       <ul id="interview-experience-list">
         <li>
@@ -262,54 +316,200 @@
           </a>
         </li>
       </ul>
-      <h2>IOS Interviews</h2>
-      <ul>
+      <h2
+        id="ios-interview"
+        onclick="toggleCustom(
+        'ios-interview',
+        'ios-interview-list',
+        'IOS Interviews',
+        1
+      )"
+      >
+        [+] IOS Interviews
+      </h2>
+      <ul id="ios-interview-list">
         <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
+        </li>
+		<li>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
         <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+		<li>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+		<li>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+		<li>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+		<li>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
-        </li>
-        <li>
-          <a href="Interview-Experience/.html" target="_blank"> </a>
+		<li>
+          <a href="Interview-Experience/.html" 
+		  target="_blank"> 
+		  </a>
         </li>
       </ul>
-      <h2>System Design</h2>
-
-      <h2>Machine Learning + Python</h2>
+      <h2
+        id="system-design"
+        onclick="toggleCustom(
+        'system-design',
+        'system-design-list',
+        'System Design',
+        2
+      )"
+      >
+        [+] System Design
+      </h2>
+      <ul id="system-design-list">
+	     <li>
+          <a href="System-Design/2018-06-02_Approach-a-System-Design-Interview-f3594e243730.html" 
+		  target="_blank"> Approach a System Design Interview
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2018-06-03_System-Design--Chapter-2--Sharding-484960c18f6.html" 
+		  target="_blank"> System Design, Chapter 2: Sharding
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2018-06-09_System-Design--Chapter-3--Load-Balancing-e1c89148e37.html" 
+		  target="_blank"> System Design, Chapter 3: Load Balancing
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2018-06-12_System-Design--Chapter-4--Caching-b59a4cf83f10.html" 
+		  target="_blank"> System Design, Chapter 4: Caching
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2018-06-21_System-Design--Chapter-5--Indexes-in-Databases-beb90295dbcf.html" 
+		  target="_blank"> System Design, Chapter 5: Indexes in Databases
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2018-09-06_Design-Tic-Tac-Toe-Game-1b912bba64cf.html" 
+		  target="_blank"> Design Tic-Tac-Toe Game
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2019-12-28_System-Design--Chapter-6--Proxies-f77be8858023.html" 
+		  target="_blank"> System Design, Chapter 6: Proxies
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2019-12-29_System-Design--Chapter-7--Queues-5f3f9bed81.html" 
+		  target="_blank"> System Design, Chapter 7: Queues
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-09-30_Design-Browser-History-6940c1765c2f.html" 
+		  target="_blank"> Design Browser History
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-10-06_Design-In-Memory-File-System-2715304ecb56.html" 
+		  target="_blank"> Design In-Memory File System
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-10-06_Design-Interview-Questions-ed68b77d44c8.html" 
+		  target="_blank"> Design Interview Questions
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-10-07_Design-Tic-Tac-Toe-56ef6b2e4c20.html" 
+		  target="_blank"> Design Tic-Tac-Toe
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-11-26_System-Design--Chapter-8--Replication-and-Redundancy-99e9c601ebca.html" 
+		  target="_blank"> System Design, Chapter 8: Replication and Redundancy
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-11-27_System-Design--Chapter-9--SQL-vs--NoSQL-a45e37e12b9.html" 
+		  target="_blank"> System Design, Chapter 9: SQL vs. NoSQL
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2020-11-28_System-Design--Chapter-10--CAP-Theorem-ce9624703835.html" 
+		  target="_blank"> System Design, Chapter 10: CAP Theorem
+		  </a>
+        </li>
+		<li>
+          <a href="System-Design/2021-01-25_Microservices--Designing-Highly-Scalable-Systems-55dbb6f64c94.html" 
+		  target="_blank"> Microservices: Designing Highly Scalable Systems
+		  </a>
+        </li>
+	  </ul>
+      <h2
+        id="machine-learning-python"
+        onclick="toggleCustom('machine-learning-python', 'machine-learning-python-list','Machine Learning + Python', 3)"
+      >
+        [+] Machine Learning + Python
+      </h2>
+      <ul id="machine-learning-python-list">
+	     <li>
+          <a href="MachineLearning-Python/2020-09-06_Intro-to-Machine-learning-6b10315581b.html" 
+		  target="_blank"> Intro to Machine learning
+		  </a>
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-10-17_Programming-In-Python-Part-I--76699fb857e2.html" 
+		  target="_blank"> 
+		  </a> Programming In Python(Part I)
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-10-18_Programming-In-Python-Part-II--e54ef083f868.html" 
+		  target="_blank"> Programming In Python(Part II)
+		  </a>
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-10-24_KATA-in-Python-Part---III-4a4f6dcf8425.html" 
+		  target="_blank"> KATA in Python Part — III
+		  </a>
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-10-26_Scripting-in-Python--Part-IV--32c436086722.html" 
+		  target="_blank"> Scripting in Python (Part IV)
+		  </a>
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-11-04_Python-packages-for-Data-Science--Part-V--b3e519dc78df.html" 
+		  target="_blank"> Python packages for Data Science (Part V)
+		  </a>
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-11-07_Introduction-to-NumPy--Part-VI--218315a2a221.html" 
+		  target="_blank"> Introduction to NumPy (Part VI)
+		  </a>
+        </li>
+		<li>
+          <a href="MachineLearning-Python/2020-11-13_Introduction-to-Pandas--Part-VII--40c9ebe6ca22.html" 
+		  target="_blank"> Introduction to Pandas (Part VII)
+		  </a>
+        </li>
+	  </ul>
     </article>
   </body>
 </html>
