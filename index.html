@@ -5,164 +5,176 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="icon" href="favicon.ico" />
-    
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <title>Upcoming Coding Interview? The Complete Guide to iOS, System Design and Data structures in Swift</title>
+    <title>
+      Upcoming Coding Interview? The Complete Guide to iOS, System Design and
+      Data structures in Swift
+    </title>
     <style>
-            * {
-              font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
-            }
+                  * {
+                    font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+                  }
 
-            html,
-            body {
-              margin: 20px;
-              padding: 0;
-            }
-            h1 {
-              font-size: 50px;
-              margin-bottom: 17px;
-              color: #333;
-            }
-            h2 {
-              font-size: 24px;
-              line-height: 1.6;
-              margin: 30px 0 0 0;
-              margin-bottom: 18px;
-              margin-top: 33px;
-              color: #333;
-            }
-            h3 {
-              font-size: 30px;
-              margin: 10px 0 20px 0;
-              color: #333;
-            }
-            header {
-              width: 640px;
-              margin: auto;
-            }
-            section {
-              width: 640px;
-              margin: auto;
-            }
-            section p {
-              margin-bottom: 27px;
-              font-size: 20px;
-              line-height: 1.6;
-              color: #333;
-            }
-            section img {
-              max-width: 640px;
-            }
-            /* footer {
-              padding: 0 20px;
-              margin: 50px 0;
-              text-align: center;
-              font-size: 12px;
-            } */
-            .aspectRatioPlaceholder {
-              max-width: auto !important;
-              max-height: auto !important;
-            }
-            .aspectRatioPlaceholder-fill {
-              padding-bottom: 0 !important;
-            }
-            header,
-            section[data-field='subtitle'],
-            section[data-field='description'] {
-              display: none;
-            }
-            ul li {
-              margin-bottom: 10px;
-            }
-            ul {
-              display: none;
-            }
-            h2 {
-              background-color: rgb(177, 175, 175);
-              box-shadow: 3px 5px 8px #8888af;
-            }
-      
-            .card {
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-              min-width: 100px;
-              max-width: 300px;
-              margin: auto;
-              text-align: center;
-              font-family: arial;
-            } 
+                  html,
+                  body {
+                    margin: 20px;
+                    padding: 0;
+                  }
+                  h1 {
+                    font-size: 50px;
+                    margin-bottom: 17px;
+                    color: #333;
+                  }
+                  h2 {
+                    font-size: 24px;
+                    line-height: 1.6;
+                    margin: 30px 0 0 0;
+                    margin-bottom: 18px;
+                    margin-top: 33px;
+                    color: #333;
+                  }
+                  h3 {
+                    font-size: 30px;
+                    margin: 10px 0 20px 0;
+                    color: #333;
+                  }
+                  header {
+                    width: 640px;
+                    margin: auto;
+                  }
+                  section {
+                    width: 640px;
+                    margin: auto;
+                  }
+                  section p {
+                    margin-bottom: 27px;
+                    font-size: 20px;
+                    line-height: 1.6;
+                    color: #333;
+                  }
+                  section img {
+                    max-width: 640px;
+                  }
+                  /* footer {
+                    padding: 0 20px;
+                    margin: 50px 0;
+                    text-align: center;
+                    font-size: 12px;
+                  } */
+                  .aspectRatioPlaceholder {
+                    max-width: auto !important;
+                    max-height: auto !important;
+                  }
+                  .aspectRatioPlaceholder-fill {
+                    padding-bottom: 0 !important;
+                  }
+                  header,
+                  section[data-field='subtitle'],
+                  section[data-field='description'] {
+                    display: none;
+                  }
+                  ul li {
+                    margin-bottom: 10px;
+                  }
+                  ul {
+                    display: none;
+                  }
+                  h2 {
+                    background-color: rgb(177, 175, 175, 0.7);
+                    box-shadow: 3px 5px 8px #8888af;
+                  }
 
-/*             @media only screen and (max-width: 1024px)
-            , screen and (max-width: 1440px){
-              .card {
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-              max-width: 25%;
-              margin: auto;
-              text-align: center;
-              font-family: arial;
-            }
+                  .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    min-width: 100px;
+                    max-width: 300px;
+                    margin: auto;
+                    text-align: center;
+                    font-family: arial;
+                  }
+                  a{
+                    text-decoration: none;
+                    color:rgb(77, 5, 145);
+                  }
+                  a:hover{
+                    font-weight: bold;
+                  }
+                  a:visited{
+                    color:rgb(111, 9, 206);
+                  }
+      /*             @media only screen and (max-width: 1024px)
+                  , screen and (max-width: 1440px){
+                    .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    max-width: 25%;
+                    margin: auto;
+                    text-align: center;
+                    font-family: arial;
+                  }
 
-            @media only screen and (max-width: 768px){
-              .card {
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-              max-width: 50%;
-              margin: auto;
-              text-align: center;
-              font-family: arial;
-            }
+                  @media only screen and (max-width: 768px){
+                    .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    max-width: 50%;
+                    margin: auto;
+                    text-align: center;
+                    font-family: arial;
+                  }
 
-            @media only screen and (max-width: 375px), screen and (max-width: 320px){
-              .card {
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-              max-width: 80%;
-              margin: auto;
-              text-align: center;
-              font-family: arial;
-            } */
-              
-              
-              
-             /* @media  screen and (max-width: 320px){
-              .card {
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-              max-width: 80%;
-              margin: auto;
-              text-align: center;
-              font-family: arial;
-            } */
+                  @media only screen and (max-width: 375px), screen and (max-width: 320px){
+                    .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    margin: auto;
+                    text-align: center;
+                    font-family: arial;
+                  } */
 
-            }
 
-            /* .title {
-              color: grey;
-              font-size: 18px;
-            } */
 
-            button {
-              border: none;
-              outline: 0;
-              display: inline-block;
-              padding: 8px;
-              color: white;
-              background-color: #000;
-              text-align: center;
-              cursor: pointer;
-              width: 100%;
-              font-size: 18px;
-            }
+                   /* @media  screen and (max-width: 320px){
+                    .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    margin: auto;
+                    text-align: center;
+                    font-family: arial;
+                  } */
 
-            /* a {
-              text-decoration: none;
-              font-size: 22px;
-              color: black;
-            } */
+                  }
 
-            button:hover,
-            a:hover {
-              opacity: 0.7;
-            }
+                  /* .title {
+                    color: grey;
+                    font-size: 18px;
+                  } */
+
+                  button {
+                    border: none;
+                    outline: 0;
+                    display: inline-block;
+                    padding: 8px;
+                    color: white;
+                    background-color: #000;
+                    text-align: center;
+                    cursor: pointer;
+                    width: 100%;
+                    font-size: 18px;
+                  }
+
+                  /* a {
+                    text-decoration: none;
+                    font-size: 22px;
+                    color: black;
+                  } */
+
+                  button:hover,
+                  a:hover {
+                    opacity: 0.7;
+                  }
     </style>
   </head>
   <body>
@@ -214,7 +226,7 @@
       //   }
       // }
       let toggleArr = []
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 5; i++) {
         toggleArr[i] = true
       }
       function toggleCustom (h2Id, ulId, name, elIndex) {
@@ -1258,6 +1270,70 @@
           </a>
         </li>
       </ul>
+      <h2
+        id="ds-youtube-video"
+        onclick="toggleCustom('ds-youtube-video', 'ds-youtube-video-list','DS & Algo [Youtube Videos]', 4)"
+      >
+        [+] DS & Algo [Youtube Videos]
+      </h2>
+      <ul id="ds-youtube-video-list">
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=tsz-8ey-L9E&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp"
+            target="_blank"
+          >
+          Complexity
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=xAuEDNGKx_E&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=2"
+            target="_blank"
+          >
+          Sorting
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=mhuvAnMrO6c&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=3"
+            target="_blank"
+          >
+          Array Transformation [Move Zeros, Sort 0s,1s,2s Problem]
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=a4XaKREXczE&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=4"
+            target="_blank"
+          >
+          2D Matrix [Set Matrix Zeros, Search a 2D Matrix]
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=_-8H6GlBdtM&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=5"
+            target="_blank"
+          >
+          Pair Sum [2Sum, 3Sum]
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=aMuW3NdEOv4&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=6"
+            target="_blank"
+          >
+          Subarray Sum Equals K, Binary Search & Sqrt(x)
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=tx-zWUHWynI&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=7"
+            target="_blank"
+          >
+          Maximum Subarray, Find the Duplicate Number
+          </a>
+        </li>
+      </ul>
       <footer>
         <div class="card">
           <img
@@ -1267,8 +1343,8 @@
           />
           <p style="font-weight: bold; font-size: 1.5em;">Nishant Sharma</p>
           <p style="font-size: medium; margin-right: 10px; margin-left: 10px;">
-            <strong> Senior Software Engineering Manager at Microsoft</strong>, working with lots of crazy
-            engineers :)
+            <strong> Senior Software Engineering Manager at Microsoft</strong>,
+            working with lots of crazy engineers :)
           </p>
           <div style="margin: 24px 0px;">
             <a
@@ -1279,7 +1355,10 @@
             <a href="https://github.com/charlieInDen" target="_blank"
               ><i class="fa fa-github"></i>
             </a>
-            <a href="https://youtube.com/channel/UCetBF6XSwlXpJyArSdGUtyw" target="_blank">
+            <a
+              href="https://youtube.com/channel/UCetBF6XSwlXpJyArSdGUtyw"
+              target="_blank"
+            >
               <i class="fa fa-youtube"></i>
             </a>
             <a href="mailto:nishantmicrosoft21@gmail.com"
