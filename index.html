@@ -209,7 +209,7 @@
     </style>
   </head>
   <body>
-    <script>
+    <!-- <script>
       let toggleArr = []
       for (let i = 0; i < 5; i++) {
         toggleArr[i] = true
@@ -225,7 +225,7 @@
           toggleArr[elIndex] = true
         }
       }
-    </script>
+    </script> -->
     <article>
       <h1 style="text-align: center;">Welcome Geeks</h1>
       <div class="search" >
@@ -1378,6 +1378,22 @@
       </footer>
     </article>
     <script>
+       let toggleArr = []
+      for (let i = 0; i < 5; i++) {
+        toggleArr[i] = true
+      }
+      function toggleCustom (h2Id, ulId, name, elIndex) {
+        if (toggleArr[elIndex] === true) {
+          document.getElementById(ulId).style.display = 'block'
+          document.getElementById(h2Id).innerHTML = '[-] ' + name
+          toggleArr[elIndex] = false
+        } else {
+          document.getElementById(ulId).style.display = 'none'
+          document.getElementById(h2Id).innerHTML = '[+] ' + name
+          toggleArr[elIndex] = true
+        }
+      }
+      
       function onChangeSearch(){
          let searchedText = document.getElementById('search-id').value.trim()
          searchedText = searchedText.toLowerCase()
