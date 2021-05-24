@@ -80,7 +80,7 @@
                     display: none;
                   }
                   ul li {
-                    margin-bottom: 10px;
+                    /* margin-bottom: 10px; */
                   }
                   ul {
                     display: none;
@@ -107,6 +107,24 @@
                   }
                   a:visited{
                     color:rgb(111, 9, 206);
+                  }
+                  ul li{
+                     list-style: none;
+                     /* margin: 0;
+                     padding: 0; */
+                  }
+                  ul li a::before {
+                      content: '-';
+                      font-weight: bolder;
+                      /* font-size: 25px; */
+                      width: 40px;
+                      height: 40px;
+                      padding-right: 15px;
+                      /* padding-bottom: 50%; */
+                      /* display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      flex-direction: row; */
                   }
       /*             @media only screen and (max-width: 1024px)
                   , screen and (max-width: 1440px){
@@ -177,56 +195,21 @@
                   a:hover {
                     opacity: 0.7;
                   }
+            .search{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: relative;
+            }
+            .search > div > input{
+              width: 40vw;
+              height: 1.5rem;
+              padding: 0 24px 0 10px
+            }
     </style>
   </head>
   <body>
     <script>
-      // let displayInterviewList = false
-      // function interviewExperience () {
-      //   if (displayInterviewList === true) {
-      //     document.getElementById('interview-experience-list').style.display =
-      //       'block'
-      //     document.getElementById('interview-experience').innerHTML =
-      //       '[-] Interview Experience'
-      //     displayInterviewList = false
-      //   } else {
-      //     document.getElementById('interview-experience-list').style.display =
-      //       'none'
-      //     document.getElementById('interview-experience').innerHTML =
-      //       '[+] Interview Experience'
-      //     displayInterviewList = true
-      //   }
-      // }
-
-      // let displayIosList = false
-      // function iosInterviews () {
-      //   if (displayIosList === true) {
-      //     document.getElementById('ios-interview-list').style.display = 'block'
-      //     document.getElementById('ios-interview').innerHTML =
-      //       '[-] IOS Interviews'
-      //     displayIosList = false
-      //   } else {
-      //     document.getElementById('ios-interview-list').style.display = 'none'
-      //     document.getElementById('ios-interview').innerHTML =
-      //       '[+] IOS Interviews'
-      //     displayIosList = true
-      //   }
-      // }
-
-      // let displaySystemDesignList = false
-      // function systemDesign () {
-      //   if (displaySystemDesignList === true) {
-      //     document.getElementById('system-design-list').style.display = 'block'
-      //     document.getElementById('system-design').innerHTML =
-      //       '[-] System Design'
-      //     displaySystemDesignList = false
-      //   } else {
-      //     document.getElementById('system-design-list').style.display = 'none'
-      //     document.getElementById('system-design').innerHTML =
-      //       '[+] System Design'
-      //     displaySystemDesignList = true
-      //   }
-      // }
       let toggleArr = []
       for (let i = 0; i < 5; i++) {
         toggleArr[i] = true
@@ -245,6 +228,13 @@
     </script>
     <article>
       <h1 style="text-align: center;">Welcome Geeks</h1>
+      <div class="search" >
+        <div style="position: relative;">
+          <input id = 'search-id'  type = 'text' placeholder="Search" onkeyup="enhancedSearch()" value = ''/>
+          <i class="fa fa-search" aria-hidden="true" style="position: absolute; right: 0.5rem; top: 0.3rem"></i>
+        </div>
+  
+      </div>
       <h2
         id="interview-experience"
         onclick="toggleCustom('interview-experience','interview-experience-list','Interview Experience', 0)"
@@ -1284,7 +1274,7 @@
             href="https://www.youtube.com/watch?v=tsz-8ey-L9E&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp"
             target="_blank"
           >
-          Complexity
+            Complexity
           </a>
         </li>
         <li>
@@ -1292,7 +1282,7 @@
             href="https://www.youtube.com/watch?v=xAuEDNGKx_E&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=2"
             target="_blank"
           >
-          Sorting
+            Sorting
           </a>
         </li>
         <li>
@@ -1300,7 +1290,7 @@
             href="https://www.youtube.com/watch?v=mhuvAnMrO6c&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=3"
             target="_blank"
           >
-          Array Transformation [Move Zeros, Sort 0s,1s,2s Problem]
+            Array Transformation [Move Zeros, Sort 0s,1s,2s Problem]
           </a>
         </li>
         <li>
@@ -1308,7 +1298,7 @@
             href="https://www.youtube.com/watch?v=a4XaKREXczE&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=4"
             target="_blank"
           >
-          2D Matrix [Set Matrix Zeros, Search a 2D Matrix]
+            2D Matrix [Set Matrix Zeros, Search a 2D Matrix]
           </a>
         </li>
         <li>
@@ -1316,7 +1306,7 @@
             href="https://www.youtube.com/watch?v=_-8H6GlBdtM&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=5"
             target="_blank"
           >
-          Pair Sum [2Sum, 3Sum]
+            Pair Sum [2Sum, 3Sum]
           </a>
         </li>
         <li>
@@ -1324,7 +1314,7 @@
             href="https://www.youtube.com/watch?v=aMuW3NdEOv4&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=6"
             target="_blank"
           >
-          Subarray Sum Equals K, Binary Search & Sqrt(x)
+            Subarray Sum Equals K, Binary Search & Sqrt(x)
           </a>
         </li>
         <li>
@@ -1332,7 +1322,7 @@
             href="https://www.youtube.com/watch?v=tx-zWUHWynI&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=7"
             target="_blank"
           >
-          Maximum Subarray, Find the Duplicate Number
+            Maximum Subarray, Find the Duplicate Number
           </a>
         </li>
         <li>
@@ -1340,15 +1330,12 @@
             href="https://www.youtube.com/watch?v=hWEn6xt56rQ&list=PLGV1LDLvKkMnlI7en1ySwbX9ljXGkAcvp&index=8"
             target="_blank"
           >
-          String Compression, Largest Number & Spiral Matrix
+            String Compression, Largest Number & Spiral Matrix
           </a>
         </li>
         <li>
-          <a
-            href="https://www.youtube.com/watch?v=V8GWlzhQFmE"
-            target="_blank"
-          >
-          Search in a Sorted Array of Unknown Size, Missing Number
+          <a href="https://www.youtube.com/watch?v=V8GWlzhQFmE" target="_blank">
+            Search in a Sorted Array of Unknown Size, Missing Number
           </a>
         </li>
       </ul>
@@ -1390,5 +1377,35 @@
         </div>
       </footer>
     </article>
+    <script>
+      function onChangeSearch(){
+         let searchedText = document.getElementById('search-id').value.trim()
+         searchedText = searchedText.toLowerCase()
+         let anchorTags = document.getElementsByTagName('a')
+         for(let i=0; i< anchorTags.length - 4; i++){
+           let presentItem = anchorTags.item(i).innerHTML 
+           presentItem = presentItem.toLowerCase()
+           if(presentItem.includes(searchedText)){
+             anchorTags.item(i).style.display = 'block'
+           }
+           else{
+             anchorTags.item(i).style.display = 'none'
+             anchorTags.item(i).style.textDecoration = 'none'
+           }
+         }
+      }
+      function debounceSearch (fn, delay){
+         let timer 
+         return function () {
+           let context = this;
+           clearTimeout(timer)
+           timer = setTimeout(()=>{
+             fn()
+           }, delay)
+         }
+      }
+      const enhancedSearch = debounceSearch(onChangeSearch, 300)
+    </script>
   </body>
+  
 </html>
