@@ -15,200 +15,156 @@
       Data structures in Swift
     </title>
     <style>
-                  * {
-                    font-family: Arial, Helvetica, sans-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-                  }
+      * {
+        font-family: Arial, Helvetica, sans-serif, Georgia, Cambria,
+          'Times New Roman', Times, serif;
+      }
 
-                  html,
-                  body {
-                    margin: 20px;
-                    padding: 0;
-                  }
-                  h1 {
-                    margin-top: 0px;
-                    font-size: 50px;
-                    margin-bottom: 17px;
-                    /* color: #333; */
-                  }
-                  h2 {
-                    font-size: 24px;
-                    line-height: 1.6;
-                    margin: 30px 0 0 0;
-                    margin-bottom: 18px;
-                    margin-top: 33px;
-                    /* color: #333; */
-                    cursor: pointer;
-                  }
-                  h3 {
-                    font-size: 30px;
-                    margin: 10px 0 20px 0;
-                    /* color: #333; */
-                  }
-                  header {
-                    width: 640px;
-                    margin: auto;
-                  }
-                  section {
-                    width: 640px;
-                    margin: auto;
-                  }
-                  section p {
-                    margin-bottom: 27px;
-                    font-size: 20px;
-                    line-height: 1.6;
-                    color: #333;
-                  }
-                  section img {
-                    max-width: 640px;
-                  }
-                  /* footer {
+      html,
+      body {
+        margin: 20px;
+        padding: 0;
+      }
+      h1 {
+        margin-top: 0px;
+        font-size: 50px;
+        margin-bottom: 17px;
+        /* color: #333; */
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        /* color: #333; */
+        cursor: pointer;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        /* color: #333; */
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      /* footer {
                     padding: 0 20px;
                     margin: 50px 0;
                     text-align: center;
                     font-size: 12px;
                   } */
-                  .aspectRatioPlaceholder {
-                    max-width: auto !important;
-                    max-height: auto !important;
-                  }
-                  .aspectRatioPlaceholder-fill {
-                    padding-bottom: 0 !important;
-                  }
-                  header,
-                  section[data-field='subtitle'],
-                  section[data-field='description'] {
-                    display: none;
-                  }
-                  ul li {
-                    /* margin-bottom: 10px; */
-                  }
-                  ul {
-                    display: none;
-                  }
-                  h2 {
-                    background-color: rgb(177, 175, 175, 0.5);
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-                  }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field='subtitle'],
+      section[data-field='description'] {
+        display: none;
+      }
+      ul li {
+        /* margin-bottom: 10px; */
+      }
+      ul {
+        display: none;
+      }
+      h2 {
+        background-color: rgb(177, 175, 175, 0.5);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+      }
 
-                  .card {
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                    min-width: 100px;
-                    max-width: 300px;
-                    margin: auto;
-                    text-align: center;
-                    font-family: arial;
-                  }
-                  a{
-                    text-decoration: none;
-                    color:rgb(77, 5, 145);
-                  }
-                  a:hover{
-                    font-weight: bold;
-                  }
-                  a:visited{
-                    color:rgb(111, 9, 206);
-                  }
-                  ul li{
-                     list-style: none;
-                     /* margin: 0;
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        min-width: 100px;
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+      }
+      a {
+        text-decoration: none;
+        color: rgb(77, 5, 145);
+      }
+      a:hover {
+        font-weight: bold;
+      }
+      a:visited {
+        color: rgb(111, 9, 206);
+      }
+      ul li {
+        list-style: none;
+        /* margin: 0;
                      padding: 0; */
-                  }
-                  ul li a::before {
-                      content: '-';
-                      font-weight: bolder;
-                      /* font-size: 25px; */
-                      width: 40px;
-                      height: 40px;
-                      padding-right: 15px;
-                      /* padding-bottom: 50%; */
-                      /* display: flex;
+      }
+      ul li a::before {
+        content: '-';
+        font-weight: bolder;
+        /* font-size: 25px; */
+        width: 40px;
+        height: 40px;
+        padding-right: 15px;
+        /* padding-bottom: 50%; */
+        /* display: flex;
                       align-items: center;
                       justify-content: center;
                       flex-direction: row; */
-                  }
-      /*             @media only screen and (max-width: 1024px)
-                  , screen and (max-width: 1440px){
-                    .card {
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                    max-width: 25%;
-                    margin: auto;
-                    text-align: center;
-                    font-family: arial;
-                  }
+      }
 
-                  @media only screen and (max-width: 768px){
-                    .card {
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                    max-width: 50%;
-                    margin: auto;
-                    text-align: center;
-                    font-family: arial;
-                  }
+      button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
 
-                  @media only screen and (max-width: 375px), screen and (max-width: 320px){
-                    .card {
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                    max-width: 80%;
-                    margin: auto;
-                    text-align: center;
-                    font-family: arial;
-                  } */
-
-
-
-                   /* @media  screen and (max-width: 320px){
-                    .card {
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                    max-width: 80%;
-                    margin: auto;
-                    text-align: center;
-                    font-family: arial;
-                  } */
-
-                  }
-
-                  /* .title {
-                    color: grey;
-                    font-size: 18px;
-                  } */
-
-                  button {
-                    border: none;
-                    outline: 0;
-                    display: inline-block;
-                    padding: 8px;
-                    color: white;
-                    background-color: #000;
-                    text-align: center;
-                    cursor: pointer;
-                    width: 100%;
-                    font-size: 18px;
-                  }
-
-                  /* a {
+      /* a {
                     text-decoration: none;
                     font-size: 22px;
                     color: black;
                   } */
 
-                  button:hover,
-                  a:hover {
-                    opacity: 0.7;
-                  }
-            .search{
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              position: relative;
-            }
-            .search > div > input{
-              width: 40vw;
-              height: 1.5rem;
-              padding: 0 24px 0 10px
-            }
-            i{
-              color:black
-            }
+      button:hover,
+      a:hover {
+        opacity: 0.7;
+      }
+      .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .search > div > input {
+        width: 40vw;
+        height: 1.5rem;
+        padding: 0 24px 0 10px;
+      }
+      i {
+        color: black;
+      }
     </style>
   </head>
   <body>
@@ -1395,6 +1351,9 @@
       }
 
       function onChangeSearch () {
+        for (let i = 0; i < 5; i++) {
+          toggleArr[i] = false
+        }
         let searchedText = document.getElementById('search-id').value.trim()
         searchedText = searchedText.toLowerCase()
         let anchorTags = document.getElementsByTagName('a')
