@@ -1354,18 +1354,29 @@
         for(let i=0; i< h2Tags.length; i++){
           let text = h2Tags.item(i).innerHTML 
           text = text.replace('[+]', '[-]')
-          console.log(text)
           document.getElementsByTagName('h2').item(i).innerHTML = text
-          console.log(document.getElementsByTagName('h2').item(i))
           document.getElementsByTagName('ul').item(i).style.display = 'block'
+          toggleArr[i] = false 
 
         }
-        
+      }
+      function closeTabs(){
+        let h2Tags = document.getElementsByTagName('h2')
+        for(let i=1; i< h2Tags.length; i++){
+          let text = h2Tags.item(i).innerHTML 
+          text = text.replace('[-]', '[+]')
+          document.getElementsByTagName('h2').item(i).innerHTML = text
+          document.getElementsByTagName('ul').item(i).style.display = 'none'
+          toggleArr[i] = true
+        }
       }
       function onChangeSearch() {
         expandTabs()
         let searchedText = document.getElementById('search-id').value.trim()
         searchedText = searchedText.toLowerCase()
+        if(searchedText.length == 0){
+            closeTabs()
+        }
         let anchorTags = document.getElementsByTagName('a')
         for (let i = 0; i < anchorTags.length - 4; i++) {
           let presentItem = anchorTags.item(i).innerHTML
