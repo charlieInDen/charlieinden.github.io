@@ -1349,11 +1349,21 @@
           toggleArr[elIndex] = true
         }
       }
+      function expandTabs() {
+        let h2Tags = document.getElementsByTagName('h2')
+        for(let i=0; i< h2Tags.length; i++){
+          let text = h2Tags.item(i).innerHTML 
+          text = text.replace('[+]', '[-]')
+          console.log(text)
+          document.getElementsByTagName('h2').item(i).innerHTML = text
+          console.log(document.getElementsByTagName('h2').item(i))
+          document.getElementsByTagName('ul').item(i).style.display = 'block'
 
-      function onChangeSearch () {
-        for (let i = 0; i < 5; i++) {
-          toggleArr[i] = false
         }
+        
+      }
+      function onChangeSearch() {
+        expandTabs()
         let searchedText = document.getElementById('search-id').value.trim()
         searchedText = searchedText.toLowerCase()
         let anchorTags = document.getElementsByTagName('a')
