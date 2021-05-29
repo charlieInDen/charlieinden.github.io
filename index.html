@@ -206,34 +206,29 @@
               height: 1.5rem;
               padding: 0 24px 0 10px
             }
+            i{
+              color:black
+            }
     </style>
   </head>
   <body>
-    <!-- <script>
-      let toggleArr = []
-      for (let i = 0; i < 5; i++) {
-        toggleArr[i] = true
-      }
-      function toggleCustom (h2Id, ulId, name, elIndex) {
-        if (toggleArr[elIndex] === true) {
-          document.getElementById(ulId).style.display = 'block'
-          document.getElementById(h2Id).innerHTML = '[-] ' + name
-          toggleArr[elIndex] = false
-        } else {
-          document.getElementById(ulId).style.display = 'none'
-          document.getElementById(h2Id).innerHTML = '[+] ' + name
-          toggleArr[elIndex] = true
-        }
-      }
-    </script> -->
     <article>
       <h1 style="text-align: center;">Welcome Geeks</h1>
-      <div class="search" >
+      <div class="search">
         <div style="position: relative;">
-          <input id = 'search-id'  type = 'text' placeholder="Search" onkeyup="enhancedSearch()" value = ''/>
-          <i class="fa fa-search" aria-hidden="true" style="position: absolute; right: 0.5rem; top: 0.3rem"></i>
+          <input
+            id="search-id"
+            type="text"
+            placeholder="Search"
+            onkeyup="enhancedSearch()"
+            value=""
+          />
+          <i
+            class="fa fa-search"
+            aria-hidden="true"
+            style="position: absolute; right: 0.5rem; top: 0.3rem"
+          ></i>
         </div>
-  
       </div>
       <h2
         id="interview-experience"
@@ -1338,6 +1333,11 @@
             Search in a Sorted Array of Unknown Size, Missing Number
           </a>
         </li>
+        <li>
+          <a href="https://www.youtube.com/watch?v=oE-B4QQk300" target="_blank">
+            Rotate Image, Reverse words in a string
+          </a>
+        </li>
       </ul>
       <footer>
         <div class="card">
@@ -1378,7 +1378,7 @@
       </footer>
     </article>
     <script>
-       let toggleArr = []
+      let toggleArr = []
       for (let i = 0; i < 5; i++) {
         toggleArr[i] = true
       }
@@ -1393,35 +1393,33 @@
           toggleArr[elIndex] = true
         }
       }
-      
-      function onChangeSearch(){
-         let searchedText = document.getElementById('search-id').value.trim()
-         searchedText = searchedText.toLowerCase()
-         let anchorTags = document.getElementsByTagName('a')
-         for(let i=0; i< anchorTags.length - 4; i++){
-           let presentItem = anchorTags.item(i).innerHTML 
-           presentItem = presentItem.toLowerCase()
-           if(presentItem.includes(searchedText)){
-             anchorTags.item(i).style.display = 'block'
-           }
-           else{
-             anchorTags.item(i).style.display = 'none'
-             anchorTags.item(i).style.textDecoration = 'none'
-           }
-         }
+
+      function onChangeSearch () {
+        let searchedText = document.getElementById('search-id').value.trim()
+        searchedText = searchedText.toLowerCase()
+        let anchorTags = document.getElementsByTagName('a')
+        for (let i = 0; i < anchorTags.length - 4; i++) {
+          let presentItem = anchorTags.item(i).innerHTML
+          presentItem = presentItem.toLowerCase()
+          if (presentItem.includes(searchedText)) {
+            anchorTags.item(i).style.display = 'block'
+          } else {
+            anchorTags.item(i).style.display = 'none'
+            anchorTags.item(i).style.textDecoration = 'none'
+          }
+        }
       }
-      function debounceSearch (fn, delay){
-         let timer 
-         return function () {
-           let context = this;
-           clearTimeout(timer)
-           timer = setTimeout(()=>{
-             fn()
-           }, delay)
-         }
+      function debounceSearch (fn, delay) {
+        let timer
+        return function () {
+          let context = this
+          clearTimeout(timer)
+          timer = setTimeout(() => {
+            fn()
+          }, delay)
+        }
       }
       const enhancedSearch = debounceSearch(onChangeSearch, 300)
     </script>
   </body>
-  
 </html>
