@@ -1294,6 +1294,11 @@
             Rotate Image, Reverse words in a string
           </a>
         </li>
+        <li>
+          <a href="https://www.youtube.com/watch?v=9lCYV10SQn0" target="_blank">
+            Implement Trie (Prefix Tree), Longest Common Prefix
+          </a>
+        </li>
       </ul>
       <footer>
         <div class="card">
@@ -1349,38 +1354,47 @@
           toggleArr[elIndex] = true
         }
       }
-      function expandTabs() {
+      function expandTabs () {
         let h2Tags = document.getElementsByTagName('h2')
-        for(let i=0; i< h2Tags.length; i++){
-          let text = h2Tags.item(i).innerHTML 
+        for (let i = 0; i < h2Tags.length; i++) {
+          let text = h2Tags.item(i).innerHTML
           text = text.replace('[+]', '[-]')
           document.getElementsByTagName('h2').item(i).innerHTML = text
           document.getElementsByTagName('ul').item(i).style.display = 'block'
-          toggleArr[i] = false 
-
+          toggleArr[i] = false
         }
       }
-      function closeTabs(){
+      function closeTabs () {
         let h2Tags = document.getElementsByTagName('h2')
-        for(let i=1; i< h2Tags.length; i++){
-          let text = h2Tags.item(i).innerHTML 
+        for (let i = 1; i < h2Tags.length; i++) {
+          let text = h2Tags.item(i).innerHTML
           text = text.replace('[-]', '[+]')
           document.getElementsByTagName('h2').item(i).innerHTML = text
           document.getElementsByTagName('ul').item(i).style.display = 'none'
           toggleArr[i] = true
         }
       }
-      function onChangeSearch() {
+      fetch(
+        'http://127.0.0.1:5500/Interview-Experience/2019-06-11_Data-structure-interview-questions--Swift--I-f5613f537ec9.html'
+      )
+      .then((data) => {
+        data.text().then(data => console.log(data.toString()))
+        // console.log(data.body.getReader().read().then((data) => console.log(data)));
+      })
+      function onChangeSearch () {
         expandTabs()
         let searchedText = document.getElementById('search-id').value.trim()
         searchedText = searchedText.toLowerCase()
-        if(searchedText.length == 0){
-            closeTabs()
+        if (searchedText.length == 0) {
+          closeTabs()
         }
         let anchorTags = document.getElementsByTagName('a')
+
         for (let i = 0; i < anchorTags.length - 4; i++) {
           let presentItem = anchorTags.item(i).innerHTML
           presentItem = presentItem.toLowerCase()
+          let hrefEle = anchorTags.item(i).href
+          console.log(hrefEle)
           if (presentItem.includes(searchedText)) {
             anchorTags.item(i).style.display = 'block'
           } else {
