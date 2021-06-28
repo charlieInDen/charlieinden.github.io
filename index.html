@@ -1404,13 +1404,13 @@
           toggleArr[i] = true
         }
       }
-      fetch(
-        'http://127.0.0.1:5500/Interview-Experience/2019-06-11_Data-structure-interview-questions--Swift--I-f5613f537ec9.html'
-      )
-      .then((data) => {
-        data.text().then(data => console.log(data.toString()))
-        // console.log(data.body.getReader().read().then((data) => console.log(data)));
-      })
+//       fetch(
+//         'http://127.0.0.1:5500/Interview-Experience/2019-06-11_Data-structure-interview-questions--Swift--I-f5613f537ec9.html'
+//       )
+//       .then((data) => {
+//         data.text().then(data => console.log(data.toString()))
+//         // console.log(data.body.getReader().read().then((data) => console.log(data)));
+//       })
       function onChangeSearch () {
         expandTabs()
         let searchedText = document.getElementById('search-id').value.trim()
@@ -1424,7 +1424,7 @@
           let presentItem = anchorTags.item(i).innerHTML
           presentItem = presentItem.toLowerCase()
           let hrefEle = anchorTags.item(i).href
-          console.log(hrefEle)
+//           console.log(hrefEle)
           if (presentItem.includes(searchedText)) {
             anchorTags.item(i).style.display = 'block'
           } else {
